@@ -1,6 +1,4 @@
-import Link from "next/link";
 import Image from "next/image";
-import { ScrollArea } from "./ui/scroll-area";
 import GarageIcon from "./icons/Garage";
 import {
   Dialog,
@@ -25,16 +23,20 @@ const PartsFinder = () => {
         <DialogHeader>
           <DialogTitle>CHOOSE A NEW VEHICLE</DialogTitle>
         </DialogHeader>
-        <Tabs defaultValue="makeModel" className="bg-gray-100">
+        <Tabs defaultValue="makeModel" className="bg-gray-300">
           <TabsList className="flex space-x-5 justify-start bg-white">
             <TabsTrigger
-              className="rounded-none border-b border-orange-700"
+              className="rounded-none border-b border-orange-700 font-semibold"
               value="makeModel"
             >
               MAKE/MODEL
             </TabsTrigger>
-            <TabsTrigger value="license">LICENSE</TabsTrigger>
-            <TabsTrigger value="vin">VIN</TabsTrigger>
+            <TabsTrigger className="font-semibold" value="license">
+              LICENSE
+            </TabsTrigger>
+            <TabsTrigger className="font-semibold" value="vin">
+              VIN
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="makeModel" className="p-5">
             {/* Make/Model Form */}

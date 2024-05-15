@@ -12,6 +12,9 @@ import Image from "next/image";
 import MainNav from "./MainNav";
 import Sidebar from "./Sidebar";
 import PartsFinder from "./PartsFinder";
+import { Input } from "./ui/input";
+import Cart from "./Cart";
+import HeartIcon from "./icons/Heart";
 
 const Header = () => {
   return (
@@ -69,7 +72,7 @@ const Header = () => {
 
       {/* Main Header */}
       <div className="hidden lg:block xl:block shadow-sm">
-        <MaxWidthWrapper className="py-2">
+        <MaxWidthWrapper className="py-2 flex space-x-5 items-center">
           <div className="flex items-center space-x-5">
             {/* Sidebar */}
             <Sidebar />
@@ -88,12 +91,29 @@ const Header = () => {
             <PartsFinder />
           </div>
 
-          <div className="">{/* Search Box */}</div>
+          <div className="flex-1">
+            {/* Search Box */}
+            <Input
+              className="w-full h-[3rem]"
+              placeholder="Find Parts and Products"
+            />
+          </div>
 
-          <div className="">
+          <div className="flex items-center space-x-5">
             {/* My Account */}
+            <div className="flex flex-col">
+              <h6>My Account</h6>
+              <span className="text-xs">Hello, Sign In</span>
+            </div>
             {/* Wishlist */}
+            <div className="relative cursor-pointer">
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white px-[5px] py-[0.1px] rounded-full text-xs">
+                0
+              </span>
+              <HeartIcon />
+            </div>
             {/* Cart */}
+            <Cart />
           </div>
         </MaxWidthWrapper>
 
