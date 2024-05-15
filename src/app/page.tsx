@@ -3,7 +3,7 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 export default function Home() {
   return (
       <MaxWidthWrapper>
-        <div>hello</div>
+        <div className="py-20 mx-auto text-center flex flex-col">Slider Section</div>
       </MaxWidthWrapper>
   );
 }
