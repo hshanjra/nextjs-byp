@@ -15,6 +15,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import MaxWidthWrapper from "./MaxWidthWrapper";
+import CategoryItems from "./CategoryList";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -59,7 +60,18 @@ const MainNav = () => {
 
   return (
     pathname === "/" && (
-      <MaxWidthWrapper>
+      <MaxWidthWrapper className="flex items-center justify-between">
+        {/* Cateogry List */}
+
+        <div className="w-1/4 rounded-t-xl rounded-b-none h-12 bg-red-600">
+          <h3 className="w-full p-4 align-middle h-full text-white">
+            All Categories
+          </h3>
+          {/* Category List */}
+
+          <CategoryItems direction="down" />
+        </div>
+
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -123,6 +135,9 @@ const MainNav = () => {
               </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
+        </NavigationMenu>
+        <NavigationMenu>
+          <div>Help Center</div>
         </NavigationMenu>
       </MaxWidthWrapper>
     )

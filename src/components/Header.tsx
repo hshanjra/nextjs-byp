@@ -15,6 +15,7 @@ import PartsFinder from "./PartsFinder";
 import { Input } from "./ui/input";
 import Cart from "./Cart";
 import HeartIcon from "./icons/Heart";
+import SearchIcon from "./icons/Search";
 
 const Header = () => {
   return (
@@ -72,7 +73,7 @@ const Header = () => {
 
       {/* Main Header */}
       <div className="hidden lg:block xl:block shadow-sm">
-        <MaxWidthWrapper className="py-2 flex space-x-5 items-center">
+        <MaxWidthWrapper className="py-5 flex space-x-5 items-center">
           <div className="flex items-center space-x-5">
             {/* Sidebar */}
             <Sidebar />
@@ -93,10 +94,13 @@ const Header = () => {
 
           <div className="flex-1">
             {/* Search Box */}
-            <Input
-              className="w-full h-[3rem]"
-              placeholder="Find Parts and Products"
-            />
+            <div className="relative">
+              <Input
+                className="w-full h-[3rem]"
+                placeholder="Find Parts and Products"
+              />
+              <SearchIcon className="absolute right-2 top-3 bg-white cursor-pointer" />
+            </div>
           </div>
 
           <div className="flex items-center space-x-5">
@@ -118,8 +122,6 @@ const Header = () => {
         </MaxWidthWrapper>
 
         {/* Main Nav Menu*/}
-        {/* TODO: Render only if on landing page */}
-
         <MainNav />
       </div>
 

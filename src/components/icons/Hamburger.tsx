@@ -12,7 +12,7 @@ const HamburgerIcon = ({ className }: { className?: string }) => {
       stroke-width="1"
       stroke-linecap="round"
       stroke-linejoin="round"
-      className={cn("lucide lucide-menu cursor-pointer", className)}
+      className={cn("cursor-pointer", className)}
     >
       <line x1="4" x2="20" y1="12" y2="12" />
       <line x1="4" x2="20" y1="6" y2="6" />

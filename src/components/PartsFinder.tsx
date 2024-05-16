@@ -12,12 +12,29 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Card, CardContent } from "./ui/card";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 const PartsFinder = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <GarageIcon />
+        <div>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <GarageIcon />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Find parts faster that fits your vehicle.</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </DialogTrigger>
       <DialogContent className="h-full max-w-3xl lg:h-auto flex flex-col justify-between">
         <DialogHeader>

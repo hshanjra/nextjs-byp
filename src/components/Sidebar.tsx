@@ -8,6 +8,7 @@ import HamburgerIcon from "./icons/Hamburger";
 import Link from "next/link";
 import Image from "next/image";
 import { ScrollArea } from "./ui/scroll-area";
+import CategoryItems from "./CategoryList";
 
 const Sidebar = () => {
   return (
@@ -54,7 +55,9 @@ const Sidebar = () => {
               <h3 className="text-gray-500 text-opacity-55 text-xs font-semibold">
                 CATEGORY MENU
               </h3>
-              Category Menu
+              {/* Category List */}
+
+              <CategoryItems />
             </div>
             {/* Contact */}
             <div className="space-y-5">
