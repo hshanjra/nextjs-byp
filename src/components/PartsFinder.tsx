@@ -24,17 +24,23 @@ const PartsFinder = () => {
           <DialogTitle>CHOOSE A NEW VEHICLE</DialogTitle>
         </DialogHeader>
         <Tabs defaultValue="makeModel" className="bg-gray-300">
-          <TabsList className="flex space-x-5 justify-start bg-white">
+          <TabsList className="flex space-x-5 justify-start  rounded-none">
             <TabsTrigger
-              className="rounded-none border-b border-orange-700 font-semibold"
+              className="rounded-none font-semibold data-[state=active]:border-orange-600 data-[state=active]:border-b-2 !bg-transparent"
               value="makeModel"
             >
               MAKE/MODEL
             </TabsTrigger>
-            <TabsTrigger className="font-semibold" value="license">
+            <TabsTrigger
+              className="rounded-none font-semibold data-[state=active]:border-orange-600 data-[state=active]:border-b-2 !bg-transparent"
+              value="license"
+            >
               LICENSE
             </TabsTrigger>
-            <TabsTrigger className="font-semibold" value="vin">
+            <TabsTrigger
+              className="rounded-none font-semibold data-[state=active]:border-orange-600 data-[state=active]:border-b-2 !bg-transparent"
+              value="vin"
+            >
               VIN
             </TabsTrigger>
           </TabsList>

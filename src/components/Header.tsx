@@ -118,10 +118,9 @@ const Header = () => {
         </MaxWidthWrapper>
 
         {/* Main Nav Menu*/}
+        {/* TODO: Render only if on landing page */}
 
-        <MaxWidthWrapper>
-          <MainNav />
-        </MaxWidthWrapper>
+        <MainNav />
       </div>
 
       {/* Mobile Header */}

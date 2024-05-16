@@ -44,7 +44,8 @@ const Cart = () => {
         </SheetHeader>
         <ScrollArea className="h-full p-0 m-0">
           {itemsCount > 0 ? (
-            <div className="justify-between">
+            <>
+              {/* FIXME: align gap between items */}
               <div className="flex w-full flex-col pr-6">
                 {/* TODO:Cart logic */}
                 cart items
@@ -68,6 +69,7 @@ const Cart = () => {
                     <span>{formatPrice(total)}</span>
                   </div>
                 </div>
+
                 <SheetFooter>
                   <SheetTrigger asChild>
                     <Link
@@ -79,7 +81,7 @@ const Cart = () => {
                   </SheetTrigger>
                 </SheetFooter>
               </div>
-            </div>
+            </>
           ) : (
             <>
               <div className="flex h-full flex-col items-center justify-center space-y-1">
