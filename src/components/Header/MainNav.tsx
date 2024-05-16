@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
-// import { Icons } from "@/components/icons";
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,7 +14,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import MaxWidthWrapper from "./MaxWidthWrapper";
+import MaxWidthWrapper from "../MaxWidthWrapper";
 import CategoryItems from "./CategoryList";
 
 const components: { title: string; href: string; description: string }[] = [
@@ -63,13 +63,17 @@ const MainNav = () => {
       <MaxWidthWrapper className="flex items-center justify-between">
         {/* Cateogry List */}
 
-        <div className="w-1/4 rounded-t-xl rounded-b-none h-12 bg-red-600">
+        <div className="w-1/4 rounded-t-xl rounded-b-none h-12 bg-red-600 relative">
           <h3 className="w-full p-4 align-middle h-full text-white">
             All Categories
           </h3>
+
           {/* Category List */}
 
-          <CategoryItems direction="down" />
+          <CategoryItems
+            direction="down"
+            className="absolute rounded-b-xl shadow-md w-full"
+          />
         </div>
 
         <NavigationMenu>

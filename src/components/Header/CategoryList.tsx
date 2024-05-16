@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import LightIcon from "./icons/Light";
+import LightIcon from "../icons/Light";
 import Link from "next/link";
-import { Separator } from "./ui/separator";
+import { Separator } from "../ui/separator";
 import {
   BatteryCharging,
   CarFront,
   ChevronDown,
+  ChevronRight,
   Home,
   KeySquare,
   LoaderPinwheel,
@@ -15,7 +16,7 @@ import {
   Sun,
   Wrench,
 } from "lucide-react";
-import GarageIcon from "./icons/Garage";
+import GarageIcon from "../icons/Garage";
 
 interface Category {
   icon: JSX.Element;
@@ -175,22 +176,41 @@ const CategoryItems: React.FC<Props> = ({
         </div>
       ) : (
         <div className={cn("border px-2 py-1", className)}>
-          <ul className="flex flex-col space-y-1 text-center">
+          <ul>
             {categoryItems &&
               categoryItems.map((item: Category) => (
-                <>
-                  <Link href={item.link} key={item.link} passHref>
-                    <li className="flex space-x-4 py-2 group-hover:bg-slate-800 cursor-pointer">
-                      <div className="text-xs">{item.icon}</div>
-                      <span className="text-sm">{item.name}</span>
-                    </li>
-                  </Link>
+                <div key={item.link}>
+                  <div className="group flex items-center justify-between">
+                    <Link href={item.link} passHref>
+                      <li className="flex py-2 justify-between cursor-pointer">
+                        <div className="flex space-x-2">
+                          {item.icon}
+                          <span className="text-sm">{item.name}</span>
+                        </div>
+                      </li>
+                    </Link>
+
+                    {item.subCategories && (
+                      <ChevronRight className="h-4 w-4 opacity-50 cursor-pointer" />
+                    )}
+                  </div>
+                  {item.subCategories &&
+                    expandedCategories.includes(item.link) &&
+                    item.subCategories.map((subcat) => (
+                      <div key={subcat.link}>
+                        <Link href={subcat.link} passHref>
+                          <li className="flex py-2 justify-between cursor-pointer">
+                            <span className="text-sm ml-8">{subcat.name}</span>
+                          </li>
+                        </Link>
+                      </div>
+                    ))}
                   <Separator />
-                </>
+                </div>
               ))}
             <Link href="/new-arrivals" passHref>
               <li className="flex p-2 justify-between cursor-pointer w-full items-center">
-                <div>New Arrivals</div>
+                <div className="text-sm">New Arrivals</div>
                 <div className="px-2 py-1 bg-sky-400 text-white rounded-xl font-bold text-xs">
                   NEW
                 </div>

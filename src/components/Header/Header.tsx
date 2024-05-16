@@ -1,5 +1,5 @@
 import Link from "next/link";
-import MaxWidthWrapper from "./MaxWidthWrapper";
+import MaxWidthWrapper from "../MaxWidthWrapper";
 import {
   Select,
   SelectContent,
@@ -7,15 +7,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Separator } from "./ui/separator";
+import { Separator } from "../ui/separator";
 import Image from "next/image";
 import MainNav from "./MainNav";
 import Sidebar from "./Sidebar";
 import PartsFinder from "./PartsFinder";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import Cart from "./Cart";
-import HeartIcon from "./icons/Heart";
-import SearchIcon from "./icons/Search";
+import HeartIcon from "../icons/Heart";
+import SearchIcon from "../icons/Search";
+import { ChevronDown } from "lucide-react";
+import { Card, CardContent } from "../ui/card";
+import AuthSidebar from "./AuthSidebar";
 
 const Header = () => {
   return (
@@ -105,9 +108,25 @@ const Header = () => {
 
           <div className="flex items-center space-x-5">
             {/* My Account */}
-            <div className="flex flex-col">
-              <h6>My Account</h6>
+            <div className="flex flex-col cursor-pointer group relative z-20">
+              <div className="flex justify-between items-center space-x-2">
+                <h6>My Account</h6>
+                <ChevronDown className="h-4 w-4" />
+              </div>
               <span className="text-xs">Hello, Sign In</span>
+              <div className="absolute hidden top-10 right-0 group-hover:block">
+                <Card className="shadow-md w-[290px] bg-white">
+                  <CardContent className="py-2 space-y-3">
+                    <span className="text-sm text-center">
+                      Sign up now and enjoy discounted shopping!
+                    </span>
+
+                    {/* Sidebar Login/Register Form */}
+
+                    <AuthSidebar />
+                  </CardContent>
+                </Card>
+              </div>
             </div>
             {/* Wishlist */}
             <div className="relative cursor-pointer">
@@ -122,7 +141,9 @@ const Header = () => {
         </MaxWidthWrapper>
 
         {/* Main Nav Menu*/}
-        <MainNav />
+        <div>
+          <MainNav />
+        </div>
       </div>
 
       {/* Mobile Header */}

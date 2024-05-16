@@ -4,10 +4,10 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import HamburgerIcon from "./icons/Hamburger";
+import HamburgerIcon from "../icons/Hamburger";
 import Link from "next/link";
 import Image from "next/image";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
 import CategoryItems from "./CategoryList";
 
 const Sidebar = () => {

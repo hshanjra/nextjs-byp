@@ -1,9 +1,9 @@
 import Link from "next/link";
-import CartIcon from "./icons/Cart";
-import { Button, buttonVariants } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Separator } from "./ui/separator";
+import CartIcon from "../icons/Cart";
+import { Button, buttonVariants } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Separator } from "../ui/separator";
 import {
   Sheet,
   SheetClose,
@@ -13,10 +13,10 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "./ui/sheet";
+} from "../ui/sheet";
 
 import { formatPrice } from "@/lib/utils";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
 
 const Cart = () => {
   const itemsCount = 1;

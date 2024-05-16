@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Krub } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 
 const krub = Krub({
   weight: ["200", "300", "500", "700"],
