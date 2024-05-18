@@ -72,7 +72,7 @@ const MainNav = () => {
 
           <CategoryItems
             direction="down"
-            className="absolute rounded-b-xl shadow-md w-full"
+            className="absolute rounded-b-xl shadow-md w-full z-10 bg-white"
           />
         </div>
 

@@ -3,6 +3,7 @@ import { Krub } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header/Header";
+import QueryProvider from "@/providers/QueryProvider";
 
 const krub = Krub({
   weight: ["200", "300", "500", "700"],
@@ -26,12 +27,14 @@ export default function RootLayout({
       <body
         className={cn("relative h-full font-sans antialiased", krub.className)}
       >
-        <main className="relative flex flex-col min-h-screen">
-          {/* Header */}
-          <Header />
-          <div className="flex-grow flex-1">{children}</div>
-          {/* Footer */}
-        </main>
+        <QueryProvider>
+          <main className="relative flex flex-col min-h-screen">
+            {/* Header */}
+            <Header />
+            <div className="flex-grow flex-1">{children}</div>
+            {/* Footer */}
+          </main>
+        </QueryProvider>
       </body>
     </html>
   );
