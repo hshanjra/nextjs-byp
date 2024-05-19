@@ -1,9 +1,21 @@
+import { getProducts } from "@/actions/products-action";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import FeaturedProducts from "@/components/Products/FeaturedProducts";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
-export default function Home() {
+export default async function Home() {
+  // FIXME: fix query
+  const qc = new QueryClient();
+  await qc.prefetchQuery({
+    queryKey: ["products"],
+    queryFn: getProducts,
+  });
   return (
-    <>
+    <HydrationBoundary state={dehydrate(qc)}>
       <MaxWidthWrapper>
         <section className="mx-auto text-center h-96 grid lg:grid-cols-4 bg-red-400">
           <div className="hidden col-span-1 bg-gray-300 lg:block"></div>
@@ -17,6 +29,6 @@ export default function Home() {
         {/* Featured Products */}
         <FeaturedProducts />
       </MaxWidthWrapper>
-    </>
+    </HydrationBoundary>
   );
 }

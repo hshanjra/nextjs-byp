@@ -1,22 +1,10 @@
-"use client";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "@/actions";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ProductReel from "./ProductReel";
 
-export const FeaturedProducts = () => {
-  // FIXME: fix query
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["products"],
-    queryFn: fetchProducts,
-  });
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading products {error.message}</div>;
-
+export const FeaturedProducts = async () => {
   return (
     <section className="my-5">
       {/* For Lg Screens */}
@@ -61,21 +49,14 @@ export const FeaturedProducts = () => {
           </Link>
         </div>
         <Separator />
-        <TabsContent value="account"></TabsContent>
-        <TabsContent value="password"></TabsContent>
+        <TabsContent value="safety"></TabsContent>
+        <TabsContent value="interior"></TabsContent>
       </Tabs>
       {/* For small screens */}
       {/* Product Reel */}
       <div>
-        <h1>Products</h1>
-        <ul>
-          {data.map((product: any) => (
-            <li key={product._id}>{product.productTitle}</li>
-          ))}
-        </ul>
+        <ProductReel />
       </div>
-
-      {/* <ProductReel products={products} /> */}
     </section>
   );
 };

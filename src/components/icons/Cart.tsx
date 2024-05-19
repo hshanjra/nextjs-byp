@@ -7,9 +7,9 @@ const CartIcon = ({ className }: { className?: string }) => {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={cn("lucide lucide-baggage-claim", className)}
     >
       <path d="M22 18H6a2 2 0 0 1-2-2V7a2 2 0 0 0-2-2" />

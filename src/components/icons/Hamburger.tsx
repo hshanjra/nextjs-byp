@@ -9,9 +9,9 @@ const HamburgerIcon = ({ className }: { className?: string }) => {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="1"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={cn("cursor-pointer", className)}
     >
       <line x1="4" x2="20" y1="12" y2="12" />
