@@ -8,7 +8,6 @@ import {
 } from "@tanstack/react-query";
 
 export default async function Home() {
-  // FIXME: fix query
   const qc = new QueryClient();
   await qc.prefetchQuery({
     queryKey: ["products"],

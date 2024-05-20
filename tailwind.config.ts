@@ -19,6 +19,7 @@ const config = {
     },
     fontFamily: {
       roboto: ["Roboto", "sans-serif"],
+      krub: ["Krub", "sans-serif"],
     },
     extend: {
       colors: {

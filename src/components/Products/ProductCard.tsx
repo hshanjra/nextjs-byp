@@ -31,8 +31,8 @@ export default function ProductCard({ product: p }: { product: IProduct }) {
             </h5>
           </Link>
           {/* Review */}
-          <div className="inline">
-            <ReviewStar rating={5} />
+          <div className="inline-block">
+            <ReviewStar rating={5} height={20} fontsize={19} />
             <span className="text-xs font-semibold -ml-2">1 Review</span>
           </div>
           <div className="flex">
@@ -46,7 +46,12 @@ export default function ProductCard({ product: p }: { product: IProduct }) {
               </span>
             </div>
             {/* Cart Icon Button */}
-            <AddToCartButton className="ml-auto" strokeWidth={2} />
+            <AddToCartButton
+              className="ml-auto"
+              strokeWidth={2}
+              size={40}
+              variant="mini"
+            />
           </div>
           {/* Stock */}
           <div className="flex items-center mt-3">
