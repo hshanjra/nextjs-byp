@@ -11,18 +11,18 @@ export default function ProductReel() {
     queryFn: getProducts,
   });
   if (error) {
-    return <div>{error.message}</div>;
+    return <div>Unable to get products.</div>;
   }
   if (isPending) {
     return <div>Loading...</div>;
   }
 
-  const products = JSON.parse(data as string);
+  const products = JSON.parse(data as string) as IProduct[];
 
   return (
     <section className="py-2">
       <div className="flex space-x-5">
-        {products?.map((p: IProduct) => (
+        {products?.map((p) => (
           <ProductCard product={p} key={p.productId} />
         ))}
       </div>

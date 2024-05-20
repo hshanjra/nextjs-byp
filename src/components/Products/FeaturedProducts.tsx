@@ -6,39 +6,40 @@ import ProductReel from "./ProductReel";
 
 export const FeaturedProducts = async () => {
   return (
-    <section className="my-5">
+    <section className="mt-10">
       {/* For Lg Screens */}
-      <Tabs defaultValue="safety" className="hidden lg:block">
+      <Tabs defaultValue="safety">
         <div className="flex items-center">
           <h3 className="text-xl font-medium mr-5">Featured Products</h3>
-          <Separator orientation="vertical" className="text-muted-foreground" />
 
-          <TabsList className="flex space-x-5 justify-start  rounded-none py-0 my-0">
-            <TabsTrigger
-              className="rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 !bg-transparent"
-              value="safety"
-            >
-              Auto Safety & Security
-            </TabsTrigger>
-            <TabsTrigger
-              className="rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 !bg-transparent"
-              value="interior"
-            >
-              Interior Accessories
-            </TabsTrigger>
-            <TabsTrigger
-              className="rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 !bg-transparent"
-              value="motor-oil"
-            >
-              Motor Oils
-            </TabsTrigger>
-            <TabsTrigger
-              className="rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 !bg-transparent"
-              value="tires-wheels"
-            >
-              Tires & Wheels
-            </TabsTrigger>
-          </TabsList>
+          <div className="hidden lg:block">
+            <TabsList className="flex space-x-5 justify-start  rounded-none m-0 bg-transparent">
+              <TabsTrigger
+                className="my-auto rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 bg-transparent"
+                value="safety"
+              >
+                Auto Safety & Security
+              </TabsTrigger>
+              <TabsTrigger
+                className="rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 bg-transparent"
+                value="interior"
+              >
+                Interior Accessories
+              </TabsTrigger>
+              <TabsTrigger
+                className="rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 !bg-transparent"
+                value="motor-oil"
+              >
+                Motor Oils
+              </TabsTrigger>
+              <TabsTrigger
+                className="rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 !bg-transparent"
+                value="tires-wheels"
+              >
+                Tires & Wheels
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
           <Link
             href="#"
