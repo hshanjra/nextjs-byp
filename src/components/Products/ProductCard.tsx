@@ -6,6 +6,7 @@ import { formatPrice, trimString } from "@/lib/utils";
 import ReviewStar from "../ReviewStar";
 import AddToCartButton from "../AddToCartButton";
 import { Package } from "lucide-react";
+import ProductSlider from "./ProductSlider";
 
 export default function ProductCard({ product: p }: { product: IProduct }) {
   if (p) {
@@ -13,17 +14,18 @@ export default function ProductCard({ product: p }: { product: IProduct }) {
       <>
         <div className="max-w-[230px] px-1">
           <Link href={"/product/" + p.productSlug}>
-            <Card className="h-[230px]">
-              {/* Images Slider */}
-              {/* TODO:make slider */}
-              <Image
+            {/* <Card className="h-[230px]"> */}
+            {/* Images Slider */}
+            <ProductSlider images={p.productImages} />
+            {/* TODO:make slider */}
+            {/* <Image
                 src={p.productImages[0].url}
                 alt={p.productTitle}
                 width={200}
                 height={200}
                 className="w-full h-full"
-              />
-            </Card>
+              /> */}
+            {/* </Card> */}
             <h5 className="text-[0.87rem] my-3 font-semibold transition hover:text-red-600 text-clip overflow-hidden leading-4">
               {trimString(p.productTitle, 45)}
             </h5>
