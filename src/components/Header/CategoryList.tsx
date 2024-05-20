@@ -139,7 +139,7 @@ const CategoryItems: React.FC<Props> = ({
                     {item.subCategories && (
                       <ChevronDown
                         className="h-4 w-4 opacity-50 cursor-pointer"
-                        onClick={(e) => handleArrowClick(e, item.link)}
+                        onClick={(e: any) => handleArrowClick(e, item.link)}
                       />
                     )}
                   </div>

@@ -23,3 +23,10 @@ export function formatPrice(
     maximumFractionDigits: 2,
   }).format(numericPrice);
 }
+
+export function trimString(str: string, maxLength: number) {
+  if (str.length > maxLength) {
+    return str.slice(0, maxLength) + "...";
+  }
+  return str;
+}

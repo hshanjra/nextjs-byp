@@ -2,7 +2,7 @@ import { IProduct } from "@/types/Product";
 import Image from "next/image";
 import { Card, CardContent } from "../ui/card";
 import Link from "next/link";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, trimString } from "@/lib/utils";
 import ReviewStar from "../ReviewStar";
 import AddToCartButton from "../AddToCartButton";
 import { Package } from "lucide-react";
@@ -25,7 +25,7 @@ export default function ProductCard({ product: p }: { product: IProduct }) {
               />
             </Card>
             <h5 className="text-[0.87rem] my-3 font-semibold transition hover:text-red-600 text-clip overflow-hidden leading-4">
-              {p.productTitle}
+              {trimString(p.productTitle, 45)}
             </h5>
           </Link>
           {/* Review */}
