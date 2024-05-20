@@ -12,7 +12,7 @@ export default function ProductCard({ product: p }: { product: IProduct }) {
     return (
       <>
         <div className="max-w-[230px] px-1">
-          <Link href={"/products/" + p.productSlug}>
+          <Link href={"/product/" + p.productSlug}>
             <Card className="h-[230px]">
               {/* Images Slider */}
               {/* TODO:make slider */}
