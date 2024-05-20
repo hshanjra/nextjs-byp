@@ -49,14 +49,24 @@ export const FeaturedProducts = async () => {
           </Link>
         </div>
         <Separator />
-        <TabsContent value="safety"></TabsContent>
-        <TabsContent value="interior"></TabsContent>
+        <TabsContent value="safety">
+          {/* Product Reel */}
+          <ProductReel />
+        </TabsContent>
+        <TabsContent value="interior">
+          {/* Product Reel */}
+          <ProductReel />
+        </TabsContent>
+        <TabsContent value="motor-oil">
+          {/* Product Reel */}
+          <ProductReel />
+        </TabsContent>
+        <TabsContent value="tires-wheels">
+          {/* Product Reel */}
+          <ProductReel />
+        </TabsContent>
       </Tabs>
       {/* For small screens */}
-      {/* Product Reel */}
-      <div>
-        <ProductReel />
-      </div>
     </section>
   );
 };

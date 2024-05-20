@@ -6,7 +6,7 @@ import Header from "@/components/Header/Header";
 import QueryProvider from "@/providers/QueryProvider";
 
 const krub = Krub({
-  weight: ["200", "300", "500", "700"],
+  weight: ["200", "300", "500", "600", "700"],
   style: ["normal", "italic"],
   subsets: ["latin"],
 });
