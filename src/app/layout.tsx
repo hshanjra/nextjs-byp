@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header/Header";
 import QueryProvider from "@/providers/QueryProvider";
+import { Footer } from "@/components/Footer/Footer";
 
 const krub = Krub({
   weight: ["200", "300", "500", "600", "700"],
@@ -33,6 +34,7 @@ export default function RootLayout({
             <Header />
             <div className="flex-grow flex-1">{children}</div>
             {/* Footer */}
+            <Footer />
           </main>
         </QueryProvider>
       </body>

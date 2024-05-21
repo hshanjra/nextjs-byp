@@ -67,7 +67,12 @@
   @apply !bg-yellow-400;
    scale: 1 !important;
 }
+/* Global Custom Styling */
 .h1,
 h1 {
   font-size: calc(1.375rem + 1.5vw);
+}
+footer {
+background-color: #212529;
+color: white;
 }

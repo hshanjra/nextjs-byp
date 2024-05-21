@@ -83,7 +83,7 @@ const Sidebar = () => {
               <Link href="/" className="hover:underline ">
                 Buyurparts.com
               </Link>
-              . All right reserved.
+              . All rights reserved.
             </span>
           </SheetFooter>
         </ScrollArea>

@@ -17,7 +17,7 @@ export default function AddToCartButton({
     <>
       <div
         className={cn(
-          "flex px-4 py-3 items-center bg-success hover:bg-successDark cursor-pointer w-[150px] rounded-xl space-x-2",
+          "flex px-4 py-3 items-center bg-success hover:bg-successDark cursor-pointer lg:w-[150px] rounded-xl space-x-2",
           className
         )}
       >
