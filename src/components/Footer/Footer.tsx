@@ -113,33 +113,26 @@ export function Footer() {
 
           <div>
             <h3 className="mb-3 font-bold text-base">Customer Service</h3>
+
             <ol className="text-base">
-              {CUS_MENU.map((item, i) => (
-                <>
-                  <Link
-                    href={item.link}
-                    key={i}
-                    className="text-sm hover:underline"
-                  >
-                    <li className="my-2 text-gray-300">{item.name}</li>
+              {CUS_MENU.map((item) => (
+                <li className="my-2 text-gray-300" key={item.link}>
+                  <Link href={item.link} className="text-sm hover:underline">
+                    {item.name}
                   </Link>
-                </>
+                </li>
               ))}
             </ol>
           </div>
           <div>
             <h3 className="mb-3 font-bold text-base">Store Information</h3>
             <ol className="text-base">
-              {STORE_MENU.map((item, i) => (
-                <>
-                  <Link
-                    href={item.link}
-                    key={i}
-                    className="text-sm hover:underline"
-                  >
-                    <li className="my-2 text-gray-300">{item.name}</li>
+              {STORE_MENU.map((item) => (
+                <li className="my-2 text-gray-300" key={item.link}>
+                  <Link href={item.link} className="text-sm hover:underline">
+                    {item.name}
                   </Link>
-                </>
+                </li>
               ))}
             </ol>
           </div>
