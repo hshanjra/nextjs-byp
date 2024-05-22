@@ -141,7 +141,7 @@ const Header = () => {
         </MaxWidthWrapper>
 
         {/* Main Nav Menu*/}
-        <div>
+        <div className="shadow-sm">
           <MainNav />
         </div>
       </div>

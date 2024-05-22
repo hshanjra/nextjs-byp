@@ -76,3 +76,14 @@ footer {
 background-color: #212529;
 color: white;
 }
+
+/* Main Slider */
+.main-slider .swiper-pagination-bullet {
+@apply !w-[7px] !h-[7px] !bg-gray-500 !scale-125
+}
+.main-slider .swiper-pagination{
+  @apply  !px-3 !py-1 !pt-0 !bg-white !left-auto !right-2 !max-w-fit !rounded-2xl
+}
+.main-slider .swiper-pagination-bullet-active {
+  @apply !bg-primary 
+}
