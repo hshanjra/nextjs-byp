@@ -11,6 +11,11 @@ export const getProducts = async () => {
     throw err;
   }
 };
+export const fetchProduct = async (slug: string) => {
+  const res = await fetch(`${process.env.API_BASE_URL}/products/${slug}`);
+
+  return res.json();
+};
 
 export const getSingleProduct = async (slug: string) => {
   try {

@@ -1,5 +1,5 @@
 "use client";
-import { getSingleProduct } from "@/actions/products-action";
+import { fetchProduct, getSingleProduct } from "@/actions/products-action";
 import AddToCartButton from "@/components/AddToCartButton";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import ReviewStar from "@/components/ReviewStar";
@@ -17,13 +17,7 @@ interface ProductPageProps {
     slug: string;
   };
 }
-const fetchProduct = async (slug: string) => {
-  const res = await fetch(`${process.env.API_BASE_URL}/products/${slug}`);
-  if (!res.ok) {
-    return notFound();
-  }
-  return res.json();
-};
+
 const ProductDetailPage = ({ params }: ProductPageProps) => {
   const BREADCRUMBS = [
     {
