@@ -18,7 +18,7 @@ interface ProductPageProps {
   };
 }
 const fetchProduct = async (slug: string) => {
-  const res = await fetch(`http://localhost:3000/api/v1/products/${slug}`);
+  const res = await fetch(`${process.env.API_BASE_URL}/products/${slug}`);
   if (!res.ok) {
     return notFound();
   }
