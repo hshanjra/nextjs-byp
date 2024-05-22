@@ -12,9 +12,10 @@ export const getProducts = async () => {
   }
 };
 export const fetchProduct = async (slug: string) => {
-  const res = await fetch(`${process.env.API_BASE_URL}/products/${slug}`);
-
-  return res.json();
+  // const res = await fetch(`${process.env.API_BASE_URL}/products/${slug}`);
+  // return res.json();
+  const { data } = await api.get(`/products/${slug}`);
+  return JSON.stringify(data);
 };
 
 export const getSingleProduct = async (slug: string) => {

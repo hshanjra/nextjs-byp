@@ -33,17 +33,14 @@ const ProductDetailPage = ({ params }: ProductPageProps) => {
     },
   ];
   const { slug } = params;
-  const {
-    data: product,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["Product", slug],
     queryFn: () => fetchProduct(slug),
   });
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
+  const product = JSON.parse(data as string);
 
   return (
     <>
