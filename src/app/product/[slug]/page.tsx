@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Package } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 interface ProductPageProps {
   params: {
@@ -19,7 +20,7 @@ interface ProductPageProps {
 const fetchProduct = async (slug: string) => {
   const res = await fetch(`http://localhost:3000/api/v1/products/${slug}`);
   if (!res.ok) {
-    return new Error("Something went wrong");
+    return notFound();
   }
   return res.json();
 };

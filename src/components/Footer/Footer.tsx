@@ -28,7 +28,7 @@ const CUS_MENU = [
   },
   {
     name: "FAQs",
-    link: "/faq",
+    link: "/faqs",
   },
 ];
 const STORE_MENU = [
