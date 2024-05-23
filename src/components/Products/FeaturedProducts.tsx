@@ -1,10 +1,26 @@
+"use client";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ProductReel from "./ProductReel";
+import { useQuery } from "@tanstack/react-query";
+import { intApi } from "@/lib/api";
 
-export const FeaturedProducts = async () => {
+export default function FeaturedProducts() {
+  const {
+    data: products,
+    error,
+    isPending,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => (await intApi.get(`/products?filter=featured`)).data,
+  });
+
+  if (error) {
+    return <div>Unable to get products. {error.message}</div>;
+  }
+
   return (
     <section className="mt-10">
       {/* For Lg Screens */}
@@ -50,25 +66,16 @@ export const FeaturedProducts = async () => {
           </Link>
         </div>
         <Separator />
+        {isPending && <div>Loading...</div>}
         <TabsContent value="safety">
           {/* Product Reel */}
-          <ProductReel />
+          <ProductReel products={products} />
         </TabsContent>
-        <TabsContent value="interior">
-          {/* Product Reel */}
-          <ProductReel />
-        </TabsContent>
-        <TabsContent value="motor-oil">
-          {/* Product Reel */}
-          <ProductReel />
-        </TabsContent>
-        <TabsContent value="tires-wheels">
-          {/* Product Reel */}
-          <ProductReel />
-        </TabsContent>
+        <TabsContent value="interior">{/* Product Reel */}</TabsContent>
+        <TabsContent value="motor-oil">{/* Product Reel */}</TabsContent>
+        <TabsContent value="tires-wheels">{/* Product Reel */}</TabsContent>
       </Tabs>
       {/* For small screens */}
     </section>
   );
-};
-export default FeaturedProducts;
+}

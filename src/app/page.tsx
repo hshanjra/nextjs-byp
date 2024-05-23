@@ -1,4 +1,3 @@
-import { getProducts } from "@/actions/products-action";
 import MainSlider from "@/components/MainSlider";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import FeaturedProducts from "@/components/Products/FeaturedProducts";
@@ -12,7 +11,7 @@ export default async function Home() {
   const qc = new QueryClient();
   await qc.prefetchQuery({
     queryKey: ["products"],
-    queryFn: getProducts,
+    queryFn: async () => await fetch("/api/products"),
   });
   return (
     <HydrationBoundary state={dehydrate(qc)}>

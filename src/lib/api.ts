@@ -1,10 +1,12 @@
 import axios from "axios";
 
-const api = axios.create({
+export const extApi = axios.create({
   baseURL: process.env.API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-export default api;
+export const intApi = axios.create({
+  baseURL: "/api",
+});

@@ -1,9 +1,9 @@
 "use client";
-import { fetchProduct, getSingleProduct } from "@/actions/products-action";
 import AddToCartButton from "@/components/AddToCartButton";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import ReviewStar from "@/components/ReviewStar";
 import { Separator } from "@/components/ui/separator";
+import { intApi } from "@/lib/api";
 import { formatPrice } from "@/lib/utils";
 import { IProduct } from "@/types/Product";
 import { useQuery } from "@tanstack/react-query";
@@ -17,30 +17,36 @@ interface ProductPageProps {
     slug: string;
   };
 }
+const BREADCRUMBS = [
+  {
+    id: 1,
+    name: "Home",
+    href: "/",
+  },
+  // TODO: add category
+  {
+    id: 2,
+    name: "Products",
+    href: "/products",
+  },
+];
 
 const ProductDetailPage = ({ params }: ProductPageProps) => {
-  const BREADCRUMBS = [
-    {
-      id: 1,
-      name: "Home",
-      href: "/",
-    },
-    // TODO: add category
-    {
-      id: 2,
-      name: "Products",
-      href: "/products",
-    },
-  ];
   const { slug } = params;
   const { data, isLoading, error } = useQuery({
     queryKey: ["Product", slug],
-    queryFn: () => fetchProduct(slug),
+    queryFn: async () => (await intApi.get(`/products?slug=${slug}`)).data,
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      // return skeleton
+      <div>Loading...</div>
+    );
+
   if (error) return <div>Error: {error.message}</div>;
-  const product = JSON.parse(data as string);
+
+  const product = data as IProduct;
 
   return (
     <>
@@ -89,8 +95,8 @@ const ProductDetailPage = ({ params }: ProductPageProps) => {
           {/* Product Images */}
           <div className="border rounded-lg m-auto overflow-hidden">
             <Image
-              src={product.productImages[0].url}
-              alt={product?.productTitle}
+              src={product!.productImages[0].url}
+              alt={product!.productTitle}
               height={800}
               width={800}
               className="m-auto p-10"
