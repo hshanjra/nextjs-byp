@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
 
     const response = await extApi.get(`/products?limit=${limit}`);
     return Response.json(response.data);
-  } catch (error) {
-    console.error("Failed to fetch products:", error);
+  } catch (err) {
+    console.error("Failed to fetch products:", err);
   }
 }

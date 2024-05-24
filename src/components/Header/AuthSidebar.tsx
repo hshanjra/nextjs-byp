@@ -12,6 +12,8 @@ import { buttonVariants } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
 import Image from "next/image";
 import { Separator } from "../ui/separator";
+import LoginForm from "@/components/Auth/LoginForm";
+import RegisterForm from "../Auth/RegisterForm";
 
 const AuthSidebar = () => {
   return (
@@ -33,15 +35,18 @@ const AuthSidebar = () => {
           </div>
         </SheetTrigger>
 
-        <SheetContent side="right" className="w-[350px] p-0">
+        <SheetContent side="right" className="w-[350px] p-0 h-screen">
           <SheetHeader className="p-3">
             <SheetTitle>Account</SheetTitle>
           </SheetHeader>
           <Separator />
-          <ScrollArea className="h-screen p-5">
-            <div>Login Form</div>
+          <ScrollArea className="py-5 px-3 h-full">
+            {/* Login Form */}
+            <section className="p-2">
+              <LoginForm />
+            </section>
 
-            <SheetFooter className="mt-10">
+            <SheetFooter className="mt-auto">
               <span className="text-xs mx-auto">
                 Copyright {new Date().getFullYear()} &copy;{" "}
                 <Link href="/" className="hover:underline ">
@@ -80,7 +85,10 @@ const AuthSidebar = () => {
           </SheetHeader>
           <Separator />
           <ScrollArea className="h-screen p-5">
-            <div>register form</div>
+            <section className="px-1 py-3">
+              {/* Register Form  */}
+              <RegisterForm />
+            </section>
 
             <SheetFooter className="mt-10">
               <span className="text-xs mx-auto">

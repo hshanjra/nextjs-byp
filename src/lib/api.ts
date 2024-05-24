@@ -7,6 +7,17 @@ export const extApi = axios.create({
   },
 });
 
+extApi.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const customError = {
+      message: error.response?.data?.message || "An error occurred",
+      status: error.response?.status || 500,
+    };
+    return Promise.reject(customError);
+  }
+);
+
 export const intApi = axios.create({
   baseURL: "/api",
 });

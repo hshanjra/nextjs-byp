@@ -15,6 +15,7 @@ export default function FeaturedProducts() {
   } = useQuery({
     queryKey: ["products"],
     queryFn: async () => (await intApi.get(`/products?filter=featured`)).data,
+    staleTime: 5 * 60 * 10,
   });
 
   if (error) {
