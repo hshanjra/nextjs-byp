@@ -30,8 +30,8 @@ export default function ProductReel({ products }: { products: IProduct[] }) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="-left-8 lg:-left-14" />
+        <CarouselNext className="-right-8 lg:-right-14" />
       </Carousel>
 
       <Separator className="my-5" />
