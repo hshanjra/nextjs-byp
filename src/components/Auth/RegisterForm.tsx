@@ -33,7 +33,7 @@ export default function RegisterForm() {
     },
   });
 
-  const { Error, setError } = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const { execute, status } = useAction(RegisterUserAction, {
     onSuccess(data) {

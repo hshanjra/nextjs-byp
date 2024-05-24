@@ -31,7 +31,7 @@ export default function LoginForm() {
     },
   });
 
-  const { Error, setError } = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const { execute, status } = useAction(EmailSignInAction, {
     onSuccess(data) {
