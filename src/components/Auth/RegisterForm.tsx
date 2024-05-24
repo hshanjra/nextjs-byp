@@ -61,10 +61,10 @@ export default function RegisterForm() {
           />
         </Link>
         <div className="text-center my-3">
-          <h2 className="font-semibold text-3xl">Welcome Back!</h2>
+          <h2 className="font-semibold text-3xl">BECOME A MEMBER</h2>
           <h6 className="text-sm font-semibold my-2">
-            Explore a wide range of high-quality automotive products, all just a
-            click away.
+            With our extensive collection of automotive parts and accessories,
+            we are the ultimate destination for all your needs.
           </h6>
         </div>
         <div className="flex space-x-2">
