@@ -21,6 +21,8 @@ import { EmailSignInAction } from "@/actions/AuthAction";
 import { cn } from "@/lib/utils";
 import { LoaderCircle, LogIn } from "lucide-react";
 import { useState } from "react";
+import FormSuccess from "./FormSuccess";
+import FormError from "./FormError";
 
 export default function LoginForm() {
   const form = useForm({
@@ -32,14 +34,21 @@ export default function LoginForm() {
   });
 
   const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
 
   const { execute, status } = useAction(EmailSignInAction, {
     onSuccess(data) {
-      console.log(data);
+      if (data?.error) setError(data.error);
+      if (data?.success) setSuccess(data.success);
+    },
+    onError(data) {
+      if (data.serverError) setError(data.serverError);
     },
   });
 
   const onSubmit = (v: LoginForm) => {
+    setError("");
+    setSuccess("");
     execute(v);
   };
 
@@ -108,6 +117,10 @@ export default function LoginForm() {
         >
           Forgot your password ?
         </Link>
+
+        {/* Success/Error message */}
+        <FormSuccess message={success} />
+        <FormError message={error} />
 
         <Button
           type="submit"
