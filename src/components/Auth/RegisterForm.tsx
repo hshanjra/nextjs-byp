@@ -21,6 +21,8 @@ import { CircleFadingPlus, LoaderCircle, Phone } from "lucide-react";
 import Image from "next/image";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
+import FormSuccess from "./FormSuccess";
+import FormError from "./FormError";
 
 export default function RegisterForm() {
   const form = useForm({
@@ -34,17 +36,21 @@ export default function RegisterForm() {
   });
 
   const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
 
   const { execute, status } = useAction(RegisterUserAction, {
     onSuccess(data) {
-      console.log(data);
+      if (data?.error) setError(data.error);
+      if (data?.success) setSuccess(data.success);
     },
-    onError(err) {
-      console.log(err.serverError);
+    onError(data) {
+      if (data.serverError) setError(data.serverError);
     },
   });
 
   const onSubmit = (v: RegisterForm) => {
+    setError("");
+    setSuccess("");
     execute(v);
   };
 
@@ -154,6 +160,9 @@ export default function RegisterForm() {
           Forgot your password ?
         </Link>
 
+        {/* Success/Error message */}
+        <FormSuccess message={success} />
+        <FormError message={error} />
         <Button
           type="submit"
           className={cn("w-full my-2")}
