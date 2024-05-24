@@ -5,30 +5,37 @@ import ac from "@/lib/safe-action";
 import { LoginSchema } from "@/types/LoginSchema";
 import { RegisterSchema } from "@/types/RegisterSchema";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
 
 export const EmailSignInAction = ac(
   LoginSchema,
   async ({ email, password }) => {
     // make query
-    const { data, status } = await extApi.post(
-      "/auth/login",
-      {
-        email: email,
-        password: password,
-      },
-      {
-        withCredentials: true,
-      }
-    );
-    if (status === 404) {
-      return { error: "Email does not exist. try registering instead!" };
-    }
+    try {
+      const res = await extApi.post(
+        "/auth/login",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
-    if (status === 200) {
+      // Set the cookie
+      cookies().set("accessToken", res.data.accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        path: "/",
+      });
       return {
-        success: data,
+        success: "Logged in successfully.",
       };
+    } catch (error: any) {
+      if (error.status === 404) {
+        return { error: "Email does not exist. try registering instead!" };
+      }
     }
   }
 );
@@ -50,7 +57,7 @@ export const RegisterUserAction = ac(
           withCredentials: true,
         }
       );
-
+      // Set the cookie
       cookies().set("accessToken", res.data.accessToken, {
         httpOnly: true,
         secure: true,
