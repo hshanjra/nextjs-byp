@@ -29,7 +29,6 @@ export default function Banner({
           className="-z-10 h-full w-full object-cover object-center group-hover:scale-110 transition ease-in"
         />
         {children}
-        <span className="text-sm">Shop Now</span>
       </div>
     </Link>
   );
