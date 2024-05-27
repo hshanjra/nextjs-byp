@@ -75,7 +75,7 @@ export default function MainSlider() {
 
   const inactiveStyles = "hidden text-gray-400";
   return (
-    <MaxWidthWrapper className="mt-5 h-[30rem]">
+    <MaxWidthWrapper className="mt-5 h-96 lg:h-[30rem] ">
       <section className="mx-auto h-full px-0 lg:pl-5 py-1 grid lg:grid-cols-4">
         <div className="hidden lg:col-span-1 bg-transparent lg:block"></div>
         <div className="relative group bg-zinc-100 border aspect-video rounded-xl overflow-hidden col-span-full h-full w-full lg:col-span-3">
@@ -124,7 +124,7 @@ export default function MainSlider() {
             slidesPerView={1}
           >
             {sliderContent?.map((content, i) => (
-              <SwiperSlide key={i} className="relative h-full w-full">
+              <SwiperSlide key={i} className="relative lg:h-full w-full">
                 <Image
                   src={content?.image.url}
                   fill
