@@ -21,12 +21,12 @@ export default function ProductsShowcase() {
     return <div>Unable to get products. {error.message}</div>;
   }
   return (
-    <section className="flex items-center my-5">
-      <div className="h-full text-white w-full max-w-[350px]">
+    <section className="flex flex-col lg:flex-row items-center my-5 space-y-10 lg:space-y-0">
+      <div className="h-full text-white w-full lg:max-w-[350px]">
         <Banner
           imgUrl="/images/banner-04.jpg"
           href="#"
-          className="rounded-l-lg lg:h-[752px]"
+          className="rounded-lg lg:rounded-r-none lg:h-[752px]"
         >
           <div className="p-7 space-y-5">
             <h5 className="text-7xl text-center">-35%</h5>
@@ -44,7 +44,7 @@ export default function ProductsShowcase() {
         </Banner>
       </div>
       {/* Products Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-[2px] rounded-lg rounded-l-none">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-[2px] rounded-lg lg:rounded-l-none w-full">
         {isPending && <div>Loading...</div>}
 
         {products &&

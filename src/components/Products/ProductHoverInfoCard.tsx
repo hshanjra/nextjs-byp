@@ -12,8 +12,8 @@ export default function ProductHoverInfoCard({
   product: IProduct;
 }) {
   return (
-    <div className="relative group max-w-[130px] md:max-w-[170px] lg:max-w-[230px]">
-      <div className="p-2 space-y-2 group-hover:rounded-t-xl group-hover:border bg-white">
+    <div className="relative group max-w-[400px] md:max-w-[170px] lg:max-w-[230px]">
+      <div className="p-2 space-y-2 group-hover:rounded-t-xl lg:group-hover:border bg-white">
         <Link href={"/product/" + p.productSlug}>
           <ProductSlider images={p.productImages} />
 
@@ -45,8 +45,12 @@ export default function ProductHoverInfoCard({
           </span>
         </div>
 
+        {/* Add to cart button for mobile */}
+
+        <Button className="w-full lg:hidden">Add to cart</Button>
+
         {/* Hover Area */}
-        <div className="absolute bg-white z-50 hidden group-hover:block rounded-b-lg shadow-2xl border left-0 p-2 w-full">
+        <div className="absolute bg-white z-50 hidden lg:group-hover:block rounded-b-lg shadow-2xl border left-0 p-2 w-full">
           {/* Short description */}
           <div className="text-xs my-3 px-3">
             {p.shortDescription}
