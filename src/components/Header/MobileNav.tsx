@@ -35,7 +35,7 @@ export default function MobileNav() {
               </div>
             </DialogTrigger>
 
-            <DialogContent className="h-screen justify-center items-center">
+            <DialogContent className="h-full justify-center items-center">
               <div className="space-y-2">
                 <p className="text-center text-sm">
                   What are you looking for in Buyurpars?
