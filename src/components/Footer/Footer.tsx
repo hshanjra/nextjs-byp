@@ -4,6 +4,12 @@ import Image from "next/image";
 import { buttonVariants } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { Separator } from "../ui/separator";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/accordion";
 
 const CUS_MENU = [
   {
@@ -31,6 +37,7 @@ const CUS_MENU = [
     link: "/faqs",
   },
 ];
+
 const STORE_MENU = [
   {
     name: "About Buyurparts",
@@ -56,10 +63,11 @@ const STORE_MENU = [
 
 export function Footer() {
   return (
-    <footer className="lg:mt-10 sm:my-25 lg:my-auto">
-      <MaxWidthWrapper className="lg:pb-auto py-10">
-        <div className="grid lg:grid-cols-6 lg:gap-x-2">
-          <div className="lg:border-r border-gray-100/30 col-span-2 text-center lg:text-left space-y-4">
+    <footer>
+      <MaxWidthWrapper className="lg:pb-auto py-10 lg:mt-10 my-25 lg:my-auto">
+        {/* Desktop Footer */}
+        <div className="hidden lg:grid grid-cols-6 gap-x-2">
+          <div className="border-r border-gray-100/30 col-span-2 text-left space-y-4">
             <Link href="/">
               <Image
                 className="invert grayscale mx-auto lg:mx-0"
@@ -67,6 +75,7 @@ export function Footer() {
                 alt="logo"
                 height={140}
                 width={140}
+                priority={true}
               />
             </Link>
             <h3 className="mb-3 mt-7 font-bold text-base">
@@ -90,13 +99,13 @@ export function Footer() {
               info@buyurparts.com
             </Link>
           </div>
-          <div className="lg:col-span-2 ml-10">
+          <div className="col-span-2 ml-10">
             <h3 className="mb-3 font-bold text-base">Need Help?</h3>
             <h2 className="text-2xl font-bold">(+1) 1234 5678 90</h2>
 
             <div className="my-3 flex flex-col text-muted-foreground">
               <span>Monday &#x2010; Friday: 9:00-20:00</span>
-              <span>Saturady: 11:00 &#x2010; 15:00</span>
+              <span>Saturday: 11:00 &#x2010; 15:00</span>
             </div>
             <Link
               href="mailto:support@buyurparts.com"
@@ -137,7 +146,69 @@ export function Footer() {
             </ol>
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row border-y py-3 my-3 border-gray-100/30 items-center lg:justify-center">
+
+        {/* Mobile Footer */}
+        <div className="lg:hidden">
+          <div className="space-y-1 text-center">
+            <h3 className="font-bold text-base">Need Help?</h3>
+            <h2 className="text-2xl font-bold">(+1) 1234 5678 90</h2>
+
+            <div className="my-1 flex flex-col text-muted-foreground">
+              <span>Monday &#x2010; Friday: 9:00-20:00</span>
+              <span>Saturday: 11:00 &#x2010; 15:00</span>
+            </div>
+            <Link
+              href="mailto:support@buyurparts.com"
+              className={cn(
+                buttonVariants({
+                  variant: "link",
+                }),
+                "mx-0 px-0"
+              )}
+            >
+              support@buyurparts.com
+            </Link>
+          </div>
+          <div>
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="menu-1">
+                <AccordionTrigger>Customer Service</AccordionTrigger>
+                <AccordionContent>
+                  <ol className="text-base">
+                    {CUS_MENU.map((item) => (
+                      <li className="text-gray-300" key={item.link}>
+                        <Link
+                          href={item.link}
+                          className="text-sm hover:underline"
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ol>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="menu-2">
+                <AccordionTrigger>Store Information</AccordionTrigger>
+                <AccordionContent>
+                  <ol className="text-base">
+                    {STORE_MENU.map((item) => (
+                      <li className="text-gray-300" key={item.link}>
+                        <Link
+                          href={item.link}
+                          className="text-sm hover:underline"
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ol>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </div>
+        <div className="flex flex-col lg:flex-row border-y py-3 my-3 border-gray-100/30 items-center justify-center">
           <span className="text-sm font-bold">
             -5% for all order in this week Shop now
           </span>
@@ -166,6 +237,7 @@ export function Footer() {
               alt="credit cards"
               height={32}
               width={364}
+              priority={true}
             />
           </div>
         </div>
