@@ -1,14 +1,10 @@
 import Link from "next/link";
 import CartIcon from "../icons/Cart";
-import { Button, buttonVariants } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import { buttonVariants } from "../ui/button";
 import { Separator } from "../ui/separator";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -17,6 +13,7 @@ import {
 
 import { formatPrice } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
+import { ShoppingCart } from "lucide-react";
 
 const Cart = () => {
   const itemsCount = 1;
@@ -30,7 +27,7 @@ const Cart = () => {
             <span className="absolute -top-2 -right-2 bg-red-600 text-white px-[5px] py-[0.1px] rounded-full text-xs">
               0
             </span>
-            <CartIcon className="h-[24px] w-[24px]" />
+            <ShoppingCart className="h-[24px] w-[24px]" />
           </div>
           <div className="hidden lg:flex flex-col">
             <span className="text-xs">0 items</span>
