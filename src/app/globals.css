@@ -73,8 +73,7 @@ h1 {
   font-size: calc(1.375rem + 1.5vw);
 }
 footer {
-@apply bg-[#212529] text-white;
-margin-bottom: calc(100% - 90%);
+@apply bg-[#212529] text-white mb-[10%]
 }
 
 /* Main Slider */
