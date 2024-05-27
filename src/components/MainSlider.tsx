@@ -134,7 +134,7 @@ export default function MainSlider() {
                 />
                 {/* Slider Content */}
                 <div className="backdrop-opacity-10 backdrop-invert bg-white/3 h-full">
-                  <div className="max-w-lg p-7 flex justify-center flex-col h-full space-y-5 text-white">
+                  <div className="max-w-lg p-7 flex justify-center flex-col h-full space-y-2 lg:space-y-5 text-white">
                     <p className="capitalize">{content.topTxt}</p>
                     <h1 className="text-5xl leading-[3rem] font-bold capitalize">
                       {content.h1}
