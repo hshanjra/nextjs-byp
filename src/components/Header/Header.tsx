@@ -8,7 +8,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "../ui/separator";
-import Image from "next/image";
 import MainNav from "./MainNav";
 import Sidebar from "./Sidebar";
 import PartsFinder from "./PartsFinder";
@@ -142,13 +141,13 @@ const Header = () => {
       </div>
 
       {/* Mobile Header */}
-      <div className="lg:hidden shadow-sm">
+      <div className="lg:hidden shadow-sm mx-1">
         <MaxWidthWrapper>
           <div className="flex items-center h-14 justify-between">
             {/* Sidebar */}
             <Sidebar />
             {/* Logo */}
-            <Logo className="mx-auto" />
+            <Logo className="mx-auto" width={60} />
             {/* Cart */}
             <Cart />
           </div>

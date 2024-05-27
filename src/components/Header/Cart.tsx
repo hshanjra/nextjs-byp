@@ -32,7 +32,7 @@ const Cart = () => {
             </span>
             <CartIcon className="h-[24px] w-[24px]" />
           </div>
-          <div className="flex flex-col">
+          <div className="hidden lg:flex flex-col">
             <span className="text-xs">0 items</span>
             <span>$0.00</span>
           </div>

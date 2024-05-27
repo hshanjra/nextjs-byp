@@ -18,7 +18,6 @@ import {
   FormMessage,
 } from "../ui/form";
 import { CircleFadingPlus, LoaderCircle, Phone } from "lucide-react";
-import Image from "next/image";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
 import FormSuccess from "./FormSuccess";

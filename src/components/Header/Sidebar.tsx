@@ -5,7 +5,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Link from "next/link";
-import Image from "next/image";
 import { ScrollArea } from "../ui/scroll-area";
 import CategoryItems from "./CategoryList";
 import { Menu } from "lucide-react";

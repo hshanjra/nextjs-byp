@@ -4,8 +4,8 @@ import Link from "next/link";
 
 export default function Logo({
   className,
-  height,
-  width,
+  height = 70,
+  width = 110,
 }: {
   className?: string;
   height?: number;
@@ -17,9 +17,9 @@ export default function Logo({
         <Image
           src="/images/logo.webp"
           alt="logo"
-          height={height ? height : 70}
-          width={width ? width : 110}
-          className={cn("w-auto h-auto", className)}
+          height={height}
+          width={width}
+          className={cn("w-auto h-auto aspect-square", className)}
           priority={true}
         />
       </Link>
