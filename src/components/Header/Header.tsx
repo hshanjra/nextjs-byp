@@ -22,7 +22,7 @@ import AuthSidebar from "./AuthSidebar";
 
 const Header = () => {
   return (
-    <header>
+    <header className="relative">
       <div className="w-full bg-red-600 h-[7px]"></div>
 
       {/* Top Header */}
@@ -149,7 +149,7 @@ const Header = () => {
       {/* Mobile Header */}
       <div className="lg:hidden shadow-sm">
         <MaxWidthWrapper>
-          <header className="flex items-center h-14 justify-between">
+          <div className="flex items-center h-14 justify-between">
             {/* Sidebar */}
             <Sidebar />
             {/* Logo */}
@@ -165,7 +165,7 @@ const Header = () => {
             </div>
             {/* Cart */}
             <Cart />
-          </header>
+          </div>
         </MaxWidthWrapper>
       </div>
     </header>
