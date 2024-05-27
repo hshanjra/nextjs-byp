@@ -20,6 +20,7 @@ import { ChevronDown } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import AuthSidebar from "./AuthSidebar";
 import MobileNav from "./MobileNav";
+import Logo from "../Logo";
 
 const Header = () => {
   return (
@@ -83,14 +84,7 @@ const Header = () => {
             <Sidebar />
             {/* Logo */}
             <div>
-              <Link href="/">
-                <Image
-                  src="/images/logo.webp"
-                  alt="logo"
-                  height={140}
-                  width={140}
-                />
-              </Link>
+              <Logo />
             </div>
             {/* Parts Finder */}
             <PartsFinder />
@@ -154,16 +148,7 @@ const Header = () => {
             {/* Sidebar */}
             <Sidebar />
             {/* Logo */}
-            <div className="mx-auto">
-              <Link href="/">
-                <Image
-                  src="/images/logo.webp"
-                  alt="logo"
-                  height={100}
-                  width={100}
-                />
-              </Link>
-            </div>
+            <Logo className="mx-auto" />
             {/* Cart */}
             <Cart />
           </div>

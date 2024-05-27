@@ -10,6 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
+import Logo from "../Logo";
 
 const CUS_MENU = [
   {
@@ -68,16 +69,7 @@ export function Footer() {
         {/* Desktop Footer */}
         <div className="hidden lg:grid grid-cols-6 gap-x-2">
           <div className="border-r border-gray-100/30 col-span-2 text-left space-y-4">
-            <Link href="/">
-              <Image
-                className="invert grayscale mx-auto lg:mx-0"
-                src="/images/logo.webp"
-                alt="logo"
-                height={140}
-                width={140}
-                priority={true}
-              />
-            </Link>
+            <Logo className="invert grayscale mx-auto lg:mx-0" />
             <h3 className="mb-3 mt-7 font-bold text-base">
               Your Trusted Source for Quality Auto Parts
             </h3>

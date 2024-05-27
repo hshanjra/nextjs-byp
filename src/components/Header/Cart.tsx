@@ -24,7 +24,7 @@ const Cart = () => {
 
   return (
     <Sheet>
-      <SheetTrigger asChild>
+      <SheetTrigger>
         <div className="flex items-center gap-x-3 cursor-pointer">
           <div className="relative">
             <span className="absolute -top-2 -right-2 bg-red-600 text-white px-[5px] py-[0.1px] rounded-full text-xs">

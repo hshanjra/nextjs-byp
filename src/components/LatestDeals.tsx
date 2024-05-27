@@ -47,7 +47,7 @@ export default function LatestDeals() {
                 </span>
                 <span className="text-primary text-2xl font-bold">$68.99</span>
               </div>
-              <Progress value={78} className="my-5" />
+              <Progress value={78} className="my-5" aria-hidden="false" />
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <span className="text-sm text-muted-foreground">

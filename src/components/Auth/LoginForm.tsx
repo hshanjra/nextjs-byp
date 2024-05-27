@@ -23,6 +23,7 @@ import { LoaderCircle, LogIn } from "lucide-react";
 import { useState } from "react";
 import FormSuccess from "./FormSuccess";
 import FormError from "./FormError";
+import Logo from "../Logo";
 
 export default function LoginForm() {
   const form = useForm({
@@ -55,15 +56,7 @@ export default function LoginForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-        <Link href="/">
-          <Image
-            src="/images/logo.webp"
-            alt="logo"
-            height={100}
-            width={100}
-            className="mx-auto"
-          />
-        </Link>
+        <Logo className="mx-auto" />
         <div className="text-center my-3">
           <h2 className="font-semibold text-3xl">Welcome Back!</h2>
           <h6 className="text-sm font-semibold my-2">

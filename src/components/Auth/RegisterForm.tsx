@@ -23,6 +23,7 @@ import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
 import FormSuccess from "./FormSuccess";
 import FormError from "./FormError";
+import Logo from "../Logo";
 
 export default function RegisterForm() {
   const form = useForm({
@@ -57,15 +58,7 @@ export default function RegisterForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-        <Link href="/">
-          <Image
-            src="/images/logo.webp"
-            alt="logo"
-            height={100}
-            width={100}
-            className="mx-auto"
-          />
-        </Link>
+        <Logo className="mx-auto" />
         <div className="text-center my-3">
           <h2 className="font-semibold text-3xl">BECOME A MEMBER</h2>
           <h6 className="text-sm font-semibold my-2">

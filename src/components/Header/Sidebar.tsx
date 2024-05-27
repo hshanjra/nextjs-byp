@@ -4,31 +4,24 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import HamburgerIcon from "../icons/Hamburger";
 import Link from "next/link";
 import Image from "next/image";
 import { ScrollArea } from "../ui/scroll-area";
 import CategoryItems from "./CategoryList";
+import { Menu } from "lucide-react";
+import Logo from "../Logo";
 
 const Sidebar = () => {
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <HamburgerIcon />
+      <SheetTrigger aria-label="toggle menu">
+        <Menu size={30} className="cursor-pointer" strokeWidth={1} />
       </SheetTrigger>
       <SheetContent side="left" className="w-[350px] p-0">
         <ScrollArea className="h-screen p-5">
           {/* Logo */}
 
-          <Link href="/">
-            <Image
-              src="/images/logo.webp"
-              alt="logo"
-              height={140}
-              width={140}
-              className="mx-auto py-2"
-            />
-          </Link>
+          <Logo className="mx-auto" />
 
           <div className="flex flex-col space-y-10">
             {/* Main Menu */}
