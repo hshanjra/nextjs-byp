@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import SearchInputBox from "../SearchInputBox";
+import { Label } from "../ui/label";
 
 export default function MobileNav() {
   const pathname = usePathname();
@@ -16,7 +17,7 @@ export default function MobileNav() {
   return (
     /* Moble Main Navigation */
 
-    <nav className="fixed bottom-0 lg:hidden bg-white w-full py-4 px-5 z-40 border-t">
+    <section className="fixed bottom-0 lg:hidden bg-white w-full py-4 px-5 z-40 border-t">
       <div className="flex items-center justify-between space-x-5">
         {/* Home */}
         <div className="flex flex-col uppercase">
@@ -31,7 +32,7 @@ export default function MobileNav() {
             <DialogTrigger asChild>
               <div className="cursor-pointer">
                 <Search strokeWidth={2} size={20} className="mx-auto" />
-                <span className="text-[.7rem]">Search</span>
+                <Label className="text-[.7rem] cursor-pointer">Search</Label>
               </div>
             </DialogTrigger>
 
@@ -49,24 +50,24 @@ export default function MobileNav() {
         <div className="flex flex-col uppercase">
           <Link href="/wishlist">
             <Heart strokeWidth={2} size={20} className="mx-auto" />
-            <span className="text-[.7rem]">Wishlist</span>
+            <Label className="text-[.7rem] cursor-pointer">Wishlist</Label>
           </Link>
         </div>
         {/* Account */}
         <div className="flex flex-col uppercase">
           <Link href="/account">
             <UserRound strokeWidth={2} size={20} className="mx-auto" />
-            <span className="text-[.7rem]">Account</span>
+            <Label className="text-[.7rem] cursor-pointer">Account</Label>
           </Link>
         </div>
         {/* Categories */}
         <div className="flex flex-col uppercase">
           <Link href="/">
             <List strokeWidth={2} size={20} className="mx-auto" />
-            <span className="text-[.7rem]">Categories</span>
+            <Label className="text-[.7rem] cursor-pointer">Categories</Label>
           </Link>
         </div>
       </div>
-    </nav>
+    </section>
   );
 }
