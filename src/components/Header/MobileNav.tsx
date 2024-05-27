@@ -16,7 +16,7 @@ export default function MobileNav() {
   return (
     /* Moble Main Navigation */
 
-    <section className="fixed bottom-0 lg:hidden bg-white w-full py-4 px-5 z-40 border-t">
+    <nav className="fixed bottom-0 lg:hidden bg-white w-full py-4 px-5 z-40 border-t">
       <div className="flex items-center justify-between space-x-5">
         {/* Home */}
         <div className="flex flex-col uppercase">
@@ -67,6 +67,6 @@ export default function MobileNav() {
           </Link>
         </div>
       </div>
-    </section>
+    </nav>
   );
 }
