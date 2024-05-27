@@ -16,7 +16,7 @@ export default function MobileNav() {
   return (
     /* Moble Main Navigation */
 
-    <nav className="fixed bottom-0 lg:hidden bg-white w-full py-4 px-5 z-40 border-t scroll-m-0">
+    <nav className="fixed bottom-0 lg:hidden bg-white w-full h-[4.5rem] py-4 px-5 z-40 border-t">
       <div className="flex items-center justify-between space-x-5">
         {/* Home */}
         <div className="flex flex-col uppercase">
