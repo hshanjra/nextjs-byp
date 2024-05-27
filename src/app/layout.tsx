@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/Header/Header";
 import QueryProvider from "@/providers/QueryProvider";
 import { Footer } from "@/components/Footer/Footer";
-import MobileNav from "@/components/Header/MobileNav";
 
 const krub = Krub({
   weight: ["200", "300", "500", "600", "700"],
@@ -33,8 +32,7 @@ export default function RootLayout({
           <main className="relative flex flex-col min-h-screen">
             {/* Header */}
             <Header />
-            {/* Mobile Nav */}
-            <MobileNav />
+
             <div className="flex-grow flex-1">{children}</div>
             {/* Footer */}
             <Footer />

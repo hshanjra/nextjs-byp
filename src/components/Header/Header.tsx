@@ -19,6 +19,7 @@ import SearchIcon from "../icons/Search";
 import { ChevronDown } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import AuthSidebar from "./AuthSidebar";
+import MobileNav from "./MobileNav";
 
 const Header = () => {
   return (
@@ -167,6 +168,9 @@ const Header = () => {
             <Cart />
           </div>
         </MaxWidthWrapper>
+
+        {/* Mobile Nav */}
+        <MobileNav />
       </div>
     </header>
   );

@@ -16,7 +16,7 @@ export default function ProductReel({ products }: { products: IProduct[] }) {
         opts={{
           align: "start",
         }}
-        className="w-full"
+        className="w-full max-w-md lg:max-w-full"
       >
         <CarouselContent>
           {products?.map((p) => (
@@ -30,8 +30,8 @@ export default function ProductReel({ products }: { products: IProduct[] }) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="-left-8 lg:-left-14" />
-        <CarouselNext className="-right-8 lg:-right-14" />
+        <CarouselPrevious className="hidden lg:flex" />
+        <CarouselNext className="hidden lg:flex" />
       </Carousel>
 
       <Separator className="my-5" />
