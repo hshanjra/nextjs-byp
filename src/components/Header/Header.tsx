@@ -149,7 +149,23 @@ const Header = () => {
       {/* Mobile Header */}
       <div className="lg:hidden shadow-sm">
         <MaxWidthWrapper>
-          <div>Mobile Header</div>
+          <header className="flex items-center h-14 justify-between">
+            {/* Sidebar */}
+            <Sidebar />
+            {/* Logo */}
+            <div className="mx-auto">
+              <Link href="/">
+                <Image
+                  src="/images/logo.webp"
+                  alt="logo"
+                  height={100}
+                  width={100}
+                />
+              </Link>
+            </div>
+            {/* Cart */}
+            <Cart />
+          </header>
         </MaxWidthWrapper>
       </div>
     </header>

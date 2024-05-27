@@ -21,12 +21,12 @@ export default function ProductsShowcase() {
     return <div>Unable to get products. {error.message}</div>;
   }
   return (
-    <section className="overflow-hidden flex items-center h-full my-5">
-      <div className="text-white lg:h-[780px]  w-full max-w-[350px]">
+    <section className="flex items-center my-5">
+      <div className="h-full text-white w-full max-w-[350px]">
         <Banner
           imgUrl="/images/banner-04.jpg"
           href="#"
-          className="border-[2px] rounded-l-lg border-r-0 h-full"
+          className="rounded-l-lg lg:h-[752px]"
         >
           <div className="p-7 space-y-5">
             <h5 className="text-7xl text-center">-35%</h5>

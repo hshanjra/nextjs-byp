@@ -9,7 +9,6 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import Link from "next/link";
 
 export default async function Home() {
   const qc = new QueryClient();
@@ -76,7 +75,7 @@ export default async function Home() {
         </section>
 
         {/* Discount Coupon */}
-        <section className="relative overflow-hidden flex items-center justify-between border border-dashed p-8 border-primary bg-primary/5 rounded-lg space-x-8 my-5">
+        <section className="relative overflow-hidden flex items-center justify-between border border-dashed p-8 border-primary bg-primary/5 rounded-lg space-x-8 my-10">
           <div className="flex items-center space-x-10">
             <h5 className="text-4xl text-primary font-bold">-49$</h5>
             <div>
