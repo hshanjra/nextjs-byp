@@ -30,7 +30,7 @@ export default function MobileNav() {
         {/* Search */}
         <div className="flex flex-col uppercase">
           <Dialog>
-            <DialogTrigger asChild>
+            <DialogTrigger>
               <div className="cursor-pointer">
                 <Search strokeWidth={2} size={20} className="mx-auto" />
                 <Label className="text-[.7rem] cursor-pointer">Search</Label>
@@ -62,7 +62,7 @@ export default function MobileNav() {
           </Link>
         </div>
         {/* Parts Finder */}
-        <div className="flex flex-col uppercase space-y-2">
+        <div className="flex flex-col uppercase space-y-1">
           <PartsFinder strokeWidth={2} size={20} className="mx-auto" />
           <Label className="text-[.7rem] cursor-pointer">Parts Finder</Label>
         </div>
