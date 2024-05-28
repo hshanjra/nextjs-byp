@@ -1,9 +1,9 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Separator } from "./ui/separator";
+import { Separator } from "../ui/separator";
 import Image from "next/image";
-import ReviewStar from "./ReviewStar";
-import { Progress } from "./ui/progress";
+import ReviewStar from "../ReviewStar";
+import { Progress } from "../ui/progress";
 
 export default function LatestDeals() {
   return (

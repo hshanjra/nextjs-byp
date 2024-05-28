@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import SearchInputBox from "../SearchInputBox";
 import { Label } from "../ui/label";
+import PartsFinder from "./PartsFinder";
 
 export default function MobileNav() {
   const pathname = usePathname();
@@ -60,12 +61,9 @@ export default function MobileNav() {
             <Label className="text-[.7rem] cursor-pointer">Account</Label>
           </Link>
         </div>
-        {/* Categories */}
+        {/* Parts Finder */}
         <div className="flex flex-col uppercase">
-          <Link href="/">
-            <List strokeWidth={2} size={20} className="mx-auto" />
-            <Label className="text-[.7rem] cursor-pointer">Categories</Label>
-          </Link>
+          <PartsFinder />
         </div>
       </div>
     </section>

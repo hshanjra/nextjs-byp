@@ -1,8 +1,9 @@
 import Banner from "@/components/Banner";
-import LatestDeals from "@/components/LatestDeals";
+import LatestDeals from "@/components/Products/LatestDeals";
 import MainSlider from "@/components/MainSlider";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import FeaturedProducts from "@/components/Products/FeaturedProducts";
+import LatestDealsSection from "@/components/Products/LatestDealsSection";
 import ProductsShowcase from "@/components/Products/ProductsShowcase";
 import {
   dehydrate,
@@ -141,6 +142,9 @@ export default async function Home() {
             <span className="text-sm">Shop Now &rarr;</span>
           </Banner>
         </section>
+
+        {/* Latest Deals */}
+        <LatestDealsSection />
       </MaxWidthWrapper>
     </HydrationBoundary>
   );
