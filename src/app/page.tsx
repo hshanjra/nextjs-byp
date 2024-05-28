@@ -33,7 +33,6 @@ export default async function Home() {
           <Banner
             imgUrl="/images/banner-01.jpg"
             className="h-56 w-auto rounded-lg cursor-pointer"
-            href="#"
           >
             <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary">
               On Sale This Week
@@ -46,7 +45,6 @@ export default async function Home() {
           <Banner
             imgUrl="/images/banner-02.jpg"
             className="h-56 w-auto rounded-lg cursor-pointer"
-            href="#"
           >
             <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary">
               On Sale This Week
@@ -59,7 +57,6 @@ export default async function Home() {
           <Banner
             imgUrl="/images/banner-03.jpg"
             className="h-56 w-auto rounded-lg cursor-pointer"
-            href="#"
           >
             <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary">
               On Sale This Week
@@ -108,7 +105,6 @@ export default async function Home() {
           <Banner
             imgUrl="/images/banner-05.jpg"
             className="h-72 p-7 w-full rounded-lg cursor-pointer"
-            href="#"
           >
             <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary">
               On Sale This Week
@@ -128,7 +124,6 @@ export default async function Home() {
           <Banner
             imgUrl="/images/banner-06.jpg"
             className="h-72 p-7 w-auto rounded-lg cursor-pointer"
-            href="#"
           >
             <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary">
               On Sale This Week
@@ -152,7 +147,6 @@ export default async function Home() {
           <Banner
             imgUrl="/images/banner-07.jpg"
             className="h-72 p-7 w-auto rounded-lg cursor-pointer"
-            href="#"
           >
             <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary">
               On Sale This Week
@@ -177,7 +171,6 @@ export default async function Home() {
           <Banner
             imgUrl="/images/banner-08.jpg"
             className="h-56 w-auto rounded-lg cursor-pointer bg-gradient-to-r from-transparent"
-            href="#"
           >
             <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary text-white">
               On Sale This Week
@@ -191,7 +184,6 @@ export default async function Home() {
           <Banner
             imgUrl="/images/banner-09.jpg"
             className="h-56 w-auto rounded-lg cursor-pointer bg-gradient-to-r from-transparent"
-            href="#"
           >
             <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary text-white">
               On Sale This Week
@@ -205,7 +197,6 @@ export default async function Home() {
           <Banner
             imgUrl="/images/banner-10.jpg"
             className="h-56 w-auto rounded-lg cursor-pointer bg-gradient-to-r from-transparent"
-            href="#"
           >
             <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary text-white">
               On Sale This Week
