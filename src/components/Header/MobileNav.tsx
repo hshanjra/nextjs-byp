@@ -28,12 +28,14 @@ export default function MobileNav() {
           </Link>
         </div>
         {/* Search */}
-        <div className="flex flex-col uppercase">
+        <div className="flex flex-col">
           <Dialog>
             <DialogTrigger>
               <div className="cursor-pointer">
                 <Search strokeWidth={2} size={20} className="mx-auto" />
-                <Label className="text-[.7rem] cursor-pointer">Search</Label>
+                <Label className="text-[.7rem] uppercase cursor-pointer">
+                  Search
+                </Label>
               </div>
             </DialogTrigger>
 

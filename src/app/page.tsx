@@ -10,6 +10,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+import TopCategories from "@/components/TopCategories";
 
 export default async function Home() {
   const qc = new QueryClient();
@@ -167,6 +168,10 @@ export default async function Home() {
             <span className="text-sm">Shop Now &rarr;</span>
           </Banner>
         </section>
+
+        {/* Top Categories */}
+
+        <TopCategories />
       </MaxWidthWrapper>
     </HydrationBoundary>
   );
