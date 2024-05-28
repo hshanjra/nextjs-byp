@@ -86,7 +86,7 @@ const Header = () => {
               <Logo />
             </div>
             {/* Parts Finder */}
-            <PartsFinder />
+            <PartsFinder strokeWidth={1} size={30} />
           </div>
 
           <div className="flex-1">

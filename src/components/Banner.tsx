@@ -26,7 +26,7 @@ export default function Banner({
           fill
           src={imgUrl}
           alt="Banner"
-          className="-z-10 h-full w-full object-cover object-center group-hover:scale-110 transition ease-in"
+          className="-z-10 h-full w-full object-cover object-center group-hover:scale-105 transition duration-300 ease-in"
         />
         {children}
       </div>

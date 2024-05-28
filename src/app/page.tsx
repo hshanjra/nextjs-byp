@@ -145,6 +145,28 @@ export default async function Home() {
 
         {/* Latest Deals */}
         <LatestDealsSection />
+
+        {/* Banner 07 */}
+        <section className="my-10 text-white">
+          <Banner
+            imgUrl="/images/banner-07.jpg"
+            className="h-72 p-7 w-auto rounded-lg cursor-pointer"
+            href="#"
+          >
+            <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary">
+              On Sale This Week
+            </span>
+            <h3 className="my-3 text-3xl font-bold max-w-xl leading-snug capitalize">
+              Get the right part at the right price for the comfort of your
+              vehicle
+            </h3>
+            <p className="text-xs text-white/85 font-thin mb-5">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Est,
+              itaque.
+            </p>
+            <span className="text-sm">Shop Now &rarr;</span>
+          </Banner>
+        </section>
       </MaxWidthWrapper>
     </HydrationBoundary>
   );

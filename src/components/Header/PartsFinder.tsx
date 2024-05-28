@@ -1,5 +1,4 @@
 import Image from "next/image";
-import GarageIcon from "../icons/Garage";
 import {
   Dialog,
   DialogContent,
@@ -12,29 +11,26 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Card, CardContent } from "../ui/card";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
+import { Warehouse } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-const PartsFinder = () => {
+const PartsFinder = ({
+  className,
+  strokeWidth,
+  size = 20,
+}: {
+  className?: string;
+  strokeWidth?: number;
+  size?: number;
+}) => {
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <div>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <GarageIcon />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Find parts faster that fits your vehicle.</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
+      <DialogTrigger className="lg:bg-gray-100 lg:hover:bg-gray-200 lg:rounded-lg lg:p-2">
+        <Warehouse
+          strokeWidth={strokeWidth}
+          className={cn("", className)}
+          size={size}
+        />
       </DialogTrigger>
       <DialogContent className="h-full max-w-3xl lg:h-auto flex flex-col justify-between">
         <DialogHeader>

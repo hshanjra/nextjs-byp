@@ -62,8 +62,9 @@ export default function MobileNav() {
           </Link>
         </div>
         {/* Parts Finder */}
-        <div className="flex flex-col uppercase">
-          <PartsFinder />
+        <div className="flex flex-col uppercase space-y-2">
+          <PartsFinder strokeWidth={2} size={20} className="mx-auto" />
+          <Label className="text-[.7rem] cursor-pointer">Parts Finder</Label>
         </div>
       </div>
     </section>

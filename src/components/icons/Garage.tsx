@@ -10,7 +10,7 @@ const GarageIcon = ({ className }: { className?: string }) => {
       viewBox="0 0 337.000000 310.000000"
       preserveAspectRatio="xMidYMid meet"
       className={cn(
-        "h-12 w-12 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 p-1",
+        "h-10 w-10 lg:h-12 lg:w-12 lg:bg-gray-100 rounded-lg cursor-pointer lg:hover:bg-gray-200 lg:p-1",
         className
       )}
     >
