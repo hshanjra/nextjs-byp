@@ -25,7 +25,6 @@ export default function ProductsShowcase() {
       <div className="h-full text-white w-full lg:max-w-[350px]">
         <Banner
           imgUrl="/images/banner-04.jpg"
-          href="#"
           className="rounded-lg lg:rounded-r-none lg:h-[752px]"
         >
           <div className="p-7 space-y-5">
