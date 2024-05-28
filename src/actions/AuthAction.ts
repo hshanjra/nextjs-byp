@@ -22,7 +22,7 @@ export const EmailSignInAction = ac(
         }
       );
 
-      // Set the cookie
+      // Set token in the cookie
       cookies().set("accessToken", res.data.accessToken, {
         httpOnly: true,
         secure: true,
@@ -35,6 +35,9 @@ export const EmailSignInAction = ac(
     } catch (error: any) {
       if (error.status === 404) {
         return { error: "Email does not exist. try registering instead!" };
+      }
+      if (error.status === 401) {
+        return { error: "Email or password is incorrect" };
       }
     }
   }

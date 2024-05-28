@@ -1,17 +1,14 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import Link from "next/link";
 import { ReactNode } from "react";
 
 export default function Banner({
   imgUrl,
   className,
-  href,
   children,
 }: {
   imgUrl: string;
   className?: string;
-  href: string;
   children: ReactNode;
 }) {
   return (
@@ -22,15 +19,13 @@ export default function Banner({
           className
         )}
       >
-        <Link href={href}>
-          <Image
-            fill
-            src={imgUrl}
-            alt="Banner"
-            className="-z-10 h-full w-full object-cover object-center group-hover:scale-105 transition duration-300 ease-in"
-          />
-          {children}
-        </Link>
+        <Image
+          fill
+          src={imgUrl}
+          alt="Banner"
+          className="-z-10 h-full w-full object-cover object-center group-hover:scale-105 transition duration-300 ease-in"
+        />
+        {children}
       </div>
     </>
   );
