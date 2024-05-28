@@ -31,6 +31,9 @@ const PartsFinder = ({
           className={cn("", className)}
           size={size}
         />
+        <Label className="lg:hidden uppercase text-[.7rem] cursor-pointer">
+          Parts Finder
+        </Label>
       </DialogTrigger>
       <DialogContent className="h-full max-w-3xl lg:h-auto flex flex-col justify-between">
         <DialogHeader>
