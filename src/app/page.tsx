@@ -170,8 +170,53 @@ export default async function Home() {
         </section>
 
         {/* Top Categories */}
-
         <TopCategories />
+
+        {/* Banners */}
+        <section className="grid lg:grid-cols-3 gap-x-5 gap-y-5 my-10">
+          <Banner
+            imgUrl="/images/banner-08.jpg"
+            className="h-56 w-auto rounded-lg cursor-pointer bg-gradient-to-r from-transparent"
+            href="#"
+          >
+            <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary text-white">
+              On Sale This Week
+            </span>
+            <h3 className="my-3 text-2xl font-bold max-w-60 capitalize">
+              Proud supplier of quality vehicles
+            </h3>
+            <p className="text-xs text-gray-500">Lorem ipsum dolor sit amet.</p>
+            <span className="text-sm font-semibold">Shop Now &rarr;</span>
+          </Banner>
+          <Banner
+            imgUrl="/images/banner-09.jpg"
+            className="h-56 w-auto rounded-lg cursor-pointer bg-gradient-to-r from-transparent"
+            href="#"
+          >
+            <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary text-white">
+              On Sale This Week
+            </span>
+            <h3 className="my-3 text-2xl font-bold max-w-60 capitalize">
+              Your trusted car parts store
+            </h3>
+            <p className="text-xs text-gray-500">Lorem ipsum dolor sit amet.</p>
+            <span className="text-sm font-semibold">Shop Now &rarr;</span>
+          </Banner>
+          <Banner
+            imgUrl="/images/banner-10.jpg"
+            className="h-56 w-auto rounded-lg cursor-pointer bg-gradient-to-r from-transparent"
+            href="#"
+          >
+            <span className="px-2 py-1 text-xs font-semibold rounded-xl bg-primary text-white">
+              On Sale This Week
+            </span>
+            <h3 className="my-3 text-2xl font-bold max-w-60 capitalize">
+              Different type of tires available
+            </h3>
+            <p className="text-xs text-gray-500">Lorem ipsum dolor sit amet.</p>
+            <span className="text-sm font-semibold">Shop Now &rarr;</span>
+          </Banner>
+        </section>
       </MaxWidthWrapper>
     </HydrationBoundary>
   );
