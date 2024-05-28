@@ -1,6 +1,10 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
+/* 
+This function will handle the layouts shifts of the images as well as the SEO of the image.
+*/
+
 export default function CustomImage({
   src,
   height,
