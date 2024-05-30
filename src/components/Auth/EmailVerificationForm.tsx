@@ -14,9 +14,9 @@ import { LoaderCircle } from "lucide-react";
 import { Card } from "../ui/card";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { Suspense } from "react";
 
-export default function EmailVerificationForm() {
-  const token = useSearchParams().get("token");
+function EmailVerificationFormContent({ token }: { token: string }) {
   const router = useRouter();
 
   const form = useForm({
@@ -44,13 +44,9 @@ export default function EmailVerificationForm() {
     },
   });
 
-  const onSubmit = (v: any) => {
-    execute(v);
+  const onSubmit = (values: any) => {
+    execute(values);
   };
-
-  if (!token) {
-    return null;
-  }
 
   return (
     <Card className="max-w-md lg:max-w-lg m-auto p-5">
@@ -95,5 +91,19 @@ export default function EmailVerificationForm() {
         .
       </p>
     </Card>
+  );
+}
+
+function EmailVerificationFormWrapper() {
+  const token = useSearchParams().get("token");
+  if (!token) return null;
+  return <EmailVerificationFormContent token={token} />;
+}
+
+export default function EmailVerificationForm() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EmailVerificationFormWrapper />
+    </Suspense>
   );
 }
