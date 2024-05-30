@@ -2,8 +2,11 @@
 
 import { extApi } from "@/lib/api";
 import ac from "@/lib/safe-action";
-import { LoginSchema } from "@/types/LoginSchema";
-import { RegisterSchema } from "@/types/RegisterSchema";
+import {
+  EmailVerificationSchema,
+  LoginSchema,
+  RegisterSchema,
+} from "@/types/AuthSchema";
 import { cookies } from "next/headers";
 
 export const EmailSignInAction = ac(
@@ -86,6 +89,19 @@ export const RegisterUserAction = ac(
         // Something happened in setting up the request that triggered an Error
         return { error: error.message || "An unknown error occurred." };
       }
+    }
+  }
+);
+
+export const EmailVerificationAction = ac(
+  EmailVerificationSchema,
+  async ({ token }) => {
+    try {
+      await extApi.post(`/auth/verify-email?token=${token}`);
+      return { success: "Email verified successfully." };
+    } catch (error: any) {
+      if (error.status === 400) return { error: error.message };
+      return { error: "Link is invalid or expired." };
     }
   }
 );

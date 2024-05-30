@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/Header/Header";
 import QueryProvider from "@/providers/QueryProvider";
 import { Footer } from "@/components/Footer/Footer";
+import { Toaster } from "@/components/ui/sonner";
 
 const krub = Krub({
   weight: ["200", "300", "500", "600", "700"],
@@ -37,6 +38,7 @@ export default function RootLayout({
             {/* Footer */}
             <Footer />
           </main>
+          <Toaster />
         </QueryProvider>
       </body>
     </html>

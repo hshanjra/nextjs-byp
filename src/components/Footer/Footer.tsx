@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import Image from "next/image";
@@ -11,6 +12,7 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import Logo from "../Logo";
+import { usePathname } from "next/navigation";
 
 const CUS_MENU = [
   {
@@ -63,6 +65,8 @@ const STORE_MENU = [
 ];
 
 export function Footer() {
+  const pathname = usePathname();
+  if (pathname.startsWith("/auth")) return;
   return (
     <footer>
       <MaxWidthWrapper className="lg:pb-auto py-10 lg:mt-10 my-25 lg:my-auto">

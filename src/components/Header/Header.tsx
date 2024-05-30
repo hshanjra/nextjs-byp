@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import {
@@ -20,8 +21,12 @@ import { Card, CardContent } from "../ui/card";
 import AuthSidebar from "./AuthSidebar";
 import MobileNav from "./MobileNav";
 import Logo from "../Logo";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
+  const pathname = usePathname();
+  if (pathname.startsWith("/auth")) return;
+
   return (
     <header className="relative">
       <div className="w-full bg-red-600 h-[7px]"></div>
