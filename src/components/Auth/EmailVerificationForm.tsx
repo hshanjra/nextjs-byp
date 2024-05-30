@@ -34,7 +34,7 @@ function EmailVerificationFormContent({ token }: { token: string }) {
         toast.success(data.success);
         setTimeout(() => {
           router.push("/account");
-        }, 2000);
+        }, 1000);
       }
     },
     onError(data) {
