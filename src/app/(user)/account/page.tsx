@@ -1,4 +1,3 @@
-import CustomImage from "@/components/CustomImage";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import {
   BookUser,
