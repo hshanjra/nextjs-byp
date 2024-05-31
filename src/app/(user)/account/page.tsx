@@ -1,6 +1,7 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import {
   BookUser,
+  CarFront,
   CreditCard,
   Headset,
   Package,
@@ -18,13 +19,13 @@ const ACCOUNT_LIST = [
   {
     icon: <BookUser size={50} strokeWidth={0.5} />,
     name: "Addresses",
-    href: "/account/orders",
+    href: "/account/addresses",
     desc: "Edit addresses for orders",
   },
   {
     icon: <UserRound size={50} strokeWidth={0.5} />,
     name: "Account Details",
-    href: "/account/orders",
+    href: "/account/profile",
     desc: "Edit name, password and more.",
   },
   {
@@ -32,6 +33,12 @@ const ACCOUNT_LIST = [
     name: "Payment Methods",
     href: "/account/payment-methods",
     desc: "Add/edit payment methods",
+  },
+  {
+    icon: <CarFront size={50} strokeWidth={0.5} />,
+    name: "Vehicles",
+    href: "/account/vehicles",
+    desc: "Manage your saved vehicles.",
   },
   {
     icon: <Headset size={50} strokeWidth={0.5} />,
@@ -62,12 +69,16 @@ export default function AccountPage() {
                   <h5 className="font-medium text-center lg:text-left">
                     {list.name}
                   </h5>
-                  <p className="text-sm text-gray-600">{list.desc}</p>
+                  <p className="text-sm text-gray-600 text-center lg:text-left">
+                    {list.desc}
+                  </p>
                 </div>
               </Link>
             </div>
           ))}
         </div>
+
+        {/* Browsing history */}
       </section>
     </MaxWidthWrapper>
   );
