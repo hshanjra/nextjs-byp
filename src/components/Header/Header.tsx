@@ -16,12 +16,10 @@ import { Input } from "../ui/input";
 import Cart from "./Cart";
 import HeartIcon from "../icons/Heart";
 import SearchIcon from "../icons/Search";
-import { ChevronDown } from "lucide-react";
-import { Card, CardContent } from "../ui/card";
-import AuthSidebar from "./AuthSidebar";
 import MobileNav from "./MobileNav";
 import Logo from "../Logo";
 import { usePathname } from "next/navigation";
+import ProfileDropdown from "./ProfileDropdown";
 
 const Header = () => {
   const pathname = usePathname();
@@ -107,26 +105,7 @@ const Header = () => {
 
           <div className="flex items-center space-x-5">
             {/* My Account */}
-            <div className="flex flex-col cursor-pointer group relative z-20">
-              <div className="flex justify-between items-center space-x-2">
-                <h6>My Account</h6>
-                <ChevronDown className="h-4 w-4" />
-              </div>
-              <span className="text-xs">Hello, Sign In</span>
-              <div className="absolute hidden top-10 right-0 group-hover:block">
-                <Card className="shadow-md w-[290px] bg-white">
-                  <CardContent className="py-2 space-y-3">
-                    <span className="text-sm text-center">
-                      Sign up now and enjoy discounted shopping!
-                    </span>
-
-                    {/* Sidebar Login/Register Form */}
-
-                    <AuthSidebar />
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
+            <ProfileDropdown />
             {/* Wishlist */}
             <div className="relative cursor-pointer">
               <span className="absolute -top-2 -right-2 bg-red-600 text-white px-[5px] py-[0.1px] rounded-full text-xs">
