@@ -1,3 +1,4 @@
+import AccountHeader from "@/components/AccountHeader";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import {
   BookUser,
@@ -52,7 +53,7 @@ export default function AccountPage() {
   return (
     <MaxWidthWrapper>
       <section className="my-5 lg:m-10">
-        <h3 className="text-xl font-semibold my-5">Your Account</h3>
+        <AccountHeader />
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
           {ACCOUNT_LIST.map((list) => (
             <div

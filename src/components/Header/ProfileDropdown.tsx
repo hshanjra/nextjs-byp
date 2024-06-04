@@ -19,11 +19,11 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
-import useGetUser from "@/hooks/useGetUser";
 import { logoutUserAction } from "@/actions/AuthAction";
+import useAuthUser from "@/hooks/useAuthUser";
 
 export default function ProfileDropdown() {
-  const { userData, error, isLoading } = useGetUser();
+  const { userData, error, isLoading } = useAuthUser();
 
   return userData ? (
     <DropdownMenu>

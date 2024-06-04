@@ -2,7 +2,7 @@ import { getUserAction } from "@/actions/AuthAction";
 import { GetUserSchema } from "@/types/AuthSchema";
 import { useEffect, useState } from "react";
 
-const useGetUser = () => {
+const useAuthUser = () => {
   const [userData, setUserData] = useState<GetUserSchema | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,4 +30,4 @@ const useGetUser = () => {
   return { userData, error, isLoading };
 };
 
-export default useGetUser;
+export default useAuthUser;
