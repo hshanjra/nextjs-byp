@@ -29,17 +29,17 @@ const Sidebar = () => {
                 MAIN MENU
               </h3>
               <nav className="flex flex-col font-semibold space-y-2">
-                <Link href="#">Home</Link>
+                <Link href="/">Home</Link>
                 <span className="border-b"> </span>
-                <Link href="#">Shop</Link>
+                <Link href="/products">Shop</Link>
                 <span className="border-b"> </span>
-                <Link href="#">Tires & Wheels</Link>
+                <Link href="/track-order">Order Tracking</Link>
                 <span className="border-b"> </span>
-                <Link href="#">Interior Accessories</Link>
+                <Link href="/account">My Account</Link>
                 <span className="border-b"> </span>
-                <Link href="#">Blog</Link>
+                <Link href="/blog">Blog</Link>
                 <span className="border-b"> </span>
-                <Link href="#">Contact</Link>
+                <Link href="/about">About Us</Link>
               </nav>
             </div>
             {/* Category Menu */}
