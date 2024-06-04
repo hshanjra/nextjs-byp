@@ -43,3 +43,17 @@ export const EmailVerificationSchema = z.object({
 });
 
 export type EmailVerificationToken = z.infer<typeof EmailVerificationSchema>;
+
+export const UserSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string(),
+  permissions: z.object({
+    emailVerified: z.boolean(),
+    accountStatus: z.string(),
+    registeredSeller: z.boolean(),
+    verifiedSeller: z.boolean(),
+  }),
+});
+
+export type GetUserSchema = z.infer<typeof UserSchema>;

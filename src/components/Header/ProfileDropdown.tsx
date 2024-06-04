@@ -19,11 +19,13 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
+import useGetUser from "@/hooks/useGetUser";
+import { logoutUserAction } from "@/actions/AuthAction";
 
 export default function ProfileDropdown() {
-  const user = true;
+  const { userData, error, isLoading } = useGetUser();
 
-  return user ? (
+  return userData ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="flex flex-col cursor-pointer group relative z-20">
@@ -31,7 +33,9 @@ export default function ProfileDropdown() {
             <h6>My Account</h6>
             <ChevronDown className="h-4 w-4" />
           </div>
-          <span className="text-xs capitalize">Hello, Alex</span>
+          <span className="text-xs capitalize">
+            Hello, {userData.firstName}
+          </span>
         </div>
       </DropdownMenuTrigger>
 
@@ -63,7 +67,12 @@ export default function ProfileDropdown() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={async () => {
+            await logoutUserAction();
+            window.location.reload();
+          }}
+        >
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>

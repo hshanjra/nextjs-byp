@@ -23,6 +23,7 @@ import { useState } from "react";
 import FormSuccess from "./FormSuccess";
 import FormError from "./FormError";
 import Logo from "../Logo";
+import { toast } from "sonner";
 
 export default function LoginForm() {
   const form = useForm({
@@ -39,7 +40,11 @@ export default function LoginForm() {
   const { execute, status } = useAction(EmailSignInAction, {
     onSuccess(data) {
       if (data?.error) setError(data.error);
-      if (data?.success) setSuccess(data.success);
+      if (data?.success) {
+        toast.success(data.success);
+        setSuccess(data.success);
+        window.location.reload();
+      }
     },
     onError(data) {
       if (data.serverError) setError(data.serverError);

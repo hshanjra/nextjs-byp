@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 import FormSuccess from "./FormSuccess";
 import FormError from "./FormError";
 import Logo from "../Logo";
+import { toast } from "sonner";
 
 export default function RegisterForm() {
   const form = useForm({
@@ -41,7 +42,13 @@ export default function RegisterForm() {
   const { execute, status } = useAction(RegisterUserAction, {
     onSuccess(data) {
       if (data?.error) setError(data.error);
-      if (data?.success) setSuccess(data.success);
+      if (data?.success) {
+        toast.success(data.success, {
+          description: "The link is valid only for 24hrs.",
+          duration: 4000,
+        });
+        setSuccess(data.success);
+      }
     },
     onError(data) {
       if (data.serverError) setError(data.serverError);
@@ -153,7 +160,7 @@ export default function RegisterForm() {
         </Link>
 
         {/* Success/Error message */}
-        <FormSuccess message={success} />
+        {/* <FormSuccess message={success} /> */}
         <FormError message={error} />
         <Button
           type="submit"

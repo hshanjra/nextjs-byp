@@ -4,10 +4,14 @@ import { extApi } from "@/lib/api";
 import ac from "@/lib/safe-action";
 import {
   EmailVerificationSchema,
+  GetUserSchema,
   LoginSchema,
   RegisterSchema,
+  UserSchema,
 } from "@/types/AuthSchema";
 import { cookies } from "next/headers";
+import { redirect, useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
 
 export const EmailSignInAction = ac(
   LoginSchema,
@@ -26,15 +30,27 @@ export const EmailSignInAction = ac(
       );
 
       // Set token in the cookie
-      cookies().set("accessToken", res.data.accessToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "strict",
-        path: "/",
-      });
-      return {
-        success: "Logged in successfully.",
-      };
+      const setCookieHdr = res?.headers["set-cookie"];
+
+      if (setCookieHdr) {
+        // Handle the case where setCookieHdr might be an array
+        const cookiesHdr = Array.isArray(setCookieHdr)
+          ? setCookieHdr
+          : [setCookieHdr];
+        const token = cookiesHdr[0].split(";")[0].split("=")[1];
+        cookies().set({
+          name: "accessToken",
+          value: token,
+          secure: true,
+          httpOnly: true,
+          expires: new Date(jwtDecode(token).exp! * 1000),
+        });
+        return {
+          success: "Logged in successfully.",
+        };
+      }
+
+      return redirect("/");
     } catch (error: any) {
       if (error.status === 404) {
         return { error: "Email does not exist. try registering instead!" };
@@ -63,16 +79,27 @@ export const RegisterUserAction = ac(
           withCredentials: true,
         }
       );
-      // Set the cookie
-      cookies().set("accessToken", res.data.accessToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "strict",
-        path: "/",
-      });
-      return {
-        success: `Verification code has been sent on ${email}`,
-      };
+      // Set token in the cookie
+      const setCookieHdr = res?.headers["set-cookie"];
+
+      if (setCookieHdr) {
+        // Handle the case where setCookieHdr might be an array
+        const cookiesHdr = Array.isArray(setCookieHdr)
+          ? setCookieHdr
+          : [setCookieHdr];
+        const token = cookiesHdr[0].split(";")[0].split("=")[1];
+        cookies().set({
+          name: "accessToken",
+          value: token,
+          secure: true,
+          httpOnly: true,
+          expires: new Date(jwtDecode(token).exp! * 1000),
+        });
+        return {
+          success: `Verification code has been sent on ${email}`,
+        };
+      }
+      return redirect("/account");
     } catch (error: any) {
       if (error.status === 409) {
         return { error: "Email already exists. Try login instead!" };
@@ -105,3 +132,32 @@ export const EmailVerificationAction = ac(
     }
   }
 );
+
+export const getUserAction = async () => {
+  try {
+    // check if token exists
+    const token = cookies().get("accessToken");
+    if (!token) return null;
+    const me = await extApi.get("/auth/me", {
+      headers: { Cookie: cookies().toString() },
+    });
+    return me.data;
+  } catch (error: any) {
+    return error.message;
+  }
+};
+
+export const logoutUserAction = async () => {
+  try {
+    // check if token exists
+    const token = cookies().get("accessToken");
+    if (!token) return null;
+    await extApi.get("/auth/logout", {
+      headers: { Cookie: cookies().toString() },
+    });
+    cookies().delete("accessToken");
+    return { success: "Logged out successfully." };
+  } catch (error: any) {
+    return error.message;
+  }
+};
