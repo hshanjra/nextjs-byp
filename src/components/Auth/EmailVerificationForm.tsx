@@ -14,7 +14,7 @@ import { Card } from "../ui/card";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Suspense } from "react";
-import { EmailVerificationSchema } from "../../types/authSchema";
+import { EmailVerificationSchema } from "@/types/authSchema";
 
 function EmailVerificationFormContent({ token }: { token: string }) {
   const router = useRouter();

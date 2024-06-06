@@ -23,7 +23,7 @@ import FormError from "./FormError";
 import Logo from "../Logo";
 import { toast } from "sonner";
 import { useStore } from "@/store/store";
-import { LoginForm as LoginFrm, LoginSchema } from "../../types/authSchema";
+import { LoginForm as LoginFrm, LoginSchema } from "@/types/authSchema";
 
 export default function LoginForm() {
   const { fetchAndSetUser } = useStore();
