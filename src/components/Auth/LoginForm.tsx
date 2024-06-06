@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type LoginForm, LoginSchema } from "@/types/authSchema";
 import {
   Form,
   FormControl,
@@ -24,6 +23,7 @@ import FormError from "./FormError";
 import Logo from "../Logo";
 import { toast } from "sonner";
 import { useStore } from "@/store/store";
+import { LoginForm as LoginFrm, LoginSchema } from "@/types/authSchema";
 
 export default function LoginForm() {
   const { fetchAndSetUser } = useStore();
@@ -53,7 +53,7 @@ export default function LoginForm() {
     },
   });
 
-  const onSubmit = (v: LoginForm) => {
+  const onSubmit = (v: LoginFrm) => {
     setError("");
     setSuccess("");
     execute(v);

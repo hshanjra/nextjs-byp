@@ -4,7 +4,6 @@ import { EmailVerificationAction } from "@/actions/AuthAction";
 import { useAction } from "next-safe-action/hooks";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { EmailVerificationSchema } from "@/types/authSchema";
 import { Button, buttonVariants } from "../ui/button";
 import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";
@@ -15,6 +14,7 @@ import { Card } from "../ui/card";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Suspense } from "react";
+import { EmailVerificationSchema } from "@/types/authSchema";
 
 function EmailVerificationFormContent({ token }: { token: string }) {
   const router = useRouter();

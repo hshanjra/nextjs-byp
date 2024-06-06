@@ -1,7 +1,6 @@
 "use client";
 
 import { RegisterUserAction } from "@/actions/AuthAction";
-import { type RegisterForm, RegisterSchema } from "@/types/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
@@ -17,13 +16,16 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { CircleFadingPlus, LoaderCircle, Phone } from "lucide-react";
+import { CircleFadingPlus, LoaderCircle } from "lucide-react";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
-import FormSuccess from "./FormSuccess";
 import FormError from "./FormError";
 import Logo from "../Logo";
 import { toast } from "sonner";
+import {
+  RegisterForm as registerFrm,
+  RegisterSchema,
+} from "@/types/authSchema";
 
 export default function RegisterForm() {
   const form = useForm({
@@ -55,7 +57,7 @@ export default function RegisterForm() {
     },
   });
 
-  const onSubmit = (v: RegisterForm) => {
+  const onSubmit = (v: registerFrm) => {
     setError("");
     setSuccess("");
     execute(v);
