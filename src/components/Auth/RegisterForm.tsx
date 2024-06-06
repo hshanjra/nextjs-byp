@@ -1,7 +1,7 @@
 "use client";
 
 import { RegisterUserAction } from "@/actions/AuthAction";
-import { type RegisterForm, RegisterSchema } from "@/types/AuthSchema";
+import { type RegisterForm, RegisterSchema } from "@/types/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";

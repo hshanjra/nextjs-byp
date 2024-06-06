@@ -4,7 +4,7 @@ import { EmailVerificationAction } from "@/actions/AuthAction";
 import { useAction } from "next-safe-action/hooks";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { EmailVerificationSchema } from "@/types/AuthSchema";
+import { EmailVerificationSchema } from "@/types/authSchema";
 import { Button, buttonVariants } from "../ui/button";
 import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";

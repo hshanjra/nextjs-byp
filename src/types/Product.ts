@@ -1,4 +1,4 @@
-export interface IProduct {
+export type Product = {
   _id: string;
   productId: string;
   productTitle: string;
@@ -46,4 +46,4 @@ export interface IProduct {
   };
   createdAt: Date;
   updatedAt: Date;
-}
+};

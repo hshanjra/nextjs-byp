@@ -20,12 +20,14 @@ import {
 } from "../ui/dropdown-menu";
 import Link from "next/link";
 import { logoutUserAction } from "@/actions/AuthAction";
-import useAuthUser from "@/hooks/useAuthUser";
+import { useStore } from "@/store/store";
 
-export default function ProfileDropdown() {
-  const { userData, error, isLoading } = useAuthUser();
+const ProfileDropDown = () => {
+  // const { userData, error } = useAuthUser();
+  const { firstName } = useStore();
+  const reset = useStore((state) => state.reset);
 
-  return userData ? (
+  return firstName.length ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="flex flex-col cursor-pointer group relative z-20">
@@ -33,9 +35,7 @@ export default function ProfileDropdown() {
             <h6>My Account</h6>
             <ChevronDown className="h-4 w-4" />
           </div>
-          <span className="text-xs capitalize">
-            Hello, {userData.firstName}
-          </span>
+          <span className="text-xs capitalize">Hello, {firstName}</span>
         </div>
       </DropdownMenuTrigger>
 
@@ -55,7 +55,7 @@ export default function ProfileDropdown() {
             <BookUser className="mr-2 h-4 w-4" />
             <span>Addresses</span>
           </DropdownMenuItem>
-          <Link href="/wishlist" className="cursor-pointer">
+          <Link href="/account/wishlist" className="cursor-pointer">
             <DropdownMenuItem>
               <Heart className="mr-2 h-4 w-4" />
               <span>Wishlist</span>
@@ -70,6 +70,7 @@ export default function ProfileDropdown() {
         <DropdownMenuItem
           onClick={async () => {
             await logoutUserAction();
+            reset();
             window.location.reload();
           }}
         >
@@ -99,4 +100,6 @@ export default function ProfileDropdown() {
       </div>
     </div>
   );
-}
+};
+
+export default ProfileDropDown;

@@ -8,7 +8,7 @@ import {
   LoginSchema,
   RegisterSchema,
   UserSchema,
-} from "@/types/AuthSchema";
+} from "@/types/authSchema";
 import { cookies } from "next/headers";
 import { redirect, useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
@@ -49,7 +49,6 @@ export const EmailSignInAction = ac(
           success: "Logged in successfully.",
         };
       }
-
       return redirect("/");
     } catch (error: any) {
       if (error.status === 404) {
@@ -133,11 +132,11 @@ export const EmailVerificationAction = ac(
   }
 );
 
-export const getUserAction = async () => {
+export const getUserAction = async (): Promise<GetUserSchema | undefined> => {
   try {
     // check if token exists
     const token = cookies().get("accessToken");
-    if (!token) return null;
+    if (!token) return;
     const me = await extApi.get("/auth/me", {
       headers: { Cookie: cookies().toString() },
     });

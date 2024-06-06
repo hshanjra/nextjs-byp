@@ -1,15 +1,17 @@
-import { IProduct } from "@/types/Product";
+import { Product } from "@/types/product";
 import Link from "next/link";
 import ProductSlider from "./ProductSlider";
 import { formatPrice, trimString } from "@/lib/utils";
 import ReviewStar from "../ReviewStar";
 import { Package } from "lucide-react";
-import { Button } from "../ui/button";
+import AddToCartButton from "../Cart/AddToCartButton";
+import { useStore } from "@/store/store";
+import QtyButtons from "../Cart/QtyButtons";
 
 export default function ProductHoverInfoCard({
   product: p,
 }: {
-  product: IProduct;
+  product: Product;
 }) {
   return (
     <div className="relative group max-w-[400px] md:max-w-[170px] lg:max-w-[230px]">
@@ -47,7 +49,12 @@ export default function ProductHoverInfoCard({
 
         {/* Add to cart button for mobile */}
 
-        <Button className="w-full lg:hidden">Add to cart</Button>
+        <AddToCartButton
+          className="bg-primary !w-full lg:hidden p-2"
+          size={25}
+          strokeWidth={1.5}
+          product={p}
+        />
 
         {/* Hover Area */}
         <div className="absolute bg-white z-50 hidden lg:group-hover:block rounded-b-lg shadow-2xl border left-0 p-2 w-full">
@@ -64,7 +71,8 @@ export default function ProductHoverInfoCard({
               <li className="list-disc">Visual Alignment Indicators</li>
             </ul>
           </div>
-          <Button className="w-full">Add to cart</Button>
+
+          <AddToCartButton className="bg-primary !w-full" product={p} />
         </div>
       </div>
     </div>

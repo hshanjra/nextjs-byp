@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import Banner from "../Banner";
 import { intApi } from "@/lib/api";
 import ProductHoverInfoCard from "./ProductHoverInfoCard";
-import { IProduct } from "@/types/Product";
+import { IProduct } from "@/types/product";
 import Link from "next/link";
 
 export default function ProductsShowcase() {

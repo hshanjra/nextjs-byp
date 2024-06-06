@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { intApi } from "@/lib/api";
 import ProductHoverInfoCard from "./ProductHoverInfoCard";
-import { IProduct } from "@/types/Product";
+import { Product } from "@/types/product";
 
 export default function LatestDealsSection() {
   const {
@@ -44,7 +44,7 @@ export default function LatestDealsSection() {
         {products &&
           products
             .slice(0, 5)
-            .map((product: IProduct) => (
+            .map((product: Product) => (
               <ProductHoverInfoCard product={product} key={product.productId} />
             ))}
       </div>

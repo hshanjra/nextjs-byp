@@ -13,7 +13,7 @@ import MainNav from "./MainNav";
 import Sidebar from "./Sidebar";
 import PartsFinder from "./PartsFinder";
 import { Input } from "../ui/input";
-import Cart from "./Cart";
+import Cart from "./CartSidebar";
 import HeartIcon from "../icons/Heart";
 import SearchIcon from "../icons/Search";
 import MobileNav from "./MobileNav";
@@ -143,5 +143,4 @@ const Header = () => {
     </header>
   );
 };
-
 export default Header;

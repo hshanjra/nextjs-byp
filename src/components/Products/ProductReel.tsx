@@ -1,4 +1,4 @@
-import { IProduct } from "@/types/Product";
+import { Product } from "@/types/product";
 import ProductCard from "./ProductCard";
 import { Separator } from "../ui/separator";
 import {
@@ -9,7 +9,7 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 
-export default function ProductReel({ products }: { products: IProduct[] }) {
+export default function ProductReel({ products }: { products: Product[] }) {
   return (
     <section className="py-2">
       <Carousel

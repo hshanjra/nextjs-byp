@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type LoginForm, LoginSchema } from "@/types/AuthSchema";
+import { type LoginForm, LoginSchema } from "@/types/authSchema";
 import {
   Form,
   FormControl,
@@ -13,7 +13,6 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button, buttonVariants } from "../ui/button";
-import Image from "next/image";
 import Link from "next/link";
 import { useAction } from "next-safe-action/hooks";
 import { EmailSignInAction } from "@/actions/AuthAction";
@@ -24,8 +23,10 @@ import FormSuccess from "./FormSuccess";
 import FormError from "./FormError";
 import Logo from "../Logo";
 import { toast } from "sonner";
+import { useStore } from "@/store/store";
 
 export default function LoginForm() {
+  const { fetchAndSetUser } = useStore();
   const form = useForm({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -38,10 +39,11 @@ export default function LoginForm() {
   const [success, setSuccess] = useState<string>("");
 
   const { execute, status } = useAction(EmailSignInAction, {
-    onSuccess(data) {
+    async onSuccess(data) {
       if (data?.error) setError(data.error);
       if (data?.success) {
         toast.success(data.success);
+        await fetchAndSetUser();
         setSuccess(data.success);
         window.location.reload();
       }

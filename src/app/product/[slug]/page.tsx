@@ -1,11 +1,11 @@
 "use client";
-import AddToCartButton from "@/components/AddToCartButton";
+import AddToCartButton from "@/components/Cart/AddToCartButton";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import ReviewStar from "@/components/ReviewStar";
 import { Separator } from "@/components/ui/separator";
 import { intApi } from "@/lib/api";
 import { formatPrice } from "@/lib/utils";
-import { IProduct } from "@/types/Product";
+import { Product } from "@/types/product";
 import { useQuery } from "@tanstack/react-query";
 import { Package } from "lucide-react";
 import Image from "next/image";
@@ -46,7 +46,7 @@ const ProductDetailPage = ({ params }: ProductPageProps) => {
 
   if (error) return <div>Error: {error.message}</div>;
 
-  const product = data as IProduct;
+  const product = data as Product;
 
   return (
     <>
