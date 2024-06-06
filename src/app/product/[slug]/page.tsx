@@ -149,7 +149,7 @@ const ProductDetailPage = ({ params }: ProductPageProps) => {
             {/* Qty / Add to cart */}
             <div className="hidden my-3 lg:block">
               {/* Counter */}
-              <AddToCartButton strokeWidth={2} />
+              <AddToCartButton strokeWidth={2} product={product} />
             </div>
           </div>
         </div>
@@ -157,7 +157,7 @@ const ProductDetailPage = ({ params }: ProductPageProps) => {
       {/* Qty/Cart - Mobile */}
       <div className="lg:hidden p-4 fixed bottom-0 bg-white w-full z-30">
         {/* Counter */}
-        <AddToCartButton strokeWidth={2} />
+        <AddToCartButton strokeWidth={2} product={product} />
       </div>
     </>
   );

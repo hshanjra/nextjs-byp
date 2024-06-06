@@ -1,2 +1,2 @@
 "use server";
-import { IProduct } from "@/types/product";
+import { Product } from "@/types/product";

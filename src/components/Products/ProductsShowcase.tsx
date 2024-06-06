@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import Banner from "../Banner";
 import { intApi } from "@/lib/api";
 import ProductHoverInfoCard from "./ProductHoverInfoCard";
-import { IProduct } from "@/types/product";
+import { Product } from "@/types/product";
 import Link from "next/link";
 
 export default function ProductsShowcase() {
@@ -47,7 +47,7 @@ export default function ProductsShowcase() {
         {isPending && <div>Loading...</div>}
 
         {products &&
-          products.map((product: IProduct) => (
+          products.map((product: Product) => (
             <ProductHoverInfoCard product={product} key={product.productId} />
           ))}
       </div>
