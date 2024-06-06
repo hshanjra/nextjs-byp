@@ -25,7 +25,7 @@ import { toast } from "sonner";
 import {
   RegisterForm as registerFrm,
   RegisterSchema,
-} from "@/types/authSchema";
+} from "../../types/authSchema";
 
 export default function RegisterForm() {
   const form = useForm({
