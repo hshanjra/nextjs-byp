@@ -4,19 +4,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ProductReel from "./ProductReel";
-import { useQuery } from "@tanstack/react-query";
-import { intApi } from "@/lib/api";
+import { useGetAllProducts } from "@/hooks/useProducts";
 
 export default function FeaturedProducts() {
   const {
     data: products,
     error,
     isPending,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: async () => (await intApi.get(`/products?filter=featured`)).data,
-    staleTime: 5 * 60 * 10,
-  });
+  } = useGetAllProducts({ limit: 10, filter: "featured" });
 
   if (error) {
     return <div>Unable to get products. {error.message}</div>;
