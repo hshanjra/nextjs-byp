@@ -1,16 +1,14 @@
 "use client";
-import { Ellipsis, Plus, ShoppingCart } from "lucide-react";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
-import { Product } from "@/types/product";
-import QtyButtons from "./QtyButtons";
-import { addOrUpdateItem, getCart } from "@/actions/CartAction";
-import { useQuery } from "@tanstack/react-query";
+import { LoaderCircle, ShoppingCart } from "lucide-react";
 import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
+import { addOrUpdateItem, getCart } from "@/actions/CartAction";
+import { Product } from "@/types/product";
 import { toast } from "sonner";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { cn } from "@/lib/utils";
 
-export default function AddToCartButton({
+export default function AddToCartSmall({
   className,
   size = 23,
   strokeWidth = 1,
@@ -56,26 +54,26 @@ export default function AddToCartButton({
   };
 
   return (
-    <Button
-      className={cn(
-        "flex px-4 py-3 items-center bg-success hover:bg-successDark cursor-pointer lg:w-[150px] rounded-xl space-x-2",
-        className,
-        isLoading && "cursor-not-allowed disabled:opacity-60 hover:opacity-60"
-      )}
-      disabled={isLoading}
-      onClick={handleAddToCart}
-    >
-      {isLoading ? (
-        <Ellipsis className="animate-pulse" />
-      ) : (
-        <Plus
-          size={size}
-          strokeWidth={strokeWidth}
-          className="text-white cursor-pointer"
-        />
-      )}
-
-      <Label className="text-white cursor-pointer font-bold">Add to cart</Label>
-    </Button>
+    <>
+      <Button
+        className={cn("px-2 cursor-pointer rounded-lg", className)}
+        disabled={isLoading}
+        onClick={handleAddToCart}
+      >
+        {isLoading ? (
+          <LoaderCircle
+            className="animate-spin text-white"
+            size={size}
+            strokeWidth={strokeWidth}
+          />
+        ) : (
+          <ShoppingCart
+            size={size}
+            strokeWidth={strokeWidth}
+            className="text-white"
+          />
+        )}
+      </Button>
+    </>
   );
 }

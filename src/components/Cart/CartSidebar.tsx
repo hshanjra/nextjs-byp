@@ -14,16 +14,17 @@ import {
 import { formatPrice, trimString } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
 import { ShoppingCart } from "lucide-react";
-import { useStore } from "@/store/store";
 import Image from "next/image";
-import QtyButtons from "../Cart/QtyButtons";
-import { Product } from "@/types/product";
+import QtyButtons from "./QtyButtons";
+import { getCart } from "@/actions/CartAction";
 
-const Cart = () => {
-  const cartProducts = useStore((state) => state.products);
+export default async function CartSidebar() {
+  // const cartProducts = useStore((state) => state.products);
 
-  const itemsCount = cartProducts.length;
-  const total = useStore((state) => state.totalAmt);
+  const cart = await getCart();
+
+  const itemsCount = cart?.totalQty ? cart.totalQty : 0;
+  // const total = useStore((state) => state.totalAmt);
 
   return (
     <Sheet>
@@ -37,7 +38,7 @@ const Cart = () => {
           </div>
           <div className="hidden lg:flex flex-col">
             <span className="text-xs">{itemsCount} item(s)</span>
-            <span>$0.00</span>
+            <span>{cart ? formatPrice(cart.totalAmount) : formatPrice(0)}</span>
           </div>
         </div>
       </SheetTrigger>
@@ -46,17 +47,17 @@ const Cart = () => {
           <SheetTitle>Cart ({itemsCount})</SheetTitle>
         </SheetHeader>
         <ScrollArea className="h-full p-0 m-0">
-          {itemsCount > 0 ? (
+          {cart ? (
             <>
               {/* FIXME: align gap between items */}
               <div className="flex flex-col pr-6 mt-5">
-                {cartProducts.map((product: Product) => (
-                  <div key={product.productId}>
+                {Object.entries(cart.items).map(([key, item]) => (
+                  <div key={key}>
                     <div className="flex items-center space-x-2">
                       {/* Image */}
                       <Image
-                        src={product.productImages[0].url}
-                        alt={product.productTitle}
+                        src={item.product.productImages[0].url}
+                        alt={item.product.productTitle}
                         height={100}
                         width={100}
                         className="border border-gray-400 rounded-lg overflow-hidden"
@@ -64,41 +65,48 @@ const Cart = () => {
                       <div className="flex flex-col">
                         {/* title */}
                         <h3 className="text-sm font-semibold leading-tight">
-                          {trimString(product.productTitle, 40)}
+                          {trimString(item.product.productTitle, 40)}
                         </h3>
-                        <p className="text-xs">{product.productBrand}</p>
+                        <p className="text-xs">{item.product.productBrand}</p>
                       </div>
                       <div className="flex flex-col items-center text-center">
                         {/* price */}
                         <h3 className="font-semibold">
-                          {formatPrice(product.salePrice)}
+                          {formatPrice(item.product.salePrice * item.qty)}
                         </h3>
                         {/* Qty Buttons */}
-                        <QtyButtons productId={product.productId} />
+                        <QtyButtons
+                          productId={item.product.productId}
+                          qty={10}
+                        />
                       </div>
                     </div>
-                    <Separator className="my-1 lg:my-2" />
+                    <Separator className="my-1 lg:my-2 " />
                   </div>
                 ))}
 
-                <Separator />
+                {/* <Separator /> */}
               </div>
 
               <div className="space-y-4 pr-6">
                 <div className="space-y-1.5 text-sm">
                   <div className="flex">
                     <span className="flex-1">Taxes</span>
-                    <span>$0.00 USD</span>
+                    <span>{formatPrice(cart?.tax)}</span>
                   </div>
                   <Separator />
                   <div className="flex">
                     <span className="flex-1">Shipping</span>
-                    <span>Calculated at checkout</span>
+                    <span>
+                      {cart.totalShippingPrice
+                        ? formatPrice(cart.totalShippingPrice)
+                        : "Calculated at checkout"}
+                    </span>
                   </div>
 
                   <div className="flex">
                     <span className="flex-1">Total</span>
-                    <span>{formatPrice(total)}</span>
+                    <span>{formatPrice(cart.totalAmount)} USD</span>
                   </div>
                 </div>
 
@@ -156,6 +164,4 @@ const Cart = () => {
       </SheetContent>
     </Sheet>
   );
-};
-
-export default Cart;
+}

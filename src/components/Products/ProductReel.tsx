@@ -10,6 +10,8 @@ import {
 } from "../ui/carousel";
 
 export default function ProductReel({ products }: { products: Product[] }) {
+  if (!products.length) return;
+
   return (
     <section className="py-2">
       <Carousel

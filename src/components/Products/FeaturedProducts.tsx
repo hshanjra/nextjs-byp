@@ -1,22 +1,23 @@
-"use client";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ProductReel from "./ProductReel";
 import { useGetAllProducts } from "@/hooks/useProducts";
+import { getAllProducts } from "@/actions/ProductsAction";
 
-export default function FeaturedProducts() {
-  const {
-    data: products,
-    error,
-    isPending,
-  } = useGetAllProducts({ limit: 10, filter: "featured" });
+export default async function FeaturedProducts() {
+  // const {
+  //   data: products,
+  //   error,
+  //   isPending,
+  // } = useGetAllProducts({ limit: 10, filter: "featured" });
 
-  if (error) {
-    return <div>Unable to get products. {error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>Unable to get products. {error.message}</div>;
+  // }
 
+  const products = await getAllProducts({ limit: 10, filter: "featured" });
   return (
     <section className="mt-10">
       {/* For Lg Screens */}
@@ -62,7 +63,7 @@ export default function FeaturedProducts() {
           </Link>
         </div>
         <Separator />
-        {isPending && <div>Loading...</div>}
+        {/* {isPending && <div>Loading...</div>} */}
         <TabsContent value="safety">
           {/* Product Reel */}
           <ProductReel products={products} />

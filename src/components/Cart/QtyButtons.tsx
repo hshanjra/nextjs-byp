@@ -7,9 +7,10 @@ import { Minus, Plus } from "lucide-react";
 
 type props = {
   productId: string;
+  qty: number;
 };
 
-export default function QtyButtons({ productId }: props) {
+export default function QtyButtons({ productId, qty }: props) {
   const { getProductById, decQty, incQty } = useStore(
     useShallow((state) => ({
       getProductById: state.getProdductById,

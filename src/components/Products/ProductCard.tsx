@@ -1,12 +1,10 @@
 import { Product } from "@/types/product";
-import Image from "next/image";
-import { Card, CardContent } from "../ui/card";
 import Link from "next/link";
 import { formatPrice, trimString } from "@/lib/utils";
 import ReviewStar from "../ReviewStar";
-import AddToCartButton from "@/components/Cart/AddToCartButton";
 import { Package } from "lucide-react";
 import ProductSlider from "./ProductSlider";
+import AddToCartSmall from "../Cart/AddToCartSmall";
 
 export default function ProductCard({ product: p }: { product: Product }) {
   if (p) {
@@ -36,11 +34,10 @@ export default function ProductCard({ product: p }: { product: Product }) {
               </span>
             </div>
             {/* Cart Icon Button */}
-            <AddToCartButton
+            <AddToCartSmall
               className="ml-auto"
               strokeWidth={2}
-              size={40}
-              variant="mini"
+              size={30}
               product={p}
             />
           </div>

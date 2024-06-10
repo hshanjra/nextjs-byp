@@ -1,9 +1,9 @@
 "use server";
 import { extApi } from "@/lib/api";
-import { Product } from "@/types/product";
 
 type params = {
   limit?: number;
+  filter?: string;
 };
 
 export const getAllProducts = async ({ limit }: params) => {

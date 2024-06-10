@@ -10,7 +10,7 @@ import {
   UserSchema,
 } from "@/types/authSchema";
 import { cookies } from "next/headers";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 
 export const EmailSignInAction = ac(
