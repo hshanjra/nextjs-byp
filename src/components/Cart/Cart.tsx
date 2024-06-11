@@ -68,41 +68,42 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {Object.entries(cart.items).map(([key, item]) => (
-              <TableRow key={key}>
-                <TableCell>
-                  <Image
-                    src={item.product.productImages[0].url}
-                    alt={item.product.productTitle}
-                    height={70}
-                    width={70}
-                    className="rounded-lg overflow-hidden"
-                  />
-                </TableCell>
-                <TableCell>
-                  <h3 className="text-sm leading-tight">
-                    {item.product.productTitle}
-                  </h3>
-                </TableCell>
-                <TableCell>
-                  <h3 className="font-semibold">
-                    {formatPrice(item.product.salePrice)}
-                  </h3>
-                </TableCell>
-                <TableCell>
-                  <QtyButtons
-                    productId={item.product.productId}
-                    maxQty={item.product.productStock}
-                    cart={cart}
-                  />
-                </TableCell>
-                <TableCell>
-                  <h3 className="font-semibold">
-                    {formatPrice(item.product.salePrice * item.qty)}
-                  </h3>
-                </TableCell>
-              </TableRow>
-            ))}
+            {cart &&
+              Object.entries(cart.items).map(([key, item]) => (
+                <TableRow key={key}>
+                  <TableCell>
+                    <Image
+                      src={item.product.productImages[0].url}
+                      alt={item.product.productTitle}
+                      height={70}
+                      width={70}
+                      className="rounded-lg overflow-hidden"
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <h3 className="text-sm leading-tight">
+                      {item.product.productTitle}
+                    </h3>
+                  </TableCell>
+                  <TableCell>
+                    <h3 className="font-semibold">
+                      {formatPrice(item.product.salePrice)}
+                    </h3>
+                  </TableCell>
+                  <TableCell>
+                    <QtyButtons
+                      productId={item.product.productId}
+                      maxQty={item.product.productStock}
+                      cart={cart}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <h3 className="font-semibold">
+                      {formatPrice(item.product.salePrice * item.qty)}
+                    </h3>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
           <TableFooter>
             <TableRow>
@@ -126,7 +127,7 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
           <CardContent className="flex justify-between items-center text-sm space-y-1.5">
             {/* Add Subtotal and other calculations here */}
             <h3>Subtotal</h3>
-            <h3>{formatPrice(cart?.subTotal)}</h3>
+            <h3>{cart && formatPrice(cart?.subTotal)}</h3>
           </CardContent>
           <Separator />
           <CardContent>
@@ -138,7 +139,9 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
           <Separator />
           <CardContent className="flex justify-between">
             <h3>Total</h3>
-            <h3 className="font-bold">{formatPrice(cart?.totalAmount)}</h3>
+            <h3 className="font-bold">
+              {cart && formatPrice(cart?.totalAmount)}
+            </h3>
           </CardContent>
           <Separator />
           <CardContent>
