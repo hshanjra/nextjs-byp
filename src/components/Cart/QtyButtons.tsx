@@ -3,63 +3,57 @@ import { Ellipsis, Minus, Plus } from "lucide-react";
 import { useGetCart } from "@/hooks/useCartSession";
 import { useEffect, useState } from "react";
 import { addOrUpdateItem, removeItem } from "@/actions/CartAction";
+import { Cart } from "@/types/cartProduct";
 
 type props = {
   productId: string;
   maxQty: number;
+  cart: Cart;
 };
 
-export default function QtyButtons({ productId, maxQty }: props) {
-  const { data: cart, error } = useGetCart();
-  const [quantity, setQuantity] = useState(0);
+export default function QtyButtons({ productId, maxQty, cart }: props) {
+  const [quantity, setQuantity] = useState(cart?.items[productId].qty);
   const [isDecLoading, setDecIsLoading] = useState(false);
   const [isIncLoading, setIncIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (cart?.items) {
-      const cartItem = cart.items[productId];
-      if (cartItem) {
-        setQuantity(cartItem.qty);
-      } else {
-        setQuantity(0);
-      }
-    }
-  }, [cart, productId]);
 
   const handleIncQty = async () => {
     setIncIsLoading(true);
     const newQuantity = quantity + 1;
-    await addOrUpdateItem(productId, newQuantity);
     setQuantity(newQuantity);
+    await addOrUpdateItem(productId, newQuantity);
     setIncIsLoading(false);
   };
   const handleDecQty = async () => {
     setDecIsLoading(true);
     if (quantity === 1) {
-      removeItem(productId);
+      await removeItem(productId);
     } else {
       const newQuantity = quantity - 1;
-      await addOrUpdateItem(productId, newQuantity);
       setQuantity(newQuantity);
+      await addOrUpdateItem(productId, newQuantity);
     }
     setDecIsLoading(false);
   };
 
   return (
     <>
-      <div className="flex gap-2 items-center border rounded-xl justify-between max-w-24">
-        <button onClick={handleDecQty} className="p-1">
+      <div className="flex gap-2 items-center border border-zinc-400 rounded-xl justify-between max-w-24">
+        <button onClick={handleDecQty} className="p-1 h-8 w-full">
           {isDecLoading ? (
-            <Ellipsis className="animate-pulse" />
+            <Ellipsis className="animate-pulse" size={20} strokeWidth={1} />
           ) : (
             <Minus size={20} strokeWidth={1} />
           )}
         </button>
         <p className="text-sm font-semibold">{quantity}</p>
 
-        <button onClick={handleIncQty} disabled={quantity === maxQty}>
+        <button
+          onClick={handleIncQty}
+          disabled={quantity === maxQty}
+          className="p-1 h-8 w-full"
+        >
           {isIncLoading ? (
-            <Ellipsis className="animate-pulse" />
+            <Ellipsis className="animate-pulse" size={20} strokeWidth={1} />
           ) : (
             <Plus size={20} strokeWidth={1} />
           )}
