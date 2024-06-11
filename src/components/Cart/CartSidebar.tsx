@@ -48,53 +48,54 @@ export default async function CartSidebar() {
             <>
               {/* FIXME: align gap between items */}
               <div className="flex flex-col pr-6 mt-5">
-                {Object.entries(cart.items).map(([key, item]) => (
-                  <div key={key}>
-                    <div className="flex items-center space-x-2">
-                      {/* Image */}
-                      <Image
-                        src={item.product.productImages[0].url}
-                        alt={item.product.productTitle}
-                        height={100}
-                        width={100}
-                        className="border border-gray-400 rounded-lg overflow-hidden"
-                      />
-                      <div className="flex flex-col">
-                        {/* title */}
-                        <h3 className="text-sm font-semibold leading-tight">
-                          {trimString(item.product.productTitle, 40)}
-                        </h3>
-                        <p className="text-xs">{item.product.productBrand}</p>
-                      </div>
-                      <div className="flex flex-col items-center text-center">
-                        {/* price */}
-                        <h3 className="font-semibold">
-                          {formatPrice(item.product.salePrice * item.qty)}
-                        </h3>
-                        {/* Qty Buttons */}
-                        <QtyButtons
-                          productId={item.product.productId}
-                          maxQty={item.product.productStock}
-                          cart={cart}
+                {cart &&
+                  Object.entries(cart.items).map(([key, item]) => (
+                    <div key={key}>
+                      <div className="flex items-center space-x-2">
+                        {/* Image */}
+                        <Image
+                          src={item.product.productImages[0].url}
+                          alt={item.product.productTitle}
+                          height={100}
+                          width={100}
+                          className="border border-gray-400 rounded-lg overflow-hidden"
                         />
+                        <div className="flex flex-col">
+                          {/* title */}
+                          <h3 className="text-sm font-semibold leading-tight">
+                            {trimString(item.product.productTitle, 40)}
+                          </h3>
+                          <p className="text-xs">{item.product.productBrand}</p>
+                        </div>
+                        <div className="flex flex-col items-center text-center">
+                          {/* price */}
+                          <h3 className="font-semibold">
+                            {formatPrice(item.product.salePrice * item.qty)}
+                          </h3>
+                          {/* Qty Buttons */}
+                          <QtyButtons
+                            productId={item.product.productId}
+                            maxQty={item.product.productStock}
+                            cart={cart}
+                          />
+                        </div>
                       </div>
+                      <Separator className="my-1 lg:my-2 " />
                     </div>
-                    <Separator className="my-1 lg:my-2 " />
-                  </div>
-                ))}
+                  ))}
               </div>
 
               <div className="space-y-4 pr-6">
                 <div className="space-y-1.5 text-sm">
                   <div className="flex">
                     <span className="flex-1">Taxes</span>
-                    <span>{formatPrice(cart?.tax)}</span>
+                    <span>{cart && formatPrice(cart?.tax)}</span>
                   </div>
                   <Separator />
                   <div className="flex">
                     <span className="flex-1">Shipping</span>
                     <span>
-                      {cart.totalShippingPrice
+                      {cart && cart.totalShippingPrice
                         ? formatPrice(cart.totalShippingPrice)
                         : "Calculated at checkout"}
                     </span>
@@ -102,7 +103,7 @@ export default async function CartSidebar() {
 
                   <div className="flex">
                     <span className="flex-1">Total</span>
-                    <span>{formatPrice(cart.totalAmount)} USD</span>
+                    <span>{cart && formatPrice(cart.totalAmount)} USD</span>
                   </div>
                 </div>
 
