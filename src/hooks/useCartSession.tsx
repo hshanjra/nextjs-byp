@@ -10,8 +10,9 @@ export const useUpdateCartItem = (id: string, qty: number) => {
 
 export const useGetCart = () => {
   return useQuery({
-    queryKey: ["get-cart"],
+    queryKey: ["cart"],
     queryFn: () => getCart(),
+    staleTime: 100,
   });
 };
 

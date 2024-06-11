@@ -1,11 +1,11 @@
 "use client";
-import { Ellipsis, Plus, ShoppingCart } from "lucide-react";
+import { Ellipsis, Plus } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Product } from "@/types/product";
-import { addOrUpdateItem, getCart } from "@/actions/CartAction";
+import { addOrUpdateItem } from "@/actions/CartAction";
 import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useGetCart } from "@/hooks/useCartSession";
 
@@ -18,31 +18,16 @@ export default function AddToCartButton({
   className?: string;
   size?: number;
   strokeWidth?: number;
-  variant?: "standard" | "mini";
   product: Product;
 }) {
   const { data: cart, error } = useGetCart();
 
-  const [quantity, setQuantity] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (cart?.items) {
-      const cartItem = cart.items[product.productId];
-      if (cartItem) {
-        setQuantity(cartItem.qty);
-      } else {
-        setQuantity(0);
-      }
-    }
-  }, [cart, product.productId]);
 
   const handleAddToCart = async () => {
     setIsLoading(true);
-    const newQuantity = quantity + 1;
-    await addOrUpdateItem(product.productId, newQuantity);
-    setQuantity(newQuantity);
-    toast.success(`Product added in cart!`, {
+    await addOrUpdateItem(product.productId);
+    toast.success(`"${product.productTitle}" has been added to your cart!`, {
       action: {
         label: "View Cart",
         onClick: () => (window.location.href = "/cart"),

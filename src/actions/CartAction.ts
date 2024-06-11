@@ -112,7 +112,6 @@ export const getCart = async (): Promise<Cart | undefined> => {
     const res = await extApi.get("/cart", {
       headers: { cookie: `session=${session}` },
     });
-
     return res.data;
   } catch (e) {
     console.log(e);

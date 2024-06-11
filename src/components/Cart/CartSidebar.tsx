@@ -19,12 +19,9 @@ import QtyButtons from "./QtyButtons";
 import { getCart } from "@/actions/CartAction";
 
 export default async function CartSidebar() {
-  // const cartProducts = useStore((state) => state.products);
-
   const cart = await getCart();
 
   const itemsCount = cart?.totalQty ? cart.totalQty : 0;
-  // const total = useStore((state) => state.totalAmt);
 
   return (
     <Sheet>
@@ -47,7 +44,7 @@ export default async function CartSidebar() {
           <SheetTitle>Cart ({itemsCount})</SheetTitle>
         </SheetHeader>
         <ScrollArea className="h-full p-0 m-0">
-          {cart ? (
+          {itemsCount > 0 ? (
             <>
               {/* FIXME: align gap between items */}
               <div className="flex flex-col pr-6 mt-5">
@@ -85,8 +82,6 @@ export default async function CartSidebar() {
                     <Separator className="my-1 lg:my-2 " />
                   </div>
                 ))}
-
-                {/* <Separator /> */}
               </div>
 
               <div className="space-y-4 pr-6">

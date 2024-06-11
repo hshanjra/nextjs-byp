@@ -19,8 +19,8 @@ export default function QtyButtons({ productId, maxQty, cart }: props) {
   const handleIncQty = async () => {
     setIncIsLoading(true);
     const newQuantity = quantity + 1;
-    setQuantity(newQuantity);
     await addOrUpdateItem(productId, newQuantity);
+    setQuantity(newQuantity);
     setIncIsLoading(false);
   };
   const handleDecQty = async () => {
@@ -29,8 +29,8 @@ export default function QtyButtons({ productId, maxQty, cart }: props) {
       await removeItem(productId);
     } else {
       const newQuantity = quantity - 1;
-      setQuantity(newQuantity);
       await addOrUpdateItem(productId, newQuantity);
+      setQuantity(newQuantity);
     }
     setDecIsLoading(false);
   };
