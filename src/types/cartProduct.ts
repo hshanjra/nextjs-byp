@@ -2,18 +2,20 @@ import { Product } from "./product";
 
 export type CartProduct = Product & { qty: number };
 
+export type CartItem = {
+  product: Product;
+  qty: number;
+  shippingPrice: number;
+};
+
 export type Cart = {
   items: {
-    key: {
-      product: Product;
-      qty: 1;
-      shippingPrice: 25;
-    };
+    [key: string]: CartItem;
   };
-  totalQty: 0;
-  subTotal: 0;
-  tax: 0;
-  totalShippingPrice: 0;
-  totalAmount: 0;
-  stateCode: "";
+  totalQty: number;
+  subTotal: number;
+  tax: number;
+  totalShippingPrice: number;
+  totalAmount: number;
+  stateCode: string;
 };

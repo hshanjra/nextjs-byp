@@ -36,7 +36,7 @@ export default function ProductCard({ product: p }: { product: Product }) {
             {/* Cart Icon Button */}
             <AddToCartSmall
               className="ml-auto"
-              strokeWidth={2}
+              strokeWidth={1.5}
               size={30}
               product={p}
             />
