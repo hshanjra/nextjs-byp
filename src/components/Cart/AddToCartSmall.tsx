@@ -5,9 +5,8 @@ import { addOrUpdateItem, getCart } from "@/actions/CartAction";
 import { Product } from "@/types/product";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
-import { Cart } from "@/types/cartProduct";
+import { useGetCart } from "@/hooks/useCartSession";
 
 export default function AddToCartSmall({
   className,
@@ -22,10 +21,7 @@ export default function AddToCartSmall({
   product: Product;
 }) {
   // TODO: Accept cart as parameter
-  const { data: cart, error } = useQuery({
-    queryKey: ["cart"],
-    queryFn: () => getCart(),
-  });
+  const { data: cart, error } = useGetCart();
 
   const [quantity, setQuantity] = useState(0);
   const [isLoading, setIsLoading] = useState(false);

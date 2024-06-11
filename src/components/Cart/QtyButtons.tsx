@@ -1,39 +1,70 @@
 "use client";
-
-import { useStore } from "@/store/store";
-import { useShallow } from "zustand/react/shallow";
-import { Button } from "../ui/button";
-import { Minus, Plus } from "lucide-react";
+import { Ellipsis, Minus, Plus } from "lucide-react";
+import { useGetCart } from "@/hooks/useCartSession";
+import { useEffect, useState } from "react";
+import { addOrUpdateItem, removeItem } from "@/actions/CartAction";
 
 type props = {
   productId: string;
-  qty: number;
+  maxQty: number;
 };
 
-export default function QtyButtons({ productId, qty }: props) {
-  const { getProductById, decQty, incQty } = useStore(
-    useShallow((state) => ({
-      getProductById: state.getProdductById,
-      decQty: state.decQty,
-      incQty: state.incQty,
-    }))
-  );
+export default function QtyButtons({ productId, maxQty }: props) {
+  const { data: cart, error } = useGetCart();
+  const [quantity, setQuantity] = useState(0);
+  const [isDecLoading, setDecIsLoading] = useState(false);
+  const [isIncLoading, setIncIsLoading] = useState(false);
 
-  const p = getProductById(productId);
+  useEffect(() => {
+    if (cart?.items) {
+      const cartItem = cart.items[productId];
+      if (cartItem) {
+        setQuantity(cartItem.qty);
+      } else {
+        setQuantity(0);
+      }
+    }
+  }, [cart, productId]);
+
+  const handleIncQty = async () => {
+    setIncIsLoading(true);
+    const newQuantity = quantity + 1;
+    await addOrUpdateItem(productId, newQuantity);
+    setQuantity(newQuantity);
+    setIncIsLoading(false);
+  };
+  const handleDecQty = async () => {
+    setDecIsLoading(true);
+    if (quantity === 1) {
+      removeItem(productId);
+    } else {
+      const newQuantity = quantity - 1;
+      await addOrUpdateItem(productId, newQuantity);
+      setQuantity(newQuantity);
+    }
+    setDecIsLoading(false);
+  };
 
   return (
     <>
-      {p && (
-        <div className="flex gap-2 items-center border rounded-xl justify-between max-w-24">
-          <button onClick={() => decQty(p.productId)} className="">
+      <div className="flex gap-2 items-center border rounded-xl justify-between max-w-24">
+        <button onClick={handleDecQty} className="p-1">
+          {isDecLoading ? (
+            <Ellipsis className="animate-pulse" />
+          ) : (
             <Minus size={20} strokeWidth={1} />
-          </button>
-          <p className="text-sm font-semibold">{p.qty}</p>
-          <button onClick={() => incQty(p.productId)} className="p-1">
+          )}
+        </button>
+        <p className="text-sm font-semibold">{quantity}</p>
+
+        <button onClick={handleIncQty} disabled={quantity === maxQty}>
+          {isIncLoading ? (
+            <Ellipsis className="animate-pulse" />
+          ) : (
             <Plus size={20} strokeWidth={1} />
-          </button>
-        </div>
-      )}
+          )}
+        </button>
+      </div>
     </>
   );
 }

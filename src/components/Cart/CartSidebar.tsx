@@ -77,7 +77,7 @@ export default async function CartSidebar() {
                         {/* Qty Buttons */}
                         <QtyButtons
                           productId={item.product.productId}
-                          qty={10}
+                          maxQty={item.product.productStock}
                         />
                       </div>
                     </div>

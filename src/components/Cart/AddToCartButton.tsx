@@ -3,12 +3,11 @@ import { Ellipsis, Plus, ShoppingCart } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Product } from "@/types/product";
-import QtyButtons from "./QtyButtons";
 import { addOrUpdateItem, getCart } from "@/actions/CartAction";
-import { useQuery } from "@tanstack/react-query";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useGetCart } from "@/hooks/useCartSession";
 
 export default function AddToCartButton({
   className,
@@ -22,10 +21,7 @@ export default function AddToCartButton({
   variant?: "standard" | "mini";
   product: Product;
 }) {
-  const { data: cart, error } = useQuery({
-    queryKey: ["cart"],
-    queryFn: () => getCart(),
-  });
+  const { data: cart, error } = useGetCart();
 
   const [quantity, setQuantity] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
