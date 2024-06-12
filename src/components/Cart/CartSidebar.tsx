@@ -66,6 +66,7 @@ export default async function CartSidebar() {
                             <SheetTrigger asChild>
                               <Link
                                 href={`/product/${item.product.productSlug}`}
+                                className="hover:underline"
                               >
                                 {trimString(item.product.productTitle, 40)}
                               </Link>
@@ -127,7 +128,7 @@ export default async function CartSidebar() {
                   </SheetTrigger>
                   <SheetTrigger asChild>
                     <Link
-                      href="#"
+                      href="/checkout"
                       className={buttonVariants({ className: "w-full mb-5" })}
                     >
                       Proceed to checkout

@@ -88,7 +88,10 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
                   </TableCell>
                   <TableCell>
                     <h3 className="text-sm leading-tight">
-                      <Link href={`/product/${item.product.productSlug}`}>
+                      <Link
+                        href={`/product/${item.product.productSlug}`}
+                        className="hover:underline"
+                      >
                         {item.product.productTitle}
                       </Link>
                     </h3>
@@ -139,9 +142,14 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
           </CardContent>
           <Separator />
           <CardContent>
-            <div className="flex justify-between items-center text-sm">
+            <div className="flex justify-between items-start text-sm">
               <h3>Shipping</h3>
-              <h3>Shipping to: {cart?.stateCode}</h3>
+              <div className="flex flex-col text-right">
+                <h3>{cart && formatPrice(cart?.totalShippingPrice)}</h3>
+                <h3>
+                  Shipping to: <b>{cart?.stateCode}</b>
+                </h3>
+              </div>
             </div>
           </CardContent>
           <Separator />
