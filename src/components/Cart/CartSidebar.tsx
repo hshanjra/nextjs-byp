@@ -63,7 +63,13 @@ export default async function CartSidebar() {
                         <div className="flex flex-col">
                           {/* title */}
                           <h3 className="text-sm font-semibold leading-tight">
-                            {trimString(item.product.productTitle, 40)}
+                            <SheetTrigger asChild>
+                              <Link
+                                href={`/product/${item.product.productSlug}`}
+                              >
+                                {trimString(item.product.productTitle, 40)}
+                              </Link>
+                            </SheetTrigger>
                           </h3>
                           <p className="text-xs">{item.product.productBrand}</p>
                         </div>

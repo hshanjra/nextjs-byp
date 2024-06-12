@@ -88,7 +88,9 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
                   </TableCell>
                   <TableCell>
                     <h3 className="text-sm leading-tight">
-                      {item.product.productTitle}
+                      <Link href={`/product/${item.product.productSlug}`}>
+                        {item.product.productTitle}
+                      </Link>
                     </h3>
                   </TableCell>
                   <TableCell>
