@@ -1,9 +1,7 @@
-"use client";
-
 import { type Cart } from "@/types/cartProduct";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
-import { CircleX, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import {
   Table,

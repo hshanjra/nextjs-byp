@@ -1,9 +1,9 @@
 "use client";
-import { Ellipsis, Minus, Plus } from "lucide-react";
-import { useGetCart } from "@/hooks/useCartSession";
-import { useEffect, useState } from "react";
+import { Minus, Plus } from "lucide-react";
+import { useState } from "react";
 import { addOrUpdateItem, removeItem } from "@/actions/CartAction";
 import { Cart } from "@/types/cartProduct";
+import LoadingDots from "../LoadingDots";
 
 type props = {
   productId: string;
@@ -35,27 +35,36 @@ export default function QtyButtons({ productId, maxQty, cart }: props) {
     setDecIsLoading(false);
   };
 
+  const isDisabled = quantity === maxQty;
+
   return (
     <>
       <div className="flex gap-2 items-center border border-zinc-400 rounded-xl justify-between max-w-24">
-        <button onClick={handleDecQty} className="p-1 h-8 w-full">
+        <button
+          onClick={handleDecQty}
+          className="p-1 h-8 w-full flex items-center"
+        >
           {isDecLoading ? (
-            <Ellipsis className="animate-pulse" size={20} strokeWidth={1} />
+            <LoadingDots />
           ) : (
-            <Minus size={20} strokeWidth={1} />
+            <Minus size={20} strokeWidth={1.5} />
           )}
         </button>
         <p className="text-sm font-semibold">{quantity}</p>
 
         <button
           onClick={handleIncQty}
-          disabled={quantity === maxQty}
-          className="p-1 h-8 w-full"
+          disabled={isDisabled}
+          className="p-1 h-8 w-full flex items-center"
         >
           {isIncLoading ? (
-            <Ellipsis className="animate-pulse" size={20} strokeWidth={1} />
+            <LoadingDots />
           ) : (
-            <Plus size={20} strokeWidth={1} />
+            <Plus
+              size={20}
+              strokeWidth={1.5}
+              className={isDisabled ? "text-gray-400" : ""}
+            />
           )}
         </button>
       </div>
