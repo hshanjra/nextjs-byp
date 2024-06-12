@@ -35,7 +35,11 @@ export default async function CartSidebar() {
           </div>
           <div className="hidden lg:flex flex-col">
             <span className="text-xs">{itemsCount} item(s)</span>
-            <span>{cart ? formatPrice(cart.totalAmount) : formatPrice(0)}</span>
+            <span>
+              {cart
+                ? formatPrice(cart.totalAmount, { notation: "compact" })
+                : formatPrice(0)}
+            </span>
           </div>
         </div>
       </SheetTrigger>
