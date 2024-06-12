@@ -3,7 +3,7 @@
 import { type Cart } from "@/types/cartProduct";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
-import { ShoppingCart } from "lucide-react";
+import { CircleX, ShoppingCart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import {
   Table,
@@ -19,6 +19,7 @@ import Image from "next/image";
 import { cn, formatPrice } from "@/lib/utils";
 import QtyButtons from "./QtyButtons";
 import { Separator } from "../ui/separator";
+import RemoveCartItemButton from "./RemoveCartItemButton";
 
 export default function Cart({ cart }: { cart: Cart | undefined }) {
   const itemsCount = cart?.totalQty ? cart.totalQty : 0;
@@ -72,13 +73,18 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
               Object.entries(cart.items).map(([key, item]) => (
                 <TableRow key={key}>
                   <TableCell>
-                    <Image
-                      src={item.product.productImages[0].url}
-                      alt={item.product.productTitle}
-                      height={70}
-                      width={70}
-                      className="rounded-lg overflow-hidden"
-                    />
+                    <div className="relative">
+                      <RemoveCartItemButton
+                        productId={item.product.productId}
+                      />
+                      <Image
+                        src={item.product.productImages[0].url}
+                        alt={item.product.productTitle}
+                        height={70}
+                        width={70}
+                        className="border rounded-lg"
+                      />
+                    </div>
                   </TableCell>
                   <TableCell>
                     <h3 className="text-sm leading-tight">
