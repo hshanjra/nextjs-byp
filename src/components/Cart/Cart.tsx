@@ -18,6 +18,7 @@ import { cn, formatPrice } from "@/lib/utils";
 import QtyButtons from "./QtyButtons";
 import { Separator } from "../ui/separator";
 import RemoveCartItemButton from "./RemoveCartItemButton";
+import CheckoutButton from "./CheckoutButton";
 
 export default function Cart({ cart }: { cart: Cart | undefined }) {
   const itemsCount = cart?.totalQty ? cart.totalQty : 0;
@@ -159,9 +160,7 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
           </CardContent>
           <Separator />
           <CardContent>
-            <Link href="/checkout" className={cn(buttonVariants(), "w-full")}>
-              Proceed to checkout
-            </Link>
+            <CheckoutButton />
           </CardContent>
         </Card>
       </div>
