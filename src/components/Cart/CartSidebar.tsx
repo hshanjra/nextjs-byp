@@ -17,6 +17,7 @@ import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import QtyButtons from "./QtyButtons";
 import { getCart } from "@/actions/CartAction";
+import CheckoutButton from "./CheckoutButton";
 
 export default async function CartSidebar() {
   const cart = await getCart();
@@ -131,12 +132,7 @@ export default async function CartSidebar() {
                     </Link>
                   </SheetTrigger>
                   <SheetTrigger asChild>
-                    <Link
-                      href="/checkout"
-                      className={buttonVariants({ className: "w-full mb-5" })}
-                    >
-                      Proceed to checkout
-                    </Link>
+                    <CheckoutButton />
                   </SheetTrigger>
                 </SheetFooter>
               </div>
