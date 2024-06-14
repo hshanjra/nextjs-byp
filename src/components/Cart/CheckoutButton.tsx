@@ -15,7 +15,6 @@ export default function CheckoutButton() {
   const handleSubmit = async () => {
     setIsLoading(true);
     const result = await createCheckoutSession();
-    setIsLoading(false);
 
     if (result.sessionId) {
       setSessionId(result.sessionId);

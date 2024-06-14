@@ -40,7 +40,7 @@ export default function PaymentForm() {
     <form
       id="payment-form"
       onSubmit={handleSubmit}
-      className="max-w-md items-center justify-center"
+      className="max-w-lg items-center justify-center"
     >
       <PaymentElement />
       <Button type="submit" disabled={isProcessing} id="submit">
