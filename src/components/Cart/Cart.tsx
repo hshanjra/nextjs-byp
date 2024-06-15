@@ -53,7 +53,7 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
   }
 
   return (
-    <section className="flex flex-col lg:flex-row h-full items-start my-14 justify-between space-x-5 space-y-5">
+    <section className="flex flex-col lg:flex-row h-full items-start my-14 justify-between lg:space-x-5 space-y-5">
       <div className="w-full">
         <Table>
           <TableHeader>

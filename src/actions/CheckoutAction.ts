@@ -1,5 +1,7 @@
 "use server";
 import { extApi } from "@/lib/api";
+import ac from "@/lib/safe-action";
+import { checkoutOrderSchema } from "@/types/checkoutSchema";
 import { cookies } from "next/headers";
 
 export async function createCheckoutSession() {
@@ -43,3 +45,29 @@ export async function validateCheckoutSession(sessionId: string) {
     return { error: e.message };
   }
 }
+
+export const createOrder = ac(
+  checkoutOrderSchema,
+  async ({ sessionId, billingAddress, shippingAddress }) => {
+    let session = cookies().get("session")?.value;
+
+    if (!session) return { error: "No session found" };
+
+    try {
+      const { data } = await extApi.post(
+        "/orders",
+        {
+          sessionId: sessionId,
+          billingAddress: billingAddress,
+          shippingAddress: shippingAddress,
+        },
+        {
+          headers: { cookie: `session=${session}` },
+        }
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);

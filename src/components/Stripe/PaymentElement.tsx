@@ -1,14 +1,17 @@
 "use client";
 import { Elements } from "@stripe/react-stripe-js";
-import PaymentForm from "./PaymentForm";
 import { getStripe } from "@/lib/load-stripe";
+import { ReactNode } from "react";
 
 export default function StripePaymentElement({
   clientSecret,
+  children,
 }: {
   clientSecret: string;
+  children: ReactNode;
 }) {
   const stripe = getStripe();
+
   return (
     <div>
       {stripe && clientSecret && (
@@ -18,7 +21,7 @@ export default function StripePaymentElement({
             clientSecret: clientSecret,
           }}
         >
-          <PaymentForm />
+          {children}
         </Elements>
       )}
     </div>
