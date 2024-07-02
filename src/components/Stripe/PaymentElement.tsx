@@ -7,18 +7,22 @@ export default function StripePaymentElement({
   clientSecret,
   children,
 }: {
-  clientSecret: string;
+  clientSecret?: string;
   children: ReactNode;
 }) {
   const stripe = getStripe();
 
   return (
     <div>
-      {stripe && clientSecret && (
+      {stripe && (
         <Elements
           stripe={stripe}
           options={{
             clientSecret: clientSecret,
+            // mode: "payment",
+            // amount: totalAmount,
+            // currency: "usd",
+            // appearance: {},
           }}
         >
           {children}

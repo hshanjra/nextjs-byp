@@ -10,7 +10,7 @@ export const useStore = create<Store>()(
   persist(
     immer((...a) => ({
       ...createUserSlice(...a),
-      ...createCartSlice(...a),
+      // ...createCartSlice(...a),
     })),
     { name: "store" }
   )

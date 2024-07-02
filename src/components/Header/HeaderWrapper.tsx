@@ -9,6 +9,8 @@ export const HeaderWrapper = ({ children }: { children: ReactNode }) => {
     return;
   } else if (pathname.startsWith("/checkout")) {
     return;
+  } else if (pathname.startsWith("/thank-you")) {
+    return;
   }
 
   return <>{children}</>;

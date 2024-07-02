@@ -1,6 +1,5 @@
-import { intApi } from "@/lib/api";
+import { useStore } from "@/store/store";
 import { type GetUserSchema } from "@/types/authSchema";
-import { useQuery } from "@tanstack/react-query";
 
 // const useAuthUser = () => {
 //   const [result, setResult] = useState<{
@@ -42,18 +41,35 @@ import { useQuery } from "@tanstack/react-query";
 //   return result;
 // };
 
-const useAuthUser = () => {
-  const {
-    data: userData,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["get-user"],
-    queryFn: async (): Promise<GetUserSchema> =>
-      (await intApi.get("/auth/get-user")).data,
-  });
+// const useAuthUser = () => {
+//   const {
+//     data: userData,
+//     isLoading,
+//     error,
+//   } = useQuery({
+//     queryKey: ["get-user"],
+//     queryFn: async (): Promise<GetUserSchema> =>
+//       (await intApi.get("/auth/get-user")).data,
+//   });
 
-  return { userData, isLoading, error };
+//   return { userData, isLoading, error };
+// };
+
+const useAuthUser = () => {
+  const { firstName, lastName } = useStore();
+
+  let user = null;
+  // const token = cookies().get("accessToken");
+
+  // if (!token) return null;
+
+  if (firstName.length && lastName.length)
+    user = {
+      firstName,
+      lastName,
+    };
+
+  return user;
 };
 
 export default useAuthUser;

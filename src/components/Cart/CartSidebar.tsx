@@ -27,18 +27,20 @@ export default async function CartSidebar() {
   return (
     <Sheet>
       <SheetTrigger>
-        <div className="flex items-center gap-x-3 cursor-pointer">
+        <div className="flex items-center gap-x-3 cursor-pointer font-krub">
           <div className="relative">
-            <span className="absolute -top-2 -right-2 bg-red-600 text-white px-[5px] py-[0.1px] rounded-full text-xs">
+            <span className="absolute -top-2 -right-2 bg-primary text-white px-[5px] py-[0.1px] rounded-full text-xs">
               {itemsCount > 9 ? "9+" : itemsCount}
             </span>
             <ShoppingCart className="h-[24px] w-[24px]" />
           </div>
-          <div className="hidden lg:flex flex-col">
-            <span className="text-xs">{itemsCount} item(s)</span>
-            <span>
+          <div className="hidden lg:flex flex-col -space-y-1">
+            <span className="text-[0.6875rem] text-gray-500">
+              {itemsCount} item(s)
+            </span>
+            <span className="text-[1rem] font-bold">
               {cart
-                ? formatPrice(cart.totalAmount, { notation: "compact" })
+                ? formatPrice(cart.subTotal, { notation: "compact" })
                 : formatPrice(0)}
             </span>
           </div>
@@ -101,21 +103,25 @@ export default async function CartSidebar() {
                 <div className="space-y-1.5 text-sm">
                   <div className="flex">
                     <span className="flex-1">Taxes</span>
-                    <span>{cart && formatPrice(cart?.tax)}</span>
+                    <span>
+                      {cart && cart.tax > 0
+                        ? formatPrice(cart?.tax)
+                        : "Calculated at checkout"}
+                    </span>
                   </div>
                   <Separator />
                   <div className="flex">
                     <span className="flex-1">Shipping</span>
                     <span>
-                      {cart && cart.totalShippingPrice
+                      {cart && cart.totalShippingPrice > 0
                         ? formatPrice(cart.totalShippingPrice)
                         : "Calculated at checkout"}
                     </span>
                   </div>
 
-                  <div className="flex">
-                    <span className="flex-1">Total</span>
-                    <span>{cart && formatPrice(cart.totalAmount)} USD</span>
+                  <div className="flex font-bold">
+                    <span className="flex-1">Sub Total</span>
+                    <span>{cart && formatPrice(cart.subTotal)} USD</span>
                   </div>
                 </div>
 

@@ -45,7 +45,7 @@ export default function LoginForm() {
         toast.success(data.success);
         await fetchAndSetUser();
         setSuccess(data.success);
-        window.location.reload();
+        window.location.href = "/account";
       }
     },
     onError(data) {

@@ -1,10 +1,10 @@
 "use server";
 import { extApi } from "@/lib/api";
 import ac from "@/lib/safe-action";
-import { checkoutOrderSchema } from "@/types/checkoutSchema";
+import { checkoutOrderSchema, checkoutOrderType } from "@/types/checkoutSchema";
 import { cookies } from "next/headers";
 
-export async function createCheckoutSession() {
+export async function createCheckoutSession(): Promise<any> {
   let session = cookies().get("session")?.value;
 
   if (!session) return { error: "No session found" };
@@ -14,12 +14,19 @@ export async function createCheckoutSession() {
       "/checkout/create-session",
       {},
       {
-        headers: { cookie: `session=${session}` },
+        headers: {
+          cookie: `session=${session}`,
+          Authorization: `Bearer ${cookies().get("accessToken")?.value}`,
+        },
       }
     );
-
-    const sessionId = data.sessionId;
-    return { sessionId };
+    const payload = {
+      sessionId: data.sessionId,
+      clientSecret: data.clientSecret,
+      cart: data.cart,
+      paymentId: data.intentId,
+    };
+    return payload;
   } catch (e: any) {
     console.log(e);
     return { error: e.message };
@@ -39,7 +46,11 @@ export async function validateCheckoutSession(sessionId: string) {
         headers: { cookie: `session=${session}` },
       }
     );
-    return { client_secret: data.client_secret, cart: data.cart };
+    return {
+      client_secret: data.client_secret,
+      cart: data.cart,
+      paymentId: data.intentId,
+    };
   } catch (e: any) {
     console.log(e);
     return { error: e.message };
@@ -48,7 +59,7 @@ export async function validateCheckoutSession(sessionId: string) {
 
 export const createOrder = ac(
   checkoutOrderSchema,
-  async ({ sessionId, billingAddress, shippingAddress }) => {
+  async (inputs: checkoutOrderType) => {
     let session = cookies().get("session")?.value;
 
     if (!session) return { error: "No session found" };
@@ -57,17 +68,46 @@ export const createOrder = ac(
       const { data } = await extApi.post(
         "/orders",
         {
-          sessionId: sessionId,
-          billingAddress: billingAddress,
-          shippingAddress: shippingAddress,
+          paymentId: inputs.paymentId?.toString(),
+          paymentMethod: inputs.paymentMethod,
+          sessionId: inputs.sessionId,
+          billingAddress: {
+            firstName: inputs.billingFirstName,
+            lastName: inputs.billingLastName,
+            companyName: inputs.billingCompanyName,
+            // phone: inputs.billingPhone,
+            streetAddress: inputs.billingStreetAddress,
+            city: inputs.billingCity,
+            state: inputs.billingState,
+            zipCode: inputs.billingZipCode,
+            country: inputs.billingCountry,
+          },
+          shippingAddress: {
+            firstName: inputs.shippingFirstName,
+            lastName: inputs.shippingLastName,
+            companyName: inputs.shippingCompanyName,
+            // phone: inputs.shippingPhone,
+            streetAddress: inputs.shippingStreetAddress,
+            city: inputs.shippingCity,
+            state: inputs.shippingState,
+            zipCode: inputs.shippingZipCode,
+            country: inputs.shippingCountry,
+          },
         },
         {
-          headers: { cookie: `session=${session}` },
+          headers: {
+            cookie: `session=${session}`,
+            Authorization: `Bearer ${cookies().get("accessToken")?.value}`,
+          },
         }
       );
-      return data;
-    } catch (error) {
-      console.log(error);
+
+      return data.order;
+    } catch (e: any) {
+      if (e.status === 401) {
+        return { error: "Unauthorized" };
+      }
+      console.log(e);
     }
   }
 );

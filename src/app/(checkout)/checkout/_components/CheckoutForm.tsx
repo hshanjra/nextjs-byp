@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
 import {
   useStripe,
   useElements,
   PaymentElement,
-  AddressElement,
 } from "@stripe/react-stripe-js";
 import { toast } from "sonner";
 import { useAction } from "next-safe-action/hooks";
@@ -14,10 +12,10 @@ import { createOrder } from "@/actions/CheckoutAction";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { checkoutOrderSchema, checkoutOrderType } from "@/types/checkoutSchema";
-import CheckoutHeader from "./CheckoutHeader";
+// import CheckoutHeader from "./CheckoutHeader";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Separator } from "../ui/separator";
+import { Separator } from "@/components/ui/separator";
 import { Cart } from "@/types/cartProduct";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -28,19 +26,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
+} from "@/components/ui/table";
 import { formatPrice } from "@/lib/utils";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
-import { Checkbox } from "../ui/checkbox";
-import { Label } from "../ui/label";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { redirect, useRouter } from "next/navigation";
+import { fetchCityAndState } from "@/actions/ZipCodeAction";
 
 const steps = [
   {
@@ -86,13 +78,22 @@ export default function CheckoutForm({
   paymentId: string;
   cart: Cart;
 }) {
+  if (!cart) redirect("/cart");
+
+  const router = useRouter();
+
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [previousStep, setPreviousStep] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("STRIPE");
+  const [zipCodeProcessing, setZipCodeProcessing] = useState(false);
+  const [orderId, setOrderId] = useState();
+  // const [clientSecret, setClientSecret] = useState("");
+  // const [paymentId, setPaymentId] = useState("");
+
   const delta = currentStep - previousStep;
-  const stripe = useStripe();
   const elements = useElements();
+  const stripe = useStripe();
 
   const {
     register,
@@ -102,6 +103,7 @@ export default function CheckoutForm({
     trigger,
     setValue,
     getValues,
+    setError,
     formState: { errors },
   } = useForm<checkoutOrderType>({
     resolver: zodResolver(checkoutOrderSchema),
@@ -129,13 +131,16 @@ export default function CheckoutForm({
       setValue("shippingCity", "");
       setValue("shippingState", "");
       setValue("shippingZipCode", "");
-      setValue("shippingCountry", "");
+      // setValue("shippingCountry", "US");
     }
   }, [isSame, setValue, getValues]);
 
   const { execute } = useAction(createOrder, {
     onSuccess: (data) => {
-      toast.success(data.success);
+      // toast.success(data.success);
+      setOrderId(data.orderId);
+      // router.push(`/thank-you?orderId=${data.orderId}`);
+      window.location.href = `/thank-you?orderId=${data.orderId}`;
     },
   });
 
@@ -156,7 +161,11 @@ export default function CheckoutForm({
     if (!output) return;
     if (currentStep < steps.length - 1) {
       // if (currentStep === steps.length - 2) {
-      //   handleSubmit(processForm)();
+      //   const { client_secret, paymentId, error } =
+      //     await validateCheckoutSession(sessionId);
+      //   if (error) redirect("/cart");
+      //   setClientSecret(client_secret);
+      //   setPaymentId(paymentId);
       // }
       setCurrentStep((step) => step + 1);
     }
@@ -168,71 +177,61 @@ export default function CheckoutForm({
     }
   };
 
-  const addressForm = useForm({
-    resolver: zodResolver(checkoutOrderSchema),
-    defaultValues: {
-      sessionId,
-      billingAddress: {
-        firstName: "",
-        lastName: "",
-        companyName: "",
-        phone: "",
-        streetAddress: "",
-        city: "",
-        state: "",
-        zipCode: "",
-        country: "",
-      },
-      shippingAddress: {
-        firstName: "",
-        lastName: "",
-        companyName: "",
-        phone: "",
-        streetAddress: "",
-        city: "",
-        state: "",
-        zipCode: "",
-        country: "",
-      },
-    },
-  });
-
   const handleSubmitFrm = async (e: any) => {
     e.preventDefault();
-
     setIsProcessing(true);
     if (!stripe || !elements) {
       setIsProcessing(false);
       return;
     }
 
-    // Create Order
-    await handleSubmit(processForm)();
-
     const { error, paymentIntent } = await stripe.confirmPayment({
+      // clientSecret: clientSecret,
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/order-placed`,
+        return_url: `${window.location.origin}/thank-you?orderId=${orderId}`,
       },
       redirect: "if_required",
     });
 
     if (error) {
       toast.error(error.message);
+      setIsProcessing(false);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
-      // TODO: redirect the user on the orders page
-      toast.success("Payment Success 🎉");
+      // Create Order
+      await handleSubmit(processForm)();
+      // toast.success("Payment Success 🎉");
+      // setIsProcessing(false);
+      // router.push("/thank-you?orderId=" + orderId);
     } else {
       toast.error("Unexpected Error");
+      setIsProcessing(false);
     }
+  };
 
-    setIsProcessing(false);
+  const handleZipcodeChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const zipcode = event.target.value;
+    if (zipcode.length === 5) {
+      setError("billingZipCode", { message: "" });
+      setZipCodeProcessing(true);
+      const { city, state, error } = await fetchCityAndState(zipcode);
+      if (error) {
+        setError("billingZipCode", { message: error });
+      }
+      setValue("billingCity", city);
+      setValue("billingState", state);
+      setValue("billingZipCode", zipcode);
+      setZipCodeProcessing(false);
+    } else {
+      setValue("billingCity", "");
+      setValue("billingState", "");
+    }
   };
 
   return (
     <>
-      <CheckoutHeader />
-
       <section className="border-t-4 border-primary p-5 bg-white">
         <Link
           href="/cart"
@@ -421,7 +420,7 @@ export default function CheckoutForm({
                       <div className="mt-2">
                         <Input
                           type="text"
-                          placeholder="Vatican City"
+                          placeholder="Enter City"
                           id="billingCity"
                           {...register("billingCity")}
                           autoComplete="billingCity"
@@ -444,10 +443,12 @@ export default function CheckoutForm({
                       <div className="mt-2">
                         <Input
                           type="text"
-                          placeholder="89774"
+                          placeholder="Enter Zip Code"
                           id="billingZipCode"
                           {...register("billingZipCode")}
                           autoComplete="billingZipCode"
+                          onChange={handleZipcodeChange}
+                          disabled={zipCodeProcessing}
                         />
                         {errors.billingZipCode?.message && (
                           <p className="mt-2 text-sm text-red-400">
@@ -466,7 +467,7 @@ export default function CheckoutForm({
                       <div className="mt-2">
                         <Input
                           type="text"
-                          placeholder="Florida"
+                          placeholder="Select State"
                           id="billingState"
                           {...register("billingState")}
                           autoComplete="billingState"
@@ -490,9 +491,10 @@ export default function CheckoutForm({
                           id="billingCountry"
                           {...register("billingCountry")}
                           autoComplete="billingCountry"
+                          defaultValue={"United States"}
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
                         >
-                          <option>United States</option>
+                          <option value={"United States"}>United States</option>
                         </select>
                         {errors.billingCountry?.message && (
                           <p className="mt-2 text-sm text-red-400">
@@ -731,9 +733,10 @@ export default function CheckoutForm({
                           id="shippingCountry"
                           {...register("shippingCountry")}
                           autoComplete="shippingCountry"
+                          defaultValue={"United States"}
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
                         >
-                          <option>United States</option>
+                          <option value={"United States"}>United States</option>
                         </select>
                         {errors.shippingCountry?.message && (
                           <p className="mt-2 text-sm text-red-400">
@@ -839,19 +842,19 @@ export default function CheckoutForm({
                 <TableRow className="flex justify-between">
                   <TableCell>Subtotal:</TableCell>
                   <TableCell>
-                    <b>{formatPrice(cart.subTotal)}</b>
+                    <b>{formatPrice(cart?.subTotal)}</b>
                   </TableCell>
                 </TableRow>
                 <TableRow className="flex justify-between">
                   <TableCell>Shipping:</TableCell>
                   <TableCell>
-                    <b>{formatPrice(cart.totalShippingPrice)}</b>
+                    <b>{formatPrice(cart?.totalShippingPrice)}</b>
                   </TableCell>
                 </TableRow>
                 <TableRow className="flex justify-between">
                   <TableCell>Tax:</TableCell>
                   <TableCell>
-                    <b>{formatPrice(cart.tax)}</b>
+                    <b>{formatPrice(cart?.tax)}</b>
                   </TableCell>
                 </TableRow>
                 <TableRow className="flex justify-between">
@@ -859,7 +862,7 @@ export default function CheckoutForm({
                     <b>Total:</b>
                   </TableCell>
                   <TableCell>
-                    <b>{formatPrice(cart.totalAmount)}</b>
+                    <b>{formatPrice(cart?.totalAmount)}</b>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -889,249 +892,3 @@ export default function CheckoutForm({
     </>
   );
 }
-
-// <div>
-//   <Form {...addressForm}>
-//     {/* FIXME: fix the address form */}
-//     <form
-//       onSubmit={addressForm.handleSubmit(onSubmit)}
-//       className="flex flex-col lg:flex-row items-start justify-between"
-//     >
-//       <div className="w-full space-y-2">
-//         <h3 className="font-semibold text-lg mt-2">Billing Details</h3>
-
-//         <div className="max-w-2xl">
-//           <div className="flex items-center space-x-5">
-//             <FormField
-//               control={addressForm.control}
-//               name="billingAddress.firstName"
-//               render={({ field }) => (
-//                 <FormItem className="w-full">
-//                   <FormLabel>First Name</FormLabel>
-//                   <FormControl>
-//                     <Input
-//                       placeholder="John"
-//                       {...field}
-//                       autoComplete="firstName"
-//                     />
-//                   </FormControl>
-//                   <FormMessage />
-//                 </FormItem>
-//               )}
-//             />
-//             <FormField
-//               control={addressForm.control}
-//               name="billingAddress.lastName"
-//               render={({ field }) => (
-//                 <FormItem className="w-full">
-//                   <FormLabel>Last Name</FormLabel>
-//                   <FormControl>
-//                     <Input
-//                       placeholder="Doe"
-//                       {...field}
-//                       autoComplete="lastName"
-//                     />
-//                   </FormControl>
-//                   <FormMessage />
-//                 </FormItem>
-//               )}
-//             />
-//           </div>
-//           <FormField
-//             control={addressForm.control}
-//             name="billingAddress.companyName"
-//             render={({ field }) => (
-//               <FormItem>
-//                 <FormLabel>Company Name (Optional)</FormLabel>
-//                 <FormControl>
-//                   <Input
-//                     placeholder="ABC Corp"
-//                     {...field}
-//                     autoComplete="CompanyName"
-//                   />
-//                 </FormControl>
-//                 <FormMessage />
-//               </FormItem>
-//             )}
-//           />
-//           <FormField
-//             control={addressForm.control}
-//             name="billingAddress.phone"
-//             render={({ field }) => (
-//               <FormItem>
-//                 <FormLabel>Phone:</FormLabel>
-//                 <FormControl>
-//                   <Input
-//                     placeholder="123-456-789-0"
-//                     {...field}
-//                     autoComplete="phone"
-//                   />
-//                 </FormControl>
-//                 <FormMessage />
-//               </FormItem>
-//             )}
-//           />
-//           <FormField
-//             control={addressForm.control}
-//             name="billingAddress.streetAddress"
-//             render={({ field }) => (
-//               <FormItem>
-//                 <FormLabel>Street Address:</FormLabel>
-//                 <FormControl>
-//                   <Input
-//                     placeholder="1 Park Avenue"
-//                     {...field}
-//                     autoComplete="streetAddress"
-//                   />
-//                 </FormControl>
-//                 <FormMessage />
-//               </FormItem>
-//             )}
-//           />
-
-//           <div className="flex items-center gap-x-5">
-//             <FormField
-//               control={addressForm.control}
-//               name="billingAddress.city"
-//               render={({ field }) => (
-//                 <FormItem className="w-full">
-//                   <FormLabel>City:</FormLabel>
-//                   <FormControl>
-//                     <Input
-//                       placeholder="New Orleans"
-//                       {...field}
-//                       autoComplete="city"
-//                     />
-//                   </FormControl>
-//                   <FormMessage />
-//                 </FormItem>
-//               )}
-//             />
-//             <FormField
-//               control={addressForm.control}
-//               name="billingAddress.zipCode"
-//               render={({ field }) => (
-//                 <FormItem className="w-full">
-//                   <FormLabel>ZIP Code:</FormLabel>
-//                   <FormControl>
-//                     <Input
-//                       placeholder="15989"
-//                       {...field}
-//                       autoComplete="zipCode"
-//                     />
-//                   </FormControl>
-//                   <FormMessage />
-//                 </FormItem>
-//               )}
-//             />
-//             <FormField
-//               control={addressForm.control}
-//               name="billingAddress.state"
-//               render={({ field }) => (
-//                 <FormItem className="w-full">
-//                   <FormLabel>State:</FormLabel>
-//                   <FormControl>
-//                     <Input
-//                       placeholder="Louisiana"
-//                       {...field}
-//                       autoComplete="state"
-//                     />
-//                   </FormControl>
-//                   <FormMessage />
-//                 </FormItem>
-//               )}
-//             />
-//           </div>
-//         </div>
-//       </div>
-//       <div className="max-w-xl">
-//         <h3 className="font-semibold text-lg mt-2">Order Summary</h3>
-//         {cart && (
-//           <Table>
-//             <TableHeader>
-//               <TableRow>
-//                 <TableHead>Product</TableHead>
-//                 <TableHead></TableHead>
-//                 <TableHead>Subtotal</TableHead>
-//               </TableRow>
-//             </TableHeader>
-//             <TableBody>
-//               {Object.entries(cart.items).map(([key, item]) => (
-//                 <TableRow key={key}>
-//                   <TableCell>
-//                     <Image
-//                       src={item.product.productImages[0].url}
-//                       alt={item.product.productTitle}
-//                       height={70}
-//                       width={70}
-//                       className="border rounded-lg"
-//                     />
-//                   </TableCell>
-//                   <TableCell>
-//                     <h3 className="text-xs leading-tight">
-//                       {item.product.productTitle} x <b>{item.qty}</b>
-//                     </h3>
-//                     <span>{/* Seller Name */}</span>
-//                   </TableCell>
-//                   <TableCell>
-//                     <h3 className="font-semibold">
-//                       {formatPrice(item.product.salePrice * item.qty)}
-//                     </h3>
-//                   </TableCell>
-//                 </TableRow>
-//               ))}
-//             </TableBody>
-//           </Table>
-//         )}
-//         <Separator className="border-dotted border" />
-//         <Table>
-//           <TableBody>
-//             <TableRow className="flex justify-between">
-//               <TableCell>Subtotal:</TableCell>
-//               <TableCell>
-//                 <b>{formatPrice(cart.subTotal)}</b>
-//               </TableCell>
-//             </TableRow>
-//             <TableRow className="flex justify-between">
-//               <TableCell>Shipping:</TableCell>
-//               <TableCell>
-//                 <b>{formatPrice(cart.totalShippingPrice)}</b>
-//               </TableCell>
-//             </TableRow>
-//             <TableRow className="flex justify-between">
-//               <TableCell>Tax:</TableCell>
-//               <TableCell>
-//                 <b>{formatPrice(cart.tax)}</b>
-//               </TableCell>
-//             </TableRow>
-//             <TableRow className="flex justify-between">
-//               <TableCell>
-//                 <b>Total:</b>
-//               </TableCell>
-//               <TableCell>
-//                 <b>{formatPrice(cart.totalAmount)}</b>
-//               </TableCell>
-//             </TableRow>
-//           </TableBody>
-//         </Table>
-
-//         <Separator />
-
-//         <div className="flex gap-x-5 border rounded-lg p-3 mt-5">
-//           <PaymentElement className="w-[380px]" />
-//         </div>
-
-//         <Button
-//           disabled={isProcessing || !stripe || !elements}
-//           type="submit"
-//           className="my-5 w-full"
-//           onClick={handleSubmitFrm}
-//         >
-//           <span id="button-text">
-//             {isProcessing ? "Processing..." : "COMPLETE PURCHASE"}
-//           </span>
-//         </Button>
-//       </div>
-//     </form>
-//   </Form>
-// </div>;

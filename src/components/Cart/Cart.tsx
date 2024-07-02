@@ -130,13 +130,13 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
         <Card className="w-full p-2">
           <CardHeader className="p-2">
             <CardTitle className="text-[15px] font-bold uppercase">
-              Cart Totals
+              Order Summary
             </CardTitle>
           </CardHeader>
           <Separator />
           <CardContent className="flex justify-between items-center text-sm space-y-1.5">
             {/* Add Subtotal and other calculations here */}
-            <h3>Subtotal</h3>
+            <h3>Item(s) Subtotal</h3>
             <h3>{cart && formatPrice(cart?.subTotal)}</h3>
           </CardContent>
           <Separator />
@@ -149,14 +149,13 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
                   Shipping to: <b>{cart?.stateCode}</b>
                 </h3>
               </div>
+              {/* <p>Taxes and Shipping calculated at checkout</p> */}
             </div>
           </CardContent>
           <Separator />
           <CardContent className="flex justify-between">
-            <h3>Total</h3>
-            <h3 className="font-bold">
-              {cart && formatPrice(cart?.totalAmount)}
-            </h3>
+            <h3>Sub Total</h3>
+            <h3 className="font-bold">{cart && formatPrice(cart?.subTotal)}</h3>
           </CardContent>
           <Separator />
           <CardContent>

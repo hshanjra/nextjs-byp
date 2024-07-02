@@ -12,6 +12,7 @@ import {
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
+import { useStore } from "@/store/store";
 
 export const EmailSignInAction = ac(
   LoginSchema,
@@ -47,6 +48,7 @@ export const EmailSignInAction = ac(
         });
         return {
           success: "Logged in successfully.",
+          user: res.data,
         };
       }
       return redirect("/");
@@ -136,7 +138,7 @@ export const getUserAction = async (): Promise<GetUserSchema | undefined> => {
   try {
     // check if token exists
     const token = cookies().get("accessToken");
-    if (!token) return;
+    if (!token) throw new Error("Unauthorized", { cause: 401 });
     const me = await extApi.get("/auth/me", {
       headers: { Cookie: cookies().toString() },
     });
@@ -157,6 +159,7 @@ export const logoutUserAction = async () => {
     cookies().delete("accessToken");
     return { success: "Logged out successfully." };
   } catch (error: any) {
+    console.log(error);
     return error.message;
   }
 };

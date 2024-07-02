@@ -25,7 +25,7 @@ export default async function Header() {
   return (
     <HeaderWrapper>
       <header className="relative">
-        <div className="w-full bg-red-600 h-[7px]"></div>
+        <div className="w-full bg-primary h-[7px]"></div>
 
         {/* Top Header */}
         <div className="hidden lg:block xl:block border-b">
@@ -106,7 +106,7 @@ export default async function Header() {
               <ProfileDropdown />
               {/* Wishlist */}
               <div className="relative cursor-pointer">
-                <span className="absolute -top-2 -right-2 bg-red-600 text-white px-[5px] py-[0.1px] rounded-full text-xs">
+                <span className="absolute -top-2 -right-2 bg-primary text-white px-[5px] py-[0.1px] rounded-full text-xs">
                   0
                 </span>
                 <HeartIcon />
