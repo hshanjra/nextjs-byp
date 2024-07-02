@@ -6,7 +6,7 @@
  */
 export async function fetchCityAndState(zipcode: string) {
   try {
-    const response = await fetch(`http://api.zippopotam.us/us/${zipcode}`);
+    const response = await fetch(`https://api.zippopotam.us/us/${zipcode}`);
     const data = await response.json();
 
     // if (data.error) {
