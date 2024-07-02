@@ -2,7 +2,21 @@ export type Order = {
   _id: string;
   userId: string;
   orderId: string;
-  orderItems: [];
+  orderItems: {
+    qty: number;
+    price: number;
+    shippingPrice: number;
+    subTotal: number;
+    product: {
+      productId: string;
+      productTitle: string;
+      productSlug: string;
+      productBrand: string;
+      partNumber: string;
+      sku: string;
+      merchant: any;
+    };
+  }[];
   shippingAddress: {};
   billingAddress: {};
   paymentMethod: string;
