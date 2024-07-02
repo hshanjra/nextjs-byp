@@ -4,11 +4,11 @@ import { Button } from "./ui/button";
 import { logoutUserAction } from "@/actions/AuthAction";
 
 export default function AccountHeader() {
-  const { userData, error, isLoading } = useAuthUser();
+  const user = useAuthUser();
   return (
     <div className="flex items-center justify-between">
       <h3 className="text-xl font-semibold my-5">
-        {userData ? `${userData.firstName} ${userData.lastName}'s ` : "Your "}
+        {user ? `${user.firstName} ${user.lastName}'s ` : "Your "}
         Account
       </h3>
       <Button
