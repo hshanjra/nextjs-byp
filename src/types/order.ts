@@ -17,8 +17,28 @@ export type Order = {
       merchant: any;
     };
   }[];
-  shippingAddress: {};
-  billingAddress: {};
+  shippingAddress: {
+    firstName: string;
+    lastName: string;
+    companyName?: string;
+    phone: number;
+    streetAddress: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+  };
+  billingAddress: {
+    firstName: string;
+    lastName: string;
+    companyName?: string;
+    phone: number;
+    streetAddress: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+  };
   paymentMethod: string;
   paymentResponse: {
     txnId: string;

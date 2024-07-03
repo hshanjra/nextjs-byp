@@ -13,7 +13,7 @@ export default function ThankYouPage() {
         </MaxWidthWrapper>
       </header>
       <ThankYou />
-      <footer className="absolute w-full bottom-0 bg-zinc-100 text-zinc-900 py-10">
+      <footer className="absolute w-full -bottom-40 bg-zinc-100 text-zinc-900 py-10">
         <MaxWidthWrapper className="flex items-center justify-between">
           <div>
             &copy; {new Date().getFullYear()} buyurparts.com. All rights

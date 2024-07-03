@@ -9,16 +9,37 @@ import Link from "next/link";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import moment from "moment";
 import { formatPrice } from "@/lib/utils";
+import { useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 
 export default function ThankYou() {
   const orderId = useSearchParams().get("orderId") || "";
+
+  const [refetchInterval, setRefetchInterval] = useState<number>();
+  const [fetchingError, setFetchingError] = useState<boolean>(false);
+
   const { data } = useQuery({
     queryKey: ["get-payment-status"],
     queryFn: async () => await getPaymentStatus({ orderId }),
     retry: true,
-    retryDelay: 500,
+    // retryDelay: 500,
+    refetchIntervalInBackground: true,
+    refetchInterval: refetchInterval,
   });
+
+  useEffect(() => {
+    if (data === false) {
+      setRefetchInterval(3 * 1000);
+    }
+
+    const timer = setTimeout(() => {
+      setRefetchInterval(undefined); // Stop refetching after 2 minutes
+      if (data === false) setFetchingError(true);
+    }, 1 * 60 * 1000); // 2 minutes in milliseconds
+
+    // Clean up the timer on component unmount
+    return () => clearTimeout(timer);
+  }, [data]);
 
   const order = data as Order;
 
@@ -34,19 +55,7 @@ export default function ThankYou() {
     );
   }
 
-  if (data === false) {
-    return (
-      <div className="w-full mt-24 flex justify-center">
-        <div className="flex flex-col items-center gap-2">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <h3 className="font-semibold text-xl">Verifying your payment...</h3>
-          <p>This might take a moment.</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (data.errorCode === 404) {
+  if (data.errorCode === 404 || fetchingError === true) {
     return (
       <div className="w-full mt-36 flex justify-center">
         <div className="flex flex-col items-center gap-2">
@@ -64,6 +73,35 @@ export default function ThankYou() {
             </Link>
             page.
           </p>
+
+          <div className="w-28 flex items-center justify-center gap-x-3">
+            <Separator />
+            <span>Or</span>
+            <Separator />
+          </div>
+
+          <p>
+            Please contact our
+            <Link
+              href={"/help-center"}
+              className="hover:underline text-primary"
+            >
+              &nbsp;support&nbsp;
+            </Link>
+            if you need any help.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (data === false) {
+    return (
+      <div className="w-full mt-24 flex justify-center">
+        <div className="flex flex-col items-center gap-2">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <h3 className="font-semibold text-xl">Verifying your payment...</h3>
+          <p>This might take a moment.</p>
         </div>
       </div>
     );
@@ -73,8 +111,8 @@ export default function ThankYou() {
     billingAddress,
     shippingAddress,
     paymentMethod,
-    isPaid,
     orderItems,
+    paymentResponse,
     taxPrice,
     totalPrice,
     totalQty,
@@ -85,7 +123,7 @@ export default function ThankYou() {
   const subTotal = totalPrice - totalShippingPrice - taxPrice;
 
   return (
-    <MaxWidthWrapper className="max-w-3xl mb-32">
+    <MaxWidthWrapper className="max-w-3xl mb-10">
       <div className="bg-white mt-5">
         <p className="text-lg font-bold text-primary">
           Thank you for your order!
@@ -125,12 +163,25 @@ export default function ThankYou() {
           </div>
         </div>
 
+        <div className="mt-10 border-t border-zinc-200">
+          <div className="mt-10 flex-auto flex-col">
+            <h4 className="font-semibold text-zinc-900">
+              You made a great choice!
+            </h4>
+            <p className="mt-2 text-sm text-zinc-600">
+              Thank you for choosing our store for your automobile spare parts
+              and accessories needs. We appreciate your business and are excited
+              to help you get your vehicle back on the road in top condition.
+            </p>
+          </div>
+        </div>
+
         {/* Order Details */}
         <h3 className="mt-10 text-lg ml-1 mb-3 font-semibold">
           Order Details:
         </h3>
 
-        <div className="border p-5 rounded-xl max-w-2xl">
+        <div className="border p-5 rounded-xl max-w-2xl bg-zinc-100/50">
           <table className="w-full">
             <tr className="text-left border-b border-dashed">
               <th>Product</th>
@@ -192,16 +243,59 @@ export default function ThankYou() {
           </table>
         </div>
 
-        <div className="mt-10 border-t border-zinc-200">
-          <div className="mt-10 flex-auto flex-col">
-            <h4 className="font-semibold text-zinc-900">
-              You made a great choice!
-            </h4>
-            <p className="mt-2 text-sm text-zinc-600">
-              Thank you for choosing our store for your automobile spare parts
-              and accessories needs. We appreciate your business and are excited
-              to help you get your vehicle back on the road in top condition.
-            </p>
+        {/* Billing/Shipping */}
+        <div className="p-1">
+          <div className="grid grid-cols-2 gap-x-6 py-10 text-sm">
+            <div>
+              <p className="font-medium text-gray-900">Shipping Address</p>
+              <div className="mt-2 text-zinc-700">
+                <address className="not-italic">
+                  <span className="block">
+                    {shippingAddress.firstName} &nbsp;{" "}
+                    {shippingAddress.lastName}
+                  </span>
+                  <span className="block">{shippingAddress.streetAddress}</span>
+                  <span className="block">
+                    {shippingAddress.zipCode},&nbsp; {shippingAddress.city}
+                  </span>
+
+                  <span className="block">
+                    {shippingAddress.state},&nbsp;{shippingAddress.country}
+                  </span>
+                </address>
+              </div>
+            </div>
+            <div>
+              <p className="font-medium text-gray-900">Billing Address</p>
+              <div className="mt-2 text-zinc-700">
+                <address className="not-italic">
+                  <span className="block">
+                    {billingAddress.firstName} &nbsp; {billingAddress.lastName}
+                  </span>
+                  <span className="block">{billingAddress.streetAddress}</span>
+                  <span className="block">
+                    {billingAddress.zipCode},&nbsp; {billingAddress.city}
+                  </span>
+
+                  <span className="block">
+                    {billingAddress.state},&nbsp;{billingAddress.country}
+                  </span>
+                </address>
+              </div>
+            </div>
+          </div>
+          <Separator />
+          <div className="grid grid-cols-2 gap-x-6 py-10 text-sm">
+            <div>
+              <p className="font-medium text-zinc-900">Payment Status</p>
+              <p className="mt-2 text-zinc-700">Paid</p>
+            </div>
+            <div>
+              <p className="font-medium text-zinc-900">Payment Method</p>
+              <p className="mt-2 text-zinc-700">
+                {paymentMethod === "STRIPE" ? "Card" : paymentMethod}
+              </p>
+            </div>
           </div>
         </div>
       </div>
