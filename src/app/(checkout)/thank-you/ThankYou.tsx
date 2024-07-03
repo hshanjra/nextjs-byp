@@ -251,7 +251,7 @@ export default function ThankYou() {
               <div className="mt-2 text-zinc-700">
                 <address className="not-italic">
                   <span className="block">
-                    {shippingAddress.firstName} &nbsp;{" "}
+                    {shippingAddress.firstName}&nbsp;
                     {shippingAddress.lastName}
                   </span>
                   <span className="block">{shippingAddress.streetAddress}</span>
@@ -270,7 +270,7 @@ export default function ThankYou() {
               <div className="mt-2 text-zinc-700">
                 <address className="not-italic">
                   <span className="block">
-                    {billingAddress.firstName} &nbsp; {billingAddress.lastName}
+                    {billingAddress.firstName}&nbsp;{billingAddress.lastName}
                   </span>
                   <span className="block">{billingAddress.streetAddress}</span>
                   <span className="block">
