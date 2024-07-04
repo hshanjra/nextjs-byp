@@ -207,12 +207,13 @@ export default function CheckoutForm({
       redirect: "if_required",
     });
 
+    // Create Order
+    await handleSubmit(processForm)();
+
     if (error) {
       toast.error(error.message);
       setIsProcessing(false);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
-      // Create Order
-      await handleSubmit(processForm)();
       // toast.success("Payment Success 🎉");
       // setIsProcessing(false);
       // router.push("/thank-you?orderId=" + orderId);
