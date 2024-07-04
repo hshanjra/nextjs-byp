@@ -31,8 +31,9 @@ import { formatPrice } from "@/lib/utils";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { fetchCityAndState } from "@/actions/ZipCodeAction";
+import { Order } from "@/types/order";
 
 const steps = [
   {
@@ -80,15 +81,13 @@ export default function CheckoutForm({
 }) {
   if (!cart) redirect("/cart");
 
-  const router = useRouter();
-
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [previousStep, setPreviousStep] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("STRIPE");
   const [zipCodeProcessing, setZipCodeProcessing] = useState(false);
-  const [orderId, setOrderId] = useState();
-  // const [clientSecret, setClientSecret] = useState("");
+  const [order, setOrder] = useState<Order>();
+  const [clientSecret, setClientSecret] = useState("");
   // const [paymentId, setPaymentId] = useState("");
 
   const delta = currentStep - previousStep;
@@ -138,9 +137,10 @@ export default function CheckoutForm({
   const { execute } = useAction(createOrder, {
     onSuccess: (data) => {
       // toast.success(data.success);
-      setOrderId(data.orderId);
+      setOrder(data.order);
+      setClientSecret(data.clientSecret);
       // router.push(`/thank-you?orderId=${data.orderId}`);
-      window.location.href = `/thank-you?orderId=${data.orderId}`;
+      window.location.href = `/thank-you?orderId=${data.order.orderId}`;
     },
   });
 
@@ -186,10 +186,23 @@ export default function CheckoutForm({
     }
 
     const { error, paymentIntent } = await stripe.confirmPayment({
-      // clientSecret: clientSecret,
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/thank-you?orderId=${orderId}`,
+        return_url: `${window.location.origin}/thank-you?orderId=${order?.orderId}`,
+        payment_method_data: {
+          billing_details: {
+            name: `${getValues("billingFirstName")} ${getValues(
+              "billingLastName"
+            )}`,
+            address: {
+              city: getValues("billingCity"),
+              country: getValues("billingCountry"),
+              line1: getValues("billingStreetAddress"),
+              postal_code: getValues("billingZipCode"),
+              state: "United States",
+            },
+          },
+        },
       },
       redirect: "if_required",
     });
@@ -376,7 +389,7 @@ export default function CheckoutForm({
                       <div className="mt-2">
                         <Input
                           type="text"
-                          placeholder="buyurparts corp."
+                          placeholder="Enter company name here"
                           id="billingCompanyName"
                           {...register("billingCompanyName")}
                           autoComplete="billingCompanyName"

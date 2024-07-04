@@ -102,7 +102,7 @@ export const createOrder = ac(
         }
       );
 
-      return data.order;
+      return data;
     } catch (e: any) {
       if (e.status === 401) {
         return { error: "Unauthorized" };
