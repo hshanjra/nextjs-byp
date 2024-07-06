@@ -11,7 +11,7 @@ import { useAction } from "next-safe-action/hooks";
 import { createOrder } from "@/actions/CheckoutAction";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { checkoutOrderSchema, checkoutOrderType } from "@/types/checkoutSchema";
+import { checkoutFormSchema, checkoutFormType } from "@/types/checkoutSchema";
 // import CheckoutHeader from "./CheckoutHeader";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -104,8 +104,8 @@ export default function CheckoutForm({
     getValues,
     setError,
     formState: { errors },
-  } = useForm<checkoutOrderType>({
-    resolver: zodResolver(checkoutOrderSchema),
+  } = useForm<checkoutFormType>({
+    resolver: zodResolver(checkoutFormSchema),
   });
 
   const isSame = watch("shippingSameAsBilling");
@@ -144,7 +144,7 @@ export default function CheckoutForm({
     },
   });
 
-  const processForm: SubmitHandler<checkoutOrderType> = async (data) => {
+  const processForm: SubmitHandler<checkoutFormType> = async (data) => {
     Object.assign(data, {
       sessionId: sessionId,
       paymentId: paymentId,
@@ -153,7 +153,7 @@ export default function CheckoutForm({
     return execute(data);
   };
 
-  type FieldName = keyof checkoutOrderType;
+  type FieldName = keyof checkoutFormType;
 
   const next = async () => {
     const fields = steps[currentStep].fields;

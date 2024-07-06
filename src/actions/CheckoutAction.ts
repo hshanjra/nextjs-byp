@@ -1,7 +1,7 @@
 "use server";
 import { extApi } from "@/lib/api";
 import ac from "@/lib/safe-action";
-import { checkoutOrderSchema, checkoutOrderType } from "@/types/checkoutSchema";
+import { checkoutFormSchema, checkoutFormType } from "@/types/checkoutSchema";
 import { cookies } from "next/headers";
 
 export async function createCheckoutSession(): Promise<any> {
@@ -58,8 +58,8 @@ export async function validateCheckoutSession(sessionId: string) {
 }
 
 export const createOrder = ac(
-  checkoutOrderSchema,
-  async (inputs: checkoutOrderType) => {
+  checkoutFormSchema,
+  async (inputs: checkoutFormType) => {
     let session = cookies().get("session")?.value;
 
     if (!session) return { error: "No session found" };
