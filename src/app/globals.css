@@ -26,7 +26,7 @@
     --radius: 0.5rem;
   }
 
-  .dark {
+  .zinc {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
@@ -57,6 +57,18 @@
   }
 }
 
+
+/* =====  REACT PHONE NUMBER INPUT OVERRIDES */
+.input-phone {
+  @apply mt-2 h-11 rounded-md px-3 text-sm border border-zinc-500 placeholder:text-zinc-600 focus-visible:ring-0 focus-visible:ring-offset-0 !important;
+}
+
+ .PhoneInputInput {
+   @apply outline-none !important
+ }
+
+
+/* =====  SWIPER STYLES  ===== */
 .swiper-pagination-bullet {
   width: 7px !important;
   height: 7px !important;

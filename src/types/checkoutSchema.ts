@@ -1,3 +1,4 @@
+import { US_STATES } from "@/constants";
 import * as z from "zod";
 
 // const addressSchema = z.object({
@@ -12,7 +13,7 @@ import * as z from "zod";
 //   billingCountry: z.string().min(1).max(20),
 // });
 
-export const checkoutOrderSchema = z
+export const checkoutFormSchema = z
   .object({
     sessionId: z.string().optional(),
     paymentId: z.string().optional(),
@@ -31,7 +32,7 @@ export const checkoutOrderSchema = z
       .optional(),
     billingPhone: z
       .string()
-      .max(10, "Phone must be not greater than 10 digits")
+      .max(12, "Phone must be not greater than 10 digits")
       .optional(),
     billingStreetAddress: z
       .string()
@@ -41,7 +42,10 @@ export const checkoutOrderSchema = z
       .string()
       .min(1, "City name is required")
       .max(70, "City name must not be greater than 70 characters"),
-    billingState: z.string().min(1, "Please select a state"),
+    // @ts-ignore
+    billingState: z.enum(US_STATES, {
+      message: "Please select a US state",
+    }),
     billingZipCode: z
       .string()
       .min(1, "Zip code is required")
@@ -62,7 +66,7 @@ export const checkoutOrderSchema = z
       .optional(),
     shippingPhone: z
       .string()
-      .max(10, "Phone must be not greater than 10 digits")
+      .max(12, "Phone must be not greater than 10 digits")
       .optional(),
     shippingStreetAddress: z
       .string()
@@ -72,7 +76,10 @@ export const checkoutOrderSchema = z
       .string()
       .min(1, "City name is required")
       .max(70, "City name must not be greater than 70 characters"),
-    shippingState: z.string().min(1, "Please select state"),
+    // @ts-ignore
+    shippingState: z.enum(US_STATES, {
+      message: "Please select a US state",
+    }),
     shippingZipCode: z
       .string()
       .min(1, "Please enter a zip code")
@@ -133,4 +140,4 @@ export const checkoutOrderSchema = z
     }
   });
 
-export type checkoutOrderType = z.infer<typeof checkoutOrderSchema>;
+export type checkoutFormType = z.infer<typeof checkoutFormSchema>;
