@@ -2,20 +2,23 @@
 
 import { checkoutFormSchema, checkoutFormType } from "@/types/checkoutSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useController } from "react-hook-form";
 import { CheckoutFormDefaultValues, US_STATES } from "@/constants";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Form } from "../ui/form";
+import { Form, FormControl } from "../ui/form";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import SubmitButton from "../SubmitButton";
 import { SelectItem } from "../ui/select";
 import { motion } from "framer-motion";
+import { fetchCityAndState } from "@/actions/ZipCodeAction";
+import { Input } from "../ui/input";
 
 export default function CheckoutForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [zipCodeProcessing, setZipCodeProcessing] = useState(false);
 
   const form = useForm<checkoutFormType>({
     resolver: zodResolver(checkoutFormSchema),
@@ -34,7 +37,8 @@ export default function CheckoutForm() {
   const isSame = form.watch("shippingSameAsBilling");
 
   useEffect(() => {
-    if (!isSame) {
+    const resetShippingFields = () => {
+      form.resetField("shippingZipCode");
       form.resetField("shippingFirstName");
       form.resetField("shippingLastName");
       form.resetField("shippingCompanyName");
@@ -42,7 +46,10 @@ export default function CheckoutForm() {
       form.resetField("shippingStreetAddress");
       form.resetField("shippingCity");
       // form.resetField("shippingState");
-      form.resetField("shippingZipCode");
+    };
+
+    if (!isSame) {
+      resetShippingFields();
     }
   }, [isSame, form]);
 
@@ -56,6 +63,37 @@ export default function CheckoutForm() {
     form.setValue("shippingState", form.watch("billingState"));
     form.setValue("shippingZipCode", form.watch("billingZipCode"));
   }
+
+  const handleZipChange = async (zipCode: string, isBilling = true) => {
+    const fieldPrefix = isBilling ? "billing" : "shipping";
+    form.setValue(`${fieldPrefix}ZipCode`, zipCode);
+    if (zipCode && zipCode.length >= 5) {
+      setZipCodeProcessing(true);
+      try {
+        const { city, state, error } = await fetchCityAndState(zipCode);
+
+        if (error) {
+          form.setError(`${fieldPrefix}ZipCode`, { message: error });
+          if (!isBilling) {
+            form.setValue("shippingCity", "");
+            form.setValue("shippingState", "");
+          }
+        } else {
+          form.setValue(`${fieldPrefix}City`, city);
+          form.setValue(`${fieldPrefix}State`, state);
+          // form.control._defaultValues.billingState == state;
+        }
+        form.setValue(`${fieldPrefix}ZipCode`, zipCode);
+      } catch (e) {
+        form.setError(`${fieldPrefix}ZipCode`, {
+          message: "An unexpected error occurred",
+        });
+        setZipCodeProcessing(false);
+      } finally {
+        setZipCodeProcessing(false);
+      }
+    }
+  };
 
   return (
     <MaxWidthWrapper className="my-10 border rounded-xl p-5">
@@ -121,8 +159,8 @@ export default function CheckoutForm() {
                   placeholder="Enter city"
                 />
               </div>
-              {/* Zip Code / State */}
 
+              {/* Zip Code / State */}
               <div className="flex flex-col gap-6 xl:flex-row">
                 <CustomFormField
                   fieldType={FormFieldType.SELECT}
@@ -139,11 +177,25 @@ export default function CheckoutForm() {
                 </CustomFormField>
 
                 <CustomFormField
-                  fieldType={FormFieldType.INPUT}
+                  fieldType={FormFieldType.SKELETON}
                   control={form.control}
                   name="billingZipCode"
                   label="ZIP Code"
-                  placeholder="ex. 12345"
+                  renderSkeleton={() => (
+                    <div className="flex rounded-md border border-zinc-500">
+                      <FormControl>
+                        <Input
+                          onChange={(e) =>
+                            handleZipChange(e.target.value, true)
+                          }
+                          placeholder="ex. 12345"
+                          maxLength={5}
+                          disabled={zipCodeProcessing}
+                          className="placeholder:text-zinc-400 h-11 focus-visible:ring-0 focus-visible:ring-offset-0 border-0"
+                        />
+                      </FormControl>
+                    </div>
+                  )}
                 />
               </div>
 
@@ -234,11 +286,25 @@ export default function CheckoutForm() {
                   </CustomFormField>
 
                   <CustomFormField
-                    fieldType={FormFieldType.INPUT}
+                    fieldType={FormFieldType.SKELETON}
                     control={form.control}
                     name="shippingZipCode"
                     label="ZIP Code"
-                    placeholder="ex. 12345"
+                    renderSkeleton={() => (
+                      <div className="flex rounded-md border border-zinc-500">
+                        <FormControl>
+                          <Input
+                            onChange={(e) =>
+                              handleZipChange(e.target.value, false)
+                            }
+                            disabled={zipCodeProcessing}
+                            placeholder="ex. 12345"
+                            maxLength={5}
+                            className="placeholder:text-zinc-400 h-11 focus-visible:ring-0 focus-visible:ring-offset-0 border-0"
+                          />
+                        </FormControl>
+                      </div>
+                    )}
                   />
                 </div>
               </section>

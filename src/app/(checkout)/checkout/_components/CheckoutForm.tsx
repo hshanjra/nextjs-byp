@@ -228,7 +228,7 @@ export default function CheckoutForm({
   ) => {
     const zipcode = event.target.value;
     if (zipcode.length === 5) {
-      setError("billingZipCode", { message: "" });
+      setError("billingZipCode", { type: "validate", message: "" });
       setZipCodeProcessing(true);
       const { city, state, error } = await fetchCityAndState(zipcode);
       if (error) {

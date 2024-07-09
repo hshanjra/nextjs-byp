@@ -29,6 +29,7 @@ export enum FormFieldType {
 interface CustomProps {
   control: Control<any>;
   name: string;
+  maxLength?: number;
   label?: string;
   placeholder?: string;
   icon?: React.ReactNode;
@@ -53,6 +54,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
             <Input
               placeholder={props.placeholder}
               {...field}
+              maxLength={props.maxLength}
               className="placeholder:text-zinc-400 h-11 focus-visible:ring-0 focus-visible:ring-offset-0 border-0"
             />
           </FormControl>
