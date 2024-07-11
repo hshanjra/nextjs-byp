@@ -17,7 +17,8 @@ export const checkoutFormSchema = z
   .object({
     sessionId: z.string().optional(),
     paymentId: z.string().optional(),
-    paymentMethod: z.string().optional(),
+    paymentMethod: z.enum(["CARD", "PAYPAL"]),
+    email: z.string().email("Invalid email").optional(),
     billingFirstName: z
       .string()
       .min(1, "First name is required")

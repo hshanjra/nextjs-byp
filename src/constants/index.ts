@@ -1,4 +1,9 @@
+enum PaymentMethod {
+  CARD = "CARD",
+  PAYPAL = "PAYPAL",
+}
 export const CheckoutFormDefaultValues = {
+  paymentMethod: PaymentMethod.CARD,
   billingFirstName: "",
   billingLastName: "",
   billingCompanyName: "",
