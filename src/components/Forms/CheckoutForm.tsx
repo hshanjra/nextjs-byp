@@ -23,6 +23,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function CheckoutForm() {
   // const router = useRouter();
@@ -798,13 +799,30 @@ export default function CheckoutForm() {
                 />
               </section>
 
-              <Button
-                className="w-2/5"
-                onClick={form.handleSubmit(onSubmit)}
-                disabled={processing}
-              >
-                Place Order
-              </Button>
+              <div className="flex justify-between">
+                <Button
+                  className="w-2/5"
+                  onClick={form.handleSubmit(onSubmit)}
+                  disabled={processing}
+                >
+                  Place Order
+                </Button>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm">Shipping costs included!</p>
+                    <p className="text-sm">
+                      Total: <b>$1250.00</b>
+                    </p>
+                  </div>
+                  <p className="text-xs">
+                    By submitting your order, you agree to our &nbsp;
+                    <Link href="/terms-and-conditions" className="underline">
+                      terms and conditions
+                    </Link>
+                    .
+                  </p>
+                </div>
+              </div>
 
               {/* <SubmitButton isLoading={isLoading}>
                 Submit and Continue
