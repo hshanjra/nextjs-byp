@@ -159,6 +159,7 @@ export default function CheckoutForm({
 
         if (!result) {
           setProcessing(false);
+          toast.error("Unable to create order. Please try again later.");
           // setCardError({ message: "Payment processing error" });
           return;
         }
