@@ -144,6 +144,7 @@ export default function CheckoutForm({
 
         if (!cardComplete) {
           card.focus();
+          setCardError({ message: "Card details are incomplete" });
           setProcessing(false);
           return;
         }
