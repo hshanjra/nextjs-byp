@@ -1,6 +1,11 @@
 "use client";
 
-import { checkoutFormSchema, checkoutFormType } from "@/types/checkoutSchema";
+import {
+  checkoutFormSchema,
+  checkoutFormType,
+  promoCodeForm,
+  promoCodeType,
+} from "@/types/checkoutSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useController } from "react-hook-form";
 import { CheckoutFormDefaultValues, US_STATES } from "@/constants";
@@ -24,8 +29,26 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import { toast } from "sonner";
 import Link from "next/link";
+import Image from "next/image";
+import { Cart } from "@/types/cartProduct";
+import { formatPrice } from "@/lib/utils";
+import { Separator } from "../ui/separator";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/accordion";
+import { Info, LockKeyhole, Plus, Truck } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
+import ScrollToTopButton from "../ScrollToTopButton";
 
-export default function CheckoutForm() {
+export default function CheckoutForm({ cart }: { cart: Cart }) {
   // const router = useRouter();
   const [zipCodeProcessing, setZipCodeProcessing] = useState(false);
 
@@ -47,15 +70,15 @@ export default function CheckoutForm() {
         fontSize: "16px",
         fontSmoothing: "antialiased",
         ":-webkit-autofill": {
-          color: "#fce883",
+          color: "#ef253c",
         },
         "::placeholder": {
-          color: "#dddd",
+          color: "#2b2b2b9c",
         },
       },
       invalid: {
-        iconColor: "red",
-        color: "red",
+        iconColor: "#ef253c",
+        color: "#ef253c",
       },
     },
     hidePostalCode: true,
@@ -64,6 +87,13 @@ export default function CheckoutForm() {
   const form = useForm<checkoutFormType>({
     resolver: zodResolver(checkoutFormSchema),
     defaultValues: CheckoutFormDefaultValues,
+  });
+
+  const promoForm = useForm<promoCodeType>({
+    resolver: zodResolver(promoCodeForm),
+    defaultValues: {
+      promoCode: "",
+    },
   });
 
   const isSame = form.watch("shippingSameAsBilling");
@@ -137,6 +167,10 @@ export default function CheckoutForm() {
     }
   };
 
+  const handlePromoCode = async (values: promoCodeType) => {
+    console.log("values", values);
+  };
+
   useEffect(() => {
     const resetShippingFields = () => {
       form.resetField("shippingZipCode");
@@ -202,12 +236,8 @@ export default function CheckoutForm() {
   };
 
   return (
-    <MaxWidthWrapper className="my-10">
-      <header>
-        <h1 className="text-3xl font-bold md:text-4xl">Checkout</h1>
-      </header>
-
-      <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-4 gap-10">
+    <>
+      <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-4 gap-3">
         <div className="lg:col-span-3 md:col-span-3">
           {/* Express Checkout */}
           <section>
@@ -216,28 +246,88 @@ export default function CheckoutForm() {
                 Express Checkout
               </legend>
               <div className="flex items-center gap-x-3">
+                {/* <Button
+                className="w-full bg-yellow-300 text-zinc-900 h-14"
+                variant={"outline"}
+              >
+                Amazon Pay
+              </Button> */}
                 <Button
-                  className="w-full bg-yellow-300 text-zinc-900 h-14"
+                  className="w-full bg-yellow-400 text-zinc-900 h-14"
                   variant={"outline"}
                 >
-                  Amazon Pay
+                  <svg
+                    width="100"
+                    height="27"
+                    viewBox="-1.35569997 -1.35569997 180.87454994 47.90139894"
+                  >
+                    <title>PayPal</title>
+                    <path
+                      d="M 32.60643,3.4075 C 30.51393,1.0225 26.73143,0 21.89268,0 L 7.84893,0 C 6.85893,0 6.01768,0.72 5.86268,1.69625 L 0.01518001,38.7825 c -0.11625,0.73125 0.45,1.39375 1.19124999,1.39375 l 8.67,0 2.1775,-13.81125 -0.0675,0.4325 c 0.155,-0.97625 0.99,-1.69625 1.97875,-1.69625 l 4.12,0 c 8.09375,0 14.43125,-3.2875 16.2825,-12.7975 0.055,-0.28125 0.1025,-0.555 0.14375,-0.8225 -0.23375,-0.12375 -0.23375,-0.12375 0,0 0.55125,-3.515 -0.004,-5.9075 -1.905,-8.07375"
+                      fill="#003087"
+                      fillOpacity="1"
+                      fillRule="nonzero"
+                      stroke="none"
+                    ></path>
+                    <path
+                      d="m 122.18243,20.94413 -4.66625,0 c -0.44625,0 -0.86375,0.22125 -1.11375,0.59125 l -6.4375,9.48 -2.7275,-9.11 c -0.17125,-0.57 -0.69625,-0.96125 -1.29125,-0.96125 l -4.58625,0 c -0.55375,0 -0.94375,0.545 -0.765,1.06875 l 5.1375,15.0825 -4.8325,6.81875 c -0.37875,0.535 0.004,1.275 0.66,1.275 l 4.66125,0 c 0.44125,0 0.855,-0.21625 1.1075,-0.57875 l 15.5175,-22.3975 c 0.37125,-0.53625 -0.0113,-1.26875 -0.66375,-1.26875 m -31.19587,9.03612 c -0.44875,2.6525 -2.55375,4.43375 -5.24,4.43375 -1.34625,0 -2.425,-0.43375 -3.1175,-1.25375 -0.68625,-0.8125 -0.945,-1.97125 -0.7275,-3.26 0.4175,-2.63 2.5575,-4.4675 5.2025,-4.4675 1.31875,0 2.38875,0.4375 3.095,1.265 0.71125,0.83375 0.99125,1.99875 0.7875,3.2825 m 6.47,-9.03625 -4.6425,0 c -0.3975,0 -0.73625,0.28875 -0.79875,0.6825 l -0.20375,1.2975 -0.32375,-0.47 c -1.00625,-1.45875 -3.2475,-1.9475 -5.485,-1.9475 -5.12875,0 -9.51,3.8875 -10.3625,9.33875 -0.44375,2.72 0.18625,5.31875 1.72875,7.1325 1.41625,1.66625 3.4375,2.36 5.84625,2.36 4.135,0 6.4275,-2.655 6.4275,-2.655 l -0.2075,1.29 c -0.0775,0.49 0.30125,0.93375 0.79875,0.93375 l 4.18,0 c 0.66375,0 1.2275,-0.48125 1.33125,-1.13625 l 2.51,-15.8925 c 0.0775,-0.49 -0.3025,-0.93375 -0.79875,-0.93375 m -27.85913,0.1115 c -0.53,3.48 -3.1875,3.48 -5.75875,3.48 l -1.4625,0 1.02625,-6.4975 c 0.0612,-0.3925 0.4,-0.68125 0.7975,-0.68125 l 0.67125,0 c 1.75,0 3.4025,0 4.255,0.99625 0.51,0.59625 0.66375,1.48125 0.47125,2.7025 m -1.11875,-9.08 -9.695,0 c -0.66375,0 -1.2275,0.4825 -1.33125,1.1375 l -3.92,24.86 c -0.0775,0.49 0.30125,0.93375 0.7975,0.93375 l 4.63,0 c 0.6625,0 1.22625,-0.4825 1.33,-1.13625 l 1.05875,-6.7075 c 0.1025,-0.655 0.6675,-1.1375 1.33,-1.1375 l 3.0675,0 c 6.38625,0 10.0725,-3.09 11.035,-9.21625 0.43375,-2.6775 0.0175,-4.7825 -1.23625,-6.25625 -1.37875,-1.62 -3.8225,-2.4775 -7.06625,-2.4775"
+                      fill="#002f86"
+                      fillOpacity="1"
+                      fillRule="nonzero"
+                      stroke="none"
+                    ></path>
+                    <path
+                      d="m 172.07806,12.65863 -3.97875,25.315 c -0.0775,0.49 0.30125,0.93375 0.7975,0.93375 l 4.0025,0 c 0.6625,0 1.2275,-0.4825 1.33,-1.1375 l 3.92375,-24.86 c 0.0775,-0.49 -0.30125,-0.93375 -0.79875,-0.93375 l -4.4775,0 c -0.39875,0 -0.7375,0.28875 -0.79875,0.6825 m -11.94175,17.32162 c -0.44875,2.6525 -2.55375,4.43375 -5.24,4.43375 -1.34625,0 -2.425,-0.43375 -3.1175,-1.25375 -0.6875,-0.8125 -0.945,-1.97125 -0.7275,-3.26 0.4175,-2.63 2.5575,-4.4675 5.2025,-4.4675 1.31875,0 2.38875,0.4375 3.095,1.265 0.71125,0.83375 0.99125,1.99875 0.7875,3.2825 m 6.47,-9.03625 -4.6425,0 c -0.3975,0 -0.73625,0.28875 -0.79875,0.6825 l -0.20375,1.2975 -0.325,-0.47 c -1.005,-1.45875 -3.24625,-1.9475 -5.48375,-1.9475 -5.12875,0 -9.51,3.8875 -10.3625,9.33875 -0.44375,2.72 0.18625,5.31875 1.72875,7.1325 1.41625,1.66625 3.4375,2.36 5.84625,2.36 4.135,0 6.4275,-2.655 6.4275,-2.655 l -0.2075,1.29 c -0.0775,0.49 0.30125,0.93375 0.79875,0.93375 l 4.18,0 c 0.66375,0 1.2275,-0.48125 1.33125,-1.13625 l 2.51,-15.8925 c 0.0775,-0.49 -0.3025,-0.93375 -0.79875,-0.93375 m -27.85925,0.1115 c -0.53,3.48 -3.1875,3.48 -5.75875,3.48 l -1.4625,0 1.02625,-6.4975 c 0.0613,-0.3925 0.4,-0.68125 0.7975,-0.68125 l 0.67125,0 c 1.75,0 3.4025,0 4.255,0.99625 0.51,0.59625 0.66375,1.48125 0.47125,2.7025 m -1.11875,-9.08 -9.695,0 c -0.66375,0 -1.2275,0.4825 -1.33125,1.1375 l -3.92,24.86 c -0.0775,0.49 0.3025,0.93375 0.7975,0.93375 l 4.975,0 c 0.46375,0 0.85875,-0.3375 0.93125,-0.795 l 1.1125,-7.04875 c 0.1025,-0.655 0.6675,-1.1375 1.33,-1.1375 l 3.0675,0 c 6.38625,0 10.0725,-3.09 11.035,-9.21625 0.43375,-2.6775 0.0175,-4.7825 -1.23625,-6.25625 -1.37875,-1.62 -3.8225,-2.4775 -7.06625,-2.4775"
+                      fill="#009cde"
+                      fillOpacity="1"
+                      fillRule="nonzero"
+                      stroke="none"
+                    ></path>
+                    <path
+                      d="M 32.60643,3.4075 C 30.51393,1.0225 26.73143,0 21.89268,0 L 7.84893,0 C 6.85893,0 6.01768,0.72 5.86268,1.69625 L 0.01518001,38.7825 c -0.11625,0.73125 0.45,1.39375 1.19124999,1.39375 l 8.67,0 2.1775,-13.81125 -0.0675,0.4325 c 0.155,-0.97625 0.99,-1.69625 1.97875,-1.69625 l 4.12,0 c 8.09375,0 14.43125,-3.2875 16.2825,-12.7975 0.055,-0.28125 0.1025,-0.555 0.14375,-0.8225 -0.23375,-0.12375 -0.23375,-0.12375 0,0 0.55125,-3.515 -0.004,-5.9075 -1.905,-8.07375"
+                      fill="#003087"
+                      fillOpacity="1"
+                      fillRule="nonzero"
+                      stroke="none"
+                    ></path>
+                    <path
+                      d="m 14.39418,11.52788 c 0.0925,-0.5875 0.47,-1.06875 0.9775,-1.3125 0.23125,-0.11 0.48875,-0.17125 0.75875,-0.17125 l 11.01,0 c 1.30375,0 2.52,0.085 3.63125,0.26375 0.31875,0.0512 0.6275,0.11 0.9275,0.1775 0.3,0.0662 0.59125,0.14125 0.87375,0.22375 0.14125,0.0412 0.28,0.0838 0.41625,0.12875 0.54625,0.1825 1.055,0.395 1.5225,0.64375 0.55125,-3.51625 -0.004,-5.9075 -1.905,-8.07375 -2.09375,-2.385 -5.875,-3.4075 -10.71375,-3.4075 l -14.045,0 c -0.98875,0 -1.83,0.72 -1.985,1.69625 l -5.84749999,37.085 c -0.11625,0.7325 0.45,1.39375 1.18999999,1.39375 l 8.67125,0 2.1775,-13.81125 2.34,-14.83625 z"
+                      fill="#002f86"
+                      fillOpacity="1"
+                      fillRule="nonzero"
+                      stroke="none"
+                    ></path>
+                    <path
+                      d="m 34.51168,11.48125 0,0 c -0.0425,0.26875 -0.0888,0.54125 -0.14375,0.8225 -1.85125,9.50875 -8.18875,12.7975 -16.2825,12.7975 l -4.12125,0 c -0.98875,0 -1.82375,0.72 -1.9775,1.69625 l -2.11,13.3775 -0.59875,3.795 c -0.10125,0.64 0.39375,1.22 1.04125,1.22 l 7.30875,0 c 0.865,0 1.60125,-0.63 1.73625,-1.48375 l 0.0713,-0.3725 1.3775,-8.73 0.0888,-0.4825 c 0.135,-0.85375 0.87125,-1.48375 1.73625,-1.48375 l 1.09375,0 c 7.08,0 12.62375,-2.87625 14.24375,-11.195 0.67625,-3.47625 0.32625,-6.37875 -1.4625,-8.4175 -0.5425,-0.6175 -1.21625,-1.1275 -2.00125,-1.54375"
+                      fill="#009cde"
+                      fillOpacity="1"
+                      fillRule="nonzero"
+                      stroke="none"
+                    ></path>
+                    <path
+                      d="m 32.57331,10.70863 c -0.2825,-0.0825 -0.57375,-0.1575 -0.87375,-0.22375 -0.3,-0.0663 -0.61,-0.125 -0.9275,-0.17625 -1.1125,-0.18 -2.3275,-0.265 -3.6325,-0.265 l -11.00875,0 c -0.27125,0 -0.52875,0.0613 -0.75875,0.1725 -0.50875,0.24375 -0.885,0.72375 -0.9775,1.3125 l -2.34,14.83625 -0.0675,0.4325 c 0.15375,-0.97625 0.98875,-1.69625 1.9775,-1.69625 l 4.12125,0 c 8.09375,0 14.43125,-3.2875 16.2825,-12.7975 0.055,-0.28125 0.10125,-0.55375 0.14375,-0.8225 -0.46875,-0.2475 -0.97625,-0.46125 -1.5225,-0.6425 -0.13625,-0.045 -0.275,-0.0888 -0.41625,-0.13"
+                      fill="#012069"
+                      fillOpacity="1"
+                      fillRule="nonzero"
+                      stroke="none"
+                    ></path>
+                  </svg>
                 </Button>
                 <Button
-                  className="w-full bg-yellow-500 text-zinc-900 h-14"
+                  className="w-full h-14 bg-zinc-900 hover:bg-zinc-700"
                   variant={"outline"}
                 >
-                  PayPal
-                </Button>
-                <Button
-                  className="w-full bg-zinc-900 text-white h-14"
-                  variant={"outline"}
-                >
-                  Apple Pay
+                  <Image
+                    src={"/images/32px-Apple_Pay_logo.png"}
+                    alt={"apple pay"}
+                    height={60}
+                    width={60}
+                    className="invert h-auto w-auto"
+                  />
                 </Button>
               </div>
             </fieldset>
           </section>
-
           <div className="relative flex my-10 items-center">
             <div className="flex-grow border-t border-gray-200"></div>
             <span className="mx-4 text-gray-500 font-medium text-sm tracking-wide">
@@ -245,36 +335,11 @@ export default function CheckoutForm() {
             </span>
             <div className="flex-grow border-t border-gray-200"></div>
           </div>
-
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex-1 space-y-6"
             >
-              {/* Contact Information */}
-              {/* <section>
-            <div className="flex items-center justify-between my-5">
-              <h4 className="text-xl font-bold md:text-2xl">
-                Contact Information
-              </h4>
-              <p className="text-sm text-gray-500">
-                Already have an account?{" "}
-                <Link
-                  href="#"
-                  className="text-sm hover:text-red-500 text-zinc-900 font-medium underline"
-                >
-                  Log in
-                </Link>
-              </p>
-            </div>
-            <CustomFormField
-              fieldType={FormFieldType.INPUT}
-              control={form.control}
-              name="email"
-              placeholder="Email"
-            />
-          </section> */}
-
               <motion.div animate={{ transition: { duration: 1 } }}>
                 <section className="mb-7 space-y-4">
                   <h1 className="text-xl font-bold md:text-2xl">
@@ -538,7 +603,7 @@ export default function CheckoutForm() {
                                     fill="#fff"
                                     stroke="#DADCDF"
                                   ></rect>
-                                  <g clip-path="url(#clip0)">
+                                  <g clipPath="url(#clip0)">
                                     <path
                                       d="M17.112 8.142l-3.142 7.737h-2.05l-1.547-6.174c-.093-.38-.174-.52-.46-.68-.466-.262-1.236-.506-1.913-.658l.046-.23h3.3c.215 0 .424.08.588.224a.94.94 0 01.306.565l.817 4.473 2.017-5.266 2.038.009zm8.032 5.21c.008-2.04-2.735-2.154-2.716-3.066.005-.277.26-.573.822-.648a3.554 3.554 0 011.912.345l.34-1.642a5.078 5.078 0 00-1.813-.344c-1.918 0-3.267 1.052-3.278 2.558-.012 1.113.963 1.735 1.698 2.105.755.38 1.009.623 1.007.962-.006.519-.604.748-1.162.757-.975.016-1.54-.271-1.99-.488l-.353 1.695c.453.214 1.29.401 2.157.411 2.038 0 3.37-1.039 3.376-2.647v.003zm5.063 2.52H32l-1.566-7.737H28.78a.863.863 0 00-.499.155.906.906 0 00-.327.418l-2.91 7.17h2.037l.404-1.156h2.488l.235 1.15zm-2.165-2.742l1.021-2.904.585 2.911-1.606-.007zm-8.159-4.995l-1.604 7.737H16.34l1.604-7.737h1.94z"
                                       fill="url(#visa-gradient)"
@@ -553,10 +618,10 @@ export default function CheckoutForm() {
                                       y2="8.349"
                                       gradientUnits="userSpaceOnUse"
                                     >
-                                      <stop stop-color="#1A1E5A"></stop>
+                                      <stop stopColor="#1A1E5A"></stop>
                                       <stop
                                         offset="1"
-                                        stop-color="#122D98"
+                                        stopColor="#122D98"
                                       ></stop>
                                     </linearGradient>
                                     <clipPath id="clip0">
@@ -799,19 +864,24 @@ export default function CheckoutForm() {
                 />
               </section>
 
-              <div className="flex justify-between">
+              <div className="hidden md:flex lg:flex justify-between gap-3">
                 <Button
-                  className="w-2/5"
+                  className="w-2/5 h-12 text-base flex items-center gap-x-2"
                   onClick={form.handleSubmit(onSubmit)}
                   disabled={processing}
                 >
+                  <LockKeyhole />
                   Place Order
                 </Button>
-                <div>
+                <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm">Shipping costs included!</p>
+                    <div className="flex justify-center gap-x-2">
+                      <Truck size={20} strokeWidth={1} />
+                      <p className="text-sm">Shipping costs included!</p>
+                    </div>
+
                     <p className="text-sm">
-                      Total: <b>$1250.00</b>
+                      Total: <b>{formatPrice(cart?.totalAmount)}</b>
                     </p>
                   </div>
                   <p className="text-xs">
@@ -823,26 +893,131 @@ export default function CheckoutForm() {
                   </p>
                 </div>
               </div>
-
-              {/* <SubmitButton isLoading={isLoading}>
-                Submit and Continue
-              </SubmitButton> */}
             </form>
           </Form>
         </div>
         <div className="mt-2.5">
+          <fieldset className="border border-solid border-gray-300 mb-5 px-2">
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="promo-code">
+                <AccordionTrigger className="hover:no-underline font-bold flex items-center justify-start">
+                  <Plus className="mr-2" /> Add a promo code
+                </AccordionTrigger>
+                <AccordionContent>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, transition: { duration: 1 } }}
+                  >
+                    <Form {...promoForm}>
+                      <form
+                        onSubmit={promoForm.handleSubmit(handlePromoCode)}
+                        className="flex items-start gap-x-3 justify-between"
+                      >
+                        <CustomFormField
+                          fieldType={FormFieldType.INPUT}
+                          control={promoForm.control}
+                          name="promoCode"
+                          placeholder="Enter promo code"
+                        />
+                        <Button
+                          type="submit"
+                          variant={"outline"}
+                          className="h-11"
+                        >
+                          Apply
+                        </Button>
+                      </form>
+                    </Form>
+                  </motion.div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </fieldset>
           <fieldset className="border border-solid border-gray-300 p-5">
-            {/* render payment form */}
+            {/* Order Summary */}
+            <section className="mb-5 space-y-3">
+              <div className="flex items-center justify-between">
+                <h5 className="text-sm font-bold">({cart.totalQty}) Item:</h5>
+                <h5 className="text-sm font-bold tracking-wider">
+                  {formatPrice(cart.subTotal)}
+                </h5>
+              </div>
+              <div className="flex items-center justify-between">
+                <p className="text-sm">Sale Savings:</p>
+                <p className="text-sm text-red-500 tracking-wider">
+                  {formatPrice(0)}
+                </p>
+              </div>
+              <div className="flex items-center justify-between">
+                <h5 className="font-bold">Subtotal:</h5>
+
+                <h5 className="font-bold tracking-wider">
+                  {formatPrice(cart.subTotal)}
+                </h5>
+              </div>
+              <Separator />
+
+              <div className="flex items-center justify-between">
+                <h5 className="text-sm">Shipping:</h5>
+                {cart.totalShippingPrice ? (
+                  <h5 className="text-sm tracking-wider">
+                    {formatPrice(cart.totalShippingPrice)}
+                  </h5>
+                ) : (
+                  <p className="font-bold">Free</p>
+                )}
+              </div>
+
+              <div className="flex items-center justify-between">
+                <h5 className="text-sm flex items-center gap-x-1">
+                  Estimated Tax:
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info size={15} className="cursor-pointer" />
+                      </TooltipTrigger>
+                      <TooltipContent className="bg-zinc-900 text-white max-w-[250px]">
+                        <p>
+                          Final tax amount will be shown upon order completion.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </h5>
+                <h5 className="text-sm tracking-wider">
+                  {formatPrice(cart.tax)}
+                </h5>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <h5 className="text-lg font-bold">Total:</h5>
+                <h5 className="text-lg font-bold tracking-wider">
+                  {formatPrice(cart.totalAmount)}
+                </h5>
+              </div>
+            </section>
             <Button
-              className="w-full"
+              className="w-full h-12 text-base flex items-center gap-x-2"
               onClick={form.handleSubmit(onSubmit)}
               disabled={processing}
             >
+              <LockKeyhole />
               Place Order
             </Button>
+            {cart.totalShippingPrice <= 0 && (
+              <div className="flex items-center mt-3 justify-center">
+                <Truck size={20} strokeWidth={1} />
+                <p className="text-sm">This Order Ships Free!</p>
+              </div>
+            )}
           </fieldset>
         </div>
       </div>
-    </MaxWidthWrapper>
+
+      {/* Scroll to top */}
+      <div className="mt-10">
+        <ScrollToTopButton />
+      </div>
+    </>
   );
 }

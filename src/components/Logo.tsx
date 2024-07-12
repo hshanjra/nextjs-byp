@@ -20,6 +20,7 @@ export default function Logo({
           height={height}
           width={width}
           className={cn("w-auto h-auto aspect-square", className)}
+          priority
         />
       </Link>
     </>
