@@ -163,8 +163,11 @@ export default function CheckoutForm({
           return;
         }
 
-        if (!result.data?.clientSecret)
+        if (!result.data?.clientSecret) {
           setCardError({ message: "Payment processing error" });
+          setProcessing(false);
+          return;
+        }
 
         const { error, paymentIntent } = await stripe.confirmCardPayment(
           result.data?.clientSecret,
@@ -206,6 +209,7 @@ export default function CheckoutForm({
   };
 
   const handlePromoCode = async (values: promoCodeType) => {
+    // TODO: handle promo code
     console.log("values", values);
   };
 
