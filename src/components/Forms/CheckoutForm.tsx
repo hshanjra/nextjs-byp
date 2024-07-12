@@ -39,7 +39,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
-import { Info, LockKeyhole, Plus, Truck } from "lucide-react";
+import { Info, LoaderCircle, LockKeyhole, Plus, Truck } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -48,7 +48,6 @@ import {
 } from "../ui/tooltip";
 import ScrollToTopButton from "../ScrollToTopButton";
 import { createOrder } from "@/actions/CheckoutAction";
-import { useAction } from "next-safe-action/hooks";
 
 export default function CheckoutForm({
   cart,
@@ -162,10 +161,6 @@ export default function CheckoutForm({
           toast.error("Unable to create order. Please try again later.");
           // setCardError({ message: "Payment processing error" });
           return;
-        }
-
-        if (result.serverError) {
-          toast.error(result.serverError);
         }
 
         if (!result.data?.clientSecret) {
@@ -913,12 +908,18 @@ export default function CheckoutForm({
 
               <div className="hidden md:flex lg:flex justify-between gap-3">
                 <Button
-                  className="w-2/5 h-12 text-base flex items-center gap-x-2"
+                  className="w-2/5 h-12 text-base flex items-center gap-x-2 disabled:opacity-100"
                   onClick={form.handleSubmit(onSubmit)}
                   disabled={processing}
                 >
-                  <LockKeyhole />
-                  Place Order
+                  {processing ? (
+                    <LoaderCircle className="animate-spin" />
+                  ) : (
+                    <>
+                      <LockKeyhole />
+                      Place Order
+                    </>
+                  )}
                 </Button>
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
@@ -1044,12 +1045,18 @@ export default function CheckoutForm({
               </div>
             </section>
             <Button
-              className="w-full h-12 text-base flex items-center gap-x-2"
+              className="w-full h-12 text-base flex items-center gap-x-2 disabled:opacity-100"
               onClick={form.handleSubmit(onSubmit)}
               disabled={processing}
             >
-              <LockKeyhole />
-              Place Order
+              {processing ? (
+                <LoaderCircle className="animate-spin" />
+              ) : (
+                <>
+                  <LockKeyhole />
+                  Place Order
+                </>
+              )}
             </Button>
             {cart.totalShippingPrice <= 0 && (
               <div className="flex items-center mt-3 justify-center">
