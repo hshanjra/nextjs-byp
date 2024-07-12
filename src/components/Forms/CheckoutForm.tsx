@@ -194,7 +194,11 @@ export default function CheckoutForm({
 
       case "PAYPAL":
         // Handle PayPal payment
-        console.log("values", values);
+
+        toast.error(
+          "PayPal is not supporting yet. Try entering card details instead!"
+        );
+        break;
 
       default:
         break;
