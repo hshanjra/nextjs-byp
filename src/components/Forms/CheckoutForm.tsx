@@ -47,8 +47,16 @@ import {
   TooltipTrigger,
 } from "../ui/tooltip";
 import ScrollToTopButton from "../ScrollToTopButton";
+import { createOrder } from "@/actions/CheckoutAction";
+import { useAction } from "next-safe-action/hooks";
 
-export default function CheckoutForm({ cart }: { cart: Cart }) {
+export default function CheckoutForm({
+  cart,
+  sessionId,
+}: {
+  cart: Cart;
+  sessionId: string;
+}) {
   // const router = useRouter();
   const [zipCodeProcessing, setZipCodeProcessing] = useState(false);
 
@@ -96,6 +104,16 @@ export default function CheckoutForm({ cart }: { cart: Cart }) {
     },
   });
 
+  // const { execute } = useAction(createOrder, {
+  //   onSuccess: (data) => {
+  //     toast.success(data.success);
+  //     setClientSecret(data.clientSecret);
+  //     setOrderId(data.order.orderId);
+  //     // router.push(`/thank-you?orderId=${data.orderId}`);
+  //     // window.location.href = `/thank-you?orderId=${data.order.orderId}`;
+  //   },
+  // });
+
   const isSame = form.watch("shippingSameAsBilling");
   const paymentMethod = form.watch("paymentMethod");
 
@@ -130,10 +148,25 @@ export default function CheckoutForm({ cart }: { cart: Cart }) {
         }
 
         //  Create Order and retrieve client secret
+        Object.assign(values, {
+          sessionId: sessionId,
+          paymentMethod: paymentMethod,
+        });
 
-        // pi_3PbLbqBBkCjSe7y31Jsh3T9v_secret_WVqO8PyURpS2sdJ9qlAIwV7aA
+        const result = await createOrder(values);
+
+        if (!result) {
+          setProcessing(false);
+          setCardError({ message: "Payment processing error" });
+          card.focus();
+          return;
+        }
+
+        if (!result.data?.clientSecret)
+          setCardError({ message: "Payment processing error" });
+
         const { error, paymentIntent } = await stripe.confirmCardPayment(
-          "pi_3PbLbqBBkCjSe7y31Jsh3T9v_secret_WVqO8PyURpS2sdJ9qlAIwV7aA",
+          result.data?.clientSecret,
           {
             payment_method: {
               card: card,
@@ -153,7 +186,7 @@ export default function CheckoutForm({ cart }: { cart: Cart }) {
         }
 
         if (paymentIntent?.status === "succeeded") {
-          console.log("values", values);
+          window.location.href = `/thank-you?orderId=${result.data?.order.orderId}`;
           setProcessing(false);
         }
         break;

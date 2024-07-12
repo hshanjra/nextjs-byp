@@ -20,7 +20,7 @@ export default async function CheckoutPage() {
             cart={result.cart}
             paymentId={result.paymentId}
           /> */}
-        <CheckoutForm cart={result.cart} />
+        <CheckoutForm cart={result.cart} sessionId={result.sessionId} />
       </StripePaymentElement>
     </MaxWidthWrapper>
   );

@@ -68,7 +68,7 @@ export const createOrder = ac(
       const { data } = await extApi.post(
         "/orders",
         {
-          paymentId: inputs.paymentId?.toString(),
+          // paymentId: inputs.paymentId?.toString(),
           paymentMethod: inputs.paymentMethod,
           sessionId: inputs.sessionId,
           billingAddress: {
