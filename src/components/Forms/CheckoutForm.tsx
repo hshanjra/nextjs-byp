@@ -763,7 +763,7 @@ export default function CheckoutForm({
                                         },
                                         "::placeholder": {
                                           color: "#2b2b2b9c",
-                                          backgroundColor: "#2b2b2b9c",
+                                          // backgroundColor: "#2b2b2b9c",
                                         },
                                       },
                                       invalid: {

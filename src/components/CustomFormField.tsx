@@ -78,7 +78,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
             defaultCountry="US"
             countries={["US"]}
             placeholder={props.placeholder}
-            international={false}
+            addInternationalOption={false}
             // withCountryCallingCode
             value={field.value as E164Number | undefined}
             onChange={field.onChange}
