@@ -762,7 +762,7 @@ export default function CheckoutForm({
                                           color: "black",
                                         },
                                         "::selection": {
-                                          backgroundColor: "white !important",
+                                          backgroundColor: "white",
                                         },
                                         "::placeholder": {
                                           color: "#2b2b2b9c",
