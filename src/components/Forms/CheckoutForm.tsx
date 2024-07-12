@@ -66,30 +66,7 @@ export default function CheckoutForm({
   const [cardComplete, setCardComplete] = useState(false);
   const [processing, setProcessing] = useState(false);
 
-  const CARD_OPTIONS = {
-    style: {
-      iconStyle: "solid",
-      base: {
-        iconColor: "black",
-        color: "black",
-        fontWeight: 500,
-        fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
-        fontSize: "16px",
-        fontSmoothing: "antialiased",
-        ":-webkit-autofill": {
-          color: "#ef253c",
-        },
-        "::placeholder": {
-          color: "#2b2b2b9c",
-        },
-      },
-      invalid: {
-        iconColor: "#ef253c",
-        color: "#ef253c",
-      },
-    },
-    hidePostalCode: true,
-  };
+  const CARD_OPTIONS = "";
 
   const form = useForm<checkoutFormType>({
     resolver: zodResolver(checkoutFormSchema),
@@ -770,7 +747,32 @@ export default function CheckoutForm({
                                 }`}
                               >
                                 <CardElement
-                                  options={CARD_OPTIONS}
+                                  options={{
+                                    iconStyle: "solid",
+                                    style: {
+                                      base: {
+                                        iconColor: "black",
+                                        color: "black",
+                                        fontWeight: 500,
+                                        fontFamily:
+                                          "Roboto, Open Sans, Segoe UI, sans-serif",
+                                        fontSize: "16px",
+                                        fontSmoothing: "antialiased",
+                                        ":-webkit-autofill": {
+                                          color: "black",
+                                          backgroundColor: "white",
+                                        },
+                                        "::placeholder": {
+                                          color: "#2b2b2b9c",
+                                        },
+                                      },
+                                      invalid: {
+                                        iconColor: "#ef253c",
+                                        color: "#ef253c",
+                                      },
+                                    },
+                                    hidePostalCode: true,
+                                  }}
                                   onChange={(e: any) => {
                                     setCardError(e.error);
                                     setCardComplete(e.complete);
@@ -933,9 +935,9 @@ export default function CheckoutForm({
                     </p>
                   </div>
                   <p className="text-xs">
-                    By submitting your order, you agree to our &nbsp;
+                    By submitting your order, you agree to our
                     <Link href="/terms-and-conditions" className="underline">
-                      terms and conditions
+                      &nbsp;terms and conditions
                     </Link>
                     .
                   </p>
