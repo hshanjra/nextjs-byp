@@ -145,6 +145,7 @@ export default function CheckoutForm({
         if (!cardComplete) {
           card.focus();
           setProcessing(false);
+          return;
         }
 
         //  Create Order and retrieve client secret
@@ -157,8 +158,7 @@ export default function CheckoutForm({
 
         if (!result) {
           setProcessing(false);
-          setCardError({ message: "Payment processing error" });
-          card.focus();
+          // setCardError({ message: "Payment processing error" });
           return;
         }
 
