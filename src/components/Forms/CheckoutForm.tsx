@@ -760,7 +760,7 @@ export default function CheckoutForm({
                                         fontSmoothing: "antialiased",
                                         ":-webkit-autofill": {
                                           color: "black",
-                                          backgroundColor: "white",
+                                          backgroundColor: "white !important",
                                         },
                                         "::placeholder": {
                                           color: "#2b2b2b9c",
