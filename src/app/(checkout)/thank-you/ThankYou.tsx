@@ -256,12 +256,11 @@ export default function ThankYou() {
                   </span>
                   <span className="block">{shippingAddress.streetAddress}</span>
                   <span className="block">
-                    {shippingAddress.zipCode},&nbsp; {shippingAddress.city}
+                    {shippingAddress.city},&nbsp;{shippingAddress.state}&nbsp;
+                    {shippingAddress.zipCode}
                   </span>
 
-                  <span className="block">
-                    {shippingAddress.state},&nbsp;{shippingAddress.country}
-                  </span>
+                  <span className="block">{shippingAddress.country}</span>
                 </address>
               </div>
             </div>
@@ -274,12 +273,11 @@ export default function ThankYou() {
                   </span>
                   <span className="block">{billingAddress.streetAddress}</span>
                   <span className="block">
-                    {billingAddress.city},&nbsp; {billingAddress.zipCode}
+                    {billingAddress.city},&nbsp;{billingAddress.state}&nbsp;
+                    {billingAddress.zipCode}
                   </span>
 
-                  <span className="block">
-                    {billingAddress.state},&nbsp;{billingAddress.country}
-                  </span>
+                  <span className="block">{billingAddress.country}</span>
                 </address>
               </div>
             </div>

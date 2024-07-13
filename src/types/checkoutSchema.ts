@@ -43,8 +43,9 @@ export const checkoutFormSchema = z
       .string()
       .min(1, "City name is required")
       .max(70, "City name must not be greater than 70 characters"),
+
     // @ts-ignore
-    billingState: z.enum(US_STATES, {
+    billingState: z.enum(US_STATES.map((state) => state.value) as const, {
       message: "Please select a US state",
     }),
     billingZipCode: z
@@ -78,7 +79,7 @@ export const checkoutFormSchema = z
       .min(1, "City name is required")
       .max(70, "City name must not be greater than 70 characters"),
     // @ts-ignore
-    shippingState: z.enum(US_STATES, {
+    shippingState: z.enum(US_STATES.map((state) => state.value) as const, {
       message: "Please select a US state",
     }),
     shippingZipCode: z

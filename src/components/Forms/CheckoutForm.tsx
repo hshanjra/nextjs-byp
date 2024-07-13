@@ -63,10 +63,11 @@ export default function CheckoutForm({
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState<{ message?: string } | null>();
+  const [orderProcessingError, setOrderProcessingError] = useState<{
+    message: [];
+  }>();
   const [cardComplete, setCardComplete] = useState(false);
   const [processing, setProcessing] = useState(false);
-
-  const CARD_OPTIONS = "";
 
   const form = useForm<checkoutFormType>({
     resolver: zodResolver(checkoutFormSchema),
@@ -79,16 +80,6 @@ export default function CheckoutForm({
       promoCode: "",
     },
   });
-
-  // const { execute } = useAction(createOrder, {
-  //   onSuccess: (data) => {
-  //     toast.success(data.success);
-  //     setClientSecret(data.clientSecret);
-  //     setOrderId(data.order.orderId);
-  //     // router.push(`/thank-you?orderId=${data.orderId}`);
-  //     // window.location.href = `/thank-you?orderId=${data.order.orderId}`;
-  //   },
-  // });
 
   const isSame = form.watch("shippingSameAsBilling");
   const paymentMethod = form.watch("paymentMethod");
@@ -135,16 +126,25 @@ export default function CheckoutForm({
 
         if (!result) {
           setProcessing(false);
-          toast.error("Unable to create order. Please try again later.");
-          // setCardError({ message: "Payment processing error" });
+          toast.error(
+            "Unable to process the order at the moment. Please try again later."
+          );
           return;
         }
 
-        if (!result.data?.clientSecret) {
-          setCardError({ message: "Payment processing error" });
+        if (result.data?.error) {
+          setOrderProcessingError({ message: result.data.error.message });
           setProcessing(false);
           return;
         }
+
+        // if (!result.data?.clientSecret) {
+        //   setOrderProcessingError({
+        //     message: ["Unable to process the order at the moment"],
+        //   });
+        //   setProcessing(false);
+        //   return;
+        // }
 
         const { error, paymentIntent } = await stripe.confirmCardPayment(
           result.data?.clientSecret,
@@ -229,7 +229,9 @@ export default function CheckoutForm({
     if (zipCode && zipCode.length >= 5) {
       setZipCodeProcessing(true);
       try {
-        const { city, state, error } = await fetchCityAndState(zipCode);
+        const { city, state, stateAbbr, error } = await fetchCityAndState(
+          zipCode
+        );
 
         if (error) {
           form.setError(`${fieldPrefix}ZipCode`, { message: error });
@@ -239,7 +241,7 @@ export default function CheckoutForm({
           }
         } else {
           form.setValue(`${fieldPrefix}City`, city);
-          form.setValue(`${fieldPrefix}State`, state);
+          form.setValue(`${fieldPrefix}State`, stateAbbr);
           // form.control._defaultValues.billingState == state;
         }
         form.setValue(`${fieldPrefix}ZipCode`, zipCode);
@@ -354,6 +356,19 @@ export default function CheckoutForm({
             </span>
             <div className="flex-grow border-t border-gray-200"></div>
           </div>
+          {/* Errors */}
+          {orderProcessingError && (
+            <div className="bg-red-100 rounded-lg p-4 my-2">
+              <ul className="list-disc p-2">
+                {orderProcessingError.message?.map((error) => (
+                  <li className="text-red-500 font-semibold" key={error}>
+                    {error}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
@@ -429,8 +444,8 @@ export default function CheckoutForm({
                       placeholder="Select a state"
                     >
                       {US_STATES.map((state, i) => (
-                        <SelectItem key={i} value={state}>
-                          <p>{state}</p>
+                        <SelectItem key={i} value={state.value}>
+                          <p>{state.name}</p>
                         </SelectItem>
                       ))}
                     </CustomFormField>
@@ -538,8 +553,8 @@ export default function CheckoutForm({
                         placeholder="Select a state"
                       >
                         {US_STATES.map((state, i) => (
-                          <SelectItem key={i} value={state}>
-                            <p>{state}</p>
+                          <SelectItem key={i} value={state.value}>
+                            <p>{state.name}</p>
                           </SelectItem>
                         ))}
                       </CustomFormField>

@@ -1,3 +1,4 @@
+"use server";
 /**
  * Fetches the city and state associated with a given zipcode.
  *
@@ -16,6 +17,7 @@ export async function fetchCityAndState(zipcode: string) {
     return {
       city: data?.places[0]["place name"],
       state: data?.places[0]["state"],
+      stateAbbr: data?.places[0]["state abbreviation"],
     };
   } catch (e: any) {
     console.log(e);

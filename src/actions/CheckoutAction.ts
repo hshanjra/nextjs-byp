@@ -75,24 +75,25 @@ export const createOrder = ac(
             firstName: inputs.billingFirstName,
             lastName: inputs.billingLastName,
             companyName: inputs.billingCompanyName,
-            // phone: inputs.billingPhone,
+
             streetAddress: inputs.billingStreetAddress,
             city: inputs.billingCity,
             state: inputs.billingState,
             zipCode: inputs.billingZipCode,
             country: inputs.billingCountry,
           },
+          billingPhone: inputs.billingPhone,
           shippingAddress: {
             firstName: inputs.shippingFirstName,
             lastName: inputs.shippingLastName,
             companyName: inputs.shippingCompanyName,
-            // phone: inputs.shippingPhone,
             streetAddress: inputs.shippingStreetAddress,
             city: inputs.shippingCity,
             state: inputs.shippingState,
             zipCode: inputs.shippingZipCode,
             country: inputs.shippingCountry,
           },
+          shippingPhone: inputs.shippingPhone,
         },
         {
           headers: {
@@ -108,7 +109,7 @@ export const createOrder = ac(
         return { error: "Unauthorized" };
       }
       console.log(e);
-      return e;
+      return { error: e };
     }
   }
 );
