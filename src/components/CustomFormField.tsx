@@ -120,7 +120,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
     case FormFieldType.SELECT:
       return (
         <FormControl>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <Select onValueChange={field.onChange} value={field.value}>
             <FormControl>
               <SelectTrigger className="placeholder:text-zinc-400 border-zinc-500 h-11 focus:ring-0 focus:ring-offset-0">
                 <SelectValue placeholder={props.placeholder} />
