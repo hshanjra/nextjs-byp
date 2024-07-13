@@ -64,8 +64,11 @@ export default function CheckoutForm({
   const elements = useElements();
   const [cardError, setCardError] = useState<{ message?: string } | null>();
   const [orderProcessingError, setOrderProcessingError] = useState<{
-    message: [];
+    message: Array<string>;
   }>();
+  const [zipCodeError, setZipCodeError] = useState<{ message?: string } | null>(
+    null
+  );
   const [cardComplete, setCardComplete] = useState(false);
   const [processing, setProcessing] = useState(false);
 
@@ -112,6 +115,16 @@ export default function CheckoutForm({
         if (!cardComplete) {
           card.focus();
           setCardError({ message: "Card details are incomplete" });
+          setProcessing(false);
+          return;
+        }
+
+        if (zipCodeError) {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+
           setProcessing(false);
           return;
         }
@@ -228,6 +241,7 @@ export default function CheckoutForm({
   }
 
   const handleZipChange = async (zipCode: string, isBilling = true) => {
+    setZipCodeError(null);
     const fieldPrefix = isBilling ? "billing" : "shipping";
     form.setValue(`${fieldPrefix}ZipCode`, zipCode);
     if (zipCode && zipCode.length >= 5) {
@@ -239,11 +253,13 @@ export default function CheckoutForm({
 
         if (error) {
           form.setError(`${fieldPrefix}ZipCode`, { message: error });
+          setZipCodeError({ message: error });
           if (!isBilling) {
             form.setValue("shippingCity", "");
             form.setValue("shippingState", "");
           }
         } else {
+          setZipCodeError(null);
           form.setValue(`${fieldPrefix}City`, city);
           form.setValue(`${fieldPrefix}State`, stateAbbr);
           // form.control._defaultValues.billingState == state;
@@ -361,17 +377,28 @@ export default function CheckoutForm({
             <div className="flex-grow border-t border-gray-200"></div>
           </div>
           {/* Errors */}
-          {orderProcessingError && (
-            <div className="bg-red-100 rounded-lg p-4 my-2">
-              <ul className="list-disc p-2">
+          <div
+            className={`${
+              orderProcessingError || zipCodeError ? "block" : "hidden"
+            } bg-red-100 rounded-lg p-4 mt-2 mb-7`}
+          >
+            {orderProcessingError && (
+              <ul className="list-disc px-2">
                 {orderProcessingError.message?.map((error) => (
                   <li className="text-red-500 font-semibold" key={error}>
                     {error}
                   </li>
                 ))}
               </ul>
-            </div>
-          )}
+            )}
+            {zipCodeError && (
+              <ul className="list-disc px-2">
+                <li className="text-red-500 font-semibold">
+                  {zipCodeError.message}
+                </li>
+              </ul>
+            )}
+          </div>
 
           <Form {...form}>
             <form
