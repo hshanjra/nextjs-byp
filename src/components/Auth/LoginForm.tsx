@@ -24,8 +24,12 @@ import Logo from "../Logo";
 import { toast } from "sonner";
 import { useStore } from "@/store/store";
 import { LoginForm as LoginFrm, LoginSchema } from "@/types/authSchema";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
+  const router = useRouter();
+  const return_url = useSearchParams().get("return_url");
+
   const { fetchAndSetUser } = useStore();
   const form = useForm({
     resolver: zodResolver(LoginSchema),
@@ -45,7 +49,10 @@ export default function LoginForm() {
         toast.success(data.success);
         await fetchAndSetUser();
         setSuccess(data.success);
-        window.location.href = "/account";
+
+        // Redirect to return URL if provided, otherwise to /account page
+        router.push(return_url || "/account");
+        // window.location.href = "/account";
       }
     },
     onError(data) {
