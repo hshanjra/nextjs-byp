@@ -17,7 +17,7 @@ import { useAction } from "next-safe-action/hooks";
 import { EmailSignInAction } from "@/actions/AuthAction";
 import { cn } from "@/lib/utils";
 import { LoaderCircle, LogIn } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FormSuccess from "./FormSuccess";
 import FormError from "./FormError";
 import Logo from "../Logo";
@@ -29,14 +29,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 export default function LoginForm() {
   const router = useRouter();
   const return_url = useSearchParams().get("return_url");
-
-  const [returnURL, setReturnURL] = useState(return_url || "/account");
-
-  useEffect(() => {
-    if (return_url) {
-      setReturnURL(return_url);
-    }
-  }, [return_url]);
 
   const { fetchAndSetUser } = useStore();
   const form = useForm({
@@ -59,7 +51,7 @@ export default function LoginForm() {
         setSuccess(data.success);
 
         // Redirect to return URL if provided, otherwise to /account page
-        router.push(returnURL);
+        router.push(return_url || "/account");
         // window.location.href = "/account";
       }
     },
