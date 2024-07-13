@@ -274,7 +274,7 @@ export default function ThankYou() {
                   </span>
                   <span className="block">{billingAddress.streetAddress}</span>
                   <span className="block">
-                    {billingAddress.zipCode},&nbsp; {billingAddress.city}
+                    {billingAddress.city},&nbsp; {billingAddress.zipCode}
                   </span>
 
                   <span className="block">
