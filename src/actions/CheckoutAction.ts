@@ -105,11 +105,13 @@ export const createOrder = ac(
 
       return data;
     } catch (e: any) {
+      console.log(e);
       if (e.status === 401) {
         return { error: "Unauthorized" };
       }
-      console.log(e);
-      return { error: e };
+      if (e.status === 400) {
+        return { error: e };
+      }
     }
   }
 );

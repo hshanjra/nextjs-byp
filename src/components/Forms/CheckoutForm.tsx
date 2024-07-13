@@ -134,6 +134,10 @@ export default function CheckoutForm({
 
         if (result.data?.error) {
           setOrderProcessingError({ message: result.data.error.message });
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
           setProcessing(false);
           return;
         }
