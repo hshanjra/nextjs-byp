@@ -16,9 +16,7 @@ export default function ProductsHeaderFilter() {
             id="sort"
             className="bg-transparent text-sm max-w-[140px] outline-none"
           >
-            <option value="popular" selected>
-              Sort by popularity
-            </option>
+            <option value="popular">Sort by popularity</option>
             <option value="avgRating">Sort by average rating</option>
             <option value="latest">Sort by latest</option>
             <option value="low-to-high">Sort by price: low to high</option>
@@ -33,9 +31,7 @@ export default function ProductsHeaderFilter() {
             id="sort"
             className="bg-transparent text-sm max-w-[140px] outline-none"
           >
-            <option value="16" selected>
-              16 items
-            </option>
+            <option value="16">16 items</option>
             <option value="32">32 items</option>
             <option value="48">48 items</option>
             <option value="64">64 items</option>
