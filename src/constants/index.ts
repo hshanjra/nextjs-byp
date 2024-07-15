@@ -87,6 +87,11 @@ export const VEHICLE_ATTRIBUTES = [
         years: ["2020", "2021", "2022"],
         bodyStyles: ["SUV", "Coupe"],
       },
+      {
+        name: "5 Series",
+        years: ["2019", "2020", "2021"],
+        bodyStyles: ["Sedan", "Coupe"],
+      },
     ],
   },
   {
@@ -97,6 +102,11 @@ export const VEHICLE_ATTRIBUTES = [
         years: ["2019", "2020", "2021"],
         bodyStyles: ["Sedan", "Convertible"],
       },
+      {
+        name: "A6",
+        years: ["2018", "2019", "2020"],
+        bodyStyles: ["Sedan", "Coupe"],
+      },
     ],
   },
   {
@@ -106,6 +116,61 @@ export const VEHICLE_ATTRIBUTES = [
         name: "Corolla",
         years: ["2018", "2019", "2020"],
         bodyStyles: ["Sedan", "Hatchback"],
+      },
+      {
+        name: "Camry",
+        years: ["2018", "2019", "2020"],
+        bodyStyles: ["Sedan", "Coupe"],
+      },
+      {
+        name: "Rav4",
+        years: ["2019", "2020", "2021"],
+        bodyStyles: ["Sedan", "Hatchback"],
+      },
+    ],
+  },
+  {
+    make: "Honda",
+    models: [
+      {
+        name: "Civic",
+        years: ["2019", "2020", "2021"],
+        bodyStyles: ["Sedan", "Hatchback"],
+      },
+      {
+        name: "Accord",
+        years: ["2018", "2019", "2020"],
+        bodyStyles: ["Sedan", "Coupe"],
+      },
+    ],
+  },
+  {
+    make: "Ford",
+    models: [
+      {
+        name: "Mustang",
+        years: ["2019", "2020", "2021"],
+        bodyStyles: ["Sedan", "Coupe"],
+      },
+      {
+        name: "Fusion",
+        years: ["2018", "2019", "2020"],
+        bodyStyles: ["Sedan", "Hatchback"],
+      },
+    ],
+  },
+  {
+    make: "Chevrolet",
+    models: [
+      {
+        name: "Corvette",
+        years: ["2019", "2020", "2021"],
+        bodyStyles: ["Coupe"],
+      },
+      {
+        name: "Cruze",
+        years: ["2018", "2019", "2020"],
+        bodyStyles: ["Sedan"],
       },
     ],
   },
