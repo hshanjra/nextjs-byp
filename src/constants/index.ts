@@ -92,6 +92,11 @@ export const VEHICLE_ATTRIBUTES = [
         years: ["2019", "2020", "2021"],
         bodyStyles: ["Sedan", "Coupe"],
       },
+      {
+        name: "3 Series",
+        years: ["2019", "2020", "2021"],
+        bodyStyles: ["Sedan", "Coupe", "Hatchback"],
+      },
     ],
   },
   {
@@ -104,6 +109,11 @@ export const VEHICLE_ATTRIBUTES = [
       },
       {
         name: "A6",
+        years: ["2018", "2019", "2020"],
+        bodyStyles: ["Sedan", "Coupe"],
+      },
+      {
+        name: "A7",
         years: ["2018", "2019", "2020"],
         bodyStyles: ["Sedan", "Coupe"],
       },
@@ -127,6 +137,11 @@ export const VEHICLE_ATTRIBUTES = [
         years: ["2019", "2020", "2021"],
         bodyStyles: ["Sedan", "Hatchback"],
       },
+      {
+        name: "Tacoma",
+        years: ["2019", "2020", "2021"],
+        bodyStyles: ["SUV"],
+      },
     ],
   },
   {
@@ -141,6 +156,16 @@ export const VEHICLE_ATTRIBUTES = [
         name: "Accord",
         years: ["2018", "2019", "2020"],
         bodyStyles: ["Sedan", "Coupe"],
+      },
+      {
+        name: "CR-V",
+        years: ["2017", "2018", "2019", "2020", "2021"],
+        bodyStyles: ["SUV"],
+      },
+      {
+        name: "Pilot",
+        years: ["2016", "2017", "2018", "2019", "2020"],
+        bodyStyles: ["SUV"],
       },
     ],
   },
@@ -157,6 +182,16 @@ export const VEHICLE_ATTRIBUTES = [
         years: ["2018", "2019", "2020"],
         bodyStyles: ["Sedan", "Hatchback"],
       },
+      {
+        name: "Escape",
+        years: ["2017", "2018", "2019", "2020", "2021"],
+        bodyStyles: ["SUV"],
+      },
+      {
+        name: "Expedition",
+        years: ["2018", "2019", "2020"],
+        bodyStyles: ["SUV"],
+      },
     ],
   },
   {
@@ -171,6 +206,41 @@ export const VEHICLE_ATTRIBUTES = [
         name: "Cruze",
         years: ["2018", "2019", "2020"],
         bodyStyles: ["Sedan"],
+      },
+      {
+        name: "Silverado",
+        years: ["2019", "2020", "2021"],
+        bodyStyles: ["SUV"],
+      },
+      {
+        name: "Traverse",
+        years: ["2018", "2019", "2020"],
+        bodyStyles: ["SUV"],
+      },
+    ],
+  },
+  {
+    make: "Nissan",
+    models: [
+      {
+        name: "Altima",
+        years: ["2019", "2020", "2021"],
+        bodyStyles: ["Sedan", "Coupe"],
+      },
+      {
+        name: "Sentra",
+        years: ["2019", "2020", "2021"],
+        bodyStyles: ["Sedan"],
+      },
+      {
+        name: "Rogue",
+        years: ["2019", "2020", "2021"],
+        bodyStyles: ["SUV"],
+      },
+      {
+        name: "Pathfinder",
+        years: ["2017", "2018", "2019", "2020", "2021"],
+        bodyStyles: ["SUV"],
       },
     ],
   },
