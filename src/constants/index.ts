@@ -77,3 +77,36 @@ export const US_STATES = [
   { value: "WI", name: "Wisconsin", abbr: "WI" },
   { value: "WY", name: "Wyoming", abbr: "WY" },
 ];
+
+export const VEHICLE_ATTRIBUTES = [
+  {
+    make: "BMW",
+    models: [
+      {
+        name: "X5",
+        years: ["2020", "2021", "2022"],
+        bodyStyles: ["SUV", "Coupe"],
+      },
+    ],
+  },
+  {
+    make: "Audi",
+    models: [
+      {
+        name: "A4",
+        years: ["2019", "2020", "2021"],
+        bodyStyles: ["Sedan", "Convertible"],
+      },
+    ],
+  },
+  {
+    make: "Toyota",
+    models: [
+      {
+        name: "Corolla",
+        years: ["2018", "2019", "2020"],
+        bodyStyles: ["Sedan", "Hatchback"],
+      },
+    ],
+  },
+];

@@ -124,9 +124,10 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
             onValueChange={field.onChange}
             value={field.value}
             // defaultValue={field.value}
+            disabled={props.disabled}
           >
             <FormControl>
-              <SelectTrigger className="placeholder:text-zinc-400 border-zinc-500 h-11 focus:ring-0 focus:ring-offset-0">
+              <SelectTrigger className="border-zinc-500 h-11 focus:ring-0 focus:ring-offset-0">
                 <SelectValue placeholder={props.placeholder} />
               </SelectTrigger>
             </FormControl>
