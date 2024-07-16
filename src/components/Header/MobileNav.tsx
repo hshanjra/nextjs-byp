@@ -10,13 +10,13 @@ import PartsFinder from "./PartsFinder";
 export default function MobileNav() {
   const pathname = usePathname();
 
-  // Exclude the menu from the product page
-  if (pathname.startsWith("/product")) {
+  // Exclude the component from rendering only on the product detail page
+  if (pathname.startsWith("/product/") && pathname.split("/").length === 3) {
     return null;
   }
 
   return (
-    /* Moble Main Navigation */
+    /* Mobile Main Navigation */
 
     <section className="fixed bottom-0 left-0 right-0 lg:hidden bg-white w-full py-4 px-5 z-40 border-t">
       <div className="flex items-center justify-between space-x-5">
