@@ -20,7 +20,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
           On Sale This Week
         </span>
         <h3 className="my-3 text-3xl font-bold capitalize max-w-xl">
-          Get the latest products on the market and best discounts for you.
+          Get the Right Part at the Right Price for the Comfort of Your Vehicle
         </h3>
         <p className="text-sm text-gray-400 my-2 lg:my-5">
           Free delivery for all orders over $200
