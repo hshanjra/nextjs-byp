@@ -16,7 +16,7 @@ const krub = Krub({
 export const metadata: Metadata = {
   title: "Buy parts for your vehicle - buyurparts.com",
   description:
-    "Buy auto parts and accessoriesfor your Vehicle | Purchase across hundreds of Brands | Buy Ur Parts",
+    "Buy auto parts and accessories for your Vehicle | Purchase across hundreds of Brands | Buy Ur Parts",
 };
 
 export default function RootLayout({
