@@ -1,4 +1,5 @@
 import { getProductBySlug } from "@/actions/ProductsAction";
+import Breadcrumb from "@/components/Breadcrumb";
 import AddToCartButton from "@/components/Cart/AddToCartButton";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import ReviewStar from "@/components/ReviewStar";
@@ -15,19 +16,6 @@ interface ProductPageProps {
     slug: string;
   };
 }
-const BREADCRUMBS = [
-  {
-    id: 1,
-    name: "Home",
-    href: "/",
-  },
-  // TODO: add category
-  {
-    id: 2,
-    name: "Products",
-    href: "/products",
-  },
-];
 
 const ProductDetailPage = async ({ params }: ProductPageProps) => {
   // const { data, isLoading, error } = useGetProductBySlug(params.slug);
@@ -47,45 +35,9 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
       <>
         <MaxWidthWrapper>
           {/* Breadcrumb */}
-          <div className="py-2">
-            <ol className="flex items-center space-x-1">
-              {BREADCRUMBS.map((b, i) => (
-                <li key={b.href}>
-                  <div className="flex items-center text-sm">
-                    <Link
-                      href={b.href}
-                      className="font-medium text-sm text-gray-300 hover:text-gray-900"
-                    >
-                      {b.name}
-                    </Link>
-                    {i !== BREADCRUMBS.length - 1 ? (
-                      <svg
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                        className="ml-2 h-5 w-5 flex-shrink-0 text-gray-300"
-                      >
-                        <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-                      </svg>
-                    ) : null}
-                  </div>
-                </li>
-              ))}
-              <li>
-                <div className="flex items-center text-sm">
-                  <svg
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    className="h-5 w-5 flex-shrink-0 text-gray-300"
-                  >
-                    <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-                  </svg>
-                  <span>{product?.productTitle}</span>
-                </div>
-              </li>
-            </ol>
-          </div>
+          <section className="my-5">
+            <Breadcrumb />
+          </section>
           <div className="mx-auto lg:space-x-5 max-w-2xl py-2 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8">
             {/* Product Images */}
             <div className="border rounded-lg m-auto overflow-hidden">
