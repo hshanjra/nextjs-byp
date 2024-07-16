@@ -31,7 +31,7 @@ export default function MobileSidebarFilters() {
         </div>
       </SheetTrigger>
 
-      <SheetContent side="left" className="w-[400px] p-0">
+      <SheetContent side="left" className="w-full md:w-[400px] p-0">
         <SheetHeader className="px-5 py-2">
           <SheetTitle className="text-sm font-semibold text-left my-5">
             Filter Products
