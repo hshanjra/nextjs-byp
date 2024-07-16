@@ -55,7 +55,7 @@ export default async function FeaturedProducts() {
           </div>
 
           <Link
-            href="#"
+            href="/products/featured"
             className="flex items-center ml-auto text-sm hover:text-red-500 font-medium"
           >
             View All

@@ -1,16 +1,9 @@
 import Banner from "@/components/Banner";
+import Breadcrumb from "@/components/Breadcrumb";
 import MobileSidebarFilters from "@/components/Filters/MobileSidebarFilters";
 import PartsFinder from "@/components/Filters/PartsFinder";
 import ProductsHeaderFilter from "@/components/Filters/ProductsHeaderFilter";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Label } from "@/components/ui/label";
 import { ArrowRight } from "lucide-react";
 
@@ -19,17 +12,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
     <MaxWidthWrapper>
       {/* Breadcrumb */}
       <section className="my-5">
-        <Breadcrumb className="text-xs">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Products</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <Breadcrumb />
       </section>
 
       {/* Banner */}
