@@ -13,7 +13,7 @@ import React from "react";
 export default function Breadcrumb() {
   const pathname = usePathname();
   const pathArray = pathname.split("/").filter((path) => path);
-
+  // TODO: fix this layout in mobile
   return (
     <BreadcrumbPrimitive>
       <BreadcrumbList>
