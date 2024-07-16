@@ -18,6 +18,7 @@ interface ProductPageProps {
 }
 
 const ProductDetailPage = async ({ params }: ProductPageProps) => {
+  // TODO: use react query here
   // const { data, isLoading, error } = useGetProductBySlug(params.slug);
 
   // if (isLoading)
