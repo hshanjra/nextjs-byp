@@ -16,7 +16,7 @@ export default function Breadcrumb() {
   // TODO: fix this layout in mobile
   return (
     <BreadcrumbPrimitive>
-      <BreadcrumbList>
+      <BreadcrumbList className="text-xs gap-x-1 lg:text-sm">
         <BreadcrumbItem>
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
@@ -29,7 +29,6 @@ export default function Breadcrumb() {
               <BreadcrumbItem>
                 {isLast ? (
                   <BreadcrumbPage>
-                    {" "}
                     <span className="capitalize">{path}</span>
                   </BreadcrumbPage>
                 ) : (
