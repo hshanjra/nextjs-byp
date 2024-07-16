@@ -46,7 +46,7 @@ export default async function CartSidebar() {
           </div>
         </div>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="w-full lg:w-[450px] md:w-[400px]">
         <SheetHeader>
           <SheetTitle>Cart ({itemsCount})</SheetTitle>
         </SheetHeader>
