@@ -78,6 +78,7 @@ export default function Filters() {
 
   console.log(filter);
 
+  /* Random number for generating unique ids for labels and inputs */
   const randNum = Math.floor(Math.random() * 100);
 
   const applyArrayFilter = ({
