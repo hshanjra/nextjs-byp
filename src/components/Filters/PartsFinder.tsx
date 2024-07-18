@@ -86,7 +86,7 @@ export default function PartsFinder() {
   };
 
   return (
-    <div>
+    <div className="relative">
       <h4 className="font-bold text-base">Find the Right Parts Faster</h4>
       <p className="text-gray-400 text-xs my-5">
         Having the right automotive parts and car accessories will help you to
