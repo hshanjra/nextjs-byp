@@ -245,10 +245,10 @@ export default function Filters() {
 
           <AccordionContent>
             <div className="flex flex-col items-start gap-2">
-              {CONDITION_FILTERS.option.map((option) => (
+              {CONDITION_FILTERS.option.map((option, i) => (
                 <div className="flex items-center space-x-2" key={option.label}>
                   <Checkbox
-                    id={`condition-${option.label}`}
+                    id={`condition-${i}`}
                     onCheckedChange={() => {
                       setFilter((prev) => {
                         const newConditions = prev.condition.includes(
@@ -264,7 +264,7 @@ export default function Filters() {
                     checked={filter.condition.includes(option.value as never)}
                   />
                   <Label
-                    htmlFor={`condition-${option.label}`}
+                    htmlFor={`condition-${i}`}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
                     {option.label}
@@ -282,10 +282,10 @@ export default function Filters() {
 
           <AccordionContent>
             <div className="flex flex-col items-start gap-2">
-              {STATUS_FILTERS.option.map((option) => (
+              {STATUS_FILTERS.option.map((option, i) => (
                 <div className="flex items-center space-x-2" key={option.label}>
                   <Checkbox
-                    id={`status-${option.label}`}
+                    id={`status-${i}`}
                     onCheckedChange={() => {
                       setFilter((prev) => {
                         const newStatus = prev.status.includes(
@@ -301,7 +301,7 @@ export default function Filters() {
                     checked={filter.status.includes(option.value as never)}
                   />
                   <Label
-                    htmlFor={`status-${option.label}`}
+                    htmlFor={`status-${i}`}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
                     {option.label}
@@ -319,10 +319,10 @@ export default function Filters() {
 
           <AccordionContent>
             <div className="flex flex-col items-start gap-2">
-              {BRAND_FILTERS.option.map((option) => (
+              {BRAND_FILTERS.option.map((option, i) => (
                 <div className="flex items-center space-x-2" key={option.label}>
                   <Checkbox
-                    id={`brand-${option.label}`}
+                    id={`brand-${i}`}
                     onCheckedChange={() => {
                       setFilter((prev) => {
                         const newBrand = prev.brand.includes(
@@ -336,7 +336,7 @@ export default function Filters() {
                     checked={filter.brand.includes(option.value as never)}
                   />
                   <Label
-                    htmlFor={`brand-${option.label}`}
+                    htmlFor={`brand-${i}`}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
                     {option.label}
