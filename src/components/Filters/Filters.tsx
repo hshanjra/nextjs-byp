@@ -78,6 +78,8 @@ export default function Filters() {
 
   console.log(filter);
 
+  const randNum = Math.floor(Math.random() * 100);
+
   const applyArrayFilter = ({
     category,
     value,
@@ -169,14 +171,17 @@ export default function Filters() {
                 <div key={option.label} className="flex items-center space-x-2">
                   <RadioGroupItem
                     value={option.label}
-                    id={`price-${idx}`}
+                    id={`price-${idx + randNum}`}
                     checked={
                       !filter.price.isCustom &&
                       filter.price.range[0] === option.value[0] &&
                       filter.price.range[1] === option.value[1]
                     }
                   />
-                  <Label htmlFor={`price-${idx}`} className="cursor-pointer">
+                  <Label
+                    htmlFor={`price-${idx + randNum}`}
+                    className="cursor-pointer"
+                  >
                     {option.label}
                   </Label>
                 </div>
@@ -184,11 +189,11 @@ export default function Filters() {
               <div className="flex items-center space-x-2">
                 <RadioGroupItem
                   value="custom"
-                  id={`price-${PRICE_FILTERS.option.length}`}
+                  id={`price-${PRICE_FILTERS.option.length + randNum}`}
                   checked={filter.price.isCustom}
                 />
                 <Label
-                  htmlFor={`price-${PRICE_FILTERS.option.length}`}
+                  htmlFor={`price-${PRICE_FILTERS.option.length + randNum}`}
                   className="cursor-pointer"
                 >
                   Custom
@@ -248,7 +253,7 @@ export default function Filters() {
               {CONDITION_FILTERS.option.map((option, i) => (
                 <div className="flex items-center space-x-2" key={option.label}>
                   <Checkbox
-                    id={`condition-${i}`}
+                    id={`condition-${i + randNum}`}
                     onCheckedChange={() => {
                       setFilter((prev) => {
                         const newConditions = prev.condition.includes(
@@ -264,7 +269,7 @@ export default function Filters() {
                     checked={filter.condition.includes(option.value as never)}
                   />
                   <Label
-                    htmlFor={`condition-${i}`}
+                    htmlFor={`condition-${i + randNum}`}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
                     {option.label}
@@ -285,7 +290,7 @@ export default function Filters() {
               {STATUS_FILTERS.option.map((option, i) => (
                 <div className="flex items-center space-x-2" key={option.label}>
                   <Checkbox
-                    id={`status-${i}`}
+                    id={`status-${i + randNum}`}
                     onCheckedChange={() => {
                       setFilter((prev) => {
                         const newStatus = prev.status.includes(
@@ -301,7 +306,7 @@ export default function Filters() {
                     checked={filter.status.includes(option.value as never)}
                   />
                   <Label
-                    htmlFor={`status-${i}`}
+                    htmlFor={`status-${i + randNum}`}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
                     {option.label}
@@ -322,7 +327,7 @@ export default function Filters() {
               {BRAND_FILTERS.option.map((option, i) => (
                 <div className="flex items-center space-x-2" key={option.label}>
                   <Checkbox
-                    id={`brand-${i}`}
+                    id={`brand-${i + randNum}`}
                     onCheckedChange={() => {
                       setFilter((prev) => {
                         const newBrand = prev.brand.includes(
@@ -336,7 +341,7 @@ export default function Filters() {
                     checked={filter.brand.includes(option.value as never)}
                   />
                   <Label
-                    htmlFor={`brand-${i}`}
+                    htmlFor={`brand-${i + randNum}`}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
                     {option.label}
