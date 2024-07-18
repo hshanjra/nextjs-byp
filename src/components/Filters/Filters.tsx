@@ -131,7 +131,7 @@ export default function Filters() {
       </div>
       <Accordion
         type="multiple"
-        className="animate-none"
+        // className="animate-none"
         defaultValue={["brand", "price", "condition", "status"]}
       >
         {/* Price Filter */}
