@@ -1,5 +1,6 @@
 import Banner from "@/components/Banner";
 import Breadcrumb from "@/components/Breadcrumb";
+import Filters from "@/components/Filters/Filters";
 import MobileSidebarFilters from "@/components/Filters/MobileSidebarFilters";
 import PartsFinder from "@/components/Filters/PartsFinder";
 import ProductsHeaderFilter from "@/components/Filters/ProductsHeaderFilter";
@@ -40,12 +41,24 @@ export default function layout({ children }: { children: React.ReactNode }) {
         {/* Left Side */}
         <div className="hidden lg:block">
           <PartsFinder />
+
+          {/* Filters */}
+          <div className="my-5">
+            <Filters />
+          </div>
         </div>
         {/* Right Side */}
         <div className="col-span-3">
           {/* Filters */}
           <div className="hidden lg:block md:block">
-            <ProductsHeaderFilter />
+            <div className="bg-gray-100/70 p-5 flex items-center justify-between rounded-lg">
+              <div>
+                <p className="text-sm font-light">
+                  Showing 1–25 of 100 results
+                </p>
+              </div>
+              <ProductsHeaderFilter />
+            </div>
           </div>
           {/* Mobile Filters */}
           <div className="block lg:hidden md:hidden">

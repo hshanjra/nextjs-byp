@@ -13,6 +13,7 @@ import Link from "next/link";
 import { Separator } from "../ui/separator";
 import PartsFinder from "./PartsFinder";
 import { Label } from "../ui/label";
+import Filters from "./Filters";
 
 export default function MobileSidebarFilters() {
   return (
@@ -44,14 +45,9 @@ export default function MobileSidebarFilters() {
         <ScrollArea className="h-full px-5">
           {/* Parts Finder */}
           <PartsFinder />
-          {/* Category Menu */}
-          <div className="space-y-5 mt-10 mb-24">
-            <h3 className="text-gray-500 text-opacity-55 text-xs font-semibold">
-              CATEGORY MENU
-            </h3>
-            {/* Category List */}
 
-            <CategoryItems />
+          <div className="space-y-5 mt-10 mb-24">
+            <Filters />
           </div>
         </ScrollArea>
       </SheetContent>

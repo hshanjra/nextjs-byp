@@ -11,7 +11,9 @@ export const getAllProducts = async ({ limit }: params) => {
     const { data } = await extApi.get(`/products?limit=${limit}`);
     return data;
   } catch (error) {
-    return error;
+    // TODO: return sentry error
+    console.log(error);
+    return;
   }
 };
 
