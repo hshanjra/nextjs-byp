@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
+import { ReadonlyURLSearchParams } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -29,4 +30,14 @@ export function trimString(str: string, maxLength: number) {
     return str.slice(0, maxLength) + "...";
   }
   return str;
+}
+
+export function createUrl(
+  pathname: string,
+  params: URLSearchParams | ReadonlyURLSearchParams
+) {
+  const paramsString = params.toString();
+  const queryString = `${paramsString.length ? "?" : ""}${paramsString}`;
+
+  return `${pathname}${queryString}`;
 }

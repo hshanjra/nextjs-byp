@@ -20,6 +20,7 @@ import Logo from "../Logo";
 import ProfileDropdown from "./ProfileDropdown";
 import { HeaderWrapper } from "./HeaderWrapper";
 import CartSidebar from "../Cart/CartSidebar";
+import SearchInputBox from "../SearchInputBox";
 
 export default async function Header() {
   return (
@@ -92,13 +93,14 @@ export default async function Header() {
 
             <div className="flex-1">
               {/* Search Box */}
-              <div className="relative">
+              {/* <div className="relative">
                 <Input
                   className="w-full h-[3rem]"
                   placeholder="Find Parts and Products"
                 />
                 <SearchIcon className="absolute right-2 top-3 bg-white cursor-pointer" />
-              </div>
+              </div> */}
+              <SearchInputBox />
             </div>
 
             <div className="flex items-center space-x-5">
