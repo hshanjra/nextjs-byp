@@ -46,9 +46,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
 
           {/* Filters */}
           <div className="my-5">
-            <Suspense fallback={<LoadingDots />}>
-              <Filters />
-            </Suspense>
+            <Filters />
           </div>
         </div>
         {/* Right Side */}

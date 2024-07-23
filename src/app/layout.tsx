@@ -6,6 +6,7 @@ import QueryProvider from "@/providers/QueryProvider";
 import { Footer } from "@/components/Footer/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/Header/Header";
+import { Suspense } from "react";
 
 const krub = Krub({
   weight: ["200", "300", "500", "600", "700"],
@@ -27,17 +28,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("relative antialiased", krub.className)}>
-        <QueryProvider>
-          <main className="relative flex flex-col min-h-screen">
-            {/* Header */}
-            <Header />
+        <Suspense>
+          <QueryProvider>
+            <main className="relative flex flex-col min-h-screen">
+              {/* Header */}
+              <Header />
 
-            <div className="flex-grow flex-1">{children}</div>
-            {/* Footer */}
-            <Footer />
-          </main>
-          <Toaster />
-        </QueryProvider>
+              <div className="flex-grow flex-1">{children}</div>
+              {/* Footer */}
+              <Footer />
+            </main>
+            <Toaster />
+          </QueryProvider>
+        </Suspense>
       </body>
     </html>
   );
