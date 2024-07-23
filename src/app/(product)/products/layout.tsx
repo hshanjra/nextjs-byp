@@ -4,6 +4,7 @@ import Filters from "@/components/Filters/Filters";
 import MobileSidebarFilters from "@/components/Filters/MobileSidebarFilters";
 import PartsFinder from "@/components/Filters/PartsFinder";
 import ProductsHeaderFilter from "@/components/Filters/ProductsHeaderFilter";
+import LoadingDots from "@/components/LoadingDots";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Label } from "@/components/ui/label";
 import { ArrowRight } from "lucide-react";
@@ -45,7 +46,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
 
           {/* Filters */}
           <div className="my-5">
-            <Suspense>
+            <Suspense fallback={<LoadingDots />}>
               <Filters />
             </Suspense>
           </div>
