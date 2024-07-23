@@ -7,6 +7,7 @@ import ProductsHeaderFilter from "@/components/Filters/ProductsHeaderFilter";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Label } from "@/components/ui/label";
 import { ArrowRight } from "lucide-react";
+import { Suspense } from "react";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
@@ -44,7 +45,9 @@ export default function layout({ children }: { children: React.ReactNode }) {
 
           {/* Filters */}
           <div className="my-5">
-            <Filters />
+            <Suspense>
+              <Filters />
+            </Suspense>
           </div>
         </div>
         {/* Right Side */}
