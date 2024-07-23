@@ -11,8 +11,8 @@ export default async function ProductsPage({
 }: {
   searchParams?: { [key: string]: string | Array<string> | number | undefined };
 }) {
-  const minPrice = searchParams?.minPrice as string;
-  const maxPrice = searchParams?.maxPrice as string;
+  const minPrice = Number(searchParams?.minPrice);
+  const maxPrice = Number(searchParams?.maxPrice);
   const q = searchParams?.q as string;
   const sort = searchParams?.sort as string;
   const limit = (searchParams?.perPage as number) || 16;

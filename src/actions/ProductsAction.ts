@@ -7,8 +7,8 @@ type queryParams = {
   q?: string;
   sort?: string;
   limit?: number;
-  minPrice?: string;
-  maxPrice?: string;
+  minPrice?: number;
+  maxPrice?: number;
   brand?: string[];
   status?: string[];
   condition?: string[];
@@ -25,21 +25,13 @@ interface ProductsResponse {
   error: string;
 }
 
-const DEFAULT_CUSTOM_PRICE = [0, 25000] as [number, number];
-
 export const getAllProducts = async (
   params?: queryParams
 ): Promise<ProductsResponse> => {
   // products?limit=90&condition=new,used&brand=bmw,kia&year=2014
 
-  const minPrice =
-    params?.maxPrice && params?.minPrice
-      ? Math.min(Number(params?.maxPrice))
-      : DEFAULT_CUSTOM_PRICE[0];
-  const maxPrice =
-    params?.maxPrice && params?.minPrice
-      ? Math.max(Number(params?.maxPrice))
-      : DEFAULT_CUSTOM_PRICE[1];
+  const minPrice = params?.minPrice || 0;
+  const maxPrice = params?.maxPrice || Infinity;
   const sort = (params?.sort as string) || "none";
   const limit = Number(params?.limit) || 50;
 
