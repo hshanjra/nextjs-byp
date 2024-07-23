@@ -13,13 +13,13 @@ import {
 import TopCategories from "@/components/TopCategories";
 
 export default async function Home() {
-  const qc = new QueryClient();
-  await qc.prefetchQuery({
-    queryKey: ["products"],
-    queryFn: async () => await fetch("/api/products"),
-  });
+  // const qc = new QueryClient();
+  // await qc.prefetchQuery({
+  //   queryKey: ["products"],
+  //   queryFn: async () => await fetch("/api/products"),
+  // });
   return (
-    <HydrationBoundary state={dehydrate(qc)}>
+    <>
       {/* Slider */}
       <MainSlider />
 
@@ -209,6 +209,6 @@ export default async function Home() {
           </Banner>
         </section>
       </MaxWidthWrapper>
-    </HydrationBoundary>
+    </>
   );
 }
