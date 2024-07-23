@@ -14,13 +14,13 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
 
-const SUBCATEGORIES = [
-  { name: "Fog Lights", selected: true, href: "#" },
-  { name: "Reflectors", selected: false, href: "#" },
-  { name: "Headlights", selected: false, href: "#" },
-  { name: "Brake Lights", selected: false, href: "#" },
-  { name: "Brake Pads", selected: false, href: "#" },
-];
+// const SUBCATEGORIES = [
+//   { name: "Fog Lights", selected: true, href: "#" },
+//   { name: "Reflectors", selected: false, href: "#" },
+//   { name: "Headlights", selected: false, href: "#" },
+//   { name: "Brake Lights", selected: false, href: "#" },
+//   { name: "Brake Pads", selected: false, href: "#" },
+// ];
 
 const DEFAULT_CUSTOM_PRICE = [0, 350] as [number, number];
 
@@ -28,7 +28,7 @@ const PRICE_FILTERS = {
   id: "price",
   name: "Price",
   option: [
-    { value: [0, 350], label: "Any price" },
+    { value: DEFAULT_CUSTOM_PRICE, label: "Any price" },
     { value: [0, 200], label: "Under $200" },
     { value: [0, 150], label: "Under $150" },
     // Custom option will be defined in JSX
@@ -75,8 +75,6 @@ export default function Filters() {
     status: [],
     condition: [],
   });
-
-  console.log(filter);
 
   /* Random number to generate unique ids for labels and inputs */
   const randNum = Math.floor(Math.random() * 100);

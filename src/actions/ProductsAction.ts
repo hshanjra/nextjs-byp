@@ -1,19 +1,85 @@
 "use server";
 import { extApi } from "@/lib/api";
+import { ProductFilterValidator } from "@/lib/validators/product-filter-validator";
+import { Product } from "@/types/product";
 
-type params = {
+type queryParams = {
+  q?: string;
+  sort?: string;
   limit?: number;
-  filter?: string;
+  minPrice?: string;
+  maxPrice?: string;
+  brand?: string[];
+  status?: string[];
+  condition?: string[];
+  make?: string;
+  featured?: boolean;
+  model?: string;
+  subModel?: string;
+  year?: number;
 };
 
-export const getAllProducts = async ({ limit }: params) => {
+interface ProductsResponse {
+  totalCount: number;
+  products: Product[];
+  error: string;
+}
+
+const DEFAULT_CUSTOM_PRICE = [0, 25000] as [number, number];
+
+export const getAllProducts = async (
+  params?: queryParams
+): Promise<ProductsResponse> => {
+  // products?limit=90&condition=new,used&brand=bmw,kia&year=2014
+
+  const minPrice =
+    params?.maxPrice && params?.minPrice
+      ? Math.min(Number(params?.maxPrice))
+      : DEFAULT_CUSTOM_PRICE[0];
+  const maxPrice =
+    params?.maxPrice && params?.minPrice
+      ? Math.max(Number(params?.maxPrice))
+      : DEFAULT_CUSTOM_PRICE[1];
+  const sort = (params?.sort as string) || "none";
+  const limit = Number(params?.limit) || 50;
+
+  const brand = params?.brand || "";
+  const status = params?.status || "";
+  const condition = params?.condition || "";
+  const featured = params?.featured ? true : false;
+
   try {
-    const { data } = await extApi.get(`/products?limit=${limit}`);
-    return data;
+    const validatedData = ProductFilterValidator.parse({
+      sort,
+      limit,
+      minPrice,
+      maxPrice,
+      brand,
+      status,
+      condition,
+      featured,
+      q: params?.q || "",
+      make: params?.make || "",
+      model: params?.model || "",
+      subModel: params?.subModel || "",
+      year: params?.year || 0,
+    });
+
+    const queryString = new URLSearchParams(validatedData as any).toString();
+
+    const { data } = await extApi.get<ProductsResponse>(
+      `/products?${queryString}`
+    );
+
+    return {
+      products: data.products,
+      totalCount: data.totalCount,
+      error: "",
+    };
   } catch (error) {
     // TODO: return sentry error
     console.log(error);
-    return;
+    return { products: [], totalCount: 0, error: "Unable to get products" };
   }
 };
 

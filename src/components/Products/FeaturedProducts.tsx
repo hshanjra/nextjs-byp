@@ -17,7 +17,7 @@ export default async function FeaturedProducts() {
   //   return <div>Unable to get products. {error.message}</div>;
   // }
 
-  const products = await getAllProducts({ limit: 10, filter: "featured" });
+  const { products } = await getAllProducts({ limit: 10, featured: true });
   return (
     <section className="mt-10">
       {/* For Lg Screens */}
@@ -55,7 +55,7 @@ export default async function FeaturedProducts() {
           </div>
 
           <Link
-            href="/products/featured"
+            href="/products?featured=true"
             className="flex items-center ml-auto text-sm hover:text-red-500 font-medium"
           >
             View All
@@ -66,7 +66,7 @@ export default async function FeaturedProducts() {
         {/* {isPending && <div>Loading...</div>} */}
         <TabsContent value="safety">
           {/* Product Reel */}
-          <ProductReel products={products} />
+          {products && <ProductReel products={products} />}
         </TabsContent>
         <TabsContent value="interior">{/* Product Reel */}</TabsContent>
         <TabsContent value="motor-oil">{/* Product Reel */}</TabsContent>

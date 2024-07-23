@@ -1,24 +1,26 @@
-"use client";
 import { useQuery } from "@tanstack/react-query";
 import Banner from "../Banner";
 import { intApi } from "@/lib/api";
 import ProductHoverInfoCard from "./ProductHoverInfoCard";
 import { Product } from "@/types/product";
 import Link from "next/link";
+import { getAllProducts } from "@/actions/ProductsAction";
 
-export default function ProductsShowcase() {
-  const {
-    data: products,
-    error,
-    isPending,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: async () => (await intApi.get(`/products?limit=8`)).data,
-    staleTime: 5 * 60 * 10,
-  });
+export default async function ProductsShowcase() {
+  // const {
+  //   data: products,
+  //   error,
+  //   isPending,
+  // } = useQuery({
+  //   queryKey: ["products"],
+  //   queryFn: async () => (await intApi.get(`/products?limit=8`)).data,
+  //   staleTime: 5 * 60 * 10,
+  // });
 
-  if (error) {
-    return <div>Unable to get products. {error.message}</div>;
+  const { products } = await getAllProducts({ limit: 10, featured: false });
+
+  if (!products) {
+    return <div>Unable to get products.</div>;
   }
   return (
     <section className="flex flex-col lg:flex-row items-center my-5 space-y-10 lg:space-y-0">
@@ -44,12 +46,9 @@ export default function ProductsShowcase() {
       </div>
       {/* Products Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-[2px] rounded-lg lg:rounded-l-none w-full">
-        {isPending && <div>Loading...</div>}
-
-        {products &&
-          products.map((product: Product) => (
-            <ProductHoverInfoCard product={product} key={product.productId} />
-          ))}
+        {products.map((product: Product) => (
+          <ProductHoverInfoCard product={product} key={product.productId} />
+        ))}
       </div>
     </section>
   );
