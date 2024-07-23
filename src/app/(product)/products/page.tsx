@@ -39,7 +39,7 @@ export default async function ProductsPage({
   return (
     <>
       {/* Filters */}
-      <div className="hidden lg:block md:block">
+      <div className="hidden lg:block md:block mb-7">
         <div className="bg-gray-200/75 p-5 flex items-center justify-between rounded-lg">
           <div>
             <p className="text-sm font-light">
