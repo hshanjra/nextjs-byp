@@ -19,14 +19,14 @@ export default function MobileSidebarFilters() {
   return (
     <Sheet>
       <SheetTrigger aria-label="toggle menu">
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-1">
           <Filter
-            size={20}
+            size={18}
             className="cursor-pointer"
             strokeWidth={1}
             id="filter"
           />
-          <Label htmlFor="filter" className="cursor-pointer">
+          <Label htmlFor="filter" className="cursor-pointer text-xs lg:text-sm">
             Filter
           </Label>
         </div>

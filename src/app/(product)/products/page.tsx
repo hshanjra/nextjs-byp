@@ -40,7 +40,7 @@ export default async function ProductsPage({
     <>
       {/* Filters */}
       <div className="hidden lg:block md:block">
-        <div className="bg-gray-100/70 p-5 flex items-center justify-between rounded-lg">
+        <div className="bg-gray-200/75 p-5 flex items-center justify-between rounded-lg">
           <div>
             <p className="text-sm font-light">
               {totalCount <= limit
@@ -52,11 +52,11 @@ export default async function ProductsPage({
         </div>
       </div>
       {/* Mobile Filters */}
-      <div className="block lg:hidden md:hidden">
-        <div className="bg-gray-100 p-3 flex items-center justify-between rounded-lg">
+      <div className="block lg:hidden md:hidden mb-7">
+        <div className="bg-gray-200/75 p-3 flex items-center justify-between rounded-lg">
           <MobileSidebarFilters />
           <div className="flex items-center gap-x-2">
-            <Label htmlFor="sort">Sort:</Label>
+            {/* <Label htmlFor="sort">Sort:</Label>
             <select
               name="sort"
               id="sort"
@@ -67,7 +67,8 @@ export default async function ProductsPage({
               <option value="latest">Sort by latest</option>
               <option value="low-to-high">Sort by price: low to high</option>
               <option value="high-to-low">Sort by price: high to low</option>
-            </select>
+            </select> */}
+            <ProductsHeaderFilter />
           </div>
         </div>
       </div>

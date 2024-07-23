@@ -1,14 +1,9 @@
 import Banner from "@/components/Banner";
 import Breadcrumb from "@/components/Breadcrumb";
 import Filters from "@/components/Filters/Filters";
-import MobileSidebarFilters from "@/components/Filters/MobileSidebarFilters";
 import PartsFinder from "@/components/Filters/PartsFinder";
-import ProductsHeaderFilter from "@/components/Filters/ProductsHeaderFilter";
-import LoadingDots from "@/components/LoadingDots";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { Label } from "@/components/ui/label";
 import { ArrowRight } from "lucide-react";
-import { Suspense } from "react";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
