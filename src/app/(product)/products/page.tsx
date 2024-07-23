@@ -56,18 +56,6 @@ export default async function ProductsPage({
         <div className="bg-gray-200/75 p-3 flex items-center justify-between rounded-lg">
           <MobileSidebarFilters />
           <div className="flex items-center gap-x-2">
-            {/* <Label htmlFor="sort">Sort:</Label>
-            <select
-              name="sort"
-              id="sort"
-              className="bg-transparent text-sm max-w-[140px] outline-none"
-            >
-              <option value="popular">Sort by popularity</option>
-              <option value="avgRating">Sort by average rating</option>
-              <option value="latest">Sort by latest</option>
-              <option value="low-to-high">Sort by price: low to high</option>
-              <option value="high-to-low">Sort by price: high to low</option>
-            </select> */}
             <ProductsHeaderFilter />
           </div>
         </div>
