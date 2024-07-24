@@ -3,9 +3,11 @@ import { Suspense } from "react";
 
 const RegisterPage = () => {
   return (
-    <Suspense>
-      <RegisterForm />
-    </Suspense>
+    <section className="max-w-lg">
+      <Suspense>
+        <RegisterForm />
+      </Suspense>
+    </section>
   );
 };
 

@@ -3,9 +3,11 @@ import { Suspense } from "react";
 
 const LoginPage = () => {
   return (
-    <Suspense>
-      <LoginForm />
-    </Suspense>
+    <section className="max-w-lg">
+      <Suspense>
+        <LoginForm />
+      </Suspense>
+    </section>
   );
 };
 
