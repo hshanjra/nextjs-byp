@@ -3,7 +3,6 @@ import MobileSidebarFilters from "@/components/Filters/MobileSidebarFilters";
 import ProductsHeaderFilter from "@/components/Filters/ProductsHeaderFilter";
 import EmptyState from "@/components/Products/EmptyState";
 import ProductHoverInfoCard from "@/components/Products/ProductHoverInfoCard";
-import { Label } from "@/components/ui/label";
 import { Product } from "@/types/product";
 
 export default async function ProductsPage({
@@ -19,7 +18,7 @@ export default async function ProductsPage({
   const brand = searchParams?.brand as Array<string>;
   const status = searchParams?.status as Array<string>;
   const condition = searchParams?.condition as Array<string>;
-  const featured = searchParams?.featured === "true" ?? true;
+  const featured = searchParams?.featured === "true" || undefined;
 
   const query = {
     q,

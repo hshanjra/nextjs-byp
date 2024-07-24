@@ -17,7 +17,7 @@ export default async function ProductsShowcase() {
   //   staleTime: 5 * 60 * 10,
   // });
 
-  const { products } = await getAllProducts({ limit: 10, featured: false });
+  const { products } = await getAllProducts({ limit: 8, featured: false });
 
   if (!products) {
     return <div>Unable to get products.</div>;

@@ -13,6 +13,7 @@ extApi.interceptors.response.use(
     const customError = {
       message: error.response?.data?.message || "An error occurred",
       status: error.response?.status || 500,
+      errorCode: error.code || null,
     };
     return Promise.reject(customError);
   }
