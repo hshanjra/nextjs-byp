@@ -75,7 +75,7 @@ export default function RegisterForm() {
           </p>
         </div>
         <div className="space-y-3">
-          <div className="flex space-x-2">
+          <div className="flex flex-col lg:flex-row gap-3">
             <FormField
               control={form.control}
               name="firstName"
