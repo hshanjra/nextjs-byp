@@ -65,28 +65,66 @@ export default function RegisterForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-        <Logo className="mx-auto" />
-        <div className="text-center my-3">
-          <h2 className="font-semibold text-3xl">BECOME A MEMBER</h2>
-          <h6 className="text-sm font-semibold my-2">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Logo className="mx-auto my-5" />
+        <div className="text-center my-5">
+          <h2 className="font-semibold text-xl">BECOME A MEMBER</h2>
+          <p className="text-sm my-2 font-[400] text-zinc-700">
             With our extensive collection of automotive parts and accessories,
             we are the ultimate destination for all your needs.
-          </h6>
+          </p>
         </div>
-        <div className="flex space-x-2">
+        <div className="space-y-3">
+          <div className="flex space-x-2">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel className="font-semibold">First Name</FormLabel>
+
+                  <FormControl>
+                    <Input
+                      placeholder="John"
+                      {...field}
+                      autoComplete="firstName"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel className="font-semibold">Last Name</FormLabel>
+
+                  <FormControl>
+                    <Input
+                      placeholder="Doe"
+                      {...field}
+                      autoComplete="firstName"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
           <FormField
             control={form.control}
-            name="firstName"
+            name="email"
             render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>First Name</FormLabel>
-
+              <FormItem>
+                <FormLabel className="font-semibold">E-Mail Address</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="John"
+                    placeholder="Enter your email..."
                     {...field}
-                    autoComplete="firstName"
+                    autoComplete="email"
                   />
                 </FormControl>
                 <FormMessage />
@@ -95,16 +133,17 @@ export default function RegisterForm() {
           />
           <FormField
             control={form.control}
-            name="lastName"
+            name="password"
             render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Last Name</FormLabel>
-
+              <FormItem>
+                <FormLabel className="font-semibold">Password</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Doe"
+                    placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
                     {...field}
-                    autoComplete="firstName"
+                    type="password"
+                    autoComplete="current-password"
+                    className="placeholder:tracking-[.3rem]"
                   />
                 </FormControl>
                 <FormMessage />
@@ -112,44 +151,6 @@ export default function RegisterForm() {
             )}
           />
         </div>
-
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email Address</FormLabel>
-
-              <FormControl>
-                <Input
-                  placeholder="Enter your email address"
-                  {...field}
-                  autoComplete="email"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormDescription></FormDescription>
-              <FormControl>
-                <Input
-                  placeholder="Enter password"
-                  {...field}
-                  type="password"
-                  autoComplete="current-password"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
 
         <Link
           href="/password-reset"
@@ -166,7 +167,7 @@ export default function RegisterForm() {
         <FormError message={error} />
         <Button
           type="submit"
-          className={cn("w-full my-2")}
+          className="w-full my-2 bg-zinc-900 hover:bg-zinc-700 text-white"
           disabled={status === "executing"}
         >
           {status === "executing" ? (
@@ -178,17 +179,13 @@ export default function RegisterForm() {
           )}
         </Button>
 
-        <div className="flex items-center">
+        <div className="flex items-center mt-3">
           <span className="text-sm ml-auto">Already have an account?</span>
           <Link
-            href="/auth/login"
-            className={buttonVariants({
-              variant: "link",
-              size: "sm",
-              className: "text-primary mr-auto",
-            })}
+            href="/auth/register"
+            className="font-semibold text-sm text-red-500 hover:text-zinc-700 ml-2 mr-auto"
           >
-            Login here
+            Sign in
           </Link>
         </div>
       </form>

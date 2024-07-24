@@ -3,7 +3,7 @@ import { Suspense } from "react";
 
 const RegisterPage = () => {
   return (
-    <section className="max-w-lg">
+    <section className="max-w-md w-full bg-white drop-shadow-2xl p-10 rounded-2xl">
       <Suspense>
         <RegisterForm />
       </Suspense>
