@@ -79,7 +79,7 @@ export default function RegisterForm() {
             control={form.control}
             name="firstName"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel>First Name</FormLabel>
 
                 <FormControl>
@@ -97,7 +97,7 @@ export default function RegisterForm() {
             control={form.control}
             name="lastName"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel>Last Name</FormLabel>
 
                 <FormControl>
@@ -177,6 +177,20 @@ export default function RegisterForm() {
             </>
           )}
         </Button>
+
+        <div className="flex items-center">
+          <span className="text-sm ml-auto">Already have an account?</span>
+          <Link
+            href="/auth/login"
+            className={buttonVariants({
+              variant: "link",
+              size: "sm",
+              className: "text-primary mr-auto",
+            })}
+          >
+            Login here
+          </Link>
+        </div>
       </form>
     </Form>
   );

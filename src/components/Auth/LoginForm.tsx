@@ -141,6 +141,20 @@ export default function LoginForm() {
             </>
           )}
         </Button>
+
+        <div className="flex items-center">
+          <span className="text-sm ml-auto">Don&apos;t have an account?</span>
+          <Link
+            href="/auth/register"
+            className={buttonVariants({
+              variant: "link",
+              size: "sm",
+              className: "text-primary mr-auto",
+            })}
+          >
+            Register here
+          </Link>
+        </div>
       </form>
     </Form>
   );
