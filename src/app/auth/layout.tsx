@@ -7,7 +7,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="px-4">
+    <section className="px-4 bg-gray-50">
       {/* Home Link */}
       <Link
         href="/"
