@@ -13,6 +13,7 @@ import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import debounce from "lodash.debounce";
 
 const DEFAULT_CUSTOM_PRICE: [number, number] = [0, 10000];
 
@@ -119,27 +120,29 @@ export default function Filters() {
     )?.label || "Custom"
   );
 
-  const updateQuery = useCallback(
-    (
-      key: keyof FilterState,
-      value: string | number | string[] | number[] | ""
-    ) => {
-      const params = new URLSearchParams(query.toString());
-      if (value === "") {
+  // Debounced updateQuery function
+  const _updateQuery = (
+    key: keyof FilterState,
+    value: string | number | string[] | number[] | ""
+  ) => {
+    const params = new URLSearchParams(query.toString());
+    if (value === "") {
+      params.delete(key);
+    } else if (Array.isArray(value)) {
+      if (value.length === 0) {
         params.delete(key);
-      } else if (Array.isArray(value)) {
-        if (value.length === 0) {
-          params.delete(key);
-        } else {
-          params.set(key, value.join(","));
-        }
       } else {
-        params.set(key, value.toString());
+        params.set(key, value.join(","));
       }
-      router.push(createUrl(pathname, params), { scroll: false });
-    },
-    [query, router, pathname]
-  );
+    } else {
+      params.set(key, value.toString());
+    }
+    router.push(createUrl(pathname, params), { scroll: false });
+  };
+
+  const debouncedUpdateQuery = debounce(_updateQuery, 400);
+
+  const updateQuery = useCallback(debouncedUpdateQuery, [debouncedUpdateQuery]);
 
   useEffect(() => {
     const updateURL = () => {
