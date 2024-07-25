@@ -4,6 +4,7 @@ import ProductsHeaderFilter from "@/components/Filters/ProductsHeaderFilter";
 import EmptyState from "@/components/Products/EmptyState";
 import ProductHoverInfoCard from "@/components/Products/ProductHoverInfoCard";
 import { Product } from "@/types/product";
+import { notFound } from "next/navigation";
 
 export default async function ProductsPage({
   searchParams,
@@ -33,7 +34,7 @@ export default async function ProductsPage({
   };
   const { products, totalCount, error } = await getAllProducts(query);
 
-  if (!products) return <EmptyState />;
+  if (!products || error) return <EmptyState />;
 
   return (
     <>

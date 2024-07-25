@@ -70,7 +70,7 @@ export const getAllProducts = async (
     };
   } catch (error) {
     // TODO: return sentry error
-    console.log(error);
+    console.error(error);
     return { products: [], totalCount: 0, error: "Unable to get products" };
   }
 };
