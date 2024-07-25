@@ -11,7 +11,7 @@ import { PriceSlider } from "../ui/price-slider";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 const DEFAULT_CUSTOM_PRICE: [number, number] = [0, 10000];
@@ -97,6 +97,7 @@ const BRAND_FILTERS: BrandFilter = {
 export default function Filters() {
   const query = useSearchParams();
   const router = useRouter();
+  const pathname = usePathname();
 
   const filter: FilterState = {
     minPrice: Number(query?.get("minPrice")) || DEFAULT_CUSTOM_PRICE[0],
@@ -135,9 +136,9 @@ export default function Filters() {
       } else {
         params.set(key, value.toString());
       }
-      router.push(createUrl("/products", params), { scroll: false });
+      router.push(createUrl(pathname, params), { scroll: false });
     },
-    [query, router]
+    [query, router, pathname]
   );
 
   useEffect(() => {
