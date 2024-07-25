@@ -16,7 +16,7 @@ export default function ProductHoverInfoCard({
   return (
     // max-w-[400px] md:max-w-[170px] lg:max-w-[230px]
     <div className="relative group ">
-      <div className="p-2 space-y-2 group-hover:rounded-t-xl lg:group-hover:border bg-white">
+      <div className="p-2 space-y-2 rounded-t-xl lg:group-hover:border bg-white">
         <Link href={"/product/" + p.productSlug}>
           <ProductSlider images={p.productImages} />
 
