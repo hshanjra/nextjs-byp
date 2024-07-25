@@ -140,8 +140,14 @@ export default function Filters() {
     router.push(createUrl(pathname, params), { scroll: false });
   };
 
+  /**
+   * Debounced updateQuery function.
+   *
+   * @param {keyof FilterState} key - The key of the filter to update.
+   * @param {*} value - The value to update the filter with.
+   * @return {void} This function does not return anything.
+   */
   const debouncedUpdateQuery = debounce(_updateQuery, 400);
-
   const updateQuery = useCallback(debouncedUpdateQuery, [debouncedUpdateQuery]);
 
   useEffect(() => {
