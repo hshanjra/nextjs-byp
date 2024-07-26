@@ -14,7 +14,7 @@ import {
 } from "../ui/table";
 import CouponCodeForm from "./CouponCodeForm";
 import Image from "next/image";
-import { cn, formatPrice } from "@/lib/utils";
+import { cn, formatPrice, trimString } from "@/lib/utils";
 import QtyButtons from "./QtyButtons";
 import { Separator } from "../ui/separator";
 import RemoveCartItemButton from "./RemoveCartItemButton";
@@ -27,7 +27,7 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
     return (
       <section className="flex h-full my-24 lg:my-32 flex-col items-center justify-center space-y-1">
         <div
-          className="realtive mb-4 space-y-2 text-muted-foreground"
+          className="relative mb-4 space-y-2 text-muted-foreground"
           aria-hidden="true"
         >
           <ShoppingCart
@@ -60,11 +60,11 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
             <TableRow>
               <TableHead className="w-[200px] lg:w-[100px]"></TableHead>
               <TableHead className="w-[350px] lg:w-[300px]">Product</TableHead>
-              <TableHead>Price</TableHead>
-              <TableHead>Quantity</TableHead>
-              <TableHead className="hidden lg:flex items-center">
-                Subtotal
+              <TableHead className="hidden lg:flex md:flex items-center">
+                Price
               </TableHead>
+              <TableHead>Quantity</TableHead>
+              <TableHead>Subtotal</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -86,16 +86,16 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <h3 className="text-sm leading-tight">
+                    <h3 className="text-xs lg:text-sm md:text-sm leading-tight">
                       <Link
                         href={`/product/${item.product.productSlug}`}
                         className="hover:underline"
                       >
-                        {item.product.productTitle}
+                        {trimString(item.product.productTitle, 60)}
                       </Link>
                     </h3>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="hidden lg:flex md:inline">
                     <h3 className="font-semibold">
                       {formatPrice(item.product.salePrice)}
                     </h3>
