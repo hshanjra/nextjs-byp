@@ -29,7 +29,7 @@ export default function CouponCodeForm() {
           name="promoCode"
           placeholder="Enter promo code"
         />
-        <Button type="submit" variant={"outline"} className="h-11">
+        <Button type="submit" variant={"dark"} className="h-11">
           Apply
         </Button>
       </form>
