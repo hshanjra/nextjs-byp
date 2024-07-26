@@ -16,7 +16,7 @@ export default function Breadcrumb() {
   // TODO: fix this layout in mobile
   return (
     <BreadcrumbPrimitive>
-      <BreadcrumbList className="text-xs gap-x-1 lg:text-sm">
+      <BreadcrumbList className="text-xs gap-x-1">
         <BreadcrumbItem>
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>

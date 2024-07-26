@@ -78,7 +78,7 @@ export default async function Header() {
         </div>
 
         {/* Main Header */}
-        <div className="hidden lg:block xl:block shadow-sm">
+        <div className="hidden lg:block xl:block shadow-custom">
           <MaxWidthWrapper className="py-5 flex space-x-5 items-center">
             <div className="flex items-center space-x-5">
               {/* Sidebar */}

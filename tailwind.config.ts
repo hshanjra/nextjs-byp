@@ -22,6 +22,9 @@ const config = {
       krub: ["Krub", "sans-serif"],
     },
     extend: {
+      boxShadow: {
+        custom: "0 2px 3px rgba(33,37,41,.07)",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
