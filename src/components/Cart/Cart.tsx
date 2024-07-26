@@ -58,35 +58,43 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[200px] lg:w-[100px]"></TableHead>
-              <TableHead className="w-[350px] lg:w-[300px]">Product</TableHead>
-              <TableHead className="hidden lg:flex md:flex items-center">
+              <TableHead className="w-[200px] lg:w-[100px] px-0 font-semibold text-zinc-400"></TableHead>
+              <TableHead className="w-[350px] lg:w-[300px] px-0 font-semibold text-zinc-400">
+                Product
+              </TableHead>
+              <TableHead className="hidden lg:flex md:flex items-center font-semibold text-zinc-400">
                 Price
               </TableHead>
-              <TableHead>Quantity</TableHead>
-              <TableHead>Subtotal</TableHead>
+              <TableHead className="font-semibold text-zinc-400">
+                Quantity
+              </TableHead>
+              <TableHead className="hidden lg:flex md:flex items-center font-semibold text-zinc-400">
+                Subtotal
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {cart &&
               Object.entries(cart.items).map(([key, item]) => (
                 <TableRow key={key}>
-                  <TableCell>
-                    <div className="relative">
+                  <TableCell className="p-3 lg:p-4 md:p-4">
+                    <div className="relative z-25">
                       <RemoveCartItemButton
                         productId={item.product.productId}
                       />
-                      <Image
-                        src={item.product.productImages[0].url}
-                        alt={item.product.productTitle}
-                        height={70}
-                        width={70}
-                        className="border rounded-lg"
-                      />
+                      <div className="border rounded-lg max-w-[4.375rem]">
+                        <Image
+                          src={item.product.productImages[0].url}
+                          alt={item.product.productTitle}
+                          height={300}
+                          width={300}
+                          className="object-cover rounded-lg max-w-full"
+                        />
+                      </div>
                     </div>
                   </TableCell>
-                  <TableCell>
-                    <h3 className="text-xs lg:text-sm md:text-sm leading-tight">
+                  <TableCell className="p-0 lg:p-4 md:p-4">
+                    <h3 className="text-xs lg:text-sm md:text-sm leading-relaxed">
                       <Link
                         href={`/product/${item.product.productSlug}`}
                         className="hover:underline"
@@ -95,19 +103,19 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
                       </Link>
                     </h3>
                   </TableCell>
-                  <TableCell className="hidden lg:flex md:inline">
+                  <TableCell className="hidden lg:table-cell md:table-cell">
                     <h3 className="font-semibold">
                       {formatPrice(item.product.salePrice)}
                     </h3>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="p-0 px-1 lg:p-4 md:p-4">
                     <QtyButtons
                       productId={item.product.productId}
                       maxQty={item.product.productStock}
                       cart={cart}
                     />
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="hidden lg:table-cell md:table-cell">
                     <h3 className="font-semibold">
                       {formatPrice(item.product.salePrice * item.qty)}
                     </h3>
