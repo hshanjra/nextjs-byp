@@ -147,9 +147,8 @@ export type checkoutFormType = z.infer<typeof checkoutFormSchema>;
 export const promoCodeForm = z.object({
   promoCode: z
     .string()
-    // .min(1, "Promo code is required")
-    .max(20, "Promo code must not be greater than 20 characters")
-    .optional(),
+    .min(1, "Promo code must not be empty")
+    .max(20, "Promo code must not be greater than 20 characters"),
 });
 
 export type promoCodeType = z.infer<typeof promoCodeForm>;

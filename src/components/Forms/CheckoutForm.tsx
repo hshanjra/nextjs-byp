@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  checkoutFormSchema,
-  checkoutFormType,
-  promoCodeForm,
-  promoCodeType,
-} from "@/types/checkoutSchema";
+import { checkoutFormSchema, checkoutFormType } from "@/types/checkoutSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useController } from "react-hook-form";
 import { CheckoutFormDefaultValues, US_STATES } from "@/constants";
@@ -13,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Form, FormControl } from "../ui/form";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
-import MaxWidthWrapper from "../MaxWidthWrapper";
 import { SelectItem } from "../ui/select";
 import { motion } from "framer-motion";
 import { fetchCityAndState } from "@/actions/ZipCodeAction";
@@ -48,6 +42,7 @@ import {
 } from "../ui/tooltip";
 import ScrollToTopButton from "../ScrollToTopButton";
 import { createOrder } from "@/actions/CheckoutAction";
+import CouponCodeForm from "../Cart/CouponCodeForm";
 
 export default function CheckoutForm({
   cart,
@@ -75,13 +70,6 @@ export default function CheckoutForm({
   const form = useForm<checkoutFormType>({
     resolver: zodResolver(checkoutFormSchema),
     defaultValues: CheckoutFormDefaultValues,
-  });
-
-  const promoForm = useForm<promoCodeType>({
-    resolver: zodResolver(promoCodeForm),
-    defaultValues: {
-      promoCode: "",
-    },
   });
 
   const isSame = form.watch("shippingSameAsBilling");
@@ -200,11 +188,6 @@ export default function CheckoutForm({
       default:
         break;
     }
-  };
-
-  const handlePromoCode = async (values: promoCodeType) => {
-    // TODO: handle promo code
-    console.log("values", values);
   };
 
   useEffect(() => {
@@ -1004,26 +987,7 @@ export default function CheckoutForm({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1, transition: { duration: 1 } }}
                   >
-                    <Form {...promoForm}>
-                      <form
-                        onSubmit={promoForm.handleSubmit(handlePromoCode)}
-                        className="flex items-start gap-x-3 justify-between"
-                      >
-                        <CustomFormField
-                          fieldType={FormFieldType.INPUT}
-                          control={promoForm.control}
-                          name="promoCode"
-                          placeholder="Enter promo code"
-                        />
-                        <Button
-                          type="submit"
-                          variant={"outline"}
-                          className="h-11"
-                        >
-                          Apply
-                        </Button>
-                      </form>
-                    </Form>
+                    <CouponCodeForm />
                   </motion.div>
                 </AccordionContent>
               </AccordionItem>

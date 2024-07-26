@@ -118,7 +118,7 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
           <TableFooter>
             <TableRow>
               <TableCell colSpan={5}>
-                <div className="my-5">
+                <div className="my-5 lg:max-w-sm">
                   <CouponCodeForm />
                 </div>
               </TableCell>
