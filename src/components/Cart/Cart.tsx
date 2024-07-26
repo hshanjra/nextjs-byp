@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import CouponCodeForm from "./CouponCodeForm";
+import CouponCodeForm from "../Forms/CouponCodeForm";
 import Image from "next/image";
 import { cn, formatPrice, trimString } from "@/lib/utils";
 import QtyButtons from "./QtyButtons";

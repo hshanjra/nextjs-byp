@@ -42,7 +42,7 @@ import {
 } from "../ui/tooltip";
 import ScrollToTopButton from "../ScrollToTopButton";
 import { createOrder } from "@/actions/CheckoutAction";
-import CouponCodeForm from "../Cart/CouponCodeForm";
+import CouponCodeForm from "./CouponCodeForm";
 
 export default function CheckoutForm({
   cart,
