@@ -1,7 +1,7 @@
 export default function ReviewStar({
   rating,
   height = 20,
-  fontsize = 20,
+  fontsize = 18,
 }: {
   rating: number;
   height?: number;

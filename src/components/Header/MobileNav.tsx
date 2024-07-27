@@ -1,4 +1,3 @@
-"use client";
 import { Heart, HomeIcon, List, Search, UserRound } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,12 +7,12 @@ import { Label } from "../ui/label";
 import PartsFinder from "./PartsFinder";
 
 export default function MobileNav() {
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
-  // Exclude the component from rendering only on the product detail page
-  if (pathname.startsWith("/product/") && pathname.split("/").length === 3) {
-    return null;
-  }
+  // // Exclude the component from rendering only on the product detail page
+  // if (pathname.startsWith("/product/") && pathname.split("/").length === 3) {
+  //   return null;
+  // }
 
   return (
     /* Mobile Main Navigation */
@@ -42,7 +41,7 @@ export default function MobileNav() {
             <DialogContent className="h-full justify-center items-center">
               <div className="space-y-2">
                 <p className="text-center text-sm">
-                  What are you looking for in Buyurpars?
+                  What are you looking for in Buyurparts?
                 </p>
                 <SearchInputBox />
               </div>

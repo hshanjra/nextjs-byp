@@ -38,7 +38,9 @@ interface ProductPageProps {
 const ProductDetailPage = async ({ params }: ProductPageProps) => {
   const { product, error } = await getProductBySlug(params.slug);
 
-  const { products, totalCount } = await getAllProducts({ limit: 10 });
+  const { products: relatedProducts, totalCount } = await getAllProducts({
+    limit: 10,
+  });
 
   if (!product || error) {
     // TODO: throw internal server error
@@ -343,19 +345,21 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
         </section>
 
         {/* Related products */}
-        {products && (
+        {relatedProducts && (
           <section>
             <h3 className="font-bold text-xl">Related Products</h3>
             <Separator className="my-5" />
-            <ProductReel products={products} />
+            <ProductReel products={relatedProducts} />
           </section>
         )}
       </MaxWidthWrapper>
       {/* Qty/Cart - Mobile */}
-      <div className="lg:hidden p-4 fixed bottom-0 bg-white w-full z-30">
-        {/* Counter */}
-        <AddToCartButton strokeWidth={2} product={product} />
-      </div>
+      {product && product.productStock > 0 && (
+        <div className="lg:hidden p-4 fixed bottom-0 bg-white w-full z-50">
+          {/* Counter */}
+          <AddToCartButton strokeWidth={2} product={product} />
+        </div>
+      )}
     </>
   );
 };
