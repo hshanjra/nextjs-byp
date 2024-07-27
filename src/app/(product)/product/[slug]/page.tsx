@@ -50,6 +50,7 @@ export async function generateMetadata({ params }: ProductPageProps) {
       type: "website",
       url: `https://buyurparts.com/product/${params.slug}`,
       siteName: "Buyurparts",
+      images: product.productImages[0].url,
     },
   };
 }
