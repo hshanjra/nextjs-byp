@@ -1,6 +1,7 @@
 import { getAllProducts, getProductBySlug } from "@/actions/ProductsAction";
 import Breadcrumb from "@/components/Breadcrumb";
 import AddToCartButton from "@/components/Cart/AddToCartButton";
+import CompatibleMessage from "@/components/CompatibleMessage";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import ImageCarousel from "@/components/Products/ImageCarousel";
 import ProductReel from "@/components/Products/ProductReel";
@@ -155,9 +156,11 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             <Separator />
             {/* Qty / Add to cart */}
             {product.productStock > 0 && (
-              <div className="hidden my-3 lg:block">
+              <div className="hidden my-3 lg:flex items-center space-x-3">
                 {/* Counter */}
                 <AddToCartButton strokeWidth={2} product={product} />
+                {/* Compatibility Message */}
+                <CompatibleMessage isCompatible={true} />
               </div>
             )}
 
