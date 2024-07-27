@@ -13,7 +13,7 @@ export default function ReviewStar({
   return (
     <div
       className="relative inline-block overflow-hidden"
-      style={{ width: "100px", height: `${height}px` }}
+      style={{ width: "77px", height: `${height}px` }}
     >
       <div
         className="absolute top-0 left-0 w-full text-gray-300"

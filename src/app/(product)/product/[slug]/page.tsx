@@ -98,9 +98,9 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
 
             <div className="flex items-center gap-1 lg:gap-2">
               {/* Review / SKU */}
-              <div className="flex items-center">
+              <div className="flex items-center gap-x-1">
                 <ReviewStar rating={4} height={28} />
-                <span className="font-semibold text-xs lg:text-sm -ml-2">
+                <span className="font-semibold text-xs lg:text-sm">
                   {1} customer review
                 </span>
               </div>
@@ -154,10 +154,12 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             </div>
             <Separator />
             {/* Qty / Add to cart */}
-            <div className="hidden my-3 lg:block">
-              {/* Counter */}
-              <AddToCartButton strokeWidth={2} product={product} />
-            </div>
+            {product.productStock > 0 && (
+              <div className="hidden my-3 lg:block">
+                {/* Counter */}
+                <AddToCartButton strokeWidth={2} product={product} />
+              </div>
+            )}
 
             {/* Add to favorites */}
             <div className="my-5 flex items-center justify-between">

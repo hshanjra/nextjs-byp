@@ -27,7 +27,7 @@ export default async function ProductCard({
           {/* Review */}
           <div className="inline-block">
             <ReviewStar rating={5} height={20} fontsize={19} />
-            <span className="text-xs font-semibold -ml-2">1 Review</span>
+            <span className="text-xs font-semibold ml-1">1 Review</span>
           </div>
           <div className="flex">
             {/* Price */}
