@@ -23,10 +23,11 @@ export default async function ProductCard({
             </h5>
           </Link>
           {/* Review */}
-          <div className="inline-block">
-            <ReviewStar rating={5} height={20} fontsize={19} />
-            <span className="text-xs font-semibold ml-1">1 Review</span>
+          <div className="lg:flex md:flex grid items-center">
+            <ReviewStar rating={2} height={28} />
+            <span className="font-semibold text-sm">{1} Review</span>
           </div>
+
           <div className="flex">
             {/* Price */}
             <div className="flex flex-col">
