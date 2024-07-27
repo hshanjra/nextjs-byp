@@ -42,7 +42,7 @@ export default async function ProductCard({
             {/* Cart Icon Button */}
             <AddToCartSmall
               className="ml-auto"
-              strokeWidth={1.5}
+              strokeWidth={1.2}
               size={30}
               product={p}
             />
