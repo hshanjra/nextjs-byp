@@ -9,6 +9,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import CategoryItems from "./CategoryList";
 import { Menu } from "lucide-react";
 import Logo from "../Logo";
+import { SITE_METADATA } from "@/constants";
 
 const Sidebar = () => {
   return (
@@ -61,7 +62,7 @@ const Sidebar = () => {
                 <span className="text-xs">
                   You can call anytime from 9 am to 6 pm.
                 </span>
-                <div className="font-semibold">info@buyurparts.com</div>
+                <div className="font-semibold">{SITE_METADATA.email}</div>
                 <span className="text-xs">
                   The e-mail you sent will be returned as soon as possible.
                 </span>
@@ -73,7 +74,7 @@ const Sidebar = () => {
             <span className="text-xs mx-auto">
               Copyright {new Date().getFullYear()} &copy;{" "}
               <Link href="/" className="hover:underline ">
-                Buyurparts.com
+                {SITE_METADATA.name}
               </Link>
               . All rights reserved.
             </span>

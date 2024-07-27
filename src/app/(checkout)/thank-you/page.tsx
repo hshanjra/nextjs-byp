@@ -3,6 +3,7 @@ import ThankYou from "./ThankYou";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Logo from "@/components/Logo";
 import Link from "next/link";
+import { SITE_METADATA } from "@/constants";
 
 export default function ThankYouPage() {
   return (
@@ -16,7 +17,7 @@ export default function ThankYouPage() {
       <footer className="absolute w-full -bottom-40 bg-zinc-100 text-zinc-900 py-10">
         <MaxWidthWrapper className="flex items-center justify-between">
           <div>
-            &copy; {new Date().getFullYear()} buyurparts.com. All rights
+            &copy; {new Date().getFullYear()} {SITE_METADATA.name}. All rights
             reserved.
           </div>
           <div>

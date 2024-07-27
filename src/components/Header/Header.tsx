@@ -21,6 +21,7 @@ import ProfileDropdown from "./ProfileDropdown";
 import { HeaderWrapper } from "./HeaderWrapper";
 import CartSidebar from "../Cart/CartSidebar";
 import SearchInputBox from "../SearchInputBox";
+import { SITE_METADATA } from "@/constants";
 
 export default async function Header() {
   return (
@@ -44,11 +45,11 @@ export default async function Header() {
                   Need Help? Call us:&nbsp;
                 </span>
                 <Link href="/" className="font-semibold">
-                  (+800)&nbsp;1234&nbsp;5678&nbsp;90
+                  {SITE_METADATA.phone}
                 </Link>
                 <span className="opacity-50">&nbsp;or&nbsp;</span>
                 <Link href="/" className="font-semibold">
-                  info@buyurparts.com
+                  {SITE_METADATA.email}
                 </Link>
                 <Separator orientation="vertical" />
                 <div className="mx-5">

@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SITE_METADATA } from "@/constants";
 import { cn, formatPrice } from "@/lib/utils";
 import {
   Check,
@@ -29,7 +30,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { type } from "os";
 
 interface ProductPageProps {
   params: {
@@ -42,14 +42,14 @@ export async function generateMetadata({ params }: ProductPageProps) {
   if (!product || error) return;
 
   return {
-    title: `${product.productTitle} | Buyurparts.com`,
+    title: `${product.productTitle} | ${SITE_METADATA.name}`,
     description: product.longDescription,
     openGraph: {
       title: product.productTitle,
       description: product.longDescription,
       type: "website",
-      url: `https://buyurparts.com/product/${params.slug}`,
-      siteName: "Buyurparts",
+      url: `${SITE_METADATA.url}/product/${params.slug}`,
+      siteName: SITE_METADATA.name,
       images: product.productImages[0].url,
     },
   };

@@ -13,6 +13,7 @@ import {
 import Logo from "../Logo";
 import Newsletter from "../Newsletter";
 import { Wrapper } from "./Wrapper";
+import { SITE_METADATA } from "@/constants";
 
 const CUS_MENU = [
   {
@@ -84,7 +85,7 @@ export function Footer() {
                 you need to keep your car running smoothly.
               </p>
               <Link
-                href="mailto:info@buyurparts.com"
+                href={`mailto:${SITE_METADATA.email}`}
                 className={cn(
                   buttonVariants({
                     variant: "link",
@@ -92,19 +93,19 @@ export function Footer() {
                   "mx-0 px-0"
                 )}
               >
-                info@buyurparts.com
+                {SITE_METADATA.email}
               </Link>
             </div>
             <div className="col-span-2 ml-10">
               <h3 className="mb-3 font-bold text-base">Need Help?</h3>
-              <h2 className="text-2xl font-bold">(+1) 1234 5678 90</h2>
+              <h2 className="text-2xl font-bold">{SITE_METADATA.phone}</h2>
 
               <div className="my-3 flex flex-col text-muted-foreground">
                 <span>Monday &#x2010; Friday: 9:00-20:00</span>
                 <span>Saturday: 11:00 &#x2010; 15:00</span>
               </div>
               <Link
-                href="mailto:support@buyurparts.com"
+                href={`mailto:${SITE_METADATA.supportEmail}`}
                 className={cn(
                   buttonVariants({
                     variant: "link",
@@ -112,7 +113,7 @@ export function Footer() {
                   "mx-0 px-0"
                 )}
               >
-                support@buyurparts.com
+                {SITE_METADATA.supportEmail}
               </Link>
             </div>
 
@@ -147,14 +148,14 @@ export function Footer() {
           <div className="lg:hidden">
             <div className="space-y-1 text-center">
               <h3 className="font-bold text-base">Need Help?</h3>
-              <h2 className="text-2xl font-bold">(+1) 1234 5678 90</h2>
+              <h2 className="text-2xl font-bold">{SITE_METADATA.phone}</h2>
 
               <div className="my-1 flex flex-col text-muted-foreground">
                 <span>Monday &#x2010; Friday: 9:00-20:00</span>
                 <span>Saturday: 11:00 &#x2010; 15:00</span>
               </div>
               <Link
-                href="mailto:support@buyurparts.com"
+                href={`mailto:${SITE_METADATA.supportEmail}`}
                 className={cn(
                   buttonVariants({
                     variant: "link",
@@ -162,7 +163,7 @@ export function Footer() {
                   "mx-0 px-0"
                 )}
               >
-                support@buyurparts.com
+                {SITE_METADATA.supportEmail}
               </Link>
             </div>
             <div>
@@ -222,7 +223,7 @@ export function Footer() {
               <span className="text-xs mx-auto">
                 Copyright {new Date().getFullYear()} &copy;{" "}
                 <Link href="/" className="hover:underline ">
-                  Buyurparts.com
+                  {SITE_METADATA.name}
                 </Link>
                 . All rights reserved.
               </span>

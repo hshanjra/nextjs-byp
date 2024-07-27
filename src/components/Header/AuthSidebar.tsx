@@ -14,6 +14,7 @@ import Image from "next/image";
 import { Separator } from "../ui/separator";
 import LoginForm from "@/components/Auth/LoginForm";
 import RegisterForm from "../Auth/RegisterForm";
+import { SITE_METADATA } from "@/constants";
 
 const AuthSidebar = () => {
   return (
@@ -50,7 +51,7 @@ const AuthSidebar = () => {
               <span className="text-xs mx-auto">
                 Copyright {new Date().getFullYear()} &copy;{" "}
                 <Link href="/" className="hover:underline ">
-                  Buyurparts.com
+                  {SITE_METADATA.name}
                 </Link>
                 . All right reserved.
               </span>
@@ -94,7 +95,7 @@ const AuthSidebar = () => {
               <span className="text-xs mx-auto">
                 Copyright {new Date().getFullYear()} &copy;{" "}
                 <Link href="/" className="hover:underline ">
-                  Buyurparts.com
+                  {SITE_METADATA.name}
                 </Link>
                 . All right reserved.
               </span>

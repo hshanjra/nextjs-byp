@@ -1,5 +1,6 @@
 import Logo from "@/components/Logo";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import { SITE_METADATA } from "@/constants";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -26,7 +27,7 @@ export default function layout({ children }: { children: ReactNode }) {
               <span className="text-xs mx-auto">
                 Copyright {new Date().getFullYear()} &copy;{" "}
                 <Link href="/" className="hover:underline ">
-                  Buyurparts.com
+                  {SITE_METADATA.name}
                 </Link>
                 . All rights reserved.
               </span>

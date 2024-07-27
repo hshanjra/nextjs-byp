@@ -15,6 +15,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Suspense } from "react";
 import { EmailVerificationSchema } from "@/types/authSchema";
+import { SITE_METADATA } from "@/constants";
 
 function EmailVerificationFormContent({ token }: { token: string }) {
   const router = useRouter();
@@ -78,7 +79,7 @@ function EmailVerificationFormContent({ token }: { token: string }) {
       <p className="mt-6 text-sm text-slate-11 font-normal">
         If you have any issue confirming your account please, contact&nbsp;
         <Link
-          href="mailto:support@buyurparts.com"
+          href={`mailto:${SITE_METADATA.supportEmail}`}
           className={cn(
             buttonVariants({
               variant: "link",
@@ -86,7 +87,7 @@ function EmailVerificationFormContent({ token }: { token: string }) {
             "m-0 p-0"
           )}
         >
-          support@buyurparts.com
+          {SITE_METADATA.supportEmail}
         </Link>
         .
       </p>

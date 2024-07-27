@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/Header/Header";
 import { Suspense } from "react";
+import { SITE_METADATA } from "@/constants";
 
 const krub = Krub({
   weight: ["200", "300", "500", "600", "700"],
@@ -15,9 +16,8 @@ const krub = Krub({
 });
 
 export const metadata: Metadata = {
-  title: "Buy parts for your vehicle - buyurparts.com",
-  description:
-    "Buy auto parts and accessories for your Vehicle | Purchase across hundreds of Brands | Buy Ur Parts",
+  title: SITE_METADATA.title,
+  description: SITE_METADATA.description,
 };
 
 export default function RootLayout({
