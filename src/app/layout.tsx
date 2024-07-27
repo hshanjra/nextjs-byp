@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className={cn("relative antialiased", krub.className)}>
         <Suspense>
           <QueryProvider>
-            <main className="relative flex flex-col min-h-screen">
+            <main className="flex flex-col min-h-screen">
               {/* Header */}
               <Header />
 
