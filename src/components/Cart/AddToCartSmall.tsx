@@ -44,7 +44,7 @@ export default function AddToCartSmall({
       >
         {isLoading ? (
           <LoaderCircle
-            className="animate-spin text-zinc-800 group-hover:text-white m-auto"
+            className="animate-spin duration-500 text-zinc-800 group-hover:text-white m-auto p-[2px]"
             size={size}
             strokeWidth={strokeWidth}
           />

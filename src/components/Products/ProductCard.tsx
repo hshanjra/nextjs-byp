@@ -5,14 +5,12 @@ import ReviewStar from "../ReviewStar";
 import { Package } from "lucide-react";
 import ProductSlider from "./ProductSlider";
 import AddToCartSmall from "../Cart/AddToCartSmall";
-import { getCart } from "@/actions/CartAction";
 
 export default async function ProductCard({
   product: p,
 }: {
   product: Product;
 }) {
-  const cart = await getCart();
   if (p) {
     return (
       <>
