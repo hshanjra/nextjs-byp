@@ -29,10 +29,28 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { type } from "os";
 
 interface ProductPageProps {
   params: {
     slug: string;
+  };
+}
+
+export async function generateMetadata({ params }: ProductPageProps) {
+  const { product, error } = await getProductBySlug(params.slug);
+  if (!product || error) return;
+
+  return {
+    title: `${product.productTitle} | Buyurparts.com`,
+    description: product.longDescription,
+    openGraph: {
+      title: product.productTitle,
+      description: product.longDescription,
+      type: "website",
+      url: `https://buyurparts.com/product/${params.slug}`,
+      siteName: "Buyurparts",
+    },
   };
 }
 
