@@ -121,7 +121,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
               <div className="flex items-center gap-x-1">
                 <ReviewStar rating={4} height={28} />
                 <span className="font-semibold text-xs lg:text-sm">
-                  {1} customer review
+                  {1} review
                 </span>
               </div>
 
