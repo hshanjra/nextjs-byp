@@ -64,8 +64,8 @@ export default function ProductReel({ products }: { products: Product[] }) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden lg:block" />
-          <CarouselNext className="hidden lg:block" />
+          <CarouselPrevious className="hidden lg:flex" />
+          <CarouselNext className="hidden lg:flex" />
         </Carousel>
       </div>
 
