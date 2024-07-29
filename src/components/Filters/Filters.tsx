@@ -185,6 +185,8 @@ export default function Filters() {
   // const minPrice = Math.min(filter.minPrice, filter.maxPrice);
   // const maxPrice = Math.max(filter.minPrice, filter.maxPrice);
 
+  const randNum = Math.floor(Math.random() * 100);
+
   return (
     <div>
       <div>
@@ -223,16 +225,28 @@ export default function Filters() {
               }}
             >
               {PRICE_FILTERS.option.map((option, idx) => (
-                <div key={option.label} className="flex items-center space-x-2">
-                  <RadioGroupItem value={option.label} id={`price-${idx}`} />
-                  <Label htmlFor={`price-${idx}`} className="cursor-pointer">
+                <div
+                  key={option.label + randNum}
+                  className="flex items-center space-x-2"
+                >
+                  <RadioGroupItem
+                    value={option.label}
+                    id={`price-${idx + randNum}`}
+                  />
+                  <Label
+                    htmlFor={`price-${idx + randNum}`}
+                    className="cursor-pointer"
+                  >
                     {option.label}
                   </Label>
                 </div>
               ))}
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="Custom" id={`price-custom`} />
-                <Label htmlFor={`price-custom`} className="cursor-pointer">
+                <RadioGroupItem value="Custom" id={`price-custom` + randNum} />
+                <Label
+                  htmlFor={`price-custom` + randNum}
+                  className="cursor-pointer"
+                >
                   Custom
                 </Label>
               </div>
@@ -272,16 +286,19 @@ export default function Filters() {
           <AccordionContent>
             <div className="flex flex-col items-start gap-2">
               {CONDITION_FILTERS.option.map((option, i) => (
-                <div className="flex items-center space-x-2" key={option.label}>
+                <div
+                  className="flex items-center space-x-2"
+                  key={option.label + randNum}
+                >
                   <Checkbox
-                    id={`condition-${i}`}
+                    id={`condition-${i + randNum}`}
                     onCheckedChange={() =>
                       handleCheckboxChange("condition", option.value)
                     }
                     checked={filter.condition.includes(option.value)}
                   />
                   <Label
-                    htmlFor={`condition-${i}`}
+                    htmlFor={`condition-${i + randNum}`}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
                     {option.label}
@@ -300,16 +317,19 @@ export default function Filters() {
           <AccordionContent>
             <div className="flex flex-col items-start gap-2">
               {STATUS_FILTERS.option.map((option, i) => (
-                <div className="flex items-center space-x-2" key={option.label}>
+                <div
+                  className="flex items-center space-x-2"
+                  key={option.label + randNum}
+                >
                   <Checkbox
-                    id={`status-${i}`}
+                    id={`status-${i + randNum}`}
                     onCheckedChange={() =>
                       handleCheckboxChange("status", option.value)
                     }
                     checked={filter.status.includes(option.value)}
                   />
                   <Label
-                    htmlFor={`status-${i}`}
+                    htmlFor={`status-${i + randNum}`}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
                     {option.label}
@@ -328,16 +348,19 @@ export default function Filters() {
           <AccordionContent>
             <div className="flex flex-col items-start gap-2">
               {BRAND_FILTERS.option.map((option, i) => (
-                <div className="flex items-center space-x-2" key={option.label}>
+                <div
+                  className="flex items-center space-x-2"
+                  key={option.label + randNum}
+                >
                   <Checkbox
-                    id={`brand-${i}`}
+                    id={`brand-${i + randNum}`}
                     onCheckedChange={() =>
                       handleCheckboxChange("brand", option.value)
                     }
                     checked={filter.brand.includes(option.value)}
                   />
                   <Label
-                    htmlFor={`brand-${i}`}
+                    htmlFor={`brand-${i + randNum}`}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
                     {option.label}

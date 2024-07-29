@@ -310,27 +310,28 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
         {/* Description/Reviews Tabs */}
         <section className="my-10">
           <Tabs defaultValue="description" className="w-full">
-            <TabsList className="grid lg:gap-2 grid-cols-2 lg:grid-cols-3 bg-transparent lg:max-w-md ml-0">
+            <TabsList className="justify-start bg-transparent lg:mb-2">
               <TabsTrigger
                 value="description"
-                className="font-medium text-lg pl-0 justify-start bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="font-medium text-sm lg:text-lg pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 Description
               </TabsTrigger>
               <TabsTrigger
                 value="additional-info"
-                className="font-medium text-lg pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="font-medium text-sm lg:text-lg pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 Additional Information
               </TabsTrigger>
               <TabsTrigger
                 value="reviews"
-                className="font-medium text-lg  bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="font-medium text-sm lg:text-lg pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 Reviews(5)
               </TabsTrigger>
             </TabsList>
-            <Separator className="mt-5 h-[0.5px]" />
+            <Separator className="h-[0.5px]" />
+
             <TabsContent
               value="description"
               className="font-light text-gray-700 my-5"
