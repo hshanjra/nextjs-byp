@@ -3,7 +3,14 @@ import Breadcrumb from "@/components/Breadcrumb";
 import Filters from "@/components/Filters/Filters";
 import PartsFinder from "@/components/Filters/PartsFinder";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import { SITE_METADATA } from "@/constants";
 import { ArrowRight } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `Explore Products at ${SITE_METADATA.name}`,
+  description: "Explore wide range of auto parts that fits with your vehicle.",
+};
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (

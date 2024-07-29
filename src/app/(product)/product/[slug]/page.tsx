@@ -295,15 +295,14 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
               <span className="text-sm font-light text-gray-400 mr-1">
                 Categories:
               </span>
-              <p className="flex items-center">
-                <Link href={"#"} className="text-sm">
-                  Battery & Adhesives
-                </Link>
-                , &nbsp;
-                <Link href={"#"} className="text-sm">
-                  Battery & Adhesives
-                </Link>
-              </p>
+              <ul className="flex items-center gap-x-[2px] text-sm">
+                <li>
+                  <Link href={"#"}>Tools</Link>,
+                </li>
+                <li>
+                  <Link href={"#"}>Battery & Adhesives</Link>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
