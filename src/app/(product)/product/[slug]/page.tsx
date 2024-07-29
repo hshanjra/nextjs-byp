@@ -313,19 +313,19 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             <TabsList className="justify-start bg-transparent lg:mb-2">
               <TabsTrigger
                 value="description"
-                className="font-medium text-sm lg:text-lg pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="font-medium text-sm lg:text-lg text-gray-400 pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 Description
               </TabsTrigger>
               <TabsTrigger
                 value="additional-info"
-                className="font-medium text-sm lg:text-lg pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="font-medium text-sm lg:text-lg text-gray-400 pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 Additional Information
               </TabsTrigger>
               <TabsTrigger
                 value="reviews"
-                className="font-medium text-sm lg:text-lg pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="font-medium text-sm lg:text-lg text-gray-400 pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 Reviews(5)
               </TabsTrigger>
