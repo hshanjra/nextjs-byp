@@ -61,7 +61,7 @@ const MainNav = () => {
   return (
     pathname === "/" && (
       <MaxWidthWrapper className="flex items-center justify-between">
-        {/* Cateogry List */}
+        {/* Category List */}
 
         <div className="w-1/4 rounded-t-xl rounded-b-none h-12 bg-primary relative">
           <h3 className="w-full p-4 align-middle h-full text-white">

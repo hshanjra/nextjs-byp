@@ -56,7 +56,7 @@ export default function MainSlider() {
   const [swiper, setSwiper] = useState<null | SwiperType>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [slideConfig, setSlideConfig] = useState({
-    isBegining: true,
+    isBeginning: true,
     isEnd: activeIndex === (sliderContent.length ?? 0) - 1,
   });
 
@@ -64,7 +64,7 @@ export default function MainSlider() {
     swiper?.on("slideChange", ({ activeIndex }) => {
       setActiveIndex(activeIndex);
       setSlideConfig({
-        isBegining: activeIndex === 0,
+        isBeginning: activeIndex === 0,
         isEnd: activeIndex === (sliderContent.length ?? 0) - 1,
       });
     });
@@ -75,11 +75,11 @@ export default function MainSlider() {
 
   const inactiveStyles = "hidden text-gray-400";
   return (
-    <MaxWidthWrapper className="mt-5 h-96 lg:h-[30rem] ">
+    <MaxWidthWrapper className="mt-5 h-96 lg:h-full ">
       <section className="mx-auto h-full px-0 lg:pl-5 py-1 grid lg:grid-cols-4">
         <div className="hidden lg:col-span-1 bg-transparent lg:block"></div>
         <div className="relative group bg-zinc-100 border aspect-video rounded-xl overflow-hidden col-span-full h-full w-full lg:col-span-3">
-          <div className="absolute z-10 inset-0 opacity-0 group-hover:opacity-100 transition">
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition">
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -101,9 +101,9 @@ export default function MainSlider() {
                 swiper?.slidePrev();
               }}
               className={cn(activeStyles, "left-0 transition", {
-                [inactiveStyles]: slideConfig.isBegining,
+                [inactiveStyles]: slideConfig.isBeginning,
                 "bg-white opacity-100 h-14 rounded-r-lg px-2":
-                  !slideConfig.isBegining,
+                  !slideConfig.isBeginning,
               })}
               aria-label="previous image"
             >
