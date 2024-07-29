@@ -14,7 +14,7 @@ export default async function ProductCard({
   if (p) {
     return (
       <>
-        <div className="max-w-[170px] md:max-w-[200px] lg:max-w-[230px] lg:px-1">
+        <div className="w-full lg:px-1">
           <Link href={"/product/" + p.productSlug}>
             <ProductSlider images={p.productImages} />
 
