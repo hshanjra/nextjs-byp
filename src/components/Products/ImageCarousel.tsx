@@ -52,18 +52,16 @@ export default function ImageCarousel({
                 key={index}
                 className={index === selectedIndex ? "block" : "hidden"}
               >
-                <Link href="#" className="block" prefetch={false}>
-                  <Image
-                    src={image.url}
-                    alt={image.alt}
-                    width={800}
-                    height={800}
-                    className="w-full h-[400px] md:h-[600px] object-scale-down transition-transform duration-300 cursor-zoom-in"
-                    style={index === selectedIndex ? zoomStyle : {}}
-                    onMouseMove={(e) => handleMouseMove(e, index)}
-                    onMouseLeave={handleMouseLeave}
-                  />
-                </Link>
+                <Image
+                  src={image.url}
+                  alt={image.alt}
+                  width={800}
+                  height={800}
+                  className="w-full h-[400px] md:h-[600px] object-scale-down transition-transform duration-300 cursor-zoom-in"
+                  style={index === selectedIndex ? zoomStyle : {}}
+                  onMouseMove={(e) => handleMouseMove(e, index)}
+                  onMouseLeave={handleMouseLeave}
+                />
               </CarouselItem>
             ))}
           </CarouselContent>
