@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: `Explore Categories | ${SITE_METADATA.name}`,
   description: "Explore wide range of auto parts that fits with your vehicle.",
   openGraph: {
-    images: ["/images/category-brakes.png"],
+    images: [`${SITE_METADATA.url}/images/category-brakes.png`],
   },
 };
 
