@@ -1,7 +1,14 @@
 import { getAllCategories } from "@/actions/CategoryAction";
 import EmptyState from "@/components/Products/EmptyState";
+import { SITE_METADATA } from "@/constants";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: `Explore Categories | ${SITE_METADATA.name}`,
+  description: "Explore wide range of auto parts that fits with your vehicle.",
+};
 
 export default async function CategoriesPage() {
   const { categories, error } = await getAllCategories();
