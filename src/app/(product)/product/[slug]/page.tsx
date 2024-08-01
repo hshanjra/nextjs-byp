@@ -293,7 +293,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
 
             {/* Category / Product Id */}
             <div className="mt-5 flex items-center justify-between">
-              <div className="flex items-center">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center">
                 <span className="text-sm font-light text-gray-400 mr-1">
                   Category:
                 </span>
@@ -307,7 +307,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                   </li>
                 </ul>
               </div>
-              <div className="flex items-center">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center">
                 <span className="text-sm font-light text-gray-400 mr-1">
                   Product ID:
                 </span>
