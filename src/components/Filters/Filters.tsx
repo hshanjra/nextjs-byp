@@ -220,7 +220,7 @@ export default function Filters() {
             )}
 
             {data && (
-              <Accordion type="multiple">
+              <Accordion type="multiple" className="space-y-1">
                 {data.categories.map((category) => (
                   <AccordionItem
                     key={category._id}
@@ -230,14 +230,14 @@ export default function Filters() {
                     {category.subcategories &&
                     category.subcategories.length > 0 ? (
                       <>
-                        <CustomAccordionTrigger className="py-1">
+                        <CustomAccordionTrigger className="p-0">
                           <h3>
                             <Link href={`/categories/${category.categorySlug}`}>
                               {category.categoryName}
                             </Link>
                           </h3>
                         </CustomAccordionTrigger>
-                        <AccordionContent>
+                        <AccordionContent className="p-0">
                           <ul className="lg:ml-3">
                             {category.subcategories.map((subcategory) => (
                               <Link

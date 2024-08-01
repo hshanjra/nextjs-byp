@@ -30,17 +30,29 @@ const Sidebar = () => {
                 MAIN MENU
               </h3>
               <nav className="flex flex-col font-semibold space-y-2">
-                <Link href="/">Home</Link>
+                <SheetTrigger asChild>
+                  <Link href="/">Home</Link>
+                </SheetTrigger>
+                <span className="border-b"></span>
+                <SheetTrigger asChild>
+                  <Link href="/products">Shop</Link>
+                </SheetTrigger>
                 <span className="border-b"> </span>
-                <Link href="/products">Shop</Link>
+                <SheetTrigger asChild>
+                  <Link href="/track-order">Order Tracking</Link>
+                </SheetTrigger>
                 <span className="border-b"> </span>
-                <Link href="/track-order">Order Tracking</Link>
+                <SheetTrigger asChild>
+                  <Link href="/account">My Account</Link>
+                </SheetTrigger>
                 <span className="border-b"> </span>
-                <Link href="/account">My Account</Link>
+                <SheetTrigger asChild>
+                  <Link href="/blog">Blog</Link>
+                </SheetTrigger>
                 <span className="border-b"> </span>
-                <Link href="/blog">Blog</Link>
-                <span className="border-b"> </span>
-                <Link href="/about">About Us</Link>
+                <SheetTrigger asChild>
+                  <Link href="/about">About Us</Link>
+                </SheetTrigger>
               </nav>
             </div>
             {/* Category Menu */}

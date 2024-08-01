@@ -58,14 +58,15 @@ export async function generateMetadata({ params }: ProductPageProps) {
 const ProductDetailPage = async ({ params }: ProductPageProps) => {
   const { product, error } = await getProductBySlug(params.slug);
 
-  const { products: relatedProducts, totalCount } = await getAllProducts({
-    limit: 10,
-  });
-
   if (!product || error) {
     // TODO: throw internal server error
     return;
   }
+
+  const { products: relatedProducts, totalCount } = await getAllProducts({
+    limit: 10,
+    category: product.categoryId.categorySlug,
+  });
 
   return (
     <>
@@ -290,18 +291,28 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
 
             <Separator className="mt-10" />
 
-            {/* Category */}
-            <div className="mt-5 flex items-center">
-              <span className="text-sm font-light text-gray-400 mr-1">
-                Category:
-              </span>
-              <ul className="flex items-center gap-x-[2px] text-sm">
-                <li>
-                  <Link href={`/categories/${product.categoryId.categorySlug}`}>
-                    {product.categoryId.categoryName}
-                  </Link>
-                </li>
-              </ul>
+            {/* Category / Product Id */}
+            <div className="mt-5 flex items-center justify-between">
+              <div className="flex items-center">
+                <span className="text-sm font-light text-gray-400 mr-1">
+                  Category:
+                </span>
+                <ul className="flex items-center gap-x-[2px] text-sm">
+                  <li>
+                    <Link
+                      href={`/categories/${product.categoryId.categorySlug}`}
+                    >
+                      {product.categoryId.categoryName}
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              <div className="flex items-center">
+                <span className="text-sm font-light text-gray-400 mr-1">
+                  Product ID:
+                </span>
+                <p className="text-sm">{product.productId}</p>
+              </div>
             </div>
           </div>
         </div>
