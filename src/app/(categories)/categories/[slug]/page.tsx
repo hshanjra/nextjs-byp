@@ -67,6 +67,8 @@ export default async function page({ params, searchParams }: PageProps) {
 
   return (
     <>
+      {/* Heading */}
+      <h1 className="hidden">{category.categoryName}</h1>
       {/* Filters */}
       <div className="hidden lg:block md:block mb-7">
         <div className="bg-gray-200/75 p-5 flex items-center justify-between rounded-lg">

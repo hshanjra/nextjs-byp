@@ -233,7 +233,13 @@ export default function Filters() {
                         <CustomAccordionTrigger className="p-0">
                           <h3>
                             <Link href={`/categories/${category.categorySlug}`}>
-                              {category.categoryName}
+                              {pathname.endsWith(
+                                `/categories/${category.categorySlug}`
+                              ) ? (
+                                <b>{category.categoryName}</b>
+                              ) : (
+                                <>{category.categoryName}</>
+                              )}
                             </Link>
                           </h3>
                         </CustomAccordionTrigger>
@@ -245,8 +251,14 @@ export default function Filters() {
                                 href={`/categories/${subcategory.categorySlug}`}
                                 className="hover:underline hover:text-zinc-500"
                               >
-                                <li className="text-zinc-600">
-                                  - {subcategory.categoryName}
+                                <li>
+                                  {pathname.endsWith(
+                                    `/categories/${subcategory.categorySlug}`
+                                  ) ? (
+                                    <b> -{subcategory.categoryName}</b>
+                                  ) : (
+                                    <>-{subcategory.categoryName}</>
+                                  )}
                                 </li>
                               </Link>
                             ))}
@@ -259,7 +271,13 @@ export default function Filters() {
                           href={`/categories/${category.categorySlug}`}
                           className="hover:underline"
                         >
-                          {category.categoryName}
+                          {pathname.endsWith(
+                            `/categories/${category.categorySlug}`
+                          ) ? (
+                            <b>{category.categoryName}</b>
+                          ) : (
+                            <>{category.categoryName}</>
+                          )}
                         </Link>
                       </h3>
                     )}
