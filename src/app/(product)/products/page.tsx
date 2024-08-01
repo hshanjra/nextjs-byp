@@ -60,12 +60,14 @@ export default async function ProductsPage({
           </div>
         </div>
       </div>
-      {products && (
+      {products && products.length > 0 ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 my-2">
           {products?.map((product: Product) => (
             <ProductHoverInfoCard product={product} key={product.productId} />
           ))}
         </div>
+      ) : (
+        <EmptyState />
       )}
     </>
   );

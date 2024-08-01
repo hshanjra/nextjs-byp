@@ -5,6 +5,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  CustomAccordionTrigger,
 } from "../ui/accordion";
 import { cn, createUrl } from "@/lib/utils";
 import { PriceSlider } from "../ui/price-slider";
@@ -14,6 +15,10 @@ import { Checkbox } from "../ui/checkbox";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import debounce from "lodash.debounce";
+import { useQuery } from "@tanstack/react-query";
+import { getAllCategories } from "@/actions/CategoryAction";
+import Link from "next/link";
+import { Skeleton } from "../ui/skeleton";
 
 const DEFAULT_CUSTOM_PRICE: [number, number] = [0, 10000];
 
@@ -187,15 +192,84 @@ export default function Filters() {
 
   const randNum = Math.floor(Math.random() * 100);
 
+  // Fetch all categories
+  const { data, isLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => await getAllCategories(),
+  });
+
   return (
     <div>
-      <div>
-        <span className="font-medium text-gray-900">Categories</span>
-      </div>
       <Accordion
         type="multiple"
-        defaultValue={["brand", "price", "condition", "status"]}
+        defaultValue={["category", "brand", "price", "condition", "status"]}
       >
+        {/* Category Filter */}
+        <AccordionItem value="category">
+          <AccordionTrigger className="py-3 text-sm text-gray-400 hover:text-gray-500">
+            <span className="font-bold text-gray-900">Categories</span>
+          </AccordionTrigger>
+          <AccordionContent>
+            {isLoading && (
+              <div className="flex flex-col gap-y-3">
+                <Skeleton className="h-4" />
+                <Skeleton className="ml-auto h-4 w-60" />
+                <Skeleton className="h-4" />
+                <Skeleton className="h-4" />
+              </div>
+            )}
+
+            {data && (
+              <Accordion type="multiple">
+                {data.categories.map((category) => (
+                  <AccordionItem
+                    key={category._id}
+                    value={category._id}
+                    className="border-none"
+                  >
+                    {category.subcategories &&
+                    category.subcategories.length > 0 ? (
+                      <>
+                        <CustomAccordionTrigger className="py-1">
+                          <h3>
+                            <Link href={`/categories/${category.categorySlug}`}>
+                              {category.categoryName}
+                            </Link>
+                          </h3>
+                        </CustomAccordionTrigger>
+                        <AccordionContent>
+                          <ul className="lg:ml-3">
+                            {category.subcategories.map((subcategory) => (
+                              <Link
+                                key={subcategory._id}
+                                href={`/categories/${subcategory.categorySlug}`}
+                                className="hover:underline hover:text-zinc-500"
+                              >
+                                <li className="text-zinc-600">
+                                  - {subcategory.categoryName}
+                                </li>
+                              </Link>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </>
+                    ) : (
+                      <h3>
+                        <Link
+                          href={`/categories/${category.categorySlug}`}
+                          className="hover:underline"
+                        >
+                          {category.categoryName}
+                        </Link>
+                      </h3>
+                    )}
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            )}
+          </AccordionContent>
+        </AccordionItem>
+
         {/* Price Filter */}
         <AccordionItem value="price">
           <AccordionTrigger className="py-3 text-sm text-gray-400 hover:text-gray-500">

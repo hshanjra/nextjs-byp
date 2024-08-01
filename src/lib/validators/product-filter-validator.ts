@@ -14,6 +14,7 @@ export const AVAILABLE_SORT = [
 
 export const ProductFilterValidator = z.object({
   q: z.string().optional(),
+  category: z.string().optional(),
   sort: z.enum(AVAILABLE_SORT).optional(),
   limit: z.number().int(),
   page: z.number().int().optional(),

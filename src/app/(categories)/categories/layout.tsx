@@ -1,5 +1,7 @@
 import Banner from "@/components/Banner";
 import Breadcrumb from "@/components/Breadcrumb";
+import Filters from "@/components/Filters/Filters";
+import PartsFinder from "@/components/Filters/PartsFinder";
 import LoadingDots from "@/components/LoadingDots";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { ArrowRight } from "lucide-react";
@@ -34,7 +36,21 @@ export default function layout({ children }: { children: React.ReactNode }) {
             <ArrowRight size={15} className="ml-1" />
           </div>
         </Banner>
-        {children}
+        <section className="grid lg:grid-cols-4 gap-x-5 my-10">
+          {/* Left Side */}
+          <div className="hidden lg:block">
+            <PartsFinder />
+            {/* Filters */}
+            <div className="my-5">
+              <Filters />
+            </div>
+          </div>
+          {/* Right Side */}
+          <div className="col-span-3">
+            {/* Display products here */}
+            {children}
+          </div>
+        </section>
       </MaxWidthWrapper>
     </Suspense>
   );

@@ -17,6 +17,7 @@ type queryParams = {
   model?: string;
   subModel?: string;
   year?: number;
+  category?: string;
 };
 
 interface ProductsResponse {
@@ -39,6 +40,7 @@ export const getAllProducts = async (
   const status = params?.status || "";
   const condition = params?.condition || "";
   const featured = params?.featured ? true : false;
+  const category = params?.category || "";
 
   try {
     const validatedData = ProductFilterValidator.parse({
@@ -55,6 +57,7 @@ export const getAllProducts = async (
       model: params?.model || "",
       subModel: params?.subModel || "",
       year: params?.year || 0,
+      category,
     });
 
     const queryString = new URLSearchParams(validatedData as any).toString();

@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { cn, createUrl } from "@/lib/utils";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const SORT_OPTIONS = [
   { name: "None", value: "none" },
@@ -24,6 +24,7 @@ const PER_PAGE_OPTIONS = [16, 32, 48, 64] as const;
 export default function ProductsHeaderFilter() {
   const query = useSearchParams();
   const router = useRouter();
+  const pathname = usePathname();
 
   const currentSort = query.get("sort") || "none";
   const currentPerPage = Number(query.get("perPage")) || 16;
@@ -36,9 +37,9 @@ export default function ProductsHeaderFilter() {
       } else {
         params.set(key, value.toString());
       }
-      router.push(createUrl("/products", params), { scroll: false });
+      router.push(createUrl(pathname, params), { scroll: false });
     },
-    [query, router]
+    [query, router, pathname]
   );
 
   const handleSortChange = (value: string) => {

@@ -14,7 +14,7 @@ export type Product = {
     width: number;
     height: number;
   };
-  category: {
+  categoryId: {
     categoryName: string;
     categorySlug: string;
     id: string;

@@ -293,14 +293,13 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             {/* Category */}
             <div className="mt-5 flex items-center">
               <span className="text-sm font-light text-gray-400 mr-1">
-                Categories:
+                Category:
               </span>
               <ul className="flex items-center gap-x-[2px] text-sm">
                 <li>
-                  <Link href={"#"}>Tools</Link>,
-                </li>
-                <li>
-                  <Link href={"#"}>Battery & Adhesives</Link>
+                  <Link href={`/categories/${product.categoryId.categorySlug}`}>
+                    {product.categoryId.categoryName}
+                  </Link>
                 </li>
               </ul>
             </div>
