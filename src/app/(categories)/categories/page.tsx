@@ -12,11 +12,11 @@ export default async function CategoriesPage() {
     <section>
       <h1 className="text-3xl uppercase font-bold mb-5">Explore Categories</h1>
       {categories && categories.length > 0 ? (
-        <div className="grid grid-cols-2 lg:grid-cols-4 overflow-hidden">
+        <div className="grid grid-cols-2 lg:grid-cols-4">
           {categories.map((cat) => (
             <div
               key={cat._id}
-              className="w-full border p-5 hover:scale-105 hover:shadow-xl transition-all duration-200 cursor-pointer bg-white"
+              className="overflow-hidden w-full border p-5 hover:scale-105 hover:shadow-xl transition-all duration-200 cursor-pointer bg-white"
             >
               <Link href={`/categories/${cat.categorySlug}`}>
                 <Image
