@@ -7,7 +7,6 @@ import { addOrUpdateItem } from "@/actions/CartAction";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useGetCart } from "@/hooks/useCartSession";
 
 export default function AddToCartButton({
   className,
@@ -20,8 +19,6 @@ export default function AddToCartButton({
   strokeWidth?: number;
   product: Product;
 }) {
-  const { data: cart, error } = useGetCart();
-
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAddToCart = async () => {
