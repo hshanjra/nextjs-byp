@@ -31,7 +31,7 @@ export default async function FeaturedProducts() {
           <h3 className="text-xl font-medium mr-5">Featured Products</h3>
 
           <div className="hidden lg:block">
-            <TabsList className="flex space-x-5 justify-start  rounded-none m-0 bg-transparent">
+            <TabsList className="flex space-x-5 justify-start  rounded-none m-0 py-2 bg-transparent">
               {categories?.slice(0, 5).map((cat) => (
                 <TabsTrigger
                   key={cat._id}
