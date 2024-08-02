@@ -22,6 +22,7 @@ export default function Banner({
         <Image
           fill
           src={imgUrl}
+          sizes="(100vw - 2rem) 100vh"
           alt="Banner"
           className="-z-10 h-full w-full object-cover object-center group-hover:scale-105 transition duration-300 ease-in"
         />

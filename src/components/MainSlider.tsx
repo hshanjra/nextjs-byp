@@ -128,6 +128,7 @@ export default function MainSlider() {
                 <Image
                   src={content?.image.url}
                   fill
+                  sizes="(100vw - 2rem) 100vh"
                   alt={content?.image.alt}
                   loading="eager"
                   className="-z-10 h-full w-full object-cover object-center"

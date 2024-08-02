@@ -90,6 +90,7 @@ export default function ProductSlider({ images }: ProductSliderProps) {
             <Image
               src={image.url}
               fill
+              sizes="(100vw - 2rem) 100vh"
               alt={image?.alt}
               loading="eager"
               className="-z-10 h-full w-full object-cover object-center"
