@@ -68,6 +68,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
             {...field}
             className="placeholder:text-zinc-400"
             disabled={props.disabled}
+            maxLength={props.maxLength}
           />
         </FormControl>
       );

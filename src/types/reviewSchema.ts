@@ -5,7 +5,7 @@ export const addReviewSchema = z.object({
   comment: z
     .string()
     .min(1, "Please add a comment")
-    .max(300, "Comment too long"),
+    .max(250, "Comment too long"),
 });
 
 export type AddReviewSchema = z.infer<typeof addReviewSchema>;
