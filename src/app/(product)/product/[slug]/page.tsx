@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: ProductPageProps) {
       description: product.longDescription,
       type: "website",
       url: `${SITE_METADATA.url}/product/${params.slug}`,
-      siteName: SITE_METADATA.name,
+      // siteName: SITE_METADATA.name,
       images: product.productImages.map((image) => image.url),
     },
   };
