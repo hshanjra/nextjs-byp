@@ -2,6 +2,7 @@ import { getAllProducts, getProductBySlug } from "@/actions/ProductsAction";
 import Breadcrumb from "@/components/Breadcrumb";
 import AddToCartButton from "@/components/Cart/AddToCartButton";
 import CompatibleMessage from "@/components/CompatibleMessage";
+import AddReviewForm from "@/components/Forms/AddReviewForm";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import ImageCarousel from "@/components/Products/ImageCarousel";
 import ProductReel from "@/components/Products/ProductReel";
@@ -322,21 +323,27 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             <TabsList className="justify-start bg-transparent lg:mb-2">
               <TabsTrigger
                 value="description"
-                className="font-medium text-sm lg:text-lg text-gray-400 pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="font-medium text-sm lg:text-lg text-gray-400 p-0 lg:pr-1 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 Description
               </TabsTrigger>
               <TabsTrigger
                 value="additional-info"
-                className="font-medium text-sm lg:text-lg text-gray-400 pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="font-medium text-sm lg:text-lg text-gray-400 px-1 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
-                Additional Information
+                Additional Info
               </TabsTrigger>
               <TabsTrigger
                 value="reviews"
-                className="font-medium text-sm lg:text-lg text-gray-400 pl-0 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="font-medium text-sm lg:text-lg text-gray-400 px-1 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 Reviews(5)
+              </TabsTrigger>
+              <TabsTrigger
+                value="qna"
+                className="font-medium text-sm lg:text-lg text-gray-400 p-0 lg:pl-1 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+              >
+                Q&A
               </TabsTrigger>
             </TabsList>
             <Separator className="h-[0.5px]" />
@@ -374,7 +381,20 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                 List of all compatible makes and models.
               </p>
             </TabsContent>
-            <TabsContent value="reviews">sfsdfsd</TabsContent>
+            <TabsContent value="reviews">
+              <div>
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Inventore, nobis!
+                </p>
+              </div>
+
+              <AddReviewForm />
+            </TabsContent>
+
+            <TabsContent value="qna">
+              <p>QnA</p>
+            </TabsContent>
           </Tabs>
         </section>
 
