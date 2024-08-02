@@ -5,6 +5,10 @@ import { ArrowRight } from "lucide-react";
 import ProductReel from "./ProductReel";
 import { useGetAllProducts } from "@/hooks/useProducts";
 import { getAllProducts } from "@/actions/ProductsAction";
+import { getAllCategories } from "@/actions/CategoryAction";
+import FeaturedProductTabContent from "./FeaturedProductTabContent";
+import { Suspense } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 export default async function FeaturedProducts() {
   // const {
@@ -17,40 +21,26 @@ export default async function FeaturedProducts() {
   //   return <div>Unable to get products. {error.message}</div>;
   // }
 
-  const { products } = await getAllProducts({ limit: 10, featured: true });
+  const { categories, error: catErr } = await getAllCategories();
+
   return (
     <section className="mt-10">
       {/* For Lg Screens */}
-      <Tabs defaultValue="safety">
+      <Tabs defaultValue="air-bags">
         <div className="flex items-center">
           <h3 className="text-xl font-medium mr-5">Featured Products</h3>
 
           <div className="hidden lg:block">
             <TabsList className="flex space-x-5 justify-start  rounded-none m-0 bg-transparent">
-              <TabsTrigger
-                className="my-auto rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 bg-transparent"
-                value="safety"
-              >
-                Auto Safety & Security
-              </TabsTrigger>
-              <TabsTrigger
-                className="rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 bg-transparent"
-                value="interior"
-              >
-                Interior Accessories
-              </TabsTrigger>
-              <TabsTrigger
-                className="rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 !bg-transparent"
-                value="motor-oil"
-              >
-                Motor Oils
-              </TabsTrigger>
-              <TabsTrigger
-                className="rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 !bg-transparent"
-                value="tires-wheels"
-              >
-                Tires & Wheels
-              </TabsTrigger>
+              {categories?.slice(0, 5).map((cat) => (
+                <TabsTrigger
+                  key={cat._id}
+                  className="my-auto rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 bg-transparent"
+                  value={cat.categorySlug}
+                >
+                  {cat.categoryName}
+                </TabsTrigger>
+              ))}
             </TabsList>
           </div>
 
@@ -64,13 +54,26 @@ export default async function FeaturedProducts() {
         </div>
         <Separator />
         {/* {isPending && <div>Loading...</div>} */}
-        <TabsContent value="safety">
-          {/* Product Reel */}
-          {products && <ProductReel products={products} />}
-        </TabsContent>
-        <TabsContent value="interior">{/* Product Reel */}</TabsContent>
-        <TabsContent value="motor-oil">{/* Product Reel */}</TabsContent>
-        <TabsContent value="tires-wheels">{/* Product Reel */}</TabsContent>
+        {categories.slice(0, 5).map((cat, idx) => (
+          <TabsContent key={cat._id + idx} value={cat.categorySlug}>
+            {/* Product Reel */}
+            <Suspense
+              fallback={
+                <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <div key={index} className="flex flex-col w-56">
+                      <Skeleton className="h-56 w-56 aspect-square rounded-xl" />
+                      <Skeleton className="h-4 w-56 mt-3" />
+                      <Skeleton className="ml-auto h-4 w-20 mt-3" />
+                    </div>
+                  ))}
+                </div>
+              }
+            >
+              <FeaturedProductTabContent categorySlug={cat.categorySlug} />
+            </Suspense>
+          </TabsContent>
+        ))}
       </Tabs>
       {/* For small screens */}
     </section>
