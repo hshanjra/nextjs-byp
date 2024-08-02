@@ -66,7 +66,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
           <Textarea
             placeholder={props.placeholder}
             {...field}
-            className="placeholder:text-zinc-400"
+            className="placeholder:text-zinc-400 h-32"
             disabled={props.disabled}
             maxLength={props.maxLength}
           />

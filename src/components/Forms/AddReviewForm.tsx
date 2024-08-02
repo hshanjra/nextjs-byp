@@ -10,7 +10,6 @@ import { Button } from "../ui/button";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Label } from "../ui/label";
-import { useEffect } from "react";
 
 interface RatingProps {
   name: string;
@@ -30,8 +29,8 @@ export default function AddReviewForm() {
     console.log("values", values);
   };
 
-  const comment = form.watch("comment");
   const allowedLength = 250;
+  const comment = form.watch("comment");
   const lengthLeft = 250 - comment.length;
 
   return (
