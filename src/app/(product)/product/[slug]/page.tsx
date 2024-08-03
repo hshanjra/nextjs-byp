@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import Loading from "./loading";
 
 interface ProductPageProps {
   params: {
@@ -60,8 +61,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
   const { product, error } = await getProductBySlug(params.slug);
 
   if (!product || error) {
-    // TODO: throw internal server error
-    return;
+    return <Loading />;
   }
 
   const { products: relatedProducts, totalCount } = await getAllProducts({

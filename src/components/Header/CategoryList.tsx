@@ -87,11 +87,6 @@ const categoryItems: Category[] = [
     name: "Original Battery",
     link: "/original-battery",
   },
-  {
-    icon: <Sparkles strokeWidth={1} />,
-    name: "Buyurparts Bestsellers",
-    link: "/bestsellers",
-  },
 ];
 
 const CategoryItems: React.FC<Props> = ({
@@ -129,9 +124,9 @@ const CategoryItems: React.FC<Props> = ({
                       <li className="flex py-2 justify-between cursor-pointer">
                         <div className="flex space-x-2">
                           {item.icon}
-                          <span className="font-semibold text-base">
+                          <h3 className="font-semibold text-base">
                             {item.name}
-                          </span>
+                          </h3>
                         </div>
                       </li>
                     </Link>
@@ -157,7 +152,16 @@ const CategoryItems: React.FC<Props> = ({
                   <Separator />
                 </div>
               ))}
-            <Link href="/new-arrivals" passHref>
+            <div className="flex items-center space-x-2 py-2 cursor-pointer">
+              <Sparkles strokeWidth={1} />
+              <Link href="/products?sort=popular" passHref>
+                <h3 className="font-semibold text-base ">
+                  Buyurparts Bestsellers
+                </h3>
+              </Link>
+            </div>
+            <Separator />
+            <Link href="/products?sort=desc" passHref>
               <li className="flex p-2 justify-between cursor-pointer w-full items-center">
                 <div className="font-semibold text-base">New Arrivals</div>
                 <div className="px-2 py-1 bg-sky-400 text-white rounded-xl font-bold text-xs">
@@ -202,7 +206,15 @@ const CategoryItems: React.FC<Props> = ({
                   <hr />
                 </div>
               ))}
-            <Link href="/new-arrivals" passHref>
+
+            <div className="flex items-center space-x-2 py-2.5 px-3 hover:text-red-500 hover:bg-red-300/10 cursor-pointer">
+              <Sparkles strokeWidth={1} />
+              <Link href="/products?sort=popular" passHref>
+                <h3 className="text-sm">Buyurparts Bestsellers</h3>
+              </Link>
+            </div>
+            <Separator />
+            <Link href="/products?sort=desc" passHref>
               <li className="flex px-3 py-2.5 justify-between cursor-pointer w-full items-center hover:bg-red-300/10 hover:text-red-500">
                 <div className="text-sm">New Arrivals</div>
                 <div className="px-2 py-1 bg-sky-400 text-white rounded-xl font-bold text-xs">
