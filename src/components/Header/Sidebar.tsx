@@ -70,7 +70,7 @@ const Sidebar = () => {
                 CONTACT DETAILS
               </h3>
               <div className="flex flex-col space-y-2">
-                <div className="font-semibold">555-555-5555</div>
+                <div className="font-semibold">{SITE_METADATA.phone}</div>
                 <span className="text-xs">
                   You can call anytime from 9 am to 6 pm.
                 </span>
