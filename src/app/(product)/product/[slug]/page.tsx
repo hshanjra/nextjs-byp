@@ -118,7 +118,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
               {product?.productTitle}
             </h1>
 
-            <div className="flex items-center gap-1 lg:gap-2">
+            <div className="flex items-center gap-1 lg:gap-4">
               {/* Review / SKU */}
               <div className="flex items-center gap-x-1">
                 <ReviewStar rating={4} height={28} />
@@ -135,7 +135,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
               {/* Stock */}
               <div
                 className={cn(
-                  "flex items-center px-2 py-1 rounded-sm",
+                  "flex items-center px-2 py-1 rounded-md",
                   { "bg-green-200/35": product?.productStock > 0 },
                   { "bg-red-200/35": product?.productStock <= 0 }
                 )}
@@ -302,6 +302,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                   <li>
                     <Link
                       href={`/categories/${product.categoryId.categorySlug}`}
+                      className="hover:text-red-500"
                     >
                       {product.categoryId.categoryName}
                     </Link>

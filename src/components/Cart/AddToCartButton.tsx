@@ -13,11 +13,13 @@ export default function AddToCartButton({
   size = 23,
   strokeWidth = 1,
   product,
+  disabled,
 }: {
   className?: string;
   size?: number;
   strokeWidth?: number;
   product: Product;
+  disabled?: boolean;
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,7 +42,7 @@ export default function AddToCartButton({
         className,
         isLoading && "cursor-not-allowed disabled:opacity-60 hover:opacity-60"
       )}
-      disabled={isLoading}
+      disabled={isLoading || disabled}
       onClick={handleAddToCart}
     >
       {isLoading ? (

@@ -12,11 +12,11 @@ export default function LatestDeals() {
         <div className="flex flex-col lg:flex-row items-center space-x-3">
           <h3 className="text-xl font-semibold">Latest Deals for This Week</h3>
           <p className="text-sm text-gray-400 font-light">
-            Dont miss out on this weeks deals
+            Don&apos;t miss out on this weeks deals
           </p>
         </div>
         <Link
-          href="#"
+          href="/products?sort=desc"
           className="flex items-center ml-auto text-sm hover:text-red-500 font-medium"
         >
           View All <ArrowRight className="h-4 w-4" />

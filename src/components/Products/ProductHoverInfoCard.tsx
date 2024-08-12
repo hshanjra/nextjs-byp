@@ -1,7 +1,7 @@
 import { Product } from "@/types/product";
 import Link from "next/link";
 import ProductSlider from "./ProductSlider";
-import { formatPrice, trimString } from "@/lib/utils";
+import { cn, formatPrice, trimString } from "@/lib/utils";
 import ReviewStar from "../ReviewStar";
 import { Package } from "lucide-react";
 import AddToCartButton from "../Cart/AddToCartButton";
@@ -42,10 +42,23 @@ export default function ProductHoverInfoCard({
 
         {/* Stock */}
         <div className="flex items-center mt-3">
-          <Package size={17} strokeWidth={1} className="text-successDark" />
-          <span className="font-semibold text-xs ml-2 text-successDark">
-            In Stock
-          </span>
+          <Package
+            size={17}
+            strokeWidth={1}
+            className={cn({
+              "text-successDark": p?.productStock > 0,
+              "text-red-500": p?.productStock <= 0,
+            })}
+          />
+          {p.productStock > 0 ? (
+            <span className="font-semibold text-xs ml-2 text-successDark">
+              In Stock
+            </span>
+          ) : (
+            <span className="font-semibold text-xs ml-2 text-red-500">
+              Out of Stock
+            </span>
+          )}
         </div>
 
         {/* Add to cart button for mobile */}
@@ -55,6 +68,7 @@ export default function ProductHoverInfoCard({
           size={25}
           strokeWidth={1.5}
           product={p}
+          disabled={p.productStock <= 0}
         />
 
         {/* Hover Area */}
@@ -73,7 +87,11 @@ export default function ProductHoverInfoCard({
             </ul>
           </div>
 
-          <AddToCartButton className="bg-primary !w-full" product={p} />
+          <AddToCartButton
+            className="bg-primary !w-full"
+            product={p}
+            disabled={p.productStock <= 0}
+          />
         </div>
       </div>
     </div>

@@ -33,7 +33,7 @@ export default async function LatestDealsSection() {
           Latest Deals of this Week
         </h3>
         <Link
-          href="#"
+          href="/products?sort=price-asc"
           className="flex items-center ml-auto text-sm hover:text-red-500 font-medium"
         >
           View All
