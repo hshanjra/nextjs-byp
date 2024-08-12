@@ -12,11 +12,13 @@ export default function AddToCartSmall({
   size = 23,
   strokeWidth = 1,
   product,
+  disabled,
 }: {
   className?: string;
   size?: number;
   strokeWidth?: number;
   product: Product;
+  disabled?: boolean;
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -36,10 +38,10 @@ export default function AddToCartSmall({
     <>
       <button
         className={cn(
-          "w-10 h-10 cursor-pointer rounded-xl bg-gray-200 hover:bg-primary group",
+          "w-10 h-10 cursor-pointer rounded-xl bg-gray-200 hover:bg-primary group disabled:pointer-events-none disabled:opacity-70",
           className
         )}
-        disabled={isLoading}
+        disabled={isLoading || disabled}
         onClick={handleAddToCart}
       >
         {isLoading ? (

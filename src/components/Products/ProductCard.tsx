@@ -1,6 +1,6 @@
 import { Product } from "@/types/product";
 import Link from "next/link";
-import { formatPrice, trimString } from "@/lib/utils";
+import { cn, formatPrice, trimString } from "@/lib/utils";
 import ReviewStar from "../ReviewStar";
 import { Package } from "lucide-react";
 import ProductSlider from "./ProductSlider";
@@ -40,19 +40,34 @@ export default async function ProductCard({
             </span>
           </div>
           {/* Cart Icon Button */}
+
           <AddToCartSmall
             className="ml-auto"
             strokeWidth={1.2}
             size={30}
             product={p}
+            disabled={p.productStock <= 0}
           />
         </div>
         {/* Stock */}
-        <div className="flex items-center mt-3">
-          <Package size={17} strokeWidth={1} className="text-successDark" />
-          <span className="font-semibold text-xs ml-2 text-successDark">
-            In Stock
-          </span>
+        <div className="flex items-center mt-1">
+          <Package
+            size={17}
+            strokeWidth={1}
+            className={cn({
+              "text-successDark": p?.productStock > 0,
+              "text-red-500": p?.productStock <= 0,
+            })}
+          />
+          {p.productStock > 0 ? (
+            <span className="font-semibold text-xs ml-2 text-successDark">
+              In Stock
+            </span>
+          ) : (
+            <span className="font-semibold text-xs ml-2 text-red-500">
+              Out of Stock
+            </span>
+          )}
         </div>
       </div>
     </>
