@@ -14,7 +14,7 @@ export default async function CheckoutPage() {
 
   return (
     <MaxWidthWrapper>
-      <StripePaymentElement clientSecret={result.clientSecret}>
+      <StripePaymentElement>
         {/* <CheckoutForm
             sessionId={result.sessionId}
             cart={result.cart}
