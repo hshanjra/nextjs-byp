@@ -132,7 +132,7 @@ export const calculateTax = async (stateCode: string): Promise<void> => {
         headers: { cookie: `session=${session}` },
       }
     );
-    revalidatePath("/checkout");
+    revalidateTag("/checkout");
     return;
   } catch (e) {
     console.log(e);
