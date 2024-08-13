@@ -2,7 +2,7 @@
 
 import { extApi } from "@/lib/api";
 import { Cart } from "@/types/cartProduct";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 type params = {
@@ -113,6 +113,27 @@ export const getCart = async (): Promise<Cart | undefined> => {
       headers: { cookie: `session=${session}` },
     });
     return res.data;
+  } catch (e) {
+    console.log(e);
+    return;
+  }
+};
+
+export const calculateTax = async (stateCode: string): Promise<void> => {
+  const session = cookies().get("session")?.value;
+  if (!session) return;
+  try {
+    await extApi.post(
+      "/cart/calc-tax",
+      {
+        stateCode,
+      },
+      {
+        headers: { cookie: `session=${session}` },
+      }
+    );
+    revalidateTag("/checkout");
+    return;
   } catch (e) {
     console.log(e);
     return;

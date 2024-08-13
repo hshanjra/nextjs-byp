@@ -43,6 +43,7 @@ import {
 import ScrollToTopButton from "../ScrollToTopButton";
 import { createOrder } from "@/actions/CheckoutAction";
 import CouponCodeForm from "./CouponCodeForm";
+import { calculateTax } from "@/actions/CartAction";
 
 export default function CheckoutForm({
   cart,
@@ -227,6 +228,7 @@ export default function CheckoutForm({
     setZipCodeError(null);
     const fieldPrefix = isBilling ? "billing" : "shipping";
     form.setValue(`${fieldPrefix}ZipCode`, zipCode);
+    form.resetField(`${fieldPrefix}ZipCode`);
     if (zipCode && zipCode.length >= 5) {
       setZipCodeProcessing(true);
       try {
@@ -241,6 +243,7 @@ export default function CheckoutForm({
             form.setValue("shippingCity", "");
             form.setValue("shippingState", "");
           }
+          return;
         } else {
           setZipCodeError(null);
           form.setValue(`${fieldPrefix}City`, city);
@@ -248,6 +251,11 @@ export default function CheckoutForm({
           // form.control._defaultValues.billingState == state;
         }
         form.setValue(`${fieldPrefix}ZipCode`, zipCode);
+
+        if (isBilling) {
+          // calculate tax
+          await calculateTax(stateAbbr);
+        }
       } catch (e) {
         form.setError(`${fieldPrefix}ZipCode`, {
           message: "An unexpected error occurred",

@@ -162,8 +162,10 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
           </CardContent>
           <Separator />
           <CardContent className="flex justify-between">
-            <h3>Sub Total</h3>
-            <h3 className="font-bold">{cart && formatPrice(cart?.subTotal)}</h3>
+            <h3>Subtotal</h3>
+            <h3 className="font-bold">
+              {cart && formatPrice(cart?.totalAmount)}*
+            </h3>
           </CardContent>
           <Separator />
           <CardContent>
