@@ -9,7 +9,7 @@ export default function AboutPage() {
         <div className="w-full px-4 mx-auto sm:px-8 mt-24">
           <blockquote className=" grid items-center bg-white shadow-xl md:grid-cols-3 rounded-xl">
             <Image
-              className="object-cover w-full h-full rounded-l-xl md:block pb-8 lg:pb-0 md:pb-0 clip-image "
+              className="object-cover w-full h-full rounded-l-xl md:block pb-8 lg:pb-0 md:pb-0 clip-image"
               src="/images/image-03.jpg"
               alt="About image"
               width={576}
@@ -17,7 +17,7 @@ export default function AboutPage() {
             />
             <article className="relative px-6 md:px-8 md:col-span-2">
               <div className="space-y-8">
-                <h2 className="font-krub font-bold text-4xl text-black ">
+                <h2 className="font-krub font-bold text-4xl text-black">
                   YOU&apos;VE COME TO THE RIGHT PLACE!
                 </h2>
                 <p className="font-krub text-base sm:leading-relaxed text-black font-normal">
