@@ -1,5 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Track Your Order | Buyurparts.com",
+};
 
 export default function TrackOrderPage() {
   return (

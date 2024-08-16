@@ -8,8 +8,14 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SITE_METADATA } from "@/constants";
 import { CalendarClock, Headset, MapPinned } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Help Center - Docs, FAQs | Buyurparts.com",
+  description: "Help Center - Docs, FAQs at Buyurparts.com",
+};
 
 export default function HelpCenterPage() {
   // TODO: update contact form with react hook form
