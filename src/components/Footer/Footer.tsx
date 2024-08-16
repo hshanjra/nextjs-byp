@@ -45,7 +45,7 @@ const CUS_MENU = [
 const STORE_MENU = [
   {
     name: "About Buyurparts",
-    link: "/about",
+    link: "/about-us",
   },
   {
     name: "Privacy Policy",

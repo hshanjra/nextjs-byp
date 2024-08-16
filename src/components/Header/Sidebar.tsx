@@ -51,7 +51,7 @@ const Sidebar = () => {
                 </SheetTrigger>
                 <span className="border-b"> </span>
                 <SheetTrigger asChild>
-                  <Link href="/about">About Us</Link>
+                  <Link href="/about-us">About Us</Link>
                 </SheetTrigger>
               </nav>
             </div>

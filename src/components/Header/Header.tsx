@@ -34,7 +34,7 @@ export default async function Header() {
           <MaxWidthWrapper className="py-2">
             <div className="flex justify-between items-center">
               <nav className="space-x-5 text-xs font-medium">
-                <Link href="/about">About Us</Link>
+                <Link href="/about-us">About Us</Link>
                 <Link href="/account">My Account</Link>
                 <Link href="/track-order">Order Tracking</Link>
                 <Link href="/account/wishlist">Wishlist</Link>
