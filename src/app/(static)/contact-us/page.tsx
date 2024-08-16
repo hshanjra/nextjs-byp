@@ -1,21 +1,11 @@
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Separator } from "@/components/ui/separator";
 import { SITE_METADATA } from "@/constants";
 import { CalendarClock, Headset, MapPinned } from "lucide-react";
-import Link from "next/link";
-import React from "react";
 
-export default function HelpCenterPage() {
+export default function ContactUsPage() {
   // TODO: update contact form with react hook form
   return (
-    <MaxWidthWrapper className="bg-white my-20">
-      <div className="container mx-auto mb-10">
+    <div className=" bg-white my-20 lg:px-8 md:px-8">
+      <div className="container mx-auto">
         <div>
           <div className="mb-4">
             <div className="mb-6 max-w-3xl text-center sm:text-center md:mx-auto md:mb-12">
@@ -193,76 +183,7 @@ export default function HelpCenterPage() {
           </div>
         </div>
       </div>
-      <Separator />
-      <div className="mt-10">
-        <h1 className="hidden md:block lg:block text-3xl font-bold" id="faqs">
-          Frequently Asked Questions (FAQs)
-        </h1>
-        <h1 className="md:hidden lg:hidden text-3xl font-bold" id="faqs">
-          FAQs
-        </h1>
-
-        {/* <!--Frequently Asked Questions--> */}
-
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-1">
-            <AccordionTrigger>How do I place an order?</AccordionTrigger>
-            <AccordionContent className="text-zinc-500">
-              To place an order, browse our product categories, select the items
-              you want, add them to your cart, and proceed to checkout. You can
-              pay using various payment methods, including credit cards, PayPal,
-              and more.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-2">
-            <AccordionTrigger>
-              What payment methods do you accept?
-            </AccordionTrigger>
-            <AccordionContent className="text-zinc-500">
-              We accept major credit cards, PayPal, and other payment options
-              available during checkout.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-3">
-            <AccordionTrigger>How can I track my order?</AccordionTrigger>
-            <AccordionContent className="text-zinc-500">
-              After your order is shipped, we will send you a tracking number
-              via email. You can use this number to track your order on the
-              shipping carrier’s website.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-4">
-            <AccordionTrigger>What is your return policy?</AccordionTrigger>
-            <AccordionContent className="text-zinc-500">
-              We offer a 30-day return policy on most items. The products must
-              be unused and in their original packaging. Please contact customer
-              service to initiate a return.{" "}
-              <Link
-                href={"/terms-and-conditions#returnRefunds"}
-                className="font-bold hover:underline hover:text-red-500"
-              >
-                Learn more.
-              </Link>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-5">
-            <AccordionTrigger>
-              How do I contact customer support?
-            </AccordionTrigger>
-            <AccordionContent className="text-zinc-500">
-              You can reach our customer support team through the contact form
-              on our website or by emailing us directly at{" "}
-              <Link
-                href={`mailto:${SITE_METADATA.supportEmail}`}
-                className="font-bold hover:underline hover:text-red-500"
-              >
-                {SITE_METADATA.supportEmail}
-              </Link>
-              .
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </div>
-    </MaxWidthWrapper>
+      {/* <!--Conatiner Edn--> */}
+    </div>
   );
 }
