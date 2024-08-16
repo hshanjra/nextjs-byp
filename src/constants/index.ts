@@ -17,6 +17,14 @@ export const SITE_METADATA = {
   email: "info@buyurparts.com",
   supportEmail: "support@buyurparts.com",
   phone: "+1 1234 5678 90",
+  address: {
+    line1: "1230 Maecenas Street Road",
+    line2: "",
+    city: "New York",
+    state: "NY",
+    zipCode: "10001",
+    country: "United States",
+  },
 };
 
 export const CheckoutFormDefaultValues = {
