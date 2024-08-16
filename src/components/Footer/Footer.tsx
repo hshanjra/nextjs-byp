@@ -22,11 +22,11 @@ const CUS_MENU = [
   },
   {
     name: "Shipping & Delivery",
-    link: "/shipping-delivery",
+    link: "/terms-and-conditions#shippingDelivery",
   },
   {
     name: "Returns & Refunds",
-    link: "/returns-refunds",
+    link: "/terms-and-conditions#returnRefunds",
   },
   {
     name: "My Orders",
@@ -38,7 +38,7 @@ const CUS_MENU = [
   },
   {
     name: "FAQs",
-    link: "/faqs",
+    link: "/help-center#faqs",
   },
 ];
 
@@ -49,7 +49,7 @@ const STORE_MENU = [
   },
   {
     name: "Privacy Policy",
-    link: "/privacy-policy",
+    link: "/terms-and-conditions#privacyPolicy",
   },
   {
     name: "Terms & Conditions",
@@ -57,7 +57,7 @@ const STORE_MENU = [
   },
   {
     name: "Cookie Policy",
-    link: "/cookie-policy",
+    link: "/terms-and-conditions#cookiePolicy",
   },
   {
     name: "Sell on Buyurparts",
