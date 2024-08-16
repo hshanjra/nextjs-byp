@@ -23,11 +23,11 @@ export default function SearchInputBox() {
     router.push(createUrl("/products", newParams));
   };
   return (
-    <section className="relative w-full">
+    <section className="relative w-full group">
       <form onSubmit={onSubmit}>
         <Input
           placeholder="Find Parts and Products..."
-          className="w-full h-[3rem]"
+          className="w-full h-[3rem] rounded-xl focus:border-transparent focus-visible:ring-[1.5px] focus-visible:ring-offset-1 transition-all duration-100"
           name="search"
           key={searchParams?.get("q")}
           autoComplete="off"
@@ -37,7 +37,7 @@ export default function SearchInputBox() {
           type="submit"
           className="absolute top-[50%] right-0 translate-y-[-50%] cursor-pointer mr-2 bg-white h-auto"
         >
-          <Search />
+          <Search className="group-focus-within:text-ring" strokeWidth={1.5} />
         </button>
       </form>
     </section>
