@@ -3,7 +3,6 @@ import { Separator } from "@/components/ui/separator";
 import { SITE_METADATA } from "@/constants";
 import { ShoppingBasket } from "lucide-react";
 import { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title:

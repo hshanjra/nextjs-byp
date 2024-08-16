@@ -1,5 +1,11 @@
 import { SITE_METADATA } from "@/constants";
 import { CalendarClock, Headset, MapPinned } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us | Buyurparts.com",
+  description: "Contact Us at Buyurparts.com",
+};
 
 export default function ContactUsPage() {
   // TODO: update contact form with react hook form
