@@ -2,6 +2,7 @@ import { SITE_METADATA } from "@/constants";
 import { CalendarClock, Headset, MapPinned } from "lucide-react";
 
 export default function ContactUsPage() {
+  // TODO: update contact form with react hook form
   return (
     <div className=" bg-white my-20 lg:px-8 md:px-8">
       <div className="container mx-auto">
