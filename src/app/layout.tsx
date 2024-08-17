@@ -13,6 +13,7 @@ const krub = Krub({
   weight: ["200", "300", "500", "600", "700"],
   style: ["normal", "italic"],
   subsets: ["latin"],
+  variable: "--font-krub",
 });
 
 export const metadata: Metadata = {
@@ -30,11 +31,11 @@ export default function RootLayout({
       <body className={cn("relative antialiased", krub.className)}>
         <Suspense>
           <QueryProvider>
-            <main className="flex flex-col min-h-screen">
+            <main className="flex min-h-screen flex-col">
               {/* Header */}
               <Header />
 
-              <div className="flex-grow flex-1">{children}</div>
+              <div className="flex-1 flex-grow">{children}</div>
               {/* Footer */}
               <Footer />
             </main>

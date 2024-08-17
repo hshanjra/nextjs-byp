@@ -28,14 +28,14 @@ export default async function FeaturedProducts() {
       {/* For Lg Screens */}
       <Tabs defaultValue={categories[1].categorySlug}>
         <div className="flex items-center">
-          <h3 className="text-xl font-medium mr-5">Featured Products</h3>
+          <h3 className="mr-5 text-xl font-medium">Featured Products</h3>
 
           <div className="hidden lg:block">
-            <TabsList className="flex space-x-5 justify-start  rounded-none m-0 py-2 bg-transparent">
+            <TabsList className="flex justify-start space-x-5 rounded-none bg-transparent">
               {categories?.slice(0, 5).map((cat) => (
                 <TabsTrigger
                   key={cat._id}
-                  className="my-auto rounded-none data-[state=active]:border-orange-600 data-[state=active]:border-b-2 bg-transparent"
+                  className="my-auto rounded-none bg-transparent text-base data-[state=active]:border-b-2 data-[state=active]:border-orange-600"
                   value={cat.categorySlug}
                 >
                   {cat.categoryName}
@@ -46,7 +46,7 @@ export default async function FeaturedProducts() {
 
           <Link
             href="/products?featured=true"
-            className="flex items-center ml-auto text-sm hover:text-red-500 font-medium"
+            className="ml-auto flex items-center text-sm font-medium hover:text-red-500"
           >
             View All
             <ArrowRight className="h-4 w-4" />
@@ -59,12 +59,12 @@ export default async function FeaturedProducts() {
             {/* Product Reel */}
             <Suspense
               fallback={
-                <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
+                <div className="grid grid-cols-2 gap-2 lg:grid-cols-5">
                   {Array.from({ length: 5 }).map((_, index) => (
-                    <div key={index} className="flex flex-col w-56">
-                      <Skeleton className="h-56 w-56 aspect-square rounded-xl" />
-                      <Skeleton className="h-4 w-56 mt-3" />
-                      <Skeleton className="ml-auto h-4 w-20 mt-3" />
+                    <div key={index} className="flex w-56 flex-col">
+                      <Skeleton className="aspect-square h-56 w-56 rounded-xl" />
+                      <Skeleton className="mt-3 h-4 w-56" />
+                      <Skeleton className="ml-auto mt-3 h-4 w-20" />
                     </div>
                   ))}
                 </div>

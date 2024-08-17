@@ -2,9 +2,7 @@
 import { usePathname } from "next/navigation";
 import * as React from "react";
 import Link from "next/link";
-
-import { cn } from "@/lib/utils";
-
+import { cn, formatPrice } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -16,55 +14,77 @@ import {
 } from "@/components/ui/navigation-menu";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import CategoryItems from "./CategoryList";
+import { BadgePercent, Info } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { getAllProducts } from "@/actions/ProductsAction";
+import { Product } from "@/types/product";
+import Image from "next/image";
+import ReviewStar from "../ReviewStar";
+import { buttonVariants } from "../ui/button";
+import { getAllCategories } from "@/actions/CategoryAction";
 
-const components: { title: string; href: string; description: string }[] = [
+const BRANDS = [
   {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+    id: 1,
+    name: "honda",
+    image: "/images/brands/honda.png",
   },
   {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
+    id: 2,
+    name: "toyota",
+    image: "/images/brands/toyota.png",
   },
   {
-    title: "Progress",
-    href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+    id: 3,
+    name: "nissan",
+    image: "/images/brands/nissan.png",
   },
   {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
+    id: 4,
+    name: "ford",
+    image: "/images/brands/ford.png",
   },
   {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+    id: 5,
+    name: "bmw",
+    image: "/images/brands/bmw.png",
   },
 ];
 
 const MainNav = () => {
   const pathname = usePathname();
 
+  const { data: topOffers, isLoading } = useQuery({
+    queryKey: ["top-offers"],
+    queryFn: () =>
+      getAllProducts({
+        limit: 5,
+        sort: "price-asc",
+      }),
+  });
+
+  const { data: airBags } = useQuery({
+    queryKey: ["air-bags"],
+    queryFn: () =>
+      getAllProducts({
+        limit: 5,
+        category: "air-bags",
+      }),
+  });
+
+  // Fetch all categories
+  const { data: categories, isLoading: categoryLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () => getAllCategories(),
+  });
+
   return (
     pathname === "/" && (
       <MaxWidthWrapper className="flex items-center justify-between">
         {/* Category List */}
 
-        <div className="w-1/4 rounded-t-xl rounded-b-none h-12 bg-primary relative">
-          <h3 className="w-full p-4 align-middle h-full text-white">
+        <div className="relative h-12 w-1/4 rounded-b-none rounded-t-xl bg-primary">
+          <h3 className="h-full w-full p-4 align-middle text-white">
             All Categories
           </h3>
 
@@ -72,76 +92,160 @@ const MainNav = () => {
 
           <CategoryItems
             direction="down"
-            className="absolute rounded-b-xl shadow-md w-full z-10 bg-white"
+            className="absolute z-10 w-full rounded-b-xl bg-white shadow-md"
           />
         </div>
 
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                  <li className="row-span-3">
-                    <NavigationMenuLink asChild>
-                      <a
-                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                        href="/"
-                      >
-                        {/* <Icons.logo className="h-6 w-6" /> */}
-                        <div className="mb-2 mt-4 text-lg font-medium">
-                          shadcn/ui
-                        </div>
-                        <p className="text-sm leading-tight text-muted-foreground">
-                          Beautifully designed components that you can copy and
-                          paste into your apps. Accessible. Customizable. Open
-                          Source.
-                        </p>
-                      </a>
-                    </NavigationMenuLink>
-                  </li>
-                  <ListItem href="/docs" title="Introduction">
-                    Re-usable components built using Radix UI and Tailwind CSS.
-                  </ListItem>
-                  <ListItem href="/docs/installation" title="Installation">
-                    How to install dependencies and structure your app.
-                  </ListItem>
-                  <ListItem
-                    href="/docs/primitives/typography"
-                    title="Typography"
-                  >
-                    Styles for headings, paragraphs, lists...etc
-                  </ListItem>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Components</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                  {components.map((component) => (
-                    <ListItem
-                      key={component.title}
-                      title={component.title}
-                      href={component.href}
-                    >
-                      {component.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/docs" legacyBehavior passHref>
+              <Link href="/" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Documentation
+                  Home
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>
+                <Link href="/products" legacyBehavior passHref>
+                  Shop
+                </Link>
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <div className="mt-3 grid w-[1200px] grid-cols-3 justify-between gap-5 p-4">
+                  <div>
+                    <h3 className="p-2 text-sm font-semibold text-gray-300">
+                      Categories
+                    </h3>
+                    <ul className="mt-5">
+                      {categories?.categories?.map((category) => (
+                        <Link
+                          href={`/categories/${category.categorySlug}`}
+                          key={category._id}
+                        >
+                          <li className="rounded-lg p-2 text-[14px] text-gray-900 hover:bg-primary-foreground hover:text-primary">
+                            {category.categoryName}
+                          </li>
+                        </Link>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="p-2 text-sm font-semibold text-gray-300">
+                      Shop by brands
+                    </h3>
+
+                    <ul className="mt-5">
+                      {BRANDS.map((brand) => (
+                        <Link href={"#"} key={brand.id}>
+                          <li className="rounded-lg p-2 text-[14px] capitalize text-gray-900 hover:bg-primary-foreground hover:text-primary">
+                            {brand.name} parts
+                          </li>
+                        </Link>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="p-2 text-sm font-semibold text-gray-300">
+                      Shop by Price
+                    </h3>
+                  </div>
+                </div>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>
+                <Link href="/categories/air-bags" legacyBehavior passHref>
+                  Air Bags
+                </Link>
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <React.Suspense>
+                  {airBags?.products ? (
+                    <div className="p-4">
+                      <div className="mb-5 flex items-center justify-between">
+                        <h3 className="text-base font-bold">
+                          Shop top quality air bags.
+                        </h3>
+                        <Link
+                          href={"/categories/air-bags"}
+                          className={cn(buttonVariants({ variant: "dark" }))}
+                        >
+                          Explore more &rarr;
+                        </Link>
+                      </div>
+                      <p className="mb-5 text-sm text-gray-500">
+                        Buy top quality air bags in new & used condition.
+                      </p>
+                      <ProductCard products={airBags.products} />
+                    </div>
+                  ) : (
+                    <p>Loading...</p>
+                  )}
+                </React.Suspense>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <Link href="/categories/tires-and-wheels" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Tires & Wheels
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <Link href="/blog" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Blog
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/contact-us" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Contact
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>
+                <BadgePercent className="mr-2 h-5 w-5" />
+                Top Offers
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                {/* Render Products */}
+                <React.Suspense>
+                  {topOffers?.products ? (
+                    <div className="p-4">
+                      <div className="mb-5">
+                        <h3 className="text-base font-bold">
+                          Items on sale this week
+                        </h3>
+                        <p className="text-sm text-gray-400">
+                          Top picks this week. Up to 50% off the best selling
+                          products.
+                        </p>
+                      </div>
+                      <ProductCard products={topOffers.products} />
+                    </div>
+                  ) : (
+                    <p>Loading...</p>
+                  )}
+                </React.Suspense>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <NavigationMenu>
-          <div>Help Center</div>
+        <NavigationMenu className="ml-auto">
+          <Link
+            href="/help-center"
+            className="flex items-center gap-1 text-primary"
+          >
+            <Info className="h-4 w-4" />
+            Help Center
+          </Link>
         </NavigationMenu>
       </MaxWidthWrapper>
     )
@@ -158,13 +262,13 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
+            "group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-primary-foreground hover:text-destructive focus:bg-accent focus:text-accent-foreground",
+            className,
           )}
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <p className="line-clamp-2 text-sm leading-snug group-hover:text-primary/70">
             {children}
           </p>
         </a>
@@ -173,5 +277,44 @@ const ListItem = React.forwardRef<
   );
 });
 ListItem.displayName = "ListItem";
+
+const ProductCard = ({ products }: { products: Product[] }) => {
+  return (
+    <div className="flex w-[400px] gap-3 md:w-[500px] lg:w-[1200px]">
+      {products.map((product) => (
+        <Link href={`/product/${product.productSlug}`} key={product.productId}>
+          <div className="flex flex-col space-y-5">
+            <Image
+              alt={product.productTitle}
+              src={product.productImages[0].url}
+              width={500}
+              height={500}
+              className="h-auto w-[500px] overflow-hidden rounded-xl border object-contain"
+            />
+
+            <h2 className="text-sm font-semibold hover:text-primary">
+              {product.productTitle}
+            </h2>
+
+            {/* Review */}
+            <div className="flex gap-1">
+              <ReviewStar rating={5} />
+              <span className="mt-1 text-sm font-semibold">1 review</span>
+            </div>
+            {/* Price */}
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-gray-500 line-through">
+                {formatPrice(product.regularPrice)}
+              </span>
+              <span className="text-lg font-bold text-primary">
+                {formatPrice(product.salePrice)}
+              </span>
+            </div>
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+};
 
 export default MainNav;
