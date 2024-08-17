@@ -27,12 +27,12 @@ export default async function Header() {
   return (
     <HeaderWrapper>
       <header className="relative">
-        <div className="w-full bg-primary h-[7px]"></div>
+        <div className="h-[7px] w-full bg-primary"></div>
 
         {/* Top Header */}
-        <div className="hidden lg:block xl:block border-b">
+        <div className="hidden border-b lg:block xl:block">
           <MaxWidthWrapper className="py-2">
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <nav className="space-x-5 text-xs font-medium">
                 <Link href="/about-us">About Us</Link>
                 <Link href="/account">My Account</Link>
@@ -41,20 +41,26 @@ export default async function Header() {
               </nav>
 
               <div className="flex items-center text-sm">
-                <span className="opacity-50 text-xs">
+                <span className="text-xs opacity-50">
                   Need Help? Call us:&nbsp;
                 </span>
-                <Link href="/" className="font-semibold">
+                <Link
+                  href={`tel:${SITE_METADATA.phone}`}
+                  className="font-semibold"
+                >
                   {SITE_METADATA.phone}
                 </Link>
                 <span className="opacity-50">&nbsp;or&nbsp;</span>
-                <Link href="/" className="font-semibold">
+                <Link
+                  href={`mailto:${SITE_METADATA.email}`}
+                  className="font-semibold"
+                >
                   {SITE_METADATA.email}
                 </Link>
                 <Separator orientation="vertical" />
                 <div className="mx-5">
                   <Select>
-                    <SelectTrigger className="border-0 select-none outline-none h-auto hover:text-red-600 p-0">
+                    <SelectTrigger className="h-auto select-none border-0 p-0 outline-none hover:text-red-600">
                       <SelectValue placeholder="English" />
                     </SelectTrigger>
                     <SelectContent>
@@ -65,7 +71,7 @@ export default async function Header() {
                 </div>
                 <div>
                   <Select>
-                    <SelectTrigger className="border-0 select-none outline-none h-auto hover:text-red-600 p-0">
+                    <SelectTrigger className="h-auto select-none border-0 p-0 outline-none hover:text-red-600">
                       <SelectValue placeholder="USD" />
                     </SelectTrigger>
                     <SelectContent>
@@ -79,8 +85,8 @@ export default async function Header() {
         </div>
 
         {/* Main Header */}
-        <div className="hidden lg:block xl:block shadow-custom">
-          <MaxWidthWrapper className="py-5 flex space-x-5 items-center">
+        <div className="hidden shadow-custom lg:block xl:block">
+          <MaxWidthWrapper className="flex items-center space-x-5 py-5">
             <div className="flex items-center space-x-5">
               {/* Sidebar */}
               <Sidebar />
@@ -109,7 +115,7 @@ export default async function Header() {
               <ProfileDropdown />
               {/* Wishlist */}
               <div className="relative cursor-pointer">
-                <span className="absolute -top-2 -right-2 bg-primary text-white px-[5px] py-[0.1px] rounded-full text-xs">
+                <span className="absolute -right-2 -top-2 rounded-full bg-primary px-[5px] py-[0.1px] text-xs text-white">
                   0
                 </span>
                 <HeartIcon />
@@ -126,9 +132,9 @@ export default async function Header() {
         </div>
 
         {/* Mobile Header */}
-        <div className="lg:hidden shadow-sm mx-1">
+        <div className="mx-1 shadow-sm lg:hidden">
           <MaxWidthWrapper>
-            <div className="flex items-center h-14 justify-between">
+            <div className="flex h-14 items-center justify-between">
               {/* Sidebar */}
               <Sidebar />
               {/* Logo */}
