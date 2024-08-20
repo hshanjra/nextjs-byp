@@ -74,7 +74,7 @@ export const addOrUpdateItem = async (productId: string, qty: number = 1) => {
       },
       {
         headers: { cookie: `session=${session}` },
-      }
+      },
     );
 
     cart = res.data;
@@ -121,21 +121,25 @@ export const getCart = async (): Promise<Cart | undefined> => {
 
 export const calculateTax = async (stateCode: string): Promise<void> => {
   const session = cookies().get("session")?.value;
-  if (!session) return;
+  if (!session && !stateCode) return;
+
   try {
-    await extApi.post(
+    const res = await extApi.post(
       "/cart/calc-tax",
       {
         stateCode,
       },
       {
         headers: { cookie: `session=${session}` },
-      }
+      },
     );
-    revalidateTag("/checkout");
+    if (res.status == 201) {
+      revalidatePath("/cart");
+      revalidatePath("/checkout");
+    }
     return;
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return;
   }
 };
