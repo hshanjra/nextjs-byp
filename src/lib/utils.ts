@@ -11,7 +11,7 @@ export function formatPrice(
   options: {
     currency?: "USD";
     notation?: Intl.NumberFormatOptions["notation"];
-  } = {}
+  } = {},
 ) {
   const { currency = "USD", notation = "standard" } = options;
 
@@ -34,10 +34,28 @@ export function trimString(str: string, maxLength: number) {
 
 export function createUrl(
   pathname: string,
-  params: URLSearchParams | ReadonlyURLSearchParams
+  params: URLSearchParams | ReadonlyURLSearchParams,
 ) {
   const paramsString = params.toString();
   const queryString = `${paramsString.length ? "?" : ""}${paramsString}`;
 
   return `${pathname}${queryString}`;
+}
+
+export function formatDate(dateString: string, options = { format: "long" }) {
+  const date = new Date(dateString);
+  const day = String(date.getUTCDate()).padStart(2, "0");
+  const monthLong = date.toLocaleString("en-US", { month: "long" });
+  const monthShort = date.toLocaleString("en-US", { month: "short" });
+  const year = date.getUTCFullYear();
+
+  switch (options.format) {
+    case "short": // 27 Jun 2024
+      return `${day} ${monthShort} ${year}`;
+    case "numeric": // 27/06/2024
+      return `${day}/${String(date.getUTCMonth() + 1).padStart(2, "0")}/${year}`;
+    case "long": // 27 June 2024
+    default:
+      return `${day} ${monthLong} ${year}`;
+  }
 }
