@@ -42,7 +42,10 @@ export function createUrl(
   return `${pathname}${queryString}`;
 }
 
-export function formatDate(dateString: string, options = { format: "long" }) {
+export function formatDate(
+  dateString: string,
+  options: { format: "short" | "numeric" | "long" } = { format: "long" },
+) {
   const date = new Date(dateString);
   const day = String(date.getUTCDate()).padStart(2, "0");
   const monthLong = date.toLocaleString("en-US", { month: "long" });
