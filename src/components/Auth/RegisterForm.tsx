@@ -26,6 +26,7 @@ import {
   RegisterForm as registerFrm,
   RegisterSchema,
 } from "@/types/authSchema";
+import CustomFormField, { FormFieldType } from "../CustomFormField";
 
 export default function RegisterForm() {
   const form = useForm({
@@ -66,89 +67,47 @@ export default function RegisterForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Logo className="mx-auto my-5" />
-        <div className="text-center my-5">
-          <h2 className="font-semibold text-xl">BECOME A MEMBER</h2>
-          <p className="text-sm my-2 font-[400] text-zinc-700">
+        <Logo className="mx-auto my-2 lg:my-4" />
+        <div className="my-5 text-center">
+          <h2 className="text-xl font-semibold">BECOME A MEMBER</h2>
+          <p className="my-2 text-sm font-[400] text-zinc-700">
             With our extensive collection of automotive parts and accessories,
             we are the ultimate destination for all your needs.
           </p>
         </div>
         <div className="space-y-3">
-          <div className="flex flex-col lg:flex-row gap-3">
-            <FormField
-              control={form.control}
+          <div className="flex flex-col gap-3 lg:flex-row">
+            <CustomFormField
+              fieldType={FormFieldType.INPUT}
               name="firstName"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel className="font-semibold">First Name</FormLabel>
-
-                  <FormControl>
-                    <Input
-                      placeholder="John"
-                      {...field}
-                      autoComplete="firstName"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
               control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel className="font-semibold">Last Name</FormLabel>
+              placeholder="John"
+              label="First Name"
+            />
 
-                  <FormControl>
-                    <Input
-                      placeholder="Doe"
-                      {...field}
-                      autoComplete="firstName"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+            <CustomFormField
+              fieldType={FormFieldType.INPUT}
+              name="lastName"
+              control={form.control}
+              placeholder="Doe"
+              label="Last Name"
             />
           </div>
 
-          <FormField
-            control={form.control}
+          <CustomFormField
+            fieldType={FormFieldType.EMAIL_INPUT}
             name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-semibold">E-Mail Address</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter your email..."
-                    {...field}
-                    autoComplete="email"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
             control={form.control}
+            placeholder="Enter your email..."
+            label="E-Mail Address"
+          />
+
+          <CustomFormField
+            fieldType={FormFieldType.PASSWORD_INPUT}
             name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-semibold">Password</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
-                    {...field}
-                    type="password"
-                    autoComplete="current-password"
-                    className="placeholder:tracking-[.3rem]"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            control={form.control}
+            placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
+            label="Password"
           />
         </div>
 
@@ -167,7 +126,7 @@ export default function RegisterForm() {
         <FormError message={error} />
         <Button
           type="submit"
-          className="w-full my-2 bg-zinc-900 hover:bg-zinc-700 text-white"
+          className="my-2 w-full bg-zinc-900 text-white hover:bg-zinc-700"
           disabled={status === "executing"}
         >
           {status === "executing" ? (
@@ -179,11 +138,11 @@ export default function RegisterForm() {
           )}
         </Button>
 
-        <div className="flex items-center mt-3">
-          <span className="text-sm ml-auto">Already have an account?</span>
+        <div className="mt-3 flex items-center">
+          <span className="ml-auto text-sm">Already have an account?</span>
           <Link
-            href="/auth/register"
-            className="font-semibold text-sm text-red-500 hover:text-zinc-700 ml-2 mr-auto"
+            href="/auth/login"
+            className="ml-2 mr-auto text-sm font-semibold text-red-500 hover:text-zinc-700"
           >
             Sign in
           </Link>
