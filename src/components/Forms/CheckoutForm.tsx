@@ -63,7 +63,7 @@ export default function CheckoutForm({
     message: Array<string>;
   }>();
   const [zipCodeError, setZipCodeError] = useState<{ message?: string } | null>(
-    null
+    null,
   );
   const [cardComplete, setCardComplete] = useState(false);
   const [processing, setProcessing] = useState(false);
@@ -129,7 +129,7 @@ export default function CheckoutForm({
         if (!result) {
           setProcessing(false);
           toast.error(
-            "Unable to process the order at the moment. Please try again later."
+            "Unable to process the order at the moment. Please try again later.",
           );
           return;
         }
@@ -161,7 +161,7 @@ export default function CheckoutForm({
                 name: values.billingFirstName + " " + values.billingLastName,
               },
             },
-          }
+          },
         );
 
         if (error) {
@@ -182,7 +182,7 @@ export default function CheckoutForm({
         // Handle PayPal payment
 
         toast.error(
-          "PayPal is not supporting yet. Try entering card details instead!"
+          "PayPal is not supporting yet. Try entering card details instead!",
         );
         break;
 
@@ -232,9 +232,8 @@ export default function CheckoutForm({
     if (zipCode && zipCode.length >= 5) {
       setZipCodeProcessing(true);
       try {
-        const { city, state, stateAbbr, error } = await fetchCityAndState(
-          zipCode
-        );
+        const { city, state, stateAbbr, error } =
+          await fetchCityAndState(zipCode);
 
         if (error) {
           form.setError(`${fieldPrefix}ZipCode`, { message: error });
@@ -250,6 +249,7 @@ export default function CheckoutForm({
           form.setValue(`${fieldPrefix}State`, stateAbbr);
           // form.control._defaultValues.billingState == state;
         }
+
         form.setValue(`${fieldPrefix}ZipCode`, zipCode);
 
         if (isBilling) {
@@ -260,7 +260,7 @@ export default function CheckoutForm({
         form.setError(`${fieldPrefix}ZipCode`, {
           message: "An unexpected error occurred",
         });
-        setZipCodeProcessing(false);
+        // setZipCodeProcessing(false);
       } finally {
         setZipCodeProcessing(false);
       }
@@ -269,12 +269,12 @@ export default function CheckoutForm({
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-4 gap-3">
-        <div className="lg:col-span-3 md:col-span-3">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-4 lg:grid-cols-4">
+        <div className="md:col-span-3 lg:col-span-3">
           {/* Express Checkout */}
           <section>
             <fieldset className="border border-solid border-gray-300 p-5">
-              <legend className="text-sm font-semibold text-center px-5">
+              <legend className="px-5 text-center text-sm font-semibold">
                 Express Checkout
               </legend>
               <div className="flex items-center gap-x-3">
@@ -285,7 +285,7 @@ export default function CheckoutForm({
                 Amazon Pay
               </Button> */}
                 <Button
-                  className="w-full bg-yellow-400 text-zinc-900 h-14"
+                  className="h-14 w-full bg-yellow-400 text-zinc-900"
                   variant={"outline"}
                 >
                   <svg
@@ -346,7 +346,7 @@ export default function CheckoutForm({
                   </svg>
                 </Button>
                 <Button
-                  className="w-full h-14 bg-zinc-900 hover:bg-zinc-700"
+                  className="h-14 w-full bg-zinc-900 hover:bg-zinc-700"
                   variant={"outline"}
                 >
                   <Image
@@ -354,15 +354,15 @@ export default function CheckoutForm({
                     alt={"apple pay"}
                     height={60}
                     width={60}
-                    className="invert h-auto w-auto"
+                    className="h-auto w-auto invert"
                   />
                 </Button>
               </div>
             </fieldset>
           </section>
-          <div className="relative flex my-10 items-center">
+          <div className="relative my-10 flex items-center">
             <div className="flex-grow border-t border-gray-200"></div>
-            <span className="mx-4 text-gray-500 font-medium text-sm tracking-wide">
+            <span className="mx-4 text-sm font-medium tracking-wide text-gray-500">
               OR CONTINUE BELOW TO PAY WITH CREDIT A CARD
             </span>
             <div className="flex-grow border-t border-gray-200"></div>
@@ -371,12 +371,12 @@ export default function CheckoutForm({
           <div
             className={`${
               orderProcessingError || zipCodeError ? "block" : "hidden"
-            } bg-red-100 rounded-lg p-4 mt-2 mb-7`}
+            } mb-7 mt-2 rounded-lg bg-red-100 p-4`}
           >
             {orderProcessingError && (
               <ul className="list-disc px-2">
                 {orderProcessingError.message?.map((error) => (
-                  <li className="text-red-500 font-semibold" key={error}>
+                  <li className="font-semibold text-red-500" key={error}>
                     {error}
                   </li>
                 ))}
@@ -384,7 +384,7 @@ export default function CheckoutForm({
             )}
             {zipCodeError && (
               <ul className="list-disc px-2">
-                <li className="text-red-500 font-semibold">
+                <li className="font-semibold text-red-500">
                   {zipCodeError.message}
                 </li>
               </ul>
@@ -487,7 +487,7 @@ export default function CheckoutForm({
                               placeholder="ex. 12345"
                               maxLength={5}
                               disabled={zipCodeProcessing}
-                              className="placeholder:text-zinc-400 h-11 focus-visible:ring-0 focus-visible:ring-offset-0 border-0"
+                              className="h-11 border-0 placeholder:text-zinc-400 focus-visible:ring-0 focus-visible:ring-offset-0"
                             />
                           </FormControl>
                         </div>
@@ -596,7 +596,7 @@ export default function CheckoutForm({
                                 disabled={zipCodeProcessing}
                                 placeholder="ex. 12345"
                                 maxLength={5}
-                                className="placeholder:text-zinc-400 h-11 focus-visible:ring-0 focus-visible:ring-offset-0 border-0"
+                                className="h-11 border-0 placeholder:text-zinc-400 focus-visible:ring-0 focus-visible:ring-offset-0"
                               />
                             </FormControl>
                           </div>
@@ -609,7 +609,7 @@ export default function CheckoutForm({
 
               {/* Payment Form */}
               <section className="border-y border-solid border-zinc-300 py-5">
-                <h1 className="text-xl font-bold md:text-2xl mb-3">
+                <h1 className="mb-3 text-xl font-bold md:text-2xl">
                   Payment Options
                 </h1>
 
@@ -628,7 +628,7 @@ export default function CheckoutForm({
                           <RadioGroupItem value="CARD" id="card" />
                           <Label
                             htmlFor="card"
-                            className="cursor-pointer ml-2 text-base"
+                            className="ml-2 cursor-pointer text-base"
                           >
                             Credit / Debit Card
                           </Label>
@@ -642,7 +642,7 @@ export default function CheckoutForm({
                                 transition: { duration: 1 },
                               }}
                             >
-                              <span className="flex gap-2 items-center">
+                              <span className="flex items-center gap-2">
                                 <svg
                                   width="40"
                                   height="24"
@@ -779,7 +779,7 @@ export default function CheckoutForm({
                               </span>
 
                               <fieldset
-                                className={`border border-solid border-gray-300 p-5 mb-5 max-w-md ${
+                                className={`mb-5 max-w-md border border-solid border-gray-300 p-5 ${
                                   cardError ? "border-red-500" : ""
                                 }`}
                               >
@@ -827,12 +827,12 @@ export default function CheckoutForm({
                           )}
                         </div>
 
-                        <div className="flex items-center my-5">
+                        <div className="my-5 flex items-center">
                           <RadioGroupItem value="PAYPAL" id="paypal" />
 
                           <Label
                             htmlFor="paypal"
-                            className="cursor-pointer ml-2 text-[18px] w-full"
+                            className="ml-2 w-full cursor-pointer text-[18px]"
                           >
                             <svg
                               width="161"
@@ -945,9 +945,9 @@ export default function CheckoutForm({
                 />
               </section>
 
-              <div className="hidden md:flex lg:flex justify-between gap-3">
+              <div className="hidden justify-between gap-3 md:flex lg:flex">
                 <Button
-                  className="w-2/5 h-12 text-base flex items-center gap-x-2 disabled:opacity-100"
+                  className="flex h-12 w-2/5 items-center gap-x-2 text-base disabled:opacity-100"
                   onClick={form.handleSubmit(onSubmit)}
                   disabled={processing}
                 >
@@ -984,10 +984,10 @@ export default function CheckoutForm({
           </Form>
         </div>
         <div className="mt-2.5">
-          <fieldset className="border border-solid border-gray-300 mb-5 px-2">
+          <fieldset className="mb-5 border border-solid border-gray-300 px-2">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="promo-code">
-                <AccordionTrigger className="hover:no-underline font-bold flex items-center justify-start">
+                <AccordionTrigger className="flex items-center justify-start font-bold hover:no-underline">
                   <Plus className="mr-2" /> Add a promo code
                 </AccordionTrigger>
                 <AccordionContent>
@@ -1012,7 +1012,7 @@ export default function CheckoutForm({
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-sm">Sale Savings:</p>
-                <p className="text-sm text-red-500 tracking-wider">
+                <p className="text-sm tracking-wider text-red-500">
                   {formatPrice(0)}
                 </p>
               </div>
@@ -1037,14 +1037,14 @@ export default function CheckoutForm({
               </div>
 
               <div className="flex items-center justify-between">
-                <h5 className="text-sm flex items-center gap-x-1">
+                <h5 className="flex items-center gap-x-1 text-sm">
                   Estimated Tax:
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Info size={15} className="cursor-pointer" />
                       </TooltipTrigger>
-                      <TooltipContent className="bg-zinc-900 text-white max-w-[250px]">
+                      <TooltipContent className="max-w-[250px] bg-zinc-900 text-white">
                         <p>
                           Final tax amount will be shown upon order completion.
                         </p>
@@ -1065,7 +1065,7 @@ export default function CheckoutForm({
               </div>
             </section>
             <Button
-              className="w-full h-12 text-base flex items-center gap-x-2 disabled:opacity-100"
+              className="flex h-12 w-full items-center gap-x-2 text-base disabled:opacity-100"
               onClick={form.handleSubmit(onSubmit)}
               disabled={processing}
             >
@@ -1079,7 +1079,7 @@ export default function CheckoutForm({
               )}
             </Button>
             {cart.totalShippingPrice <= 0 && (
-              <div className="flex items-center mt-3 justify-center">
+              <div className="mt-3 flex items-center justify-center">
                 <Truck size={20} strokeWidth={1} />
                 <p className="text-sm">This Order Ships Free!</p>
               </div>

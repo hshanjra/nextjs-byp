@@ -1,18 +1,10 @@
 "use server";
-/**
- * Fetches the city and state associated with a given zipcode.
- *
- * @param {string} zipcode - The zipcode to look up.
- * @return {Promise<{ city: string; state: string; } | { error: string; }>} - A promise that resolves to an object containing the city and state if the lookup is successful, or an error message if there was an error.
- */
-export async function fetchCityAndState(zipcode: string) {
-  try {
-    const response = await fetch(`https://api.zippopotam.us/us/${zipcode}`);
-    const data = await response.json();
+import axios from "axios";
 
-    // if (data.error) {
-    //   return { error: data.error };
-    // }
+export async function fetchCityAndState(zipCode: string) {
+  if (!zipCode) return { error: "Please enter zip code." };
+  try {
+    const { data } = await axios.get(`https://api.zippopotam.us/us/${zipCode}`);
 
     return {
       city: data?.places[0]["place name"],
@@ -20,7 +12,7 @@ export async function fetchCityAndState(zipcode: string) {
       stateAbbr: data?.places[0]["state abbreviation"],
     };
   } catch (e: any) {
-    console.log(e);
+    console.error(`Error fetching city and state: ${e.message}`);
     return { error: "Invalid Zip Code" };
   }
 }

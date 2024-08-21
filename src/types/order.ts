@@ -1,12 +1,19 @@
+import { ORDER_STATUS } from "@/enums";
+
 export type Order = {
   _id: string;
   userId: string;
   orderId: string;
   orderItems: {
-    qty: number;
+    _id: string;
+    quantity: number;
     price: number;
     shippingPrice: number;
-    subTotal: number;
+    trackingId: string;
+    merchant: string;
+    status: ORDER_STATUS;
+    deliveredAt: Date;
+    // subTotal: number;
     product: {
       productId: string;
       productTitle: string;
@@ -14,7 +21,8 @@ export type Order = {
       productBrand: string;
       partNumber: string;
       sku: string;
-      merchant: any;
+      merchant: string;
+      productImages: [{ url: string; alt: string }];
     };
   }[];
   shippingAddress: {
@@ -50,6 +58,6 @@ export type Order = {
   orderStatus: string;
   totalPrice: number;
   isPaid: boolean;
-  paidAt: string;
-  createdAt: string;
+  paidAt: Date;
+  createdAt: Date;
 };
