@@ -7,16 +7,14 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "../ui/form";
-import { Input } from "../ui/input";
 import { Button, buttonVariants } from "../ui/button";
 import Link from "next/link";
 import { useAction } from "next-safe-action/hooks";
 import { EmailSignInAction } from "@/actions/AuthAction";
 import { cn } from "@/lib/utils";
-import { LoaderCircle, LogIn } from "lucide-react";
+import { ArrowLeft, LoaderCircle, LogIn } from "lucide-react";
 import { useState } from "react";
 import FormSuccess from "./FormSuccess";
 import FormError from "./FormError";
@@ -26,6 +24,7 @@ import { useStore } from "@/store/store";
 import { LoginForm as LoginFrm, LoginSchema } from "@/types/authSchema";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Checkbox } from "../ui/checkbox";
+import CustomFormField, { FormFieldType } from "../CustomFormField";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -72,48 +71,27 @@ export default function LoginForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
         <Logo className="mx-auto my-5" />
-        <div className="text-center my-5">
-          <h2 className="font-semibold text-xl">Welcome back!</h2>
-          <p className="text-sm my-2 font-[400] text-zinc-700">
+        <div className="my-5 text-center">
+          <h2 className="text-xl font-semibold">Welcome back!</h2>
+          <p className="my-2 text-sm font-[400] text-zinc-700">
             Please enter your details to sign in.
           </p>
         </div>
         <div className="space-y-3">
-          <FormField
-            control={form.control}
+          <CustomFormField
+            fieldType={FormFieldType.EMAIL_INPUT}
             name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-semibold">E-Mail Address</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter your email..."
-                    {...field}
-                    autoComplete="email"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
             control={form.control}
+            placeholder="Enter your email..."
+            label="E-Mail Address"
+          />
+
+          <CustomFormField
+            fieldType={FormFieldType.PASSWORD_INPUT}
             name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-semibold">Password</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
-                    {...field}
-                    type="password"
-                    autoComplete="current-password"
-                    className="placeholder:tracking-[.3rem]"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            control={form.control}
+            placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
+            label="Password"
           />
         </div>
 
@@ -144,7 +122,7 @@ export default function LoginForm() {
           />
           <Link
             href="/password-reset"
-            className="underline text-sm text-zinc-800 hover:text-zinc-700 font-semibold"
+            className="text-sm font-semibold text-zinc-800 underline hover:text-zinc-700"
           >
             Forgot password?
           </Link>
@@ -156,7 +134,7 @@ export default function LoginForm() {
 
         <Button
           type="submit"
-          className={cn("w-full my-2 bg-zinc-900 hover:bg-zinc-700 text-white")}
+          className={cn("my-2 w-full bg-zinc-900 text-white hover:bg-zinc-700")}
           disabled={status === "executing"}
         >
           {status === "executing" ? (
@@ -168,13 +146,13 @@ export default function LoginForm() {
           )}
         </Button>
 
-        <div className="flex items-center mt-3">
-          <span className="text-sm ml-auto font-semibold text-zinc-500">
+        <div className="mt-3 flex items-center">
+          <span className="ml-auto text-sm font-semibold text-zinc-500">
             Don&apos;t have an account yet?
           </span>
           <Link
             href="/auth/register"
-            className="font-semibold text-sm text-red-500 hover:text-zinc-700 ml-2 mr-auto"
+            className="ml-2 mr-auto text-sm font-semibold text-red-500 hover:text-zinc-700"
           >
             Sign Up
           </Link>
