@@ -12,12 +12,12 @@ export function middleware(request: NextRequest) {
     loginUrl.searchParams.set("return_url", returnUrl);
 
     return NextResponse.redirect(loginUrl);
-  } else {
-    if (token && pathname.startsWith("/auth")) {
-      const accountURL = new URL("/account", request.url);
-      return NextResponse.redirect(accountURL);
-    }
   }
+
+  // if (token && pathname.startsWith("/auth")) {
+  //   const accountURL = new URL("/account", request.url);
+  //   return NextResponse.redirect(accountURL);
+  // }
 
   // TODO: check if token is valid
 
@@ -26,10 +26,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/account/:path*",
-    "/checkout/:path*",
-    "/thank-you/:path*",
-    "/auth/:path*",
-  ],
+  matcher: ["/account/:path*", "/checkout/:path*", "/thank-you/:path*"],
 };
