@@ -27,7 +27,7 @@ export const EmailSignInAction = ac(
         },
         {
           withCredentials: true,
-        }
+        },
       );
 
       // Set token in the cookie
@@ -60,7 +60,7 @@ export const EmailSignInAction = ac(
         return { error: "Email or password is incorrect" };
       }
     }
-  }
+  },
 );
 
 export const RegisterUserAction = ac(
@@ -78,7 +78,7 @@ export const RegisterUserAction = ac(
         },
         {
           withCredentials: true,
-        }
+        },
       );
       // Set token in the cookie
       const setCookieHdr = res?.headers["set-cookie"];
@@ -118,7 +118,7 @@ export const RegisterUserAction = ac(
         return { error: error.message || "An unknown error occurred." };
       }
     }
-  }
+  },
 );
 
 export const EmailVerificationAction = ac(
@@ -131,7 +131,7 @@ export const EmailVerificationAction = ac(
       if (error.status === 400) return { error: error.message };
       return { error: "Link is invalid or expired." };
     }
-  }
+  },
 );
 
 export const getUserAction = async (): Promise<GetUserSchema | undefined> => {
@@ -139,10 +139,10 @@ export const getUserAction = async (): Promise<GetUserSchema | undefined> => {
     // check if token exists
     const token = cookies().get("accessToken");
     if (!token) throw new Error("Unauthorized", { cause: 401 });
-    const me = await extApi.get("/auth/me", {
+    const { data } = await extApi.get("/auth/me", {
       headers: { Cookie: cookies().toString() },
     });
-    return me.data;
+    return data;
   } catch (error: any) {
     return error.message;
   }
