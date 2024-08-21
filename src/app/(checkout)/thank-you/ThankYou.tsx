@@ -32,10 +32,13 @@ export default function ThankYou() {
       setRefetchInterval(3 * 1000);
     }
 
-    const timer = setTimeout(() => {
-      setRefetchInterval(undefined); // Stop refetching after 2 minutes
-      if (data === false) setFetchingError(true);
-    }, 1 * 60 * 1000); // 2 minutes in milliseconds
+    const timer = setTimeout(
+      () => {
+        setRefetchInterval(undefined); // Stop refetching after 2 minutes
+        if (data === false) setFetchingError(true);
+      },
+      1 * 60 * 1000,
+    ); // 2 minutes in milliseconds
 
     // Clean up the timer on component unmount
     return () => clearTimeout(timer);
@@ -45,10 +48,10 @@ export default function ThankYou() {
 
   if (data === undefined) {
     return (
-      <div className="w-full mt-24 flex justify-center">
+      <div className="mt-24 flex w-full justify-center">
         <div className="flex flex-col items-center gap-2">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <h3 className="font-semibold text-xl">Loading your order...</h3>
+          <h3 className="text-xl font-semibold">Loading your order...</h3>
           <p>This won&apos;t take long.</p>
         </div>
       </div>
@@ -57,24 +60,24 @@ export default function ThankYou() {
 
   if (data.errorCode === 404 || fetchingError === true) {
     return (
-      <div className="w-full mt-36 flex justify-center">
+      <div className="mt-36 flex w-full justify-center">
         <div className="flex flex-col items-center gap-2">
           <PackageX className="h-16 w-16 text-primary" />
-          <h3 className="font-semibold text-xl">
+          <h3 className="text-xl font-semibold">
             Oops! Something went wrong while getting order.
           </h3>
           <p>
             Go to the
             <Link
               href={"/account/orders"}
-              className="hover:underline text-primary"
+              className="text-primary hover:underline"
             >
               &nbsp;orders&nbsp;
             </Link>
             page.
           </p>
 
-          <div className="w-28 flex items-center justify-center gap-x-3">
+          <div className="flex w-28 items-center justify-center gap-x-3">
             <Separator />
             <span>Or</span>
             <Separator />
@@ -84,7 +87,7 @@ export default function ThankYou() {
             Please contact our
             <Link
               href={"/help-center"}
-              className="hover:underline text-primary"
+              className="text-primary hover:underline"
             >
               &nbsp;support&nbsp;
             </Link>
@@ -97,10 +100,10 @@ export default function ThankYou() {
 
   if (data === false) {
     return (
-      <div className="w-full mt-24 flex justify-center">
+      <div className="mt-24 flex w-full justify-center">
         <div className="flex flex-col items-center gap-2">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <h3 className="font-semibold text-xl">Verifying your payment...</h3>
+          <h3 className="text-xl font-semibold">Verifying your payment...</h3>
           <p>This might take a moment.</p>
         </div>
       </div>
@@ -123,12 +126,12 @@ export default function ThankYou() {
   const subTotal = totalPrice - totalShippingPrice - taxPrice;
 
   return (
-    <MaxWidthWrapper className="max-w-3xl mb-10">
-      <div className="bg-white mt-5">
+    <MaxWidthWrapper className="mb-10 max-w-3xl">
+      <div className="mt-5 bg-white">
         <p className="text-lg font-bold text-primary">
           Thank you for your order!
         </p>
-        <h1 className="mt-2 lg:text-4xl font-bold tracking-tight text-4xl text-zinc-700">
+        <h1 className="mt-2 text-4xl font-bold tracking-tight text-zinc-700 lg:text-4xl">
           Your order has been successfully placed!
         </h1>
         <p className="mt-2 text-base text-zinc-500">
@@ -139,14 +142,14 @@ export default function ThankYou() {
         <div>
           <Link
             href={"/account/orders"}
-            className="flex items-center space-x-2 mt-5 text-success hover:underline"
+            className="mt-5 flex items-center space-x-2 text-success hover:underline"
           >
             <CircleChevronLeft />
             <span className="font-semibold">return to orders</span>
           </Link>
         </div>
 
-        <div className="flex items-center justify-between max-w-xl mt-10">
+        <div className="mt-10 flex max-w-xl items-center justify-between">
           <div className="text-sm font-medium">
             <p className="text-zinc-900">Order #</p>
             <p className="mt-2 text-zinc-500">{orderId}</p>
@@ -154,7 +157,7 @@ export default function ThankYou() {
           <div className="text-sm font-medium">
             <p className="text-zinc-900">Order Date</p>
             <p className="mt-2 text-zinc-500">
-              {moment(createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+              {moment(createdAt).format("dddd, MMMM Do YYYY")}
             </p>
           </div>
           <div className="text-sm font-medium">
@@ -177,27 +180,34 @@ export default function ThankYou() {
         </div>
 
         {/* Order Details */}
-        <h3 className="mt-10 text-lg ml-1 mb-3 font-semibold">
+        <h3 className="mb-3 ml-1 mt-10 text-lg font-semibold">
           Order Details:
         </h3>
 
-        <div className="border p-5 rounded-xl max-w-2xl bg-zinc-100/50">
+        <div className="max-w-2xl rounded-xl border bg-zinc-100/50 p-5">
           <table className="w-full">
-            <tr className="text-left border-b border-dashed">
+            <tr className="border-b border-dashed text-left">
               <th>Product</th>
               <th>Total</th>
             </tr>
 
             {Object.entries(orderItems).map(([key, item]) => (
-              <tr key={key} className="border-b border-dashed h-8">
+              <tr key={key} className="h-8 border-b border-dashed">
                 <td>
                   <h4 className="text-xs">
-                    {item.product.productTitle} x <b>{item.qty}</b>
+                    {item.product.productTitle} x <b>{item.quantity}</b>
                   </h4>
+
+                  <h4 className="text-xs">Shipping price:</h4>
                 </td>
                 <td>
-                  <h4 className="text-xs " key={key}>
-                    {formatPrice(item.subTotal)}
+                  <h4 className="text-xs" key={key}>
+                    {formatPrice(item.price)}
+                  </h4>
+                  <h4 className="text-xs">
+                    {item.shippingPrice
+                      ? formatPrice(item.shippingPrice * item.quantity)
+                      : formatPrice(0)}
                   </h4>
                 </td>
               </tr>
@@ -216,7 +226,7 @@ export default function ThankYou() {
 
             <tr>
               <td>
-                <h4 className="text-xs">Shipping:</h4>
+                <h4 className="text-xs">Total Shipping:</h4>
               </td>
               <td>
                 <b className="text-xs">{formatPrice(totalShippingPrice)}</b>

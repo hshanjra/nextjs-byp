@@ -43,9 +43,10 @@ export function createUrl(
 }
 
 export function formatDate(
-  dateString: string,
+  dateString: Date,
   options: { format: "short" | "numeric" | "long" } = { format: "long" },
 ) {
+  if (!dateString) return "";
   const date = new Date(dateString);
   const day = String(date.getUTCDate()).padStart(2, "0");
   const monthLong = date.toLocaleString("en-US", { month: "long" });

@@ -23,24 +23,27 @@ import Link from "next/link";
 import { logoutUserAction } from "@/actions/AuthAction";
 import { useStore } from "@/store/store";
 import useAuthUser from "@/hooks/useAuthUser";
+import { useRouter } from "next/navigation";
 
 const ProfileDropDown = () => {
   const user = useAuthUser();
   const reset = useStore((state) => state.reset);
 
+  const router = useRouter();
+
   if (!user) {
     return (
-      <div className="flex flex-col cursor-pointer group relative z-20">
-        <div className="flex justify-between items-center space-x-2">
+      <div className="group relative z-20 flex cursor-pointer flex-col">
+        <div className="flex items-center justify-between space-x-2">
           <h6>My Account</h6>
           <ChevronDown className="h-4 w-4" />
         </div>
         <span className="text-xs">Hello, Sign In</span>
 
-        <div className="absolute hidden top-10 right-0 group-hover:block">
-          <Card className="shadow-md w-[290px] bg-white">
-            <CardContent className="py-2 space-y-3">
-              <span className="text-sm text-center">
+        <div className="absolute right-0 top-10 hidden group-hover:block">
+          <Card className="w-[290px] bg-white shadow-md">
+            <CardContent className="space-y-3 py-2">
+              <span className="text-center text-sm">
                 Sign up now and enjoy discounted shopping!
               </span>
               {/* Sidebar Login/Register Form */}
@@ -55,8 +58,8 @@ const ProfileDropDown = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="flex flex-col cursor-pointer group relative z-20">
-          <div className="flex justify-between items-center space-x-2">
+        <div className="group relative z-20 flex cursor-pointer flex-col">
+          <div className="flex items-center justify-between space-x-2">
             <h6>My Account</h6>
             <ChevronDown className="h-4 w-4" />
           </div>
@@ -68,27 +71,22 @@ const ProfileDropDown = () => {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push("/account/orders")}>
             <Box className="mr-2 h-4 w-4" />
             <span>Orders</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push("/account/profile")}>
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push("/account/addresses")}>
             <BookUser className="mr-2 h-4 w-4" />
             <span>Addresses</span>
           </DropdownMenuItem>
-          <Link href="/account/wishlist" className="cursor-pointer">
-            <DropdownMenuItem>
-              <Heart className="mr-2 h-4 w-4" />
-              <span>Wishlist</span>
-            </DropdownMenuItem>
-          </Link>
-          <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
+
+          <DropdownMenuItem onClick={() => router.push("/account/wishlist")}>
+            <Heart className="mr-2 h-4 w-4" />
+            <span>Wishlist</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
