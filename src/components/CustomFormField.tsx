@@ -7,7 +7,7 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, EyeIcon, EyeOffIcon } from "lucide-react";
 import ReactDatePicker from "react-datepicker";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -15,6 +15,7 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { Checkbox } from "./ui/checkbox";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
+import { useState } from "react";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -24,6 +25,8 @@ export enum FormFieldType {
   DATE_PICKER = "datePicker",
   SELECT = "select",
   SKELETON = "skeleton",
+  PASSWORD_INPUT = "passwordInput",
+  EMAIL_INPUT = "emailInput",
 }
 
 interface CustomProps {
@@ -43,6 +46,8 @@ interface CustomProps {
 }
 
 const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   switch (props.fieldType) {
     case FormFieldType.INPUT:
       return (
@@ -55,7 +60,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
               placeholder={props.placeholder}
               {...field}
               maxLength={props.maxLength}
-              className="placeholder:text-zinc-400 h-11 focus-visible:ring-0 focus-visible:ring-offset-0 border-0"
+              className="h-11 border-0 placeholder:text-zinc-400 focus-visible:ring-0 focus-visible:ring-offset-0"
             />
           </FormControl>
         </div>
@@ -66,7 +71,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
           <Textarea
             placeholder={props.placeholder}
             {...field}
-            className="placeholder:text-zinc-400 h-32"
+            className="h-32 placeholder:text-zinc-400"
             disabled={props.disabled}
             maxLength={props.maxLength}
           />
@@ -104,7 +109,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
       );
     case FormFieldType.DATE_PICKER:
       return (
-        <div className="flex rounded-md border border-dark-500 bg-dark-400">
+        <div className="border-dark-500 bg-dark-400 flex rounded-md border">
           <CalendarDays />
           <FormControl>
             <ReactDatePicker
@@ -128,7 +133,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
             disabled={props.disabled}
           >
             <FormControl>
-              <SelectTrigger className="border-zinc-500 h-11 focus:ring-0 focus:ring-offset-0">
+              <SelectTrigger className="h-11 border-zinc-500 focus:ring-0 focus:ring-offset-0">
                 <SelectValue placeholder={props.placeholder} />
               </SelectTrigger>
             </FormControl>
@@ -140,6 +145,57 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
       );
     case FormFieldType.SKELETON:
       return props.renderSkeleton ? props.renderSkeleton(field) : null;
+
+    case FormFieldType.PASSWORD_INPUT:
+      return (
+        <div className="relative flex rounded-md border border-zinc-500">
+          <FormControl>
+            <>
+              <Input
+                placeholder={props.placeholder}
+                {...field}
+                type={showPassword ? "text" : "password"}
+                maxLength={props.maxLength}
+                className="h-11 border-0 placeholder:text-zinc-400 focus-visible:ring-0 focus-visible:ring-offset-0"
+              />
+
+              <button
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-1 top-0 h-full px-3 pe-2 hover:bg-transparent"
+                type="button"
+                title={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeIcon className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <EyeOffIcon className="h-4 w-4" aria-hidden="true" />
+                )}
+                <span className="sr-only">
+                  {showPassword ? "Hide password" : "Show password"}
+                </span>
+              </button>
+            </>
+          </FormControl>
+        </div>
+      );
+
+    case FormFieldType.EMAIL_INPUT:
+      return (
+        <div className="flex rounded-md border border-zinc-500">
+          {props.icon && (
+            <div className="flex items-center p-1"> {props.icon}</div>
+          )}
+          <FormControl>
+            <Input
+              placeholder={props.placeholder}
+              type="email"
+              {...field}
+              maxLength={props.maxLength}
+              className="h-11 border-0 placeholder:text-zinc-400 focus-visible:ring-0 focus-visible:ring-offset-0"
+            />
+          </FormControl>
+        </div>
+      );
     default:
       return null;
   }
