@@ -10,16 +10,6 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Download,
-  Loader2,
-  LocateFixedIcon,
-  Pencil,
-  Plane,
-  Repeat,
-  Trash2,
-  X,
-} from "lucide-react";
 import Orders from "./orders";
 import { ORDER_STATUS } from "@/enums";
 
