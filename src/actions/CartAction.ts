@@ -12,10 +12,10 @@ type params = {
 
 async function createCartSession() {
   try {
-    const res = await extApi.post("/cart");
+    const { data, headers } = await extApi.post("/cart");
 
     // Set token in the cookie
-    const setCookieHdr = res?.headers["set-cookie"];
+    const setCookieHdr = headers["set-cookie"];
 
     if (setCookieHdr) {
       // Handle the case where setCookieHdr might be an array
@@ -31,7 +31,9 @@ async function createCartSession() {
         secure: process.env.NODE_ENV === "production",
         httpOnly: true,
       });
+      return;
     }
+    return;
   } catch (e) {
     console.log(e);
     return "Error creating cart";
