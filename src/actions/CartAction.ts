@@ -11,35 +11,31 @@ type params = {
 };
 
 async function createCartSession() {
-  const session = cookies().get("session")?.value;
-  if (!session) {
-    try {
-      const res = await extApi.post("/cart");
+  try {
+    const res = await extApi.post("/cart");
 
-      // Set token in the cookie
-      const setCookieHdr = res?.headers["set-cookie"];
+    // Set token in the cookie
+    const setCookieHdr = res?.headers["set-cookie"];
 
-      if (setCookieHdr) {
-        // Handle the case where setCookieHdr might be an array
-        const cookiesHdr = Array.isArray(setCookieHdr)
-          ? setCookieHdr
-          : [setCookieHdr];
+    if (setCookieHdr) {
+      // Handle the case where setCookieHdr might be an array
+      const cookiesHdr = Array.isArray(setCookieHdr)
+        ? setCookieHdr
+        : [setCookieHdr];
 
-        const sid = cookiesHdr[0].split(";")[0].split("=")[1];
+      const sid = cookiesHdr[0].split(";")[0].split("=")[1];
 
-        await cookies().set({
-          name: "session",
-          value: sid,
-          secure: process.env.NODE_ENV === "production",
-          httpOnly: true,
-        });
-      }
-    } catch (e) {
-      console.log(e);
-      return "Error creating cart";
+      cookies().set({
+        name: "session",
+        value: sid,
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
+      });
     }
+  } catch (e) {
+    console.log(e);
+    return "Error creating cart";
   }
-  return;
 }
 
 export const addOrUpdateItem = async (productId: string, qty: number = 1) => {
