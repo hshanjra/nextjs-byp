@@ -22,7 +22,7 @@ export default async function CategoriesPage() {
   return (
     <MaxWidthWrapper>
       <section className="my-5">
-        <h1 className="text-3xl uppercase font-bold my-5">
+        <h1 className="my-5 text-3xl font-bold uppercase">
           Explore Categories
         </h1>
         {categories && categories.length > 0 ? (
@@ -30,7 +30,7 @@ export default async function CategoriesPage() {
             {categories.map((cat) => (
               <div
                 key={cat._id}
-                className="overflow-hidden w-full border p-5 hover:scale-105 hover:shadow-xl transition-all duration-200 cursor-pointer bg-white"
+                className="w-full cursor-pointer overflow-hidden border bg-white p-5 transition-all duration-200 hover:scale-105 hover:shadow-xl"
               >
                 <Link href={`/categories/${cat.categorySlug}`}>
                   <Image
@@ -38,7 +38,7 @@ export default async function CategoriesPage() {
                     width={100}
                     height={100}
                     alt={cat.categoryName}
-                    className="w-auto h-auto m-auto"
+                    className="m-auto h-auto w-auto"
                   />
                   <p className="text-center text-sm text-zinc-500">
                     {cat.categoryName}
