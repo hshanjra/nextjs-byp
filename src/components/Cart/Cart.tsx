@@ -20,21 +20,21 @@ import { Separator } from "../ui/separator";
 import RemoveCartItemButton from "./RemoveCartItemButton";
 import CheckoutButton from "./CheckoutButton";
 
-export default function Cart({ cart }: { cart: Cart | undefined }) {
+export default function Cart({ cart }: { cart: Cart | undefined | null }) {
   const itemsCount = cart?.totalQty ? cart.totalQty : 0;
 
-  if (itemsCount === 0) {
+  if (itemsCount === 0 || !cart) {
     return (
-      <section className="flex h-full my-24 lg:my-32 flex-col items-center justify-center space-y-1">
+      <section className="my-24 flex h-full flex-col items-center justify-center space-y-1 lg:my-32">
         <div
           className="relative mb-4 space-y-2 text-muted-foreground"
           aria-hidden="true"
         >
           <ShoppingCart
-            className="mx-auto text-gray-400 !pointer-events-auto"
+            className="!pointer-events-auto mx-auto text-gray-400"
             size={150}
           />
-          <p className="text-xl text-center text-gray-400 font-semibold">
+          <p className="text-center text-xl font-semibold text-gray-400">
             Your cart is currently empty.
           </p>
           <Link
@@ -53,22 +53,22 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
   }
 
   return (
-    <section className="flex flex-col lg:flex-row h-full items-start my-14 justify-between lg:space-x-5 space-y-5">
+    <section className="my-14 flex h-full flex-col items-start justify-between space-y-5 lg:flex-row lg:space-x-5">
       <div className="w-full">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[200px] lg:w-[100px] px-0 font-semibold text-zinc-400"></TableHead>
-              <TableHead className="w-[350px] lg:w-[300px] px-0 font-semibold text-zinc-400">
+              <TableHead className="w-[200px] px-0 font-semibold text-zinc-400 lg:w-[100px]"></TableHead>
+              <TableHead className="w-[350px] px-0 font-semibold text-zinc-400 lg:w-[300px]">
                 Product
               </TableHead>
-              <TableHead className="hidden lg:flex md:flex items-center font-semibold text-zinc-400">
+              <TableHead className="hidden items-center font-semibold text-zinc-400 md:flex lg:flex">
                 Price
               </TableHead>
               <TableHead className="font-semibold text-zinc-400">
                 Quantity
               </TableHead>
-              <TableHead className="hidden lg:flex md:flex items-center font-semibold text-zinc-400">
+              <TableHead className="hidden items-center font-semibold text-zinc-400 md:flex lg:flex">
                 Subtotal
               </TableHead>
             </TableRow>
@@ -77,24 +77,24 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
             {cart &&
               Object.entries(cart.items).map(([key, item]) => (
                 <TableRow key={key}>
-                  <TableCell className="p-3 lg:p-4 md:p-4">
-                    <div className="relative z-25">
+                  <TableCell className="p-3 md:p-4 lg:p-4">
+                    <div className="z-25 relative">
                       <RemoveCartItemButton
                         productId={item.product.productId}
                       />
-                      <div className="border rounded-lg max-w-[4.375rem]">
+                      <div className="max-w-[4.375rem] rounded-lg border">
                         <Image
                           src={item.product.productImages[0].url}
                           alt={item.product.productTitle}
                           height={300}
                           width={300}
-                          className="object-cover rounded-lg max-w-full"
+                          className="max-w-full rounded-lg object-cover"
                         />
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="p-0 lg:p-4 md:p-4">
-                    <h3 className="text-xs lg:text-sm md:text-sm leading-relaxed">
+                  <TableCell className="p-0 md:p-4 lg:p-4">
+                    <h3 className="text-xs leading-relaxed md:text-sm lg:text-sm">
                       <Link
                         href={`/product/${item.product.productSlug}`}
                         className="hover:underline"
@@ -103,19 +103,19 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
                       </Link>
                     </h3>
                   </TableCell>
-                  <TableCell className="hidden lg:table-cell md:table-cell">
+                  <TableCell className="hidden md:table-cell lg:table-cell">
                     <h3 className="font-semibold">
                       {formatPrice(item.product.salePrice)}
                     </h3>
                   </TableCell>
-                  <TableCell className="p-0 px-1 lg:p-4 md:p-4">
+                  <TableCell className="p-0 px-1 md:p-4 lg:p-4">
                     <QtyButtons
                       productId={item.product.productId}
                       maxQty={item.product.productStock}
                       cart={cart}
                     />
                   </TableCell>
-                  <TableCell className="hidden lg:table-cell md:table-cell">
+                  <TableCell className="hidden md:table-cell lg:table-cell">
                     <h3 className="font-semibold">
                       {formatPrice(item.product.salePrice * item.qty)}
                     </h3>
@@ -142,14 +142,14 @@ export default function Cart({ cart }: { cart: Cart | undefined }) {
             </CardTitle>
           </CardHeader>
           <Separator />
-          <CardContent className="flex justify-between items-center text-sm space-y-1.5">
+          <CardContent className="flex items-center justify-between space-y-1.5 text-sm">
             {/* Add Subtotal and other calculations here */}
             <h3>Item(s) Subtotal</h3>
             <h3>{cart && formatPrice(cart?.subTotal)}</h3>
           </CardContent>
           <Separator />
           <CardContent>
-            <div className="flex justify-between items-start text-sm">
+            <div className="flex items-start justify-between text-sm">
               <h3>Shipping</h3>
               <div className="flex flex-col text-right">
                 <h3>{cart && formatPrice(cart?.totalShippingPrice)}</h3>
