@@ -46,6 +46,13 @@ export const addOrUpdateItem = async (productId: string, qty: number = 1) => {
   let session = cookies().get("session")?.value;
   let cart = await getCart();
 
+  if (!session && cart === null) {
+    // Create a new cart session
+    await createCartSession();
+    // update the session variable
+    session = cookies().get("session")?.value;
+  }
+
   if (!productId) {
     return "Missing product ID";
   }
@@ -56,13 +63,6 @@ export const addOrUpdateItem = async (productId: string, qty: number = 1) => {
   //   });
   //   cart = res.data;
   // }
-
-  if (!session || !cart) {
-    // Create a new cart session
-    await createCartSession();
-    // update the session variable
-    session = cookies().get("session")?.value;
-  }
 
   try {
     const res = await extApi.post(
