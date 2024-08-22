@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import * as React from "react";
 import Link from "next/link";
-import { cn, formatPrice } from "@/lib/utils";
+import { cn, formatPrice, trimString } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -293,7 +293,7 @@ const ProductCard = ({ products }: { products: Product[] }) => {
             />
 
             <h2 className="text-sm font-semibold hover:text-primary">
-              {product.productTitle}
+              {trimString(product.productTitle, 50)}
             </h2>
 
             {/* Review */}
