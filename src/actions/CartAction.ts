@@ -82,7 +82,7 @@ export const addOrUpdateItem = async (productId: string, qty: number = 1) => {
     return cart;
   } catch (e) {
     console.log(e);
-    return "Error adding item to cart";
+    return null;
   }
 };
 
