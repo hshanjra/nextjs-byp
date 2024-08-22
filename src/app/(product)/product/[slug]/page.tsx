@@ -44,8 +44,8 @@ export async function generateMetadata({ params }: ProductPageProps) {
   if (!product || error) return;
 
   return {
-    title: `${product.productTitle} | ${SITE_METADATA.name}`,
-    description: product.longDescription,
+    title: `${product.metaTitle || product.productTitle} | ${SITE_METADATA.name}`,
+    description: product.metaDescription || product.longDescription,
     openGraph: {
       title: `Buy ${product.productTitle} at ${SITE_METADATA.name}`,
       description: product.longDescription,
@@ -76,7 +76,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
         <section className="my-4">
           <Breadcrumb />
         </section>
-        <div className="mx-auto my-3 lg:space-x-7 max-w-2xl lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8">
+        <div className="mx-auto my-3 max-w-2xl lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:space-x-7">
           <section>
             {/* Product Images */}
             <div className="overflow-hidden">
@@ -85,7 +85,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
 
             {/* Compatibility Table */}
             <div className="hidden lg:block">
-              <div className="mt-5 border rounded-xl overflow-hidden">
+              <div className="mt-5 overflow-hidden rounded-xl border">
                 <Table>
                   <TableBody>
                     <TableRow>
@@ -107,14 +107,14 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                   </TableBody>
                 </Table>
               </div>
-              <p className="text-sm my-2 text-center from-gray-400">
+              <p className="my-2 from-gray-400 text-center text-sm">
                 List of all compatible makes and models.
               </p>
             </div>
           </section>
           {/* Product Info */}
           <div>
-            <h1 className="leading-[1.2] font-bold text-[calc(1.375rem+1.5vw)]">
+            <h1 className="text-[calc(1.375rem+1.5vw)] font-bold leading-[1.2]">
               {product?.productTitle}
             </h1>
 
@@ -122,22 +122,22 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
               {/* Review / SKU */}
               <div className="flex items-center gap-x-1">
                 <ReviewStar rating={4} height={28} />
-                <span className="font-semibold text-xs lg:text-sm">
+                <span className="text-xs font-semibold lg:text-sm">
                   {1} review
                 </span>
               </div>
 
               <Separator orientation="vertical" className="h-5" />
-              <span className="uppercase text-muted-foreground text-[0.8125rem] font-medium">
+              <span className="text-[0.8125rem] font-medium uppercase text-muted-foreground">
                 Part No: {product?.partNumber}
               </span>
 
               {/* Stock */}
               <div
                 className={cn(
-                  "flex items-center px-2 py-1 rounded-md",
+                  "flex items-center rounded-md px-2 py-1",
                   { "bg-green-200/35": product?.productStock > 0 },
-                  { "bg-red-200/35": product?.productStock <= 0 }
+                  { "bg-red-200/35": product?.productStock <= 0 },
                 )}
               >
                 <Package
@@ -149,35 +149,35 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                   })}
                 />
                 {product.productStock > 0 ? (
-                  <span className="font-semibold text-xs ml-2 text-successDark">
+                  <span className="ml-2 text-xs font-semibold text-successDark">
                     In Stock
                   </span>
                 ) : (
-                  <span className="font-semibold text-xs ml-2 text-red-500">
+                  <span className="ml-2 text-xs font-semibold text-red-500">
                     Out of Stock
                   </span>
                 )}
               </div>
             </div>
             {/* Price */}
-            <div className="flex my-5 items-end gap-x-2">
+            <div className="my-5 flex items-end gap-x-2">
               <h3 className="text-2xl text-gray-400">
                 <s>{formatPrice(product?.regularPrice)}</s>
               </h3>
-              <h3 className="text-primary text-3xl font-semibold">
+              <h3 className="text-3xl font-semibold text-primary">
                 {formatPrice(product?.salePrice)}
               </h3>
             </div>
             {/* Short Description */}
             <div className="my-5">
-              <h5 className="text-sm text-gray-400 font-normal">
+              <h5 className="text-sm font-normal text-gray-400">
                 {product?.longDescription}
               </h5>
             </div>
             <Separator />
             {/* Qty / Add to cart */}
             {product.productStock > 0 && (
-              <div className="hidden my-3 lg:flex items-center space-x-3">
+              <div className="my-3 hidden items-center space-x-3 lg:flex">
                 {/* Counter */}
                 <AddToCartButton strokeWidth={2} product={product} />
                 {/* Compatibility Message */}
@@ -191,41 +191,41 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                 Did you like this product? Add to favorites now and follow the
                 product.
               </p>
-              <span className="border cursor-pointer transition duration-200 bg-gray-100 hover:bg-red-100 hover:text-primary rounded-xl p-2">
+              <span className="cursor-pointer rounded-xl border bg-gray-100 p-2 transition duration-200 hover:bg-red-100 hover:text-primary">
                 <Heart size={20} strokeWidth={1.2} />
               </span>
             </div>
 
             {/* Contact Seller Goes */}
-            <div className="w-full flex flex-col items-start space-y-4 sm:flex-row sm:space-y-0 sm:space-x-6 p-4 border-2 border-dashed border-gray-200 dark:border-gray-400 rounded-lg">
-              <div className="w-full flex justify-center sm:justify-start sm:w-auto">
+            <div className="flex w-full flex-col items-start space-y-4 rounded-lg border-2 border-dashed border-gray-200 p-4 dark:border-gray-400 sm:flex-row sm:space-x-6 sm:space-y-0">
+              <div className="flex w-full justify-center sm:w-auto sm:justify-start">
                 <Image
                   src="/images/logo.webp"
                   alt="Profile"
                   width={100}
                   height={100}
-                  className="object-cover mt-3 mr-3 rounded-full"
+                  className="mr-3 mt-3 rounded-full object-cover"
                 />
               </div>
-              <div className="w-full flex flex-col items-start">
-                <p className="flex items-center gap-1 mb-2 font-semibold text-black mx-auto lg:mx-0">
+              <div className="flex w-full flex-col items-start">
+                <p className="mx-auto mb-2 flex items-center gap-1 font-semibold text-black lg:mx-0">
                   Nates Tools and More
                   <Link
                     href={"#reviews"}
-                    className="text-gray-500 font-normal text-sm italic"
+                    className="text-sm font-normal italic text-gray-500"
                   >
                     (2299 reviews)
                   </Link>
                 </p>
-                <div className="text-gray-500 mb-2 flex items-center gap-3 lg:gap-1 mx-auto lg:mx-0">
-                  <p className="font-bold text-sm flex items-center gap-1">
+                <div className="mx-auto mb-2 flex items-center gap-3 text-gray-500 lg:mx-0 lg:gap-1">
+                  <p className="flex items-center gap-1 text-sm font-bold">
                     <ThumbsUp size={18} />
                     99.7% Positive
                   </p>
                   <Separator orientation="vertical" className="h-5" />
                   <Link
                     href="/"
-                    className="hover:text-red-500 font-bold text-sm flex items-center gap-1"
+                    className="flex items-center gap-1 text-sm font-bold hover:text-red-500"
                   >
                     <Store size={18} />
                     Visit Seller Store
@@ -233,7 +233,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                   <Separator orientation="vertical" className="h-5" />
                   <Link
                     href="/"
-                    className="hover:text-red-500 font-bold text-sm flex items-center gap-1"
+                    className="flex items-center gap-1 text-sm font-bold hover:text-red-500"
                   >
                     <PhoneOutgoing size={18} />
                     Contact Seller
@@ -243,47 +243,47 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             </div>
 
             {/* Marketing Icons  */}
-            <div className="grid grid-cols-2 gap-x-5 gap-y-7 mt-5">
+            <div className="mt-5 grid grid-cols-2 gap-x-5 gap-y-7">
               <div className="flex items-center gap-x-2">
-                <span className="border rounded-full p-2">
+                <span className="rounded-full border p-2">
                   <DollarSignIcon />
                 </span>
-                <p className="flex flex-col font-semibold text-sm">
+                <p className="flex flex-col text-sm font-semibold">
                   Low prices
-                  <span className="text-gray-500 font-normal text-xs">
+                  <span className="text-xs font-normal text-gray-500">
                     Price match guarantee
                   </span>
                 </p>
               </div>
               <div className="flex items-center gap-x-2">
-                <span className="border rounded-full p-2">
+                <span className="rounded-full border p-2">
                   <Check />
                 </span>
-                <p className="flex flex-col font-semibold text-sm">
+                <p className="flex flex-col text-sm font-semibold">
                   Guaranteed Fitment.
-                  <span className="text-gray-500 font-normal text-xs">
+                  <span className="text-xs font-normal text-gray-500">
                     Always the correct part
                   </span>
                 </p>
               </div>
               <div className="flex items-center gap-x-2">
-                <span className="border rounded-full p-2">
+                <span className="rounded-full border p-2">
                   <Headset />
                 </span>
-                <p className="flex flex-col font-semibold text-sm">
+                <p className="flex flex-col text-sm font-semibold">
                   In-House Experts.
-                  <span className="text-gray-500 font-normal text-xs">
+                  <span className="text-xs font-normal text-gray-500">
                     We know our products
                   </span>
                 </p>
               </div>
               <div className="flex items-center gap-x-2">
-                <span className="border rounded-full p-2">
+                <span className="rounded-full border p-2">
                   <IterationCcw />
                 </span>
-                <p className="flex flex-col font-semibold text-sm">
+                <p className="flex flex-col text-sm font-semibold">
                   Easy Returns.
-                  <span className="text-gray-500 font-normal text-xs">
+                  <span className="text-xs font-normal text-gray-500">
                     Quick & Hassle Free
                   </span>
                 </p>
@@ -294,8 +294,8 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
 
             {/* Category / Product Id */}
             <div className="mt-5 flex items-center justify-between">
-              <div className="flex flex-col lg:flex-row items-start lg:items-center">
-                <span className="text-sm font-light text-gray-400 mr-1">
+              <div className="flex flex-col items-start lg:flex-row lg:items-center">
+                <span className="mr-1 text-sm font-light text-gray-400">
                   Category:
                 </span>
                 <ul className="flex items-center gap-x-[2px] text-sm">
@@ -309,8 +309,8 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                   </li>
                 </ul>
               </div>
-              <div className="flex flex-col lg:flex-row items-start lg:items-center">
-                <span className="text-sm font-light text-gray-400 mr-1">
+              <div className="flex flex-col items-start lg:flex-row lg:items-center">
+                <span className="mr-1 text-sm font-light text-gray-400">
                   Product ID:
                 </span>
                 <p className="text-sm">{product.productId}</p>
@@ -324,25 +324,25 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             <TabsList className="justify-start bg-transparent lg:mb-2">
               <TabsTrigger
                 value="description"
-                className="font-medium text-sm lg:text-lg text-gray-400 p-0 lg:pr-1 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="bg-transparent p-0 text-sm font-medium text-gray-400 data-[state=active]:bg-transparent data-[state=active]:shadow-none lg:pr-1 lg:text-lg"
               >
                 Description
               </TabsTrigger>
               <TabsTrigger
                 value="additional-info"
-                className="font-medium text-sm lg:text-lg text-gray-400 px-1 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="bg-transparent px-1 text-sm font-medium text-gray-400 data-[state=active]:bg-transparent data-[state=active]:shadow-none lg:text-lg"
               >
                 Additional Info
               </TabsTrigger>
               <TabsTrigger
                 value="reviews"
-                className="font-medium text-sm lg:text-lg text-gray-400 px-1 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="bg-transparent px-1 text-sm font-medium text-gray-400 data-[state=active]:bg-transparent data-[state=active]:shadow-none lg:text-lg"
               >
                 Reviews(5)
               </TabsTrigger>
               <TabsTrigger
                 value="qna"
-                className="font-medium text-sm lg:text-lg text-gray-400 p-0 lg:pl-1 bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="bg-transparent p-0 text-sm font-medium text-gray-400 data-[state=active]:bg-transparent data-[state=active]:shadow-none lg:pl-1 lg:text-lg"
               >
                 Q&A
               </TabsTrigger>
@@ -351,12 +351,15 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
 
             <TabsContent
               value="description"
-              className="font-light text-gray-700 my-5"
+              className="my-2 font-light text-gray-700"
             >
+              <h3 className="my-3 text-lg font-semibold text-zinc-500">
+                Item description from the seller
+              </h3>
               {product.longDescription}
             </TabsContent>
             <TabsContent value="additional-info">
-              <div className="mt-5 border rounded-xl overflow-hidden max-w-lg">
+              <div className="mt-5 max-w-lg overflow-hidden rounded-xl border">
                 <Table>
                   <TableBody>
                     <TableRow>
@@ -378,7 +381,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                   </TableBody>
                 </Table>
               </div>
-              <p className="text-sm my-2 text-center from-gray-400">
+              <p className="my-2 from-gray-400 text-center text-sm">
                 List of all compatible makes and models.
               </p>
             </TabsContent>
@@ -402,7 +405,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
         {/* Related products */}
         {relatedProducts && (
           <section>
-            <h3 className="font-bold text-xl">Related Products</h3>
+            <h3 className="text-xl font-bold">Related Products</h3>
             <Separator className="my-5" />
             <ProductReel products={relatedProducts} />
           </section>
@@ -410,7 +413,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
       </MaxWidthWrapper>
       {/* Qty/Cart - Mobile */}
       {product && product.productStock > 0 && (
-        <div className="lg:hidden p-4 fixed bottom-0 bg-white w-full z-50">
+        <div className="fixed bottom-0 z-50 w-full bg-white p-4 lg:hidden">
           {/* Counter */}
           <AddToCartButton strokeWidth={2} product={product} />
         </div>

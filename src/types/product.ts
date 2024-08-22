@@ -4,6 +4,8 @@ export type Product = {
   productTitle: string;
   productSlug: string;
   productBrand: string;
+  metaTitle: string;
+  metaDescription: string;
   shortDescription: string;
   longDescription: string;
   keywords: string;
@@ -29,7 +31,7 @@ export type Product = {
       url: string;
       alt: string;
       _id: string;
-    }
+    },
   ];
 
   productCondition: string;

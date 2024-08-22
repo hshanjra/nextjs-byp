@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import * as React from "react";
 import Link from "next/link";
-import { cn, formatPrice } from "@/lib/utils";
+import { cn, formatPrice, trimString } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -164,7 +164,7 @@ const MainNav = () => {
                   {airBags?.products ? (
                     <div className="p-4">
                       <div className="mb-5 flex items-center justify-between">
-                        <h3 className="text-base font-bold">
+                        <h3 className="text-base font-bold capitalize">
                           Shop top quality air bags.
                         </h3>
                         <Link
@@ -195,9 +195,9 @@ const MainNav = () => {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <Link href="/blog" legacyBehavior passHref>
+              <Link href="/blogs" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Blog
+                  Blogs
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -293,7 +293,7 @@ const ProductCard = ({ products }: { products: Product[] }) => {
             />
 
             <h2 className="text-sm font-semibold hover:text-primary">
-              {product.productTitle}
+              {trimString(product.productTitle, 50)}
             </h2>
 
             {/* Review */}

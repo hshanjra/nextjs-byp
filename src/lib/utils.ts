@@ -63,3 +63,37 @@ export function formatDate(
       return `${day} ${monthLong} ${year}`;
   }
 }
+
+export function transformText(
+  string: string,
+  options: {
+    format: "capitalFirstOnly" | "capitalCase" | "lowerCase" | "camelCase";
+  } = { format: "capitalFirstOnly" },
+) {
+  switch (options.format) {
+    case "capitalFirstOnly":
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+
+    case "capitalCase":
+      return string
+        .toLowerCase()
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+
+    case "lowerCase":
+      return string.toLowerCase();
+
+    case "camelCase":
+      return string
+        .toLowerCase()
+        .split(" ")
+        .map((word, index) =>
+          index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1),
+        )
+        .join("");
+
+    default:
+      return string;
+  }
+}
