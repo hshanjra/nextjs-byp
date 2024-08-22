@@ -46,7 +46,7 @@ export const addOrUpdateItem = async (productId: string, qty: number = 1) => {
   let session = cookies().get("session")?.value;
   let cart = await getCart();
 
-  if (!session && cart === null) {
+  if (!session || cart === null) {
     // Create a new cart session
     await createCartSession();
     // update the session variable
@@ -121,7 +121,8 @@ export const getCart = async (): Promise<Cart | undefined | null> => {
 
 export const calculateTax = async (stateCode: string): Promise<void> => {
   const session = cookies().get("session")?.value;
-  if (!session || !stateCode) return;
+  if (!session) return;
+  if (!stateCode) return;
 
   try {
     const res = await extApi.post(
