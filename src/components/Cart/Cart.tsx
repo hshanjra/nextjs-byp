@@ -23,7 +23,7 @@ import CheckoutButton from "./CheckoutButton";
 export default function Cart({ cart }: { cart: Cart | undefined | null }) {
   const itemsCount = cart?.totalQty ? cart.totalQty : 0;
 
-  if (itemsCount === 0 || !cart) {
+  if (!cart || itemsCount === 0) {
     return (
       <section className="my-24 flex h-full flex-col items-center justify-center space-y-1 lg:my-32">
         <div
