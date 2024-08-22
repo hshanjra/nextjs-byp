@@ -26,10 +26,10 @@ const Sidebar = () => {
           <div className="flex flex-col space-y-10">
             {/* Main Menu */}
             <div className="space-y-5">
-              <h3 className="text-gray-500 text-opacity-55 text-xs font-semibold">
+              <h3 className="text-xs font-semibold text-gray-500 text-opacity-55">
                 MAIN MENU
               </h3>
-              <nav className="flex flex-col font-semibold space-y-2">
+              <nav className="flex flex-col space-y-2 font-semibold">
                 <SheetTrigger asChild>
                   <Link href="/">Home</Link>
                 </SheetTrigger>
@@ -47,7 +47,7 @@ const Sidebar = () => {
                 </SheetTrigger>
                 <span className="border-b"> </span>
                 <SheetTrigger asChild>
-                  <Link href="/blog">Blog</Link>
+                  <Link href="/blogs">Blogs</Link>
                 </SheetTrigger>
                 <span className="border-b"> </span>
                 <SheetTrigger asChild>
@@ -57,7 +57,7 @@ const Sidebar = () => {
             </div>
             {/* Category Menu */}
             <div className="space-y-5">
-              <h3 className="text-gray-500 text-opacity-55 text-xs font-semibold">
+              <h3 className="text-xs font-semibold text-gray-500 text-opacity-55">
                 CATEGORY MENU
               </h3>
               {/* Category List */}
@@ -66,7 +66,7 @@ const Sidebar = () => {
             </div>
             {/* Contact */}
             <div className="space-y-5">
-              <h3 className="text-gray-500 text-opacity-55 text-xs font-semibold">
+              <h3 className="text-xs font-semibold text-gray-500 text-opacity-55">
                 CONTACT DETAILS
               </h3>
               <div className="flex flex-col space-y-2">
@@ -83,9 +83,9 @@ const Sidebar = () => {
           </div>
 
           <SheetFooter className="mt-10">
-            <span className="text-xs mx-auto">
+            <span className="mx-auto text-xs">
               Copyright {new Date().getFullYear()} &copy;{" "}
-              <Link href="/" className="hover:underline ">
+              <Link href="/" className="hover:underline">
                 {SITE_METADATA.name}
               </Link>
               . All rights reserved.

@@ -351,8 +351,11 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
 
             <TabsContent
               value="description"
-              className="my-5 font-light text-gray-700"
+              className="my-2 font-light text-gray-700"
             >
+              <h3 className="my-3 text-lg font-semibold text-zinc-500">
+                Item description from the seller
+              </h3>
               {product.longDescription}
             </TabsContent>
             <TabsContent value="additional-info">
