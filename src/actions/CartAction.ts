@@ -104,7 +104,7 @@ export const removeItem = async (productId: string): Promise<any> => {
   }
 };
 
-export const getCart = async (): Promise<Cart | null> => {
+export const getCart = async (): Promise<Cart | undefined | null> => {
   const session = cookies().get("session")?.value;
   if (!session) return null;
 
