@@ -27,10 +27,10 @@ async function createCartSession() {
 
         const sid = cookiesHdr[0].split(";")[0].split("=")[1];
 
-        cookies().set({
+        await cookies().set({
           name: "session",
           value: sid,
-          secure: true,
+          secure: process.env.NODE_ENV === "production",
           httpOnly: true,
         });
       }
