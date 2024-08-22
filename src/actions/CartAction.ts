@@ -82,7 +82,7 @@ export const addOrUpdateItem = async (productId: string, qty: number = 1) => {
     return cart;
   } catch (e) {
     console.log(e);
-    return null;
+    return "Error adding item to cart";
   }
 };
 
@@ -104,9 +104,9 @@ export const removeItem = async (productId: string): Promise<any> => {
   }
 };
 
-export const getCart = async (): Promise<Cart | undefined> => {
+export const getCart = async (): Promise<Cart | null> => {
   const session = cookies().get("session")?.value;
-  if (!session) return;
+  if (!session) return null;
 
   try {
     const res = await extApi.get("/cart", {
@@ -115,7 +115,7 @@ export const getCart = async (): Promise<Cart | undefined> => {
     return res.data;
   } catch (e) {
     console.log(e);
-    return;
+    return null;
   }
 };
 
