@@ -44,7 +44,7 @@ async function createCartSession() {
 
 export const addOrUpdateItem = async (productId: string, qty: number = 1) => {
   let session = cookies().get("session")?.value;
-  let cart;
+  let cart = await getCart();
 
   if (!productId) {
     return "Missing product ID";
