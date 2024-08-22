@@ -121,7 +121,7 @@ export const getCart = async (): Promise<Cart | undefined | null> => {
 
 export const calculateTax = async (stateCode: string): Promise<void> => {
   const session = cookies().get("session")?.value;
-  if (!session && !stateCode) return;
+  if (!session || !stateCode) return;
 
   try {
     const res = await extApi.post(
