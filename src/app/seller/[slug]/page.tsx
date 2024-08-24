@@ -34,7 +34,7 @@ export async function generateMetadata({
     title: `${store.displayName} | ${SITE_METADATA.name}`,
     description: store.aboutSeller,
     openGraph: {
-      title: `View ${store.displayName} store at ${SITE_METADATA.name}`,
+      title: `View ${store.displayName} at ${SITE_METADATA.name}`,
       description: store.aboutSeller,
       type: "website",
       url: `${SITE_METADATA.url}/store/${params.slug}`,
@@ -146,6 +146,7 @@ export default async function SellerStorePage({
             <Separator orientation="vertical" className="mx-3 h-5" />
             <TabsTrigger
               value="feedback"
+              id="feedback"
               className="rounded-none bg-transparent font-semibold data-[state=active]:border-b-[3px] data-[state=active]:border-orange-600"
             >
               Feedback
