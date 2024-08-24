@@ -27,6 +27,7 @@ import {
   Package,
   PhoneOutgoing,
   Store,
+  StoreIcon,
   ThumbsUp,
 } from "lucide-react";
 import Image from "next/image";
@@ -120,12 +121,12 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
 
             <div className="flex items-center gap-1 lg:gap-4">
               {/* Review / SKU */}
-              <div className="flex items-center gap-x-1">
+              <Link href="#reviews" className="flex items-center gap-x-1">
                 <ReviewStar rating={4} height={28} />
                 <span className="text-xs font-semibold lg:text-sm">
                   {1} review
                 </span>
-              </div>
+              </Link>
 
               <Separator orientation="vertical" className="h-5" />
               <span className="text-[0.8125rem] font-medium uppercase text-muted-foreground">
@@ -199,32 +200,37 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             {/* Contact Seller Goes */}
             <div className="flex w-full flex-col items-start space-y-4 rounded-lg border-2 border-dashed border-gray-200 p-4 dark:border-gray-400 sm:flex-row sm:space-x-6 sm:space-y-0">
               <div className="flex w-full justify-center sm:w-auto sm:justify-start">
-                <Image
-                  src="/images/logo.webp"
-                  alt="Profile"
-                  width={100}
-                  height={100}
-                  className="mr-3 mt-3 rounded-full object-cover"
-                />
+                {/* Business Logo */}
+                {product?.merchant?.businessLogoURL ? (
+                  <Image
+                    src={product?.merchant?.businessLogoURL}
+                    alt="Profile"
+                    width={70}
+                    height={70}
+                    className="mr-3 mt-3 rounded-full border object-cover object-center mix-blend-multiply sm:mr-0 sm:mt-0"
+                  />
+                ) : (
+                  <StoreIcon size={100} />
+                )}
               </div>
               <div className="flex w-full flex-col items-start">
                 <p className="mx-auto mb-2 flex items-center gap-1 font-semibold text-black lg:mx-0">
-                  Nates Tools and More
+                  {product.merchant?.displayName}
                   <Link
-                    href={"#reviews"}
+                    href="#"
                     className="text-sm font-normal italic text-gray-500"
                   >
-                    (2299 reviews)
+                    (5 reviews)
                   </Link>
                 </p>
-                <div className="mx-auto mb-2 flex items-center gap-3 text-gray-500 lg:mx-0 lg:gap-1">
+                <div className="mb-2 flex items-center gap-1 text-gray-500">
                   <p className="flex items-center gap-1 text-sm font-bold">
                     <ThumbsUp size={18} />
                     99.7% Positive
                   </p>
                   <Separator orientation="vertical" className="h-5" />
                   <Link
-                    href="/"
+                    href={`/seller/${product?.merchant?.storeSlug}`}
                     className="flex items-center gap-1 text-sm font-bold hover:text-red-500"
                   >
                     <Store size={18} />
@@ -336,6 +342,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
               </TabsTrigger>
               <TabsTrigger
                 value="reviews"
+                id="reviews"
                 className="bg-transparent px-1 text-sm font-medium text-gray-400 data-[state=active]:bg-transparent data-[state=active]:shadow-none lg:text-lg"
               >
                 Reviews(5)

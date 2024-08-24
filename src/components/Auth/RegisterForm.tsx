@@ -27,6 +27,7 @@ import {
   RegisterSchema,
 } from "@/types/authSchema";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
+import FormSuccess from "./FormSuccess";
 
 export default function RegisterForm() {
   const form = useForm({
@@ -50,7 +51,9 @@ export default function RegisterForm() {
           description: "The link is valid only for 24hrs.",
           duration: 4000,
         });
-        setSuccess(data.success);
+        setSuccess(
+          "Please verify your email, link has been sent to your email.",
+        );
       }
     },
     onError(data) {
@@ -122,7 +125,7 @@ export default function RegisterForm() {
         </Link>
 
         {/* Success/Error message */}
-        {/* <FormSuccess message={success} /> */}
+        <FormSuccess message={success} />
         <FormError message={error} />
         <Button
           type="submit"

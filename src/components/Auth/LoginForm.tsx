@@ -41,15 +41,12 @@ export default function LoginForm() {
   });
 
   const [error, setError] = useState<string>("");
-  const [success, setSuccess] = useState<string>("");
 
   const { execute, status } = useAction(EmailSignInAction, {
     async onSuccess(data) {
       if (data?.error) setError(data.error);
       if (data?.success) {
-        toast.success(data.success);
         await fetchAndSetUser();
-        setSuccess(data.success);
 
         // Redirect to return URL if provided, otherwise to /account page
         router.push(return_url || "/account");
@@ -63,7 +60,6 @@ export default function LoginForm() {
 
   const onSubmit = (v: LoginFrm) => {
     setError("");
-    setSuccess("");
     execute(v);
   };
 
@@ -128,8 +124,8 @@ export default function LoginForm() {
           </Link>
         </div>
 
-        {/* Success/Error message */}
-        <FormSuccess message={success} />
+        {/* Error message */}
+
         <FormError message={error} />
 
         <Button
