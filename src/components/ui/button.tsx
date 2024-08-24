@@ -21,6 +21,7 @@ const buttonVariants = cva(
         sky: "text-primary-foreground hover:bg-sky-500/90 bg-sky-500",
         dark: "text-primary-foreground hover:bg-zinc-900/90 bg-zinc-900",
         warning: "bg-yellow-400 text-zinc-900 hover:bg-yellow-400/80",
+        success: "bg-success text-white hover:bg-success/80",
       },
       size: {
         default: "h-10 px-4 py-2",

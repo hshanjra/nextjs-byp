@@ -26,7 +26,7 @@ export default async function FeaturedProducts() {
   return (
     <section className="mt-10">
       {/* For Lg Screens */}
-      <Tabs defaultValue={categories[1].categorySlug}>
+      <Tabs defaultValue={categories[1]?.categorySlug}>
         <div className="flex items-center">
           <h3 className="mr-5 text-xl font-medium">Featured Products</h3>
 

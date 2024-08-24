@@ -46,6 +46,20 @@ export type Product = {
     vehicleEngine: [];
     vehicleYear: Array<number>;
   };
+
+  merchant?: {
+    dispatchFreq: number;
+    displayName: string;
+    // merchantRating: number,
+    storeSlug: string;
+    businessLogoURL?: string;
+    businessEmail: string;
+    businessPhone: number;
+    returnPolicyTerms: string;
+    shippingPolicyTerms: string;
+    aboutSeller: string;
+    createdAt: Date;
+  };
   createdAt: Date;
   updatedAt: Date;
 };
