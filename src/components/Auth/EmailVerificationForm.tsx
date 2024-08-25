@@ -18,6 +18,8 @@ import { EmailVerificationSchema } from "@/types/authSchema";
 import { SITE_METADATA } from "@/constants";
 
 function EmailVerificationFormContent({ token }: { token: string }) {
+  const return_url = useSearchParams().get("return_url");
+
   const router = useRouter();
 
   const form = useForm({
@@ -33,9 +35,9 @@ function EmailVerificationFormContent({ token }: { token: string }) {
         toast.error(data.error);
       } else if (data?.success) {
         toast.success(data.success);
-        setTimeout(() => {
-          router.push("/account");
-        }, 1000);
+
+        // Redirect to return URL if provided, otherwise to /account page
+        router.push(return_url || "/account");
       }
     },
     onError(data) {
@@ -50,13 +52,13 @@ function EmailVerificationFormContent({ token }: { token: string }) {
   };
 
   return (
-    <Card className="max-w-md lg:max-w-lg m-auto p-5">
+    <Card className="m-auto max-w-md p-5 lg:max-w-lg">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-          <h1 className="mb-6 mt-10 text-xl tracking-[-0.16px] text-slate-12 font-bold">
+          <h1 className="text-slate-12 mb-6 mt-10 text-xl font-bold tracking-[-0.16px]">
             Account Verification
           </h1>
-          <p className="mb-6 text-sm text-slate-11 font-normal">
+          <p className="text-slate-11 mb-6 text-sm font-normal">
             To verify your account, please follow the button below.
           </p>
           <input type="text" name="token" hidden />
@@ -67,7 +69,7 @@ function EmailVerificationFormContent({ token }: { token: string }) {
           >
             {status === "executing" ? (
               <>
-                <LoaderCircle className="animate-spin mr-1" /> Confirming
+                <LoaderCircle className="mr-1 animate-spin" /> Confirming
                 account
               </>
             ) : (
@@ -76,7 +78,7 @@ function EmailVerificationFormContent({ token }: { token: string }) {
           </Button>
         </form>
       </Form>
-      <p className="mt-6 text-sm text-slate-11 font-normal">
+      <p className="text-slate-11 mt-6 text-sm font-normal">
         If you have any issue confirming your account please, contact&nbsp;
         <Link
           href={`mailto:${SITE_METADATA.supportEmail}`}
@@ -84,7 +86,7 @@ function EmailVerificationFormContent({ token }: { token: string }) {
             buttonVariants({
               variant: "link",
             }),
-            "m-0 p-0"
+            "m-0 p-0",
           )}
         >
           {SITE_METADATA.supportEmail}
@@ -98,6 +100,7 @@ function EmailVerificationFormContent({ token }: { token: string }) {
 function EmailVerificationFormWrapper() {
   const token = useSearchParams().get("token");
   if (!token) return null;
+
   return <EmailVerificationFormContent token={token} />;
 }
 
