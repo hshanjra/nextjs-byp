@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import SearchInputBox from "../SearchInputBox";
 import { Label } from "../ui/label";
 import PartsFinder from "./PartsFinder";
+import ScrollAwareContainer from "../ScrollAwareContainer";
 
 export default function MobileNav() {
   // const pathname = usePathname();
@@ -16,8 +17,7 @@ export default function MobileNav() {
 
   return (
     /* Mobile Main Navigation */
-
-    <section className="fixed bottom-0 left-0 right-0 lg:hidden bg-white w-full py-4 px-5 z-40 border-t">
+    <ScrollAwareContainer className="fixed bottom-0 left-0 right-0 z-40 w-full border-t bg-white px-5 py-4 lg:hidden">
       <div className="flex items-center justify-between space-x-5">
         {/* Home */}
         <div className="flex flex-col uppercase">
@@ -32,13 +32,13 @@ export default function MobileNav() {
             <DialogTrigger>
               <div className="cursor-pointer">
                 <Search strokeWidth={2} size={20} className="mx-auto" />
-                <Label className="text-[.7rem] uppercase cursor-pointer">
+                <Label className="cursor-pointer text-[.7rem] uppercase">
                   Search
                 </Label>
               </div>
             </DialogTrigger>
 
-            <DialogContent className="h-full justify-center items-center">
+            <DialogContent className="h-full items-center justify-center">
               <div className="space-y-2">
                 <p className="text-center text-sm">
                   What are you looking for in Buyurparts?
@@ -52,14 +52,14 @@ export default function MobileNav() {
         <div className="flex flex-col uppercase">
           <Link href="/wishlist">
             <Heart strokeWidth={2} size={20} className="mx-auto" />
-            <Label className="text-[.7rem] cursor-pointer">Wishlist</Label>
+            <Label className="cursor-pointer text-[.7rem]">Wishlist</Label>
           </Link>
         </div>
         {/* Account */}
         <div className="flex flex-col uppercase">
           <Link href="/account">
             <UserRound strokeWidth={2} size={20} className="mx-auto" />
-            <Label className="text-[.7rem] cursor-pointer">Account</Label>
+            <Label className="cursor-pointer text-[.7rem]">Account</Label>
           </Link>
         </div>
         {/* Parts Finder */}
@@ -67,6 +67,6 @@ export default function MobileNav() {
           <PartsFinder strokeWidth={2} size={22} className="mx-auto" />
         </div>
       </div>
-    </section>
+    </ScrollAwareContainer>
   );
 }

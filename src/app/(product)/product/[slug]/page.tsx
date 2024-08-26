@@ -38,6 +38,7 @@ import Link from "next/link";
 import Loading from "./loading";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import ScrollAwareContainer from "@/components/ScrollAwareContainer";
 
 interface ProductPageProps {
   params: {
@@ -656,10 +657,9 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
       </MaxWidthWrapper>
       {/* Qty/Cart - Mobile */}
       {product && product.productStock > 0 && (
-        <div className="fixed bottom-0 z-50 w-full bg-white p-4 lg:hidden">
-          {/* Counter */}
+        <ScrollAwareContainer className="fixed bottom-0 z-50 w-full bg-white p-4 lg:hidden">
           <AddToCartButton strokeWidth={2} product={product} />
-        </div>
+        </ScrollAwareContainer>
       )}
     </>
   );
