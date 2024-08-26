@@ -23,6 +23,7 @@ import {
   Check,
   Clock,
   DollarSignIcon,
+  Flame,
   Headset,
   Heart,
   IterationCcw,
@@ -82,7 +83,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
           <Breadcrumb />
         </section>
         <div className="mx-auto my-3 max-w-2xl lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:space-x-7">
-          <section>
+          <div>
             {/* Product Images */}
             <div className="overflow-hidden">
               <ImageCarousel images={product.productImages} />
@@ -116,7 +117,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                 List of all compatible makes and models.
               </p>
             </div>
-          </section>
+          </div>
           {/* Product Info */}
           <div>
             <h1 className="text-[calc(1.375rem+1.5vw)] font-bold leading-[1.2]">
@@ -179,14 +180,35 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                 {product?.longDescription}
               </h5>
             </div>
-            <Separator />
+
+            <Separator className="mt-10" />
             {/* Qty / Add to cart */}
             {product.productStock > 0 && (
-              <div className="my-3 hidden items-center space-x-3 lg:flex">
+              <div className="my-3 hidden items-center space-x-2 lg:flex">
                 {/* Counter */}
                 <AddToCartButton strokeWidth={2} product={product} />
+
+                {/* Low stock alert */}
+                {product.productStock <= 5 && product.productStock !== 0 && (
+                  <div className="flex h-[2.875rem] items-center justify-between gap-2 rounded-2xl bg-zinc-100 px-3">
+                    <Flame
+                      strokeWidth={1}
+                      className="fill-yellow-400 text-yellow-400"
+                    />
+
+                    <div className="flex flex-col">
+                      <p className="text-[10px] text-gray-400">
+                        This item is low in stock.
+                      </p>
+                      <p className="text-xs font-semibold text-primary">
+                        item(s) left: {product.productStock}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 {/* Compatibility Message */}
-                <CompatibleMessage isCompatible={true} />
+                {/* <CompatibleMessage isCompatible={true} /> */}
               </div>
             )}
 
@@ -221,7 +243,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                 <p className="mx-auto mb-2 flex items-center gap-1 font-semibold text-black lg:mx-0">
                   {product.merchant?.displayName}
                   <Link
-                    href="#"
+                    href="#sellerReviews"
                     className="text-sm font-normal italic text-gray-500"
                   >
                     (5 reviews)
@@ -338,12 +360,23 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
               >
                 Description
               </TabsTrigger>
+
+              <Separator
+                orientation="vertical"
+                className="mx-1 h-4 bg-gray-300"
+              />
+
               <TabsTrigger
                 value="additional-info"
                 className="bg-transparent px-1 text-sm font-medium text-gray-400 data-[state=active]:bg-transparent data-[state=active]:shadow-none lg:text-lg"
               >
                 Additional Info
               </TabsTrigger>
+
+              <Separator
+                orientation="vertical"
+                className="mx-1 h-4 bg-gray-300"
+              />
               <TabsTrigger
                 value="reviews"
                 id="reviews"
@@ -351,6 +384,10 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
               >
                 Reviews(5)
               </TabsTrigger>
+              <Separator
+                orientation="vertical"
+                className="mx-1 h-4 bg-gray-300"
+              />
               <TabsTrigger
                 value="qna"
                 className="bg-transparent p-0 text-sm font-medium text-gray-400 data-[state=active]:bg-transparent data-[state=active]:shadow-none lg:pl-1 lg:text-lg"
@@ -506,7 +543,10 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             <div className="col-span-5">
               {/* Seller Feedback */}
               <div className="my-5 flex items-center gap-1">
-                <h3 className="font-roboto text-xl font-bold">
+                <h3
+                  className="font-roboto text-xl font-bold"
+                  id="sellerReviews"
+                >
                   Seller Feedback
                 </h3>
                 <span className="text-muted-foreground">(6)</span>

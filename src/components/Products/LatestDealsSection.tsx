@@ -20,6 +20,7 @@ export default async function LatestDealsSection() {
   const { products, error, totalCount } = await getAllProducts({
     limit: 5,
     sort: "price-asc",
+    status: "inStock",
   });
 
   if (!products) {
@@ -29,18 +30,18 @@ export default async function LatestDealsSection() {
     <section className="my-10">
       {/* Header */}
       <div className="flex items-center justify-between py-2">
-        <h3 className="text-primary text-lg font-semibold">
+        <h3 className="text-lg font-semibold text-primary">
           Latest Deals of this Week
         </h3>
         <Link
           href="/products?sort=price-asc"
-          className="flex items-center ml-auto text-sm hover:text-red-500 font-medium"
+          className="ml-auto flex items-center text-sm font-medium hover:text-red-500"
         >
           View All
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
-      <Separator className="bg-primary my-3" />
+      <Separator className="my-3 bg-primary" />
       {/* Products */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {/* {isPending && <div>Loading...</div>} */}

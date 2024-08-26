@@ -15,33 +15,33 @@ export default function ProductHoverInfoCard({
 }) {
   return (
     // max-w-[400px] md:max-w-[170px] lg:max-w-[230px]
-    <div className="relative group ">
-      <div className="p-2 space-y-2 rounded-t-xl lg:group-hover:border bg-white">
+    <div className="group relative">
+      <div className="space-y-2 rounded-t-xl bg-white p-2 lg:group-hover:border">
         <Link href={"/product/" + p.productSlug}>
           <ProductSlider images={p.productImages} />
 
-          <h5 className="text-[0.87rem] my-3 font-semibold transition hover:text-red-600 text-clip overflow-hidden leading-4">
+          <h5 className="my-3 overflow-hidden text-clip text-[0.87rem] font-semibold leading-4 transition hover:text-red-600">
             {trimString(p.productTitle, 45)}
           </h5>
         </Link>
         {/* Review */}
         <div className="inline-block">
           <ReviewStar rating={5} height={20} fontsize={19} />
-          <span className="text-xs font-semibold ml-1">1 Review</span>
+          <span className="ml-1 text-xs font-semibold">1 Review</span>
         </div>
 
         {/* Price */}
         <div className="flex space-x-2">
-          <span className="text-gray-400 font-light">
+          <span className="font-light text-gray-400">
             <s>{formatPrice(p.regularPrice)}</s>
           </span>
-          <span className="text-primary font-semibold text-xl">
+          <span className="text-xl font-semibold text-primary">
             {formatPrice(p.salePrice)}
           </span>
         </div>
 
         {/* Stock */}
-        <div className="flex items-center mt-3">
+        <div className="mt-3 flex items-center">
           <Package
             size={17}
             strokeWidth={1}
@@ -51,11 +51,11 @@ export default function ProductHoverInfoCard({
             })}
           />
           {p.productStock > 0 ? (
-            <span className="font-semibold text-xs ml-2 text-successDark">
+            <span className="ml-2 text-xs font-semibold text-successDark">
               In Stock
             </span>
           ) : (
-            <span className="font-semibold text-xs ml-2 text-red-500">
+            <span className="ml-2 text-xs font-semibold text-red-500">
               Out of Stock
             </span>
           )}
@@ -64,17 +64,18 @@ export default function ProductHoverInfoCard({
         {/* Add to cart button for mobile */}
 
         <AddToCartButton
-          className="bg-primary !w-full lg:hidden p-2"
+          className="!w-full bg-primary p-2 lg:hidden"
           size={25}
           strokeWidth={1.5}
           product={p}
           disabled={p.productStock <= 0}
+          showQtyButtons={false}
         />
 
         {/* Hover Area */}
-        <div className="absolute bg-white z-50 hidden lg:group-hover:block rounded-b-lg shadow-2xl border left-0 p-2 w-full">
+        <div className="absolute left-0 z-50 hidden w-full rounded-b-lg border bg-white p-2 shadow-2xl lg:group-hover:block">
           {/* Short description */}
-          <div className="text-xs my-3 px-3">
+          <div className="my-3 px-3 text-xs">
             {p.shortDescription}
             <ul className="space-y-1">
               <li className="list-disc">
@@ -88,9 +89,10 @@ export default function ProductHoverInfoCard({
           </div>
 
           <AddToCartButton
-            className="bg-primary !w-full"
+            className="!w-full bg-primary"
             product={p}
             disabled={p.productStock <= 0}
+            showQtyButtons={false}
           />
         </div>
       </div>

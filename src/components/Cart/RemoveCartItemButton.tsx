@@ -22,13 +22,13 @@ export default function RemoveCartItemButton({
   return (
     <button
       className={cn(
-        `absolute -top-1 -left-3 bg-red-600 rounded-full text-white`,
-        className
+        `absolute -left-3 -top-1 rounded-full bg-red-600 p-[2px] text-white`,
+        className,
       )}
       onClick={handleRemoveItem}
       disabled={isLoading}
     >
-      <X size={20} />
+      <X size={16} />
     </button>
   );
 }

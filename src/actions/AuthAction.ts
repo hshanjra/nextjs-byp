@@ -153,10 +153,10 @@ export const logoutUserAction = async () => {
     // check if token exists
     const token = cookies().get("accessToken");
     if (!token) return null;
+    cookies().delete("accessToken");
     await extApi.get("/auth/logout", {
       headers: { Cookie: cookies().toString() },
     });
-    cookies().delete("accessToken");
     return { success: "Logged out successfully." };
   } catch (error: any) {
     console.log(error);
