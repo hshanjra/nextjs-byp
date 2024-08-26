@@ -11,6 +11,7 @@ export default function CheckoutButton() {
   return (
     <Button
       className="w-full"
+      variant={"success"}
       onClick={() => {
         setIsLoading(true);
         router.push("/checkout");

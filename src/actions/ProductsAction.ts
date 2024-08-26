@@ -10,7 +10,7 @@ type queryParams = {
   minPrice?: number;
   maxPrice?: number;
   brand?: string[];
-  status?: string[];
+  status?: string[] | string;
   condition?: string[];
   make?: string;
   featured?: boolean;
@@ -27,7 +27,7 @@ interface ProductsResponse {
 }
 
 export const getAllProducts = async (
-  params?: queryParams
+  params?: queryParams,
 ): Promise<ProductsResponse> => {
   // products?limit=90&condition=new,used&brand=bmw,kia&year=2014
 
@@ -63,7 +63,7 @@ export const getAllProducts = async (
     const queryString = new URLSearchParams(validatedData as any).toString();
 
     const { data } = await extApi.get<ProductsResponse>(
-      `/products?${queryString}`
+      `/products?${queryString}`,
     );
 
     return {
@@ -79,7 +79,7 @@ export const getAllProducts = async (
 };
 
 export const getProductBySlug = async (
-  slug: string
+  slug: string,
 ): Promise<{ product: Product | null; error: string }> => {
   try {
     const { data } = await extApi.get<Product | null>(`/products/${slug}`);
