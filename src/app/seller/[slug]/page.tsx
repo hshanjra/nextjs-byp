@@ -75,6 +75,7 @@ export default async function SellerStorePage({
     status,
     condition,
     featured,
+    seller: store._id,
   };
   const { products, totalCount, error } = await getAllProducts(query);
 
@@ -238,6 +239,20 @@ export default async function SellerStorePage({
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
+
+                <div className="mt-10 flex flex-col items-center justify-center gap-3 lg:flex-row lg:gap-5">
+                  <h3 className="text-2xl font-semibold">
+                    Still have questions?
+                  </h3>
+                  <Button
+                    asChild
+                    className="rounded-full"
+                    variant={"dark"}
+                    size={"lg"}
+                  >
+                    <Link href={"#"}>Contact Seller</Link>
+                  </Button>
+                </div>
               </div>
             </div>
           </TabsContent>

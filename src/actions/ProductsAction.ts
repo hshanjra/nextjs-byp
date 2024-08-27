@@ -18,6 +18,7 @@ type queryParams = {
   subModel?: string;
   year?: number;
   category?: string;
+  seller?: string; // seller id to get specific seller products
 };
 
 interface ProductsResponse {
@@ -41,6 +42,7 @@ export const getAllProducts = async (
   const condition = params?.condition || "";
   const featured = params?.featured ? true : false;
   const category = params?.category || "";
+  const seller = params?.seller || "";
 
   try {
     const validatedData = ProductFilterValidator.parse({
@@ -58,6 +60,7 @@ export const getAllProducts = async (
       subModel: params?.subModel || "",
       year: params?.year || 0,
       category,
+      seller,
     });
 
     const queryString = new URLSearchParams(validatedData as any).toString();

@@ -48,6 +48,7 @@ export type Product = {
   };
 
   merchant?: {
+    _id: string;
     dispatchFreq: number;
     displayName: string;
     // merchantRating: number,
