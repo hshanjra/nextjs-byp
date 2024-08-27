@@ -92,3 +92,27 @@ export const getProductBySlug = async (
     return { product: null, error: "Unable to get products" };
   }
 };
+
+export const GetProductReviews = async (
+  slug: string,
+  limit?: number,
+  offset?: number,
+) => {
+  const fixedLimit = limit || 10;
+  const fixedOffset = offset || 0;
+
+  try {
+    const { data } = await extApi.get(
+      `/reviews?productSlug=${slug}&limit=${fixedLimit}&page=${fixedOffset}`,
+    );
+    return {
+      reviews: data.reviews,
+      reviewsCount: data.totalReviewsCount,
+      error: "",
+    };
+  } catch (error) {
+    console.error(`Unable to get reviews for product ${slug}`, error);
+    // TODO: return sentry error
+    return { reviews: [], reviewsCount: 0, error: "Unable to get products" };
+  }
+};

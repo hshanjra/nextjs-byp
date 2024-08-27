@@ -39,6 +39,7 @@ import Loading from "./loading";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ScrollAwareContainer from "@/components/ScrollAwareContainer";
+import { ReviewsList } from "@/components/Reviews";
 
 interface ProductPageProps {
   params: {
@@ -131,9 +132,13 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                 {/* Review */}
                 {product.reviewCount && product.reviewCount > 0 ? (
                   <div className="flex items-center gap-x-1">
-                    <ReviewStar rating={4} height={28} />
+                    <ReviewStar
+                      rating={product?.averageRating || 4}
+                      height={28}
+                    />
                     <span className="text-xs font-semibold lg:text-sm">
-                      {product?.reviewCount} review
+                      {product?.reviewCount}{" "}
+                      {product?.reviewCount > 1 ? "Reviews" : "Review"}
                     </span>
                   </div>
                 ) : (
@@ -418,7 +423,8 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                 id="reviews"
                 className="bg-transparent px-1 text-sm font-medium text-gray-400 data-[state=active]:bg-transparent data-[state=active]:shadow-none lg:text-lg"
               >
-                Reviews(5)
+                Reviews
+                <p className="ml-1 text-sm">({product?.reviewCount || 0})</p>
               </TabsTrigger>
               <Separator
                 orientation="vertical"
@@ -471,10 +477,14 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             </TabsContent>
             <TabsContent value="reviews">
               <div>
-                <p>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Inventore, nobis!
-                </p>
+                {product?.reviewCount && product?.reviewCount > 0 ? (
+                  <h3 className="my-3 text-xl font-semibold text-black">
+                    {product?.reviewCount || 0}{" "}
+                    {product?.reviewCount > 1 ? "Reviews" : "Review"} for{" "}
+                    {product.productTitle}
+                  </h3>
+                ) : null}
+                <ReviewsList slug={product.productSlug} />
               </div>
 
               <AddReviewForm />
