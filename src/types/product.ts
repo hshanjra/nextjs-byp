@@ -5,6 +5,8 @@ export type Product = {
   productSlug: string;
   productBrand: string;
   metaTitle: string;
+  reviewCount?: number;
+  averageRating?: number;
   metaDescription: string;
   shortDescription: string;
   longDescription: string;
@@ -48,6 +50,7 @@ export type Product = {
   };
 
   merchant?: {
+    _id: string;
     dispatchFreq: number;
     displayName: string;
     // merchantRating: number,

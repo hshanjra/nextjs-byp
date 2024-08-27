@@ -10,7 +10,7 @@ import { Suspense } from "react";
 import { SITE_METADATA } from "@/constants";
 
 const krub = Krub({
-  weight: ["200", "300", "500", "600", "700"],
+  weight: ["200", "400", "300", "500", "600", "700"],
   style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-krub",

@@ -39,6 +39,7 @@ import Loading from "./loading";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ScrollAwareContainer from "@/components/ScrollAwareContainer";
+import { ReviewsList } from "@/components/Reviews";
 
 interface ProductPageProps {
   params: {
@@ -127,11 +128,27 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
 
             <div className="flex items-center gap-1 lg:gap-4">
               {/* Review / SKU */}
-              <Link href="#reviews" className="flex items-center gap-x-1">
-                <ReviewStar rating={4} height={28} />
-                <span className="text-xs font-semibold lg:text-sm">
-                  {1} review
-                </span>
+              <Link href="#reviews">
+                {/* Review */}
+                {product.reviewCount && product.reviewCount > 0 ? (
+                  <div className="flex items-center gap-x-1">
+                    <ReviewStar
+                      rating={product?.averageRating || 4}
+                      height={28}
+                    />
+                    <span className="text-xs font-semibold lg:text-sm">
+                      {product?.reviewCount}{" "}
+                      {product?.reviewCount > 1 ? "Reviews" : "Review"}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-x-1">
+                    <ReviewStar rating={0} height={28} />
+                    <span className="text-xs font-semibold lg:text-sm">
+                      No Reviews Yet
+                    </span>
+                  </div>
+                )}
               </Link>
 
               <Separator orientation="vertical" className="h-5" />
@@ -166,6 +183,29 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                 )}
               </div>
             </div>
+
+            {/* Low stock alert for mobile */}
+            {/* FIXME: fit this */}
+            {/* <div className="mt-5 w-48">
+              {product.productStock <= 5 && product.productStock !== 0 && (
+                <div className="flex items-center justify-between gap-2 rounded-2xl bg-zinc-100 px-3 py-2 lg:hidden">
+                  <Flame
+                    strokeWidth={1}
+                    className="fill-yellow-400 text-yellow-400"
+                  />
+
+                  <div className="flex flex-col">
+                    <p className="text-[10px] text-gray-400">
+                      This item is low in stock.
+                    </p>
+                    <p className="text-xs font-semibold text-primary">
+                      item(s) left: {product.productStock}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div> */}
+
             {/* Price */}
             <div className="my-5 flex items-end gap-x-2">
               <h3 className="text-2xl text-gray-400">
@@ -383,7 +423,8 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                 id="reviews"
                 className="bg-transparent px-1 text-sm font-medium text-gray-400 data-[state=active]:bg-transparent data-[state=active]:shadow-none lg:text-lg"
               >
-                Reviews(5)
+                Reviews
+                <p className="ml-1 text-sm">({product?.reviewCount || 0})</p>
               </TabsTrigger>
               <Separator
                 orientation="vertical"
@@ -402,8 +443,8 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
               value="description"
               className="my-2 font-light text-gray-700"
             >
-              <h3 className="my-3 text-lg font-semibold text-zinc-500">
-                Item description from the seller
+              <h3 className="my-3 text-2xl font-semibold text-black">
+                Item Description from the Seller
               </h3>
               {product.longDescription}
             </TabsContent>
@@ -436,17 +477,23 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             </TabsContent>
             <TabsContent value="reviews">
               <div>
-                <p>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Inventore, nobis!
-                </p>
+                {product?.reviewCount && product?.reviewCount > 0 ? (
+                  <h3 className="my-3 text-xl font-semibold text-black">
+                    {product?.reviewCount || 0}{" "}
+                    {product?.reviewCount > 1 ? "Reviews" : "Review"} for{" "}
+                    {product.productTitle}
+                  </h3>
+                ) : null}
+                <ReviewsList slug={product.productSlug} />
               </div>
 
               <AddReviewForm />
             </TabsContent>
 
             <TabsContent value="qna">
-              <p>QnA</p>
+              <h3 className="my-3 text-2xl font-semibold text-black">
+                Questions and Answers
+              </h3>
             </TabsContent>
           </Tabs>
         </section>

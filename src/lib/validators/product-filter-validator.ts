@@ -31,6 +31,7 @@ export const ProductFilterValidator = z.object({
   model: z.string().optional(),
   subModel: z.string().optional(),
   year: z.number().optional(),
+  seller: z.string().optional(),
 });
 
 export type ProductState = Omit<

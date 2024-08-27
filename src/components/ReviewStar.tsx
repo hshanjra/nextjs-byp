@@ -13,16 +13,16 @@ export default function ReviewStar({
   return (
     <div
       className="relative inline-block overflow-hidden"
-      style={{ width: "77px", height: `${height}px` }}
+      style={{ width: "80px", height: `${height}px` }}
     >
       <div
-        className="absolute top-0 left-0 w-full text-gray-300"
+        className="absolute left-0 top-0 w-full text-gray-300"
         style={{ fontSize: `${fontsize}px` }}
       >
         {"★".repeat(totalStars)}
       </div>
       <div
-        className="absolute top-0 left-0 h-full text-yellow-400 overflow-hidden"
+        className="absolute left-0 top-0 h-full overflow-hidden text-yellow-400"
         style={{ fontSize: `${fontsize}px`, width: `${percentage}%` }}
       >
         {"★".repeat(totalStars)}

@@ -25,10 +25,25 @@ export default function ProductHoverInfoCard({
           </h5>
         </Link>
         {/* Review */}
-        <div className="inline-block">
-          <ReviewStar rating={5} height={20} fontsize={19} />
-          <span className="ml-1 text-xs font-semibold">1 Review</span>
-        </div>
+        {p.reviewCount && p.reviewCount > 0 ? (
+          <div className="flex flex-col gap-1 lg:inline-block">
+            <ReviewStar
+              rating={p?.averageRating || 4}
+              height={20}
+              fontsize={19}
+            />
+            <span className="text-xs font-semibold lg:ml-2">
+              {p.reviewCount} Review(s)
+            </span>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-1 lg:inline-block">
+            <ReviewStar rating={0} height={20} fontsize={19} />
+            <span className="text-xs font-semibold lg:ml-2">
+              No Reviews Yet
+            </span>
+          </div>
+        )}
 
         {/* Price */}
         <div className="flex space-x-2">
