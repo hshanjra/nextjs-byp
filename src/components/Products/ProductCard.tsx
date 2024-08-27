@@ -35,11 +35,27 @@ export default async function ProductCard({
             {trimString(p.productTitle, 45)}
           </h5>
         </Link>
+
         {/* Review */}
-        <div className="grid items-center md:flex lg:flex">
-          <ReviewStar rating={2} height={28} />
-          <span className="text-sm font-semibold">{1} Review</span>
-        </div>
+        {p.reviewCount && p.reviewCount > 0 ? (
+          <div className="inline-block">
+            <ReviewStar
+              rating={p?.averageRating || 4}
+              height={20}
+              fontsize={19}
+            />
+            <span className="ml-2 text-xs font-semibold">
+              {p.reviewCount} Review(s)
+            </span>
+          </div>
+        ) : (
+          <div className="flex flex-col md:inline-block lg:inline-block">
+            <ReviewStar rating={0} height={20} fontsize={19} />
+            <span className="text-xs font-semibold md:ml-2 lg:ml-2">
+              No Reviews Yet
+            </span>
+          </div>
+        )}
 
         <div className="flex">
           {/* Price */}

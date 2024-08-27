@@ -117,8 +117,8 @@ export default async function CartSidebar() {
               </div>
             </ScrollArea>
 
-            <div className="relative mb-10 w-full space-y-2 rounded-t-2xl border border-zinc-200 bg-zinc-200/60 px-3 pb-12 shadow-2xl">
-              <div className="space-y-1.5 pt-3 text-sm">
+            <div className="relative mb-16 w-full space-y-2 rounded-2xl border border-zinc-200 bg-zinc-200/60 p-4 shadow-[0px_-10px_20px_-7px_#00000024] lg:mb-14">
+              <div className="space-y-1.5 text-sm">
                 <div className="flex">
                   <span className="flex-1">Taxes</span>
                   <span>

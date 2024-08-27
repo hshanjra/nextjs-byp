@@ -127,11 +127,23 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
 
             <div className="flex items-center gap-1 lg:gap-4">
               {/* Review / SKU */}
-              <Link href="#reviews" className="flex items-center gap-x-1">
-                <ReviewStar rating={4} height={28} />
-                <span className="text-xs font-semibold lg:text-sm">
-                  {1} review
-                </span>
+              <Link href="#reviews">
+                {/* Review */}
+                {product.reviewCount && product.reviewCount > 0 ? (
+                  <div className="flex items-center gap-x-1">
+                    <ReviewStar rating={4} height={28} />
+                    <span className="text-xs font-semibold lg:text-sm">
+                      {product?.reviewCount} review
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-x-1">
+                    <ReviewStar rating={0} height={28} />
+                    <span className="text-xs font-semibold lg:text-sm">
+                      No Reviews Yet
+                    </span>
+                  </div>
+                )}
               </Link>
 
               <Separator orientation="vertical" className="h-5" />
@@ -425,8 +437,8 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
               value="description"
               className="my-2 font-light text-gray-700"
             >
-              <h3 className="my-3 text-lg font-semibold text-zinc-500">
-                Item description from the seller
+              <h3 className="my-3 text-2xl font-semibold text-black">
+                Item Description from the Seller
               </h3>
               {product.longDescription}
             </TabsContent>
@@ -469,7 +481,9 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             </TabsContent>
 
             <TabsContent value="qna">
-              <p>QnA</p>
+              <h3 className="my-3 text-2xl font-semibold text-black">
+                Questions and Answers
+              </h3>
             </TabsContent>
           </Tabs>
         </section>

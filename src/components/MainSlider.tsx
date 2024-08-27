@@ -87,7 +87,7 @@ export default function MainSlider() {
 
   const inactiveStyles = "hidden text-gray-400";
   return (
-    <MaxWidthWrapper className="mt-5 h-96 lg:h-[550px]">
+    <MaxWidthWrapper className="mt-5 h-96 lg:h-[520px]">
       <section className="mx-auto grid h-full px-0 py-1 lg:grid-cols-4 lg:pl-5">
         <div className="hidden bg-transparent lg:col-span-1 lg:block"></div>
         <div className="group relative col-span-full aspect-video h-full w-full overflow-hidden rounded-xl border bg-zinc-100 lg:col-span-3">
