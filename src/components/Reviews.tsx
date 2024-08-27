@@ -19,14 +19,14 @@ export const ReviewsList = ({ slug }: ReviewListProps) => {
     queryFn: async () => GetProductReviews(slug),
   });
 
-  if (!reviews || reviews.reviewsCount === 0)
+  if (reviews?.reviewsCount === 0)
     return (
       <div className="my-10 text-center text-sm text-gray-500">
         No reviews available for this product.
       </div>
     );
 
-  if (error || reviews.error)
+  if (error || reviews?.error)
     return (
       <div className="my-10 text-center text-sm text-gray-500">
         Sorry, we are unable to load reviews at this time. Please refresh the
