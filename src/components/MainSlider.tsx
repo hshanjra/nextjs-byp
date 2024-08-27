@@ -27,27 +27,39 @@ interface sContent {
 
 const sliderContent: sContent[] = [
   {
-    topTxt: "This week only for world premier",
-    h1: "We have the parts you need",
+    topTxt: "This Week Only for World Premier",
+    h1: "When Buying Parts With Installation",
     image: {
-      url: "/images/slider-03.jpg",
+      url: "/images/slider-01.jpg",
       alt: "slider-1",
     },
-    p: "Installation parts in services of, our partners. limited time offer for only new customers, also get free shipping on orders.",
+    p: "Installation of parts in the services of, our partners. Limited time offer for only new customer, also get free shipping on orders.",
     price: "$179.00",
     discountedPrice: "$159.00",
     href: "#",
   },
   {
-    topTxt: "This week only for world premier",
-    h1: "",
+    topTxt: "Get The Best Auto Parts",
+    h1: "We Make Car Repair Hassle Free",
+    image: {
+      url: "/images/slider-02.jpg",
+      alt: "slider-2",
+    },
+    p: "Installation of parts in the services of, our partners. Limited time offer for only new customer, also get free shipping on orders.",
+    discountedPrice: "",
+    price: "",
+    href: "",
+  },
+  {
+    topTxt: "This Week Only for World Premier",
+    h1: "We Have The Parts You Need",
     image: {
       url: "/images/slider-03.jpg",
       alt: "slider-2",
     },
-    p: "",
-    discountedPrice: "",
-    price: "",
+    p: "Installation of parts in the services of, our partners. Limited time offer for only new customer, also get free shipping on orders.",
+    discountedPrice: "$159.00",
+    price: "$179.00",
     href: "",
   },
 ];
@@ -75,11 +87,11 @@ export default function MainSlider() {
 
   const inactiveStyles = "hidden text-gray-400";
   return (
-    <MaxWidthWrapper className="mt-5 h-96 lg:h-full ">
-      <section className="mx-auto h-full px-0 lg:pl-5 py-1 grid lg:grid-cols-4">
-        <div className="hidden lg:col-span-1 bg-transparent lg:block"></div>
-        <div className="relative group bg-zinc-100 border aspect-video rounded-xl overflow-hidden col-span-full h-full w-full lg:col-span-3">
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition">
+    <MaxWidthWrapper className="mt-5 h-96 lg:h-[550px]">
+      <section className="mx-auto grid h-full px-0 py-1 lg:grid-cols-4 lg:pl-5">
+        <div className="hidden bg-transparent lg:col-span-1 lg:block"></div>
+        <div className="group relative col-span-full aspect-video h-full w-full overflow-hidden rounded-xl border bg-zinc-100 lg:col-span-3">
+          <div className="absolute inset-0 opacity-0 transition group-hover:opacity-100">
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -87,7 +99,7 @@ export default function MainSlider() {
               }}
               className={cn(activeStyles, "right-0 transition", {
                 [inactiveStyles]: slideConfig.isEnd,
-                "bg-white opacity-100 h-14 rounded-l-lg px-2":
+                "h-14 rounded-l-lg bg-white px-2 opacity-100":
                   !slideConfig.isEnd,
               })}
               aria-label="next image"
@@ -102,7 +114,7 @@ export default function MainSlider() {
               }}
               className={cn(activeStyles, "left-0 transition", {
                 [inactiveStyles]: slideConfig.isBeginning,
-                "bg-white opacity-100 h-14 rounded-r-lg px-2":
+                "h-14 rounded-r-lg bg-white px-2 opacity-100":
                   !slideConfig.isBeginning,
               })}
               aria-label="previous image"
@@ -118,13 +130,13 @@ export default function MainSlider() {
               },
             }}
             onSwiper={(swiper) => setSwiper(swiper)}
-            className="h-full w-full main-slider"
+            className="main-slider h-full w-full"
             spaceBetween={50}
             modules={[Pagination]}
             slidesPerView={1}
           >
             {sliderContent?.map((content, i) => (
-              <SwiperSlide key={i} className="relative lg:h-full w-full">
+              <SwiperSlide key={i} className="relative w-full lg:h-full">
                 <Image
                   src={content?.image.url}
                   fill
@@ -134,17 +146,17 @@ export default function MainSlider() {
                   className="-z-10 h-full w-full object-cover object-center"
                 />
                 {/* Slider Content */}
-                <div className="backdrop-opacity-10 backdrop-invert bg-white/3 h-full">
-                  <div className="max-w-lg p-7 flex justify-center flex-col h-full space-y-2 lg:space-y-5 text-white">
+                <div className="h-full bg-gradient-to-r from-black/40 backdrop-invert backdrop-opacity-10">
+                  <div className="flex h-full max-w-md flex-col justify-center space-y-2 p-7 px-10 text-white lg:max-w-xl lg:space-y-5">
                     <p className="capitalize">{content.topTxt}</p>
-                    <h1 className="text-5xl leading-[3rem] font-bold capitalize">
+                    <h1 className="text-2xl font-bold capitalize leading-9 md:text-3xl md:leading-loose lg:text-5xl lg:leading-[4rem]">
                       {content.h1}
                     </h1>
-                    <p className="capitalize text-gray-300 text-sm">
+                    <p className="text-sm capitalize text-gray-300">
                       {content.p}
                     </p>
-                    <div className="flex space-x-2 items-baseline">
-                      <h3 className="text-gray-300 text-xl">
+                    <div className="flex items-baseline space-x-2">
+                      <h3 className="text-xl text-gray-300">
                         <s>{content.price}</s>
                       </h3>
                       <h2 className="text-3xl font-semibold">
