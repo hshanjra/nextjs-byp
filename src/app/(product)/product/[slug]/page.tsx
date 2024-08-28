@@ -287,7 +287,8 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                     href="#sellerReviews"
                     className="text-sm font-normal italic text-gray-500"
                   >
-                    (5 reviews)
+                    ({product?.merchantReviewCount}{" "}
+                    {product?.merchantReviewCount > 1 ? "reviews" : "review"})
                   </Link>
                 </p>
                 <div className="mb-2 flex items-center gap-1 text-gray-500">

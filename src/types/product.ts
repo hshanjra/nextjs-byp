@@ -7,6 +7,8 @@ export type Product = {
   metaTitle: string;
   reviewCount?: number;
   averageRating?: number;
+  merchantReviewCount?: number;
+  merchantAverageRating?: number;
   metaDescription: string;
   shortDescription: string;
   longDescription: string;

@@ -97,3 +97,24 @@ export function transformText(
       return string;
   }
 }
+
+export function calculatePositiveFeedbackPercentage(
+  averageRating: number,
+  positiveThreshold: number = 4,
+) {
+  if (averageRating < 0 || averageRating > 5) {
+    throw new Error("Invalid average rating. It should be between 0 and 5.");
+  }
+
+  // If average rating is below the threshold, return 0% positive feedback
+  if (averageRating < positiveThreshold) {
+    return 0;
+  }
+
+  // Calculate the positive feedback percentage based on average rating
+  const positiveFeedbackPercentage =
+    ((averageRating - positiveThreshold + 1) / (5 - positiveThreshold + 1)) *
+    100;
+
+  return positiveFeedbackPercentage.toFixed(2); // Returns a fixed-point notation string
+}
