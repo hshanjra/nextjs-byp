@@ -17,7 +17,12 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SITE_METADATA } from "@/constants";
-import { cn, formatDate, formatPrice } from "@/lib/utils";
+import {
+  calculatePositiveFeedbackPercentage,
+  cn,
+  formatDate,
+  formatPrice,
+} from "@/lib/utils";
 import {
   Calendar,
   Check,
@@ -288,13 +293,16 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                     className="text-sm font-normal italic text-gray-500"
                   >
                     ({product?.merchantReviewCount}{" "}
-                    {product?.merchantReviewCount > 1 ? "reviews" : "review"})
+                    {product?.merchantReviewCount! > 1 ? "reviews" : "review"})
                   </Link>
                 </p>
                 <div className="mb-2 flex items-center gap-1 text-gray-500">
                   <p className="flex items-center gap-1 text-sm font-bold">
                     <ThumbsUp size={18} />
-                    99.7% Positive
+                    {calculatePositiveFeedbackPercentage(
+                      product?.averageRating!,
+                    )}{" "}
+                    Positive
                   </p>
                   <Separator orientation="vertical" className="h-5" />
                   <Link

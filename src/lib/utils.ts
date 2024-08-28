@@ -116,5 +116,5 @@ export function calculatePositiveFeedbackPercentage(
     ((averageRating - positiveThreshold + 1) / (5 - positiveThreshold + 1)) *
     100;
 
-  return positiveFeedbackPercentage.toFixed(2); // Returns a fixed-point notation string
+  return Math.floor(positiveFeedbackPercentage); // Returns the integer part only
 }
