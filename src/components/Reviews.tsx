@@ -1,6 +1,6 @@
 "use client";
 
-import { GetProductReviews } from "@/actions/ProductsAction";
+import { GetReviews } from "@/actions/ProductsAction";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2, User } from "lucide-react";
 import ReviewStar from "./ReviewStar";
@@ -16,7 +16,7 @@ export const ReviewsList = ({ slug }: ReviewListProps) => {
     error,
   } = useQuery({
     queryKey: [slug],
-    queryFn: async () => GetProductReviews(slug),
+    queryFn: async () => GetReviews({ slug }),
   });
 
   if (reviews?.reviewsCount === 0)
@@ -57,7 +57,11 @@ export const ReviewItem = ({ review }: { review: any }) => {
         <ReviewStar rating={review?.productRating} height={20} />
 
         <div className="flex items-center gap-2">
-          <h5 className="text-base font-semibold">{`${review?.user.firstName.charAt(0)}** **${review?.user.lastName.charAt(0)}`}</h5>
+          <h5 className="text-base font-semibold">
+            {" "}
+            {review?.user.firstName.charAt(0)}**{" "}
+            {review?.user.lastName.charAt(0)}**
+          </h5>
           -
           <span className="text-xs font-normal text-gray-400">
             {formatDate(review?.createdAt)}

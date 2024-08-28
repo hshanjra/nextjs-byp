@@ -10,7 +10,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SITE_METADATA } from "@/constants";
-import { formatDate } from "@/lib/utils";
+import { calculatePositiveFeedbackPercentage, formatDate } from "@/lib/utils";
 import { MessageSquareText, Share, StoreIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,6 +21,7 @@ import EmptyState from "@/components/Products/EmptyState";
 import ProductHoverInfoCard from "@/components/Products/ProductHoverInfoCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import SellerComments from "./_components/SellerComments";
 
 export async function generateMetadata({
   params,
@@ -103,7 +104,13 @@ export default async function SellerStorePage({
           <div className="flex flex-col items-center justify-between lg:flex-row">
             <div className="flex items-center gap-3">
               <p className="text-sm">
-                <b>95.2%</b> positive feedback
+                <b>
+                  {calculatePositiveFeedbackPercentage(
+                    store.averageSellerRating,
+                  )}
+                  %
+                </b>{" "}
+                positive feedback
               </p>
               <p className="text-sm">
                 <b>171K</b> items sold
@@ -179,7 +186,7 @@ export default async function SellerStorePage({
           <TabsContent value="about">
             <div className="my-5 bg-zinc-100 p-5">
               <h3 className="mb-5 mt-5 text-xl font-semibold">About Us</h3>
-              <p className="text-sm font-medium tracking-wide text-gray-700">
+              <p className="text-sm font-medium capitalize tracking-wide text-gray-700">
                 {store.aboutSeller}
               </p>
             </div>
@@ -261,136 +268,13 @@ export default async function SellerStorePage({
             <section className="mt-5">
               <div className="mb-5 flex items-center gap-1">
                 <h3 className="text-2xl font-medium">Seller Feedback</h3>
-                <span className="text-muted-foreground">(18,305)</span>
+                <span className="text-muted-foreground">
+                  ({store?.sellerReviewsCount})
+                </span>
               </div>
 
               {/* Feedback */}
-              <div className="flex flex-col gap-5">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      <Badge
-                        variant={"success"}
-                        className="mr-3 rounded-full px-2"
-                      >
-                        +
-                      </Badge>
-                      <h5>s***s</h5>
-                      <span className="text-xs text-gray-400">Past month</span>
-                    </div>
-                    <span className="text-xs text-gray-400">
-                      Verified purchase
-                    </span>
-                  </div>
-
-                  {/* Review */}
-                  <p className="my-5">
-                    This is my second time ordering from this seller and they
-                    are the best. Best for shipping on time, best for
-                    communication and best for packaging the item secure. I got
-                    to say I'm super happy with it. Thank you soo much, I
-                    appreciate it.
-                  </p>
-                </div>
-                <Separator />
-
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      <Badge
-                        variant={"success"}
-                        className="mr-3 rounded-full px-2"
-                      >
-                        +
-                      </Badge>
-                      <h5>d***y</h5>
-                      <span className="text-xs text-gray-400">Past month</span>
-                    </div>
-                    <span className="text-xs text-gray-400">
-                      Verified purchase
-                    </span>
-                  </div>
-
-                  {/* Review */}
-                  <p className="my-5">
-                    This seller is AWESOME! GREAT communication, excellent
-                    price, very fast turnaround! item exactly as described! I
-                    highly recommended this seller!
-                  </p>
-                </div>
-                <Separator />
-
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      <Badge
-                        variant={"success"}
-                        className="mr-3 rounded-full px-2"
-                      >
-                        +
-                      </Badge>
-                      <h5>n***a</h5>
-                      <span className="text-xs text-gray-400">Past month</span>
-                    </div>
-                    <span className="text-xs text-gray-400">
-                      Verified purchase
-                    </span>
-                  </div>
-
-                  {/* Review */}
-                  <p className="my-5">
-                    The new seat belt webbing is exactly as described and the
-                    service was exceptional. I ordered it January 27th and
-                    mailed my old seat belt assy. to them on January 28 th .
-                    They re webbed it and I had it back on February 6th ! and
-                    its as good as new . I messaged them when I first saw the
-                    add and their response was immediate .Its nice to see a
-                    company now days with this kind of service . I would
-                    recommend them to every one !
-                  </p>
-                </div>
-                <Separator />
-
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      <Badge
-                        variant={"destructive"}
-                        className="mr-3 rounded-full px-2"
-                      >
-                        -
-                      </Badge>
-                      <h5>H**p**t **S**</h5>
-                      <span className="text-xs text-gray-400">
-                        Past 7 months
-                      </span>
-                    </div>
-                    <span className="text-xs text-gray-400">
-                      Verified purchase
-                    </span>
-                  </div>
-
-                  {/* Review */}
-                  <p className="my-5">
-                    I have not received my item they get your money and leave
-                    your order status stuck on paid and it never gets to shipped
-                    I personally believe this seller is a scammer don’t deal
-                    with them they will get your money and never send you
-                    anything not even a empty box they definitely do not stand
-                    on business………
-                  </p>
-                </div>
-                <Separator />
-
-                {/* See all button */}
-                <Button
-                  variant={"success"}
-                  size={"lg"}
-                  className="mx-auto my-10 rounded-full font-bold"
-                >
-                  Load more reviews
-                </Button>
-              </div>
+              <SellerComments sellerId={store._id} />
             </section>
           </TabsContent>
         </Tabs>
