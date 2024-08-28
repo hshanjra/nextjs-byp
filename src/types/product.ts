@@ -7,6 +7,8 @@ export type Product = {
   metaTitle: string;
   reviewCount?: number;
   averageRating?: number;
+  merchantReviewCount?: number;
+  merchantAverageRating?: number;
   metaDescription: string;
   shortDescription: string;
   longDescription: string;
@@ -62,7 +64,25 @@ export type Product = {
     shippingPolicyTerms: string;
     aboutSeller: string;
     createdAt: Date;
+    sellerReviews?: Feedback[];
+    sellerReviewsCount?: number;
+    averageSellerRating: number;
   };
   createdAt: Date;
   updatedAt: Date;
 };
+
+export interface Feedback {
+  product: {
+    productTitle: string;
+    productSlug: string;
+  };
+  user: {
+    firstName: string;
+    lastName: string;
+  };
+  merchantRating: number;
+  merchantComment: string;
+  createdAt: Date;
+  updatedAt: Date;
+}

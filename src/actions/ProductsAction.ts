@@ -93,17 +93,25 @@ export const getProductBySlug = async (
   }
 };
 
-export const GetProductReviews = async (
-  slug: string,
-  limit?: number,
-  offset?: number,
-) => {
+export const GetReviews = async ({
+  slug,
+  sellerId,
+  limit,
+  offset,
+}: {
+  slug?: string;
+  sellerId?: string;
+  limit?: number;
+  offset?: number;
+}) => {
   const fixedLimit = limit || 10;
   const fixedOffset = offset || 0;
+  const safeSellerId = sellerId || "";
+  const safeSlug = slug || "";
 
   try {
     const { data } = await extApi.get(
-      `/reviews?productSlug=${slug}&limit=${fixedLimit}&page=${fixedOffset}`,
+      `/reviews?productSlug=${safeSlug}&sellerId=${safeSellerId}&limit=${fixedLimit}&page=${fixedOffset}`,
     );
     return {
       reviews: data.reviews,
