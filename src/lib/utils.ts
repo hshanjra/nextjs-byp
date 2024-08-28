@@ -98,23 +98,13 @@ export function transformText(
   }
 }
 
-export function calculatePositiveFeedbackPercentage(
-  averageRating: number,
-  positiveThreshold: number = 4,
-) {
+export function calculatePositiveFeedbackPercentage(averageRating: number) {
   if (averageRating < 0 || averageRating > 5) {
     throw new Error("Invalid average rating. It should be between 0 and 5.");
   }
 
-  // If average rating is below the threshold, return 0% positive feedback
-  if (averageRating < positiveThreshold) {
-    return 0;
-  }
-
-  // Calculate the positive feedback percentage based on average rating
-  const positiveFeedbackPercentage =
-    ((averageRating - positiveThreshold + 1) / (5 - positiveThreshold + 1)) *
-    100;
+  // Map the average rating (0 to 5) to a percentage (0 to 100)
+  const positiveFeedbackPercentage = (averageRating / 5) * 100;
 
   return Math.floor(positiveFeedbackPercentage); // Returns the integer part only
 }

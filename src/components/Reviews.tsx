@@ -57,7 +57,7 @@ export const ReviewItem = ({ review }: { review: any }) => {
         <ReviewStar rating={review?.productRating} height={20} />
 
         <div className="flex items-center gap-2">
-          <h5 className="text-base font-semibold">{`${review?.user.firstName} ${review?.user.lastName}`}</h5>
+          <h5 className="text-base font-semibold">{`${review?.user.firstName.charAt(0)}** **${review?.user.lastName.charAt(0)}`}</h5>
           -
           <span className="text-xs font-normal text-gray-400">
             {formatDate(review?.createdAt)}

@@ -45,6 +45,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ScrollAwareContainer from "@/components/ScrollAwareContainer";
 import { ReviewsList } from "@/components/Reviews";
+import SellerAboutSection from "@/components/seller/SellerAboutSection";
 
 interface ProductPageProps {
   params: {
@@ -300,8 +301,9 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                   <p className="flex items-center gap-1 text-sm font-bold">
                     <ThumbsUp size={18} />
                     {calculatePositiveFeedbackPercentage(
-                      product?.averageRating!,
-                    )}{" "}
+                      product?.merchantAverageRating!,
+                    )}
+                    {"% "}
                     Positive
                   </p>
                   <Separator orientation="vertical" className="h-5" />
@@ -517,199 +519,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
         )}
 
         {/* Store Information */}
-        <section className="my-10 rounded-xl bg-zinc-100 p-5">
-          <div className="flex flex-col items-center justify-between gap-5 lg:flex-row">
-            <div className="flex flex-col items-center lg:flex-row lg:gap-5">
-              {/* Store Logo */}
-              {product?.merchant?.businessLogoURL ? (
-                <Image
-                  src={product?.merchant?.businessLogoURL}
-                  alt="Profile"
-                  width={150}
-                  height={150}
-                  className="mr-3 mt-3 object-cover object-center mix-blend-multiply sm:mr-0 sm:mt-0"
-                />
-              ) : (
-                <StoreIcon size={50} />
-              )}
-
-              <div className="flex flex-col">
-                <Link
-                  href={`/seller/${product?.merchant?.storeSlug}`}
-                  className="hover:underline"
-                >
-                  <h3 className="mb-2 font-roboto text-3xl font-semibold">
-                    {product?.merchant?.displayName}
-                  </h3>
-                </Link>
-
-                <div className="flex flex-col">
-                  <span className="text-sm font-semibold">
-                    95.2% positive feedback
-                  </span>
-                  <span className="text-sm font-semibold">171K items sold</span>
-                </div>
-              </div>
-            </div>
-            {/* Store Buttons */}
-            <div className="flex w-full flex-col gap-3 lg:w-auto">
-              <Link
-                href={`/seller/${product?.merchant?.storeSlug}`}
-                className={cn(
-                  buttonVariants({ variant: "success" }),
-                  "w-full rounded-full lg:w-44",
-                )}
-              >
-                Visit Store
-              </Link>
-              <Link
-                href={"#"}
-                className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "w-full rounded-full lg:w-44",
-                )}
-              >
-                Contact Seller
-              </Link>
-            </div>
-          </div>
-
-          {/* Joined/Response time */}
-          <div className="mt-5 flex flex-col gap-2">
-            <div className="flex items-center gap-3">
-              <Calendar size={16} />
-              <p className="text-sm">
-                Joined {formatDate(product?.merchant?.createdAt!)}
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <Clock size={16} />
-              <p className="text-sm">Usually responds within 24 hours</p>
-            </div>
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 gap-3 lg:grid-cols-8">
-            {/* Left side */}
-            <div className="col-span-3">
-              {/* About */}
-              <p className="font-roboto text-[15px] font-medium capitalize">
-                {product?.merchant?.aboutSeller}
-              </p>
-            </div>
-            {/* Right side */}
-            <div className="col-span-5">
-              {/* Seller Feedback */}
-              <div className="my-5 flex items-center gap-1">
-                <h3
-                  className="font-roboto text-xl font-bold"
-                  id="sellerReviews"
-                >
-                  Seller Feedback
-                </h3>
-                <span className="text-muted-foreground">(6)</span>
-              </div>
-
-              {/* Feedback */}
-              <div className="flex flex-col gap-5">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      <Badge
-                        variant={"success"}
-                        className="mr-3 rounded-full px-2"
-                      >
-                        +
-                      </Badge>
-                      <h5>s***s</h5>
-                      <span className="text-xs text-gray-400">Past month</span>
-                    </div>
-                    <span className="text-xs text-gray-400">
-                      Verified purchase
-                    </span>
-                  </div>
-
-                  {/* Review */}
-                  <p className="my-5 font-roboto">
-                    This is my second time ordering from this seller and they
-                    are the best. Best for shipping on time, best for
-                    communication and best for packaging the item secure. I got
-                    to say I'm super happy with it. Thank you soo much, I
-                    appreciate it.
-                  </p>
-                </div>
-                <Separator />
-
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      <Badge
-                        variant={"success"}
-                        className="mr-3 rounded-full px-2"
-                      >
-                        +
-                      </Badge>
-                      <h5>d***y</h5>
-                      <span className="text-xs text-gray-400">Past month</span>
-                    </div>
-                    <span className="text-xs text-gray-400">
-                      Verified purchase
-                    </span>
-                  </div>
-
-                  {/* Review */}
-                  <p className="my-5 font-roboto">
-                    This seller is AWESOME! GREAT communication, excellent
-                    price, very fast turnaround! item exactly as described! I
-                    highly recommended this seller!
-                  </p>
-                </div>
-                <Separator />
-
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      <Badge
-                        variant={"success"}
-                        className="mr-3 rounded-full px-2"
-                      >
-                        +
-                      </Badge>
-                      <h5>n***a</h5>
-                      <span className="text-xs text-gray-400">Past month</span>
-                    </div>
-                    <span className="text-xs text-gray-400">
-                      Verified purchase
-                    </span>
-                  </div>
-
-                  {/* Review */}
-                  <p className="my-5 font-roboto">
-                    The new seat belt webbing is exactly as described and the
-                    service was exceptional. I ordered it January 27th and
-                    mailed my old seat belt assy. to them on January 28 th .
-                    They re webbed it and I had it back on February 6th ! and
-                    its as good as new . I messaged them when I first saw the
-                    add and their response was immediate .Its nice to see a
-                    company now days with this kind of service . I would
-                    recommend them to every one !
-                  </p>
-                </div>
-                <Separator />
-
-                {/* See all button */}
-                <Link
-                  href={`/seller/${product?.merchant?.storeSlug}#feedback`}
-                  className={cn(
-                    buttonVariants({ variant: "success", size: "lg" }),
-                    "mx-auto my-10 rounded-full font-bold",
-                  )}
-                >
-                  See all reviews
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
+        <SellerAboutSection storeSlug={product?.merchant?.storeSlug!} />
       </MaxWidthWrapper>
       {/* Qty/Cart - Mobile */}
       {product && product.productStock > 0 && (
