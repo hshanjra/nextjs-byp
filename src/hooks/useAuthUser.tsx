@@ -55,21 +55,21 @@ import { type GetUserSchema } from "@/types/authSchema";
 //   return { userData, isLoading, error };
 // };
 
-const useAuthUser = () => {
-  const { firstName, lastName } = useStore();
+// const useAuthUser = () => {
+//   const { firstName, lastName } = useStore();
 
-  let user = null;
-  // const token = cookies().get("accessToken");
+//   let user = null;
+//   // const token = cookies().get("accessToken");
 
-  // if (!token) return null;
+//   // if (!token) return null;
 
-  if (firstName.length && lastName.length)
-    user = {
-      firstName,
-      lastName,
-    };
+//   if (firstName.length && lastName.length)
+//     user = {
+//       firstName,
+//       lastName,
+//     };
 
-  return user;
-};
+//   return user;
+// };
 
-export default useAuthUser;
+// export default useAuthUser;

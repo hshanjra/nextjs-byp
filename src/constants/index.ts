@@ -4,7 +4,8 @@ enum PaymentMethod {
 }
 
 export const SITE_METADATA = {
-  name: "Buyurparts.com",
+  siteName: "Buyurparts.com",
+  name: "buyurparts",
   title: "Buy parts for your vehicle - buyurparts.com",
   description:
     "Buy auto parts and accessories for your Vehicle | Purchase across hundreds of Brands | Buy Ur Parts",

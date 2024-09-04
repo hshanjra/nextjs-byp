@@ -3,7 +3,6 @@
 import { ORDER_STATUS } from "@/enums";
 import { extApi } from "@/lib/api";
 import { Order } from "@/types/order";
-import { cookies } from "next/headers";
 
 interface OrderResponse {
   orders: Order[];
@@ -15,13 +14,8 @@ export const getAllOrders = async ({
 }: {
   status?: ORDER_STATUS;
 }): Promise<OrderResponse> => {
-  const token = cookies().get("accessToken")?.value;
-  if (!token) return { error: "Unauthorized", orders: [] };
-
   try {
-    const { data } = await extApi.get<Order[]>(`/orders?status=${status}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const { data } = await extApi.get<Order[]>(`/orders?status=${status}`);
 
     return { orders: data, error: "" };
   } catch (error) {

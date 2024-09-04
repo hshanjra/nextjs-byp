@@ -1,12 +1,12 @@
 import { AlertCircle } from "lucide-react";
 
-export default function FormError({ message }: { message?: string }) {
+export default function FormError({ message }: { message?: string | null }) {
   if (!message) return null;
 
   return (
-    <div className="flex items-center gap-x-2 bg-destructive p-3 rounded-md">
-      <AlertCircle className="w-5 h-5 text-white" />
-      <p className="text-white text-sm">{message}</p>
+    <div className="my-2 flex items-center gap-x-2 rounded-md text-destructive">
+      <AlertCircle className="h-5 w-5" />
+      <p className="text-sm">{message}</p>
     </div>
   );
 }

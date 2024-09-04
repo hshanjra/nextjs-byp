@@ -1,13 +1,5 @@
 "use client";
-import {
-  BookUser,
-  Box,
-  ChevronDown,
-  Heart,
-  LogOut,
-  Settings,
-  User,
-} from "lucide-react";
+import { BookUser, Box, ChevronDown, Heart, LogOut, User } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import AuthSidebar from "./AuthSidebar";
 import {
@@ -19,15 +11,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import Link from "next/link";
-import { logoutUserAction } from "@/actions/AuthAction";
-import { useStore } from "@/store/store";
-import useAuthUser from "@/hooks/useAuthUser";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers/AuthProvider";
 
 const ProfileDropDown = () => {
-  const user = useAuthUser();
-  const reset = useStore((state) => state.reset);
+  // const user = useAuthUser();
+  // const reset = useStore((state) => state.reset);
+
+  const { currentUser: user, handleLogout } = useAuth();
 
   const router = useRouter();
 
@@ -90,10 +81,16 @@ const ProfileDropDown = () => {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
+        {/* <DropdownMenuItem
           onClick={async () => {
             await logoutUserAction();
             reset();
+            window.location.reload();
+          }}
+        > */}
+        <DropdownMenuItem
+          onClick={async () => {
+            handleLogout();
             window.location.reload();
           }}
         >

@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
+  // TODO: fix this: check auth with an extra step with if user is available in the state or not.
   const { pathname, origin, search } = request.nextUrl;
   const token = cookies().get("accessToken");
 
