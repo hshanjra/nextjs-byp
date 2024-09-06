@@ -40,10 +40,12 @@ export default function ProductReel({ products }: { products: Product[] }) {
   //   api.scrollTo(index);
   // };
 
-  if (!products.length) return null;
-
+  if (!products || products.length === 0) {
+    // return <div className="text-center">No products found</div>;
+    return null;
+  }
   return (
-    <section className="py-2 mx-auto">
+    <section className="mx-auto py-2">
       <div className="w-full">
         <Carousel
           opts={{
@@ -56,7 +58,7 @@ export default function ProductReel({ products }: { products: Product[] }) {
             {products?.map((p) => (
               <CarouselItem
                 key={p.productId}
-                className="gap-x-5 lg:space-x-5 basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+                className="basis-1/2 gap-x-5 md:basis-1/3 lg:basis-1/4 lg:space-x-5 xl:basis-1/5"
               >
                 <div className="flex">
                   <ProductCard product={p} />
