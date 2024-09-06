@@ -25,12 +25,17 @@ import { LoginForm as LoginFrm, LoginSchema } from "@/types/authSchema";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Checkbox } from "../ui/checkbox";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function LoginForm() {
+  const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const router = useRouter();
   const return_url = useSearchParams().get("return_url");
 
-  const { fetchAndSetUser } = useStore();
+  // const { fetchAndSetUser } = useStore();
+  const { handleLogin } = useAuth();
   const form = useForm({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -40,27 +45,38 @@ export default function LoginForm() {
     },
   });
 
-  const [error, setError] = useState<string>("");
+  // const { execute, status } = useAction(EmailSignInAction, {
+  //   async onSuccess(data) {
+  //     if (data?.error) setError(data.error);
+  //     if (data?.success) {
+  //       await fetchAndSetUser();
 
-  const { execute, status } = useAction(EmailSignInAction, {
-    async onSuccess(data) {
-      if (data?.error) setError(data.error);
-      if (data?.success) {
-        await fetchAndSetUser();
+  //       // Redirect to return URL if provided, otherwise to /account page
+  //       router.push(return_url || "/account");
+  //       // window.location.href = "/account";
+  //     }
+  //   },
+  //   onError(data) {
+  //     if (data.serverError) setError(data.serverError);
+  //   },
+  // });
 
-        // Redirect to return URL if provided, otherwise to /account page
-        router.push(return_url || "/account");
-        // window.location.href = "/account";
-      }
-    },
-    onError(data) {
-      if (data.serverError) setError(data.serverError);
-    },
-  });
-
-  const onSubmit = (v: LoginFrm) => {
+  const onSubmit = async (v: LoginFrm) => {
+    setIsLoading(true);
     setError("");
-    execute(v);
+    const { user, error } = await handleLogin(v);
+    if (error) {
+      setError(error);
+      setIsLoading(false);
+    }
+    if (user) {
+      toast.success("Login Successful");
+      // Redirect to return URL if provided, otherwise to /account page
+      router.push(return_url || "/account");
+      // window.location.href = "/account";
+      setIsLoading(false);
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -73,6 +89,10 @@ export default function LoginForm() {
             Please enter your details to sign in.
           </p>
         </div>
+
+        {/* Error message */}
+        <FormError message={error} />
+
         <div className="space-y-3">
           <CustomFormField
             fieldType={FormFieldType.EMAIL_INPUT}
@@ -124,16 +144,12 @@ export default function LoginForm() {
           </Link>
         </div>
 
-        {/* Error message */}
-
-        <FormError message={error} />
-
         <Button
           type="submit"
           className={cn("my-2 w-full bg-zinc-900 text-white hover:bg-zinc-700")}
-          disabled={status === "executing"}
+          disabled={isLoading}
         >
-          {status === "executing" ? (
+          {isLoading ? (
             <LoaderCircle className="animate-spin" />
           ) : (
             <>

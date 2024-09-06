@@ -83,13 +83,13 @@ export const getAllProducts = async (
 
 export const getProductBySlug = async (
   slug: string,
-): Promise<{ product: Product | null; error: string }> => {
+): Promise<{ product: Product | null; error: string | null }> => {
   try {
     const { data } = await extApi.get<Product | null>(`/products/${slug}`);
-    return { product: data, error: "" };
+    return { product: data, error: null };
   } catch (error) {
     console.error(error);
-    return { product: null, error: "Unable to get products" };
+    return { product: null, error: "Unable to get product" };
   }
 };
 

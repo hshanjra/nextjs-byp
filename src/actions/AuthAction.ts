@@ -5,30 +5,147 @@ import ac from "@/lib/safe-action";
 import {
   EmailVerificationSchema,
   GetUserSchema,
+  LoginForm,
   LoginSchema,
+  RegisterForm,
   RegisterSchema,
   UserSchema,
 } from "@/types/authSchema";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-import { useStore } from "@/store/store";
+import { User } from "@/types";
+import { SITE_METADATA } from "@/constants";
+
+export const Login = async (
+  values: LoginForm,
+): Promise<{ user: User | null; error: string | null }> => {
+  // validate
+  const { email, password } = LoginSchema.parse(values);
+
+  // make request
+  try {
+    const { data } = await extApi.post("/auth/login", {
+      email: email,
+      password: password,
+    });
+
+    const token = data.accessToken;
+
+    // Set token in the cookie
+    cookies().set({
+      name: "accessToken",
+      value: token,
+      secure: true,
+      httpOnly: true,
+      expires: new Date(jwtDecode(token).exp! * 1000),
+    });
+
+    // decode token
+    const decodedToken = jwtDecode(token) as any;
+
+    // construct user object
+    const user = {
+      fullName: decodedToken.fullName,
+      firstName: decodedToken.firstName,
+      lastName: decodedToken.lastName,
+      isEmailVerified: decodedToken.isEmailVerified,
+    };
+
+    return { user, error: null };
+  } catch (error: any) {
+    console.log(error);
+    if (error.status === 404) {
+      return {
+        user: null,
+        error: "Email or password is incorrect",
+      };
+    }
+    if (error.status === 401) {
+      return { user: null, error: "Email or password is incorrect" };
+    }
+    return { user: null, error: error.message };
+  }
+};
+
+export const Register = async (values: RegisterForm) => {
+  // validate
+  const { email, password, firstName, lastName } = RegisterSchema.parse(values);
+
+  // make query
+  try {
+    const { data } = await extApi.post("/auth/register", {
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+    });
+
+    // decode token
+    const decodedToken = jwtDecode(data.accessToken) as any;
+
+    const user = {
+      fullName: decodedToken.fullName,
+      firstName: decodedToken.firstName,
+      lastName: decodedToken.lastName,
+      isEmailVerified: decodedToken.isEmailVerified,
+    };
+
+    return { user, error: null };
+  } catch (error: any) {
+    console.log(error);
+    if (error.status === 404) {
+      return {
+        user: null,
+        error: "Email does not exist. try registering instead!",
+      };
+    }
+    if (error.status === 401) {
+      return { user: null, error: "Email or password is incorrect" };
+    }
+    return { user: null, error: error.message };
+  }
+};
+
+export const Logout = async () => {
+  // make query
+  try {
+    await extApi.post("/auth/logout");
+    cookies().delete("accessToken");
+    return { success: true, error: null };
+  } catch (error: any) {
+    cookies().delete("accessToken");
+    console.log(error);
+    return { success: false, error: error?.message };
+  }
+};
+
+export const getUser = async () => {
+  // make request
+  try {
+    const { data } = await extApi.get("/auth/me");
+    const user = {
+      fullName: data.fullName,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      isEmailVerified: data.isEmailVerified,
+    };
+    return { user, error: null };
+  } catch (error: any) {
+    console.log(error);
+    return { user: null, error: error.message };
+  }
+};
 
 export const EmailSignInAction = ac(
   LoginSchema,
   async ({ email, password }) => {
     // make query
     try {
-      const res = await extApi.post(
-        "/auth/login",
-        {
-          email: email,
-          password: password,
-        },
-        {
-          withCredentials: true,
-        },
-      );
+      const res = await extApi.post("/auth/login", {
+        email: email,
+        password: password,
+      });
 
       // Set token in the cookie
       const setCookieHdr = res?.headers["set-cookie"];
@@ -136,12 +253,7 @@ export const EmailVerificationAction = ac(
 
 export const getUserAction = async (): Promise<GetUserSchema | undefined> => {
   try {
-    // check if token exists
-    const token = cookies().get("accessToken");
-    if (!token) throw new Error("Unauthorized", { cause: 401 });
-    const { data } = await extApi.get("/auth/me", {
-      headers: { Cookie: cookies().toString() },
-    });
+    const { data } = await extApi.get("/auth/me");
     return data;
   } catch (error: any) {
     return error.message;
@@ -150,16 +262,13 @@ export const getUserAction = async (): Promise<GetUserSchema | undefined> => {
 
 export const logoutUserAction = async () => {
   try {
-    // check if token exists
-    const token = cookies().get("accessToken");
-    if (!token) return null;
+    // make query
+    await extApi.get("/auth/logout");
     cookies().delete("accessToken");
-    await extApi.get("/auth/logout", {
-      headers: { Cookie: cookies().toString() },
-    });
     return { success: "Logged out successfully." };
   } catch (error: any) {
     console.log(error);
+    cookies().delete("accessToken");
     return error.message;
   }
 };

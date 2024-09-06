@@ -1,20 +1,20 @@
 "use client";
-import useAuthUser from "@/hooks/useAuthUser";
+
 import { Button } from "./ui/button";
-import { logoutUserAction } from "@/actions/AuthAction";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function AccountHeader() {
-  const user = useAuthUser();
+  const { currentUser: user, handleLogout } = useAuth();
   return (
     <div className="flex items-center justify-between">
-      <h3 className="text-xl font-semibold my-5">
+      <h3 className="my-5 text-xl font-semibold">
         {user ? `${user.firstName} ${user.lastName}'s ` : "Your "}
         Account
       </h3>
       <Button
         variant="link"
         onClick={async () => {
-          await logoutUserAction();
+          await handleLogout();
           window.location.reload();
         }}
       >

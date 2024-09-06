@@ -8,25 +8,16 @@ import ImageCarousel from "@/components/Products/ImageCarousel";
 import ProductReel from "@/components/Products/ProductReel";
 import ReviewStar from "@/components/ReviewStar";
 import { Separator } from "@/components/ui/separator";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SITE_METADATA } from "@/constants";
 import {
   calculatePositiveFeedbackPercentage,
   cn,
-  formatDate,
   formatPrice,
 } from "@/lib/utils";
 import {
-  Calendar,
   Check,
-  Clock,
   DollarSignIcon,
   Flame,
   Headset,
@@ -41,11 +32,10 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import Loading from "./loading";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import ScrollAwareContainer from "@/components/ScrollAwareContainer";
 import { ReviewsList } from "@/components/Reviews";
 import SellerAboutSection from "@/components/seller/SellerAboutSection";
+import { notFound } from "next/navigation";
 
 interface ProductPageProps {
   params: {
@@ -53,29 +43,15 @@ interface ProductPageProps {
   };
 }
 
-export async function generateMetadata({ params }: ProductPageProps) {
-  const { product, error } = await getProductBySlug(params.slug);
-  if (!product || error) return;
-
-  return {
-    title: `${product.metaTitle || product.productTitle} | ${SITE_METADATA.name}`,
-    description: product.metaDescription || product.longDescription,
-    openGraph: {
-      title: `Buy ${product.productTitle} at ${SITE_METADATA.name}`,
-      description: product.longDescription,
-      type: "website",
-      url: `${SITE_METADATA.url}/product/${params.slug}`,
-      // siteName: SITE_METADATA.name,
-      images: product.productImages.map((image) => image.url),
-    },
-  };
-}
-
 const ProductDetailPage = async ({ params }: ProductPageProps) => {
   const { product, error } = await getProductBySlug(params.slug);
 
-  if (!product || error) {
+  if (product === undefined) {
     return <Loading />;
+  }
+
+  if (error || product === null) {
+    throw notFound();
   }
 
   const { products: relatedProducts, totalCount } = await getAllProducts({
@@ -532,3 +508,25 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
 };
 
 export default ProductDetailPage;
+
+// FIXME: fix this to set metadata and reduce load time of page (It returning white space on the page while loading)
+export async function generateMetadata({ params }: ProductPageProps) {
+  const { product } = await getProductBySlug(params.slug);
+
+  if (product === null) {
+    return;
+  }
+
+  return {
+    title: `${product.metaTitle || product.productTitle} | ${SITE_METADATA.name}`,
+    description: product.metaDescription || product.longDescription,
+    openGraph: {
+      title: `Buy ${product.productTitle} at ${SITE_METADATA.name}`,
+      description: product.longDescription,
+      type: "website",
+      url: `${SITE_METADATA.url}/product/${params.slug}`,
+      // siteName: SITE_METADATA.name,
+      images: product.productImages.map((image) => image.url),
+    },
+  };
+}

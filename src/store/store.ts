@@ -12,6 +12,8 @@ export const useStore = create<Store>()(
       ...createUserSlice(...a),
       // ...createCartSlice(...a),
     })),
-    { name: "store" }
-  )
+    { name: "store" },
+  ),
 );
+
+// export const userStore = create(persist(createUserSlice, { name: "user" }));

@@ -5,6 +5,7 @@ export const extApi = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 extApi.interceptors.response.use(
@@ -16,8 +17,26 @@ extApi.interceptors.response.use(
       errorCode: error.code || null,
     };
     return Promise.reject(customError);
-  }
+  },
 );
+
+const isServer = typeof window === "undefined";
+
+// inject token to request
+extApi.interceptors.request.use((config) => {
+  if (isServer) {
+    const { cookies } = require("next/headers");
+
+    const token = cookies().get("accessToken");
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token.value}`;
+    }
+
+    return config;
+  }
+  return config;
+});
 
 export const intApi = axios.create({
   baseURL: "/api",

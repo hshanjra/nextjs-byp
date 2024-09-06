@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/Header/Header";
 import { Suspense } from "react";
 import { SITE_METADATA } from "@/constants";
+import AuthProvider from "@/providers/AuthProvider";
 
 const krub = Krub({
   weight: ["200", "400", "300", "500", "600", "700"],
@@ -31,15 +32,17 @@ export default function RootLayout({
       <body className={cn("relative antialiased", krub.className)}>
         <Suspense>
           <QueryProvider>
-            <main className="flex min-h-screen flex-col">
-              {/* Header */}
-              <Header />
+            <AuthProvider>
+              <main className="flex min-h-screen flex-col">
+                {/* Header */}
+                <Header />
 
-              <div className="flex-1 flex-grow">{children}</div>
-              {/* Footer */}
-              <Footer />
-            </main>
-            <Toaster />
+                <div className="flex-1 flex-grow">{children}</div>
+                {/* Footer */}
+                <Footer />
+              </main>
+              <Toaster />
+            </AuthProvider>
           </QueryProvider>
         </Suspense>
       </body>
