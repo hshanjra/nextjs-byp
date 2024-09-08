@@ -70,12 +70,12 @@ export function Footer() {
     <Wrapper>
       <Newsletter />
       <footer>
-        <MaxWidthWrapper className="lg:pb-auto py-10 lg:mt-10 my-25 lg:my-auto">
+        <MaxWidthWrapper className="lg:pb-auto my-25 py-10 lg:my-auto lg:mt-10">
           {/* Desktop Footer */}
-          <div className="hidden lg:grid grid-cols-6 gap-x-2">
-            <div className="border-r border-gray-100/30 col-span-2 text-left space-y-4">
-              <Logo className="invert grayscale mx-auto lg:mx-0" />
-              <h3 className="mb-3 mt-7 font-bold text-base">
+          <div className="hidden grid-cols-6 gap-x-2 lg:grid">
+            <div className="col-span-2 space-y-4 border-r border-gray-100/30 text-left">
+              <Logo className="mx-auto grayscale invert lg:mx-0" />
+              <h3 className="mb-3 mt-7 text-base font-bold">
                 Your Trusted Source for Quality Auto Parts
               </h3>
               <p className="text-[0.875rem] text-muted-foreground">
@@ -90,14 +90,14 @@ export function Footer() {
                   buttonVariants({
                     variant: "link",
                   }),
-                  "mx-0 px-0"
+                  "mx-0 px-0",
                 )}
               >
                 {SITE_METADATA.email}
               </Link>
             </div>
             <div className="col-span-2 ml-10">
-              <h3 className="mb-3 font-bold text-base">Need Help?</h3>
+              <h3 className="mb-3 text-base font-bold">Need Help?</h3>
               <h2 className="text-2xl font-bold">{SITE_METADATA.phone}</h2>
 
               <div className="my-3 flex flex-col text-muted-foreground">
@@ -110,7 +110,7 @@ export function Footer() {
                   buttonVariants({
                     variant: "link",
                   }),
-                  "mx-0 px-0"
+                  "mx-0 px-0",
                 )}
               >
                 {SITE_METADATA.supportEmail}
@@ -118,9 +118,9 @@ export function Footer() {
             </div>
 
             <div>
-              <h3 className="mb-3 font-bold text-base">Customer Service</h3>
+              <h3 className="mb-3 text-base font-bold">Customer Service</h3>
 
-              <ol className="text-base">
+              <ol className="list-none text-base">
                 {CUS_MENU.map((item) => (
                   <li className="my-2 text-gray-300" key={item.link}>
                     <Link href={item.link} className="text-sm hover:underline">
@@ -131,8 +131,8 @@ export function Footer() {
               </ol>
             </div>
             <div>
-              <h3 className="mb-3 font-bold text-base">Store Information</h3>
-              <ol className="text-base">
+              <h3 className="mb-3 text-base font-bold">Store Information</h3>
+              <ol className="list-none text-base">
                 {STORE_MENU.map((item) => (
                   <li className="my-2 text-gray-300" key={item.link}>
                     <Link href={item.link} className="text-sm hover:underline">
@@ -147,7 +147,7 @@ export function Footer() {
           {/* Mobile Footer */}
           <div className="lg:hidden">
             <div className="space-y-1 text-center">
-              <h3 className="font-bold text-base">Need Help?</h3>
+              <h3 className="text-base font-bold">Need Help?</h3>
               <h2 className="text-2xl font-bold">{SITE_METADATA.phone}</h2>
 
               <div className="my-1 flex flex-col text-muted-foreground">
@@ -160,7 +160,7 @@ export function Footer() {
                   buttonVariants({
                     variant: "link",
                   }),
-                  "mx-0 px-0"
+                  "mx-0 px-0",
                 )}
               >
                 {SITE_METADATA.supportEmail}
@@ -205,24 +205,24 @@ export function Footer() {
               </Accordion>
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row border-y py-3 my-3 border-gray-100/30 items-center justify-center">
+          <div className="my-3 flex flex-col items-center justify-center border-y border-gray-100/30 py-3 lg:flex-row">
             <span className="text-sm font-bold">
               -5% for all order in this week Shop now
             </span>
             <Separator
               orientation="vertical"
-              className="hidden h-5 lg:block opacity-40 mx-5"
+              className="mx-5 hidden h-5 opacity-40 lg:block"
             />
             <span className="text-sm font-bold">
               Free delivery for all orders over $200
             </span>
           </div>
           {/* Copyright / Card Brands */}
-          <div className="flex flex-col-reverse lg:flex-row lg:justify-between items-center space-y-5">
+          <div className="flex flex-col-reverse items-center space-y-5 lg:flex-row lg:justify-between">
             <div>
-              <span className="text-xs mx-auto">
+              <span className="mx-auto text-xs">
                 Copyright {new Date().getFullYear()} &copy;{" "}
-                <Link href="/" className="hover:underline ">
+                <Link href="/" className="hover:underline">
                   {SITE_METADATA.name}
                 </Link>
                 . All rights reserved.
