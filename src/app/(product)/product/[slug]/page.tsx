@@ -199,9 +199,9 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             </div>
             {/* Short Description */}
             <div className="my-5">
-              <h5 className="text-sm font-normal text-gray-400">
-                {product?.longDescription}
-              </h5>
+              <div
+                dangerouslySetInnerHTML={{ __html: product?.shortDescription }}
+              />
             </div>
 
             <Separator className="mt-10" />
@@ -358,7 +358,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
                 <span className="mr-1 text-sm font-light text-gray-400">
                   Category:
                 </span>
-                <ul className="flex items-center gap-x-[2px] text-sm">
+                <ul className="flex list-none items-center gap-x-[2px] text-sm">
                   <li>
                     <Link
                       href={`/categories/${product.categoryId.categorySlug}`}
@@ -432,8 +432,10 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
             >
               <h3 className="my-3 text-2xl font-semibold text-black">
                 Item Description from the Seller
-              </h3>
-              {product.longDescription}
+              </h3>{" "}
+              <div
+                dangerouslySetInnerHTML={{ __html: product?.longDescription }}
+              />
             </TabsContent>
             <TabsContent value="additional-info">
               <div className="mt-5 max-w-lg overflow-hidden rounded-xl border">
