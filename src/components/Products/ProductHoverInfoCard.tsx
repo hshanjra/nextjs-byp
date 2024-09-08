@@ -91,16 +91,7 @@ export default function ProductHoverInfoCard({
         <div className="absolute left-0 z-50 hidden w-full rounded-b-lg border bg-white p-2 shadow-2xl lg:group-hover:block">
           {/* Short description */}
           <div className="my-3 px-3 text-xs">
-            {p.shortDescription}
-            <ul className="space-y-1">
-              <li className="list-disc">
-                Best-in-class all-around performance
-              </li>
-              <li className="list-disc">
-                Confident driving in all weather conditions
-              </li>
-              <li className="list-disc">Visual Alignment Indicators</li>
-            </ul>
+            <div dangerouslySetInnerHTML={{ __html: p.shortDescription }} />
           </div>
 
           <AddToCartButton
