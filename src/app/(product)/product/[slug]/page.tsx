@@ -198,7 +198,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
               </h3>
             </div>
             {/* Short Description */}
-            <div className="my-5">
+            <div className="short-description my-5">
               <div
                 dangerouslySetInnerHTML={{ __html: product?.shortDescription }}
               />
@@ -435,6 +435,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
               </h3>{" "}
               <div
                 dangerouslySetInnerHTML={{ __html: product?.longDescription }}
+                className="long-description"
               />
             </TabsContent>
             <TabsContent value="additional-info">

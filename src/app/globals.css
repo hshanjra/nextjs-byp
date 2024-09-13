@@ -52,55 +52,78 @@
   * {
     @apply border-border;
   }
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 10px; /* Adjust scrollbar width */
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Track color */
+    border-radius: 10px; /* Rounded corners for track */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #888; /* Thumb color */
+    border-radius: 10px; /* Rounded corners for thumb */
+    border: 2px solid #f1f1f1; /* Optional border for thumb */
+  }
+
+  /* Hover effect for thumb */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color when hovered */
+  }
+
   body {
     @apply bg-background text-foreground;
   }
 
-  /* Tip Tap Editor */
-  .tip-tap-editor {
-    @apply z-10;
+  li,
+  ul {
+    @apply m-0 list-none;
   }
-  .tip-tap-editor,
-  .tiptap p.is-empty::before {
-    color: #adb5bd;
-    content: attr(data-placeholder);
-    float: left;
-    height: 0;
-    /* pointer-events: none; */
+  /* Short Description */
+  .short-description ul li {
+    @apply !list-disc space-y-2 text-[.9rem];
   }
-
-  .tip-tap-editor,
-  .tiptap {
-    @apply absolute h-full overflow-y-auto !p-2 text-sm text-primary !outline-none;
+  .short-description ol li {
+    @apply !list-disc space-y-2 text-[.9rem];
   }
 
-  .tip-tap-editor {
-    @apply !m-0;
+  /* Long description */
+
+  .long-description,
+  p {
+    @apply text-base;
   }
 
-  .tip-tap-editor,
+  .long-description,
   h1 {
-    @apply text-5xl;
+    @apply my-1 text-5xl;
   }
-  .tip-tap-editor,
+  .long-description,
   h2 {
-    @apply text-3xl;
+    @apply my-1 text-3xl;
   }
-  .tip-tap-editor,
+  .long-description,
   h3 {
-    @apply text-xl;
+    @apply my-1 text-xl;
   }
-  .tip-tap-editor,
+  .long-description,
+  h4,
+  h5 {
+    @apply my-1;
+  }
+  .long-description,
   ol {
     @apply list-decimal;
   }
-  /* .tip-tap-editor,
+  /* .long-description,
   ol,
   ul,
   li {
     @apply ml-2;
   } */
-  .tip-tap-editor,
+  .long-description,
   ul {
     @apply list-disc;
   }
