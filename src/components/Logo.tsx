@@ -4,25 +4,42 @@ import Link from "next/link";
 
 export default function Logo({
   className,
-  height = 70,
-  width = 110,
+  height = 100,
+  width = 120,
+  variant = "default",
 }: {
   className?: string;
   height?: number;
   width?: number;
+  variant?: "default" | "light";
 }) {
-  return (
-    <>
-      <Link href="/">
-        <Image
-          src="/images/logo.webp"
-          alt="logo"
-          height={height}
-          width={width}
-          className={cn("w-auto h-auto aspect-square", className)}
-          priority
-        />
-      </Link>
-    </>
-  );
+  switch (variant) {
+    case "light":
+      return (
+        <Link href="/">
+          <Image
+            src="/static/logo-light.png"
+            alt="logo"
+            height={height}
+            width={width}
+            className={cn("h-auto w-auto", className)}
+            priority
+          />
+        </Link>
+      );
+
+    default:
+      return (
+        <Link href="/">
+          <Image
+            src="/static/logo.png"
+            alt="logo"
+            height={height}
+            width={width}
+            className={cn("h-auto w-auto", className)}
+            priority
+          />
+        </Link>
+      );
+  }
 }

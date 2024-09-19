@@ -51,7 +51,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
   }
 
   if (error || product === null) {
-    throw notFound();
+    notFound();
   }
 
   const { products: relatedProducts, totalCount } = await getAllProducts({

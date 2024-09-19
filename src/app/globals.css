@@ -81,19 +81,22 @@
   ul {
     @apply m-0 list-none;
   }
+
   /* Short Description */
+  .short-description {
+    @apply !text-sm;
+  }
   .short-description ul li {
-    @apply !list-disc space-y-2 text-[.9rem];
+    @apply !list-disc space-y-2;
   }
   .short-description ol li {
-    @apply !list-disc space-y-2 text-[.9rem];
+    @apply !list-disc space-y-2;
   }
 
   /* Long description */
 
-  .long-description,
-  p {
-    @apply text-base;
+  .long-description {
+    @apply !text-base;
   }
 
   .long-description,
@@ -115,7 +118,7 @@
   }
   .long-description,
   ol {
-    @apply list-decimal;
+    @apply !list-decimal;
   }
   /* .long-description,
   ol,
@@ -125,7 +128,7 @@
   } */
   .long-description,
   ul {
-    @apply list-disc;
+    @apply !list-disc;
   }
 }
 

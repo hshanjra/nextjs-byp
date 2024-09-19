@@ -73,8 +73,8 @@ export function Footer() {
         <MaxWidthWrapper className="lg:pb-auto my-25 py-10 lg:my-auto lg:mt-10">
           {/* Desktop Footer */}
           <div className="hidden grid-cols-6 gap-x-2 lg:grid">
-            <div className="col-span-2 space-y-4 border-r border-gray-100/30 text-left">
-              <Logo className="mx-auto grayscale invert lg:mx-0" />
+            <div className="col-span-2 mr-2 space-y-4 border-r border-gray-100/30 text-left">
+              <Logo className="mx-auto lg:mx-0" variant="light" />
               <h3 className="mb-3 mt-7 text-base font-bold">
                 Your Trusted Source for Quality Auto Parts
               </h3>

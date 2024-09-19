@@ -12,7 +12,7 @@ export default function SearchInputBox() {
     e.preventDefault();
 
     const val = e.target as HTMLFormElement;
-    const search = val.search as HTMLInputElement;
+    const search = val.q as HTMLInputElement;
     const newParams = new URLSearchParams(searchParams.toString());
     if (search.value) {
       newParams.set("q", search.value);
@@ -23,19 +23,19 @@ export default function SearchInputBox() {
     router.push(createUrl("/products", newParams));
   };
   return (
-    <section className="relative w-full group">
-      <form onSubmit={onSubmit}>
+    <section className="group relative w-full">
+      <form onSubmit={onSubmit} action="/products" method="get">
         <Input
           placeholder="Find Parts and Products..."
-          className="w-full h-[3rem] rounded-xl focus:border-transparent focus-visible:ring-[1.5px] focus-visible:ring-offset-1 transition-all duration-100"
-          name="search"
+          className="h-[3rem] w-full rounded-xl transition-all duration-100 focus:border-transparent focus-visible:ring-[1.5px] focus-visible:ring-offset-1"
+          name="q"
           key={searchParams?.get("q")}
           autoComplete="off"
           defaultValue={searchParams?.get("q") || ""}
         />
         <button
           type="submit"
-          className="absolute top-[50%] right-0 translate-y-[-50%] cursor-pointer mr-2 bg-white h-auto"
+          className="absolute right-0 top-[50%] mr-2 h-auto translate-y-[-50%] cursor-pointer bg-white"
         >
           <Search className="group-focus-within:text-ring" strokeWidth={1.5} />
         </button>

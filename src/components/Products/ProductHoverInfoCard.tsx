@@ -90,9 +90,10 @@ export default function ProductHoverInfoCard({
         {/* Hover Area */}
         <div className="absolute left-0 z-50 hidden w-full rounded-b-lg border bg-white p-2 shadow-2xl lg:group-hover:block">
           {/* Short description */}
-          <div className="my-3 px-3 text-xs">
-            <div dangerouslySetInnerHTML={{ __html: p.shortDescription }} />
-          </div>
+          <div
+            dangerouslySetInnerHTML={{ __html: p.shortDescription }}
+            className="short-description my-3 px-3 !text-xs"
+          />
 
           <AddToCartButton
             className="!w-full bg-primary"
