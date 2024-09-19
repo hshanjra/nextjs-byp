@@ -2,47 +2,13 @@ import { ArrowRight } from "lucide-react";
 import { Separator } from "./ui/separator";
 import Link from "next/link";
 import CustomImage from "./CustomImage";
+import { getAllCategories } from "@/actions/CategoryAction";
 
-const CATEGORIES = [
-  {
-    name: "Auto Safety & Security",
-    imageURL: "/images/category-electrics.png",
-    itemCount: 2,
-    href: "#",
-  },
-  {
-    name: "Garage Tools",
-    imageURL: "/images/category-brakes.png",
-    itemCount: 1,
-    href: "#",
-  },
-  {
-    name: "Headlight & Lighing",
-    imageURL: "/images/category-glowplug.png",
-    itemCount: 9,
-    href: "#",
-  },
-  {
-    name: "Interior Accessories",
-    imageURL: "/images/category-car-care.png",
-    itemCount: 25,
-    href: "#",
-  },
-  {
-    name: "Tires & Wheels",
-    imageURL: "/images/category-tyres.png",
-    itemCount: 7,
-    href: "#",
-  },
-  {
-    name: "Tools & Equipment",
-    imageURL: "/images/category-filters.png",
-    itemCount: 5,
-    href: "#",
-  },
-];
+export default async function TopCategories() {
+  const { categories, error } = await getAllCategories();
 
-export default function TopCategories() {
+  if (error) return;
+
   return (
     <section className="my-10">
       {/* Header */}
@@ -50,7 +16,7 @@ export default function TopCategories() {
         <h3 className="text-lg font-semibold">Top Categories</h3>
         <Link
           href="#"
-          className="flex items-center ml-auto text-sm hover:text-red-500 font-medium"
+          className="ml-auto flex items-center text-sm font-medium hover:text-red-500"
         >
           View All
           <ArrowRight className="h-4 w-4" />
@@ -58,22 +24,27 @@ export default function TopCategories() {
       </div>
       <Separator className="my-3" />
       {/* Categories */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 border rounded-lg">
+      <div className="grid grid-cols-2 rounded-lg border md:grid-cols-4 lg:grid-cols-6">
         {/* Category List */}
-        {CATEGORIES.map((cat) => (
-          <div className="p-5 lg:border-r last:border-0" key={cat.href}>
-            <div className="flex flex-col items-center group transition-all">
-              <Link href="#" className="group-hover:text-primary text-sm">
+        {categories.slice(0, 6).map((cat) => (
+          <div className="p-5 last:border-0 lg:border-r" key={cat._id}>
+            <div className="group flex flex-col items-center transition-all">
+              <Link
+                href={`/categories/${cat.categorySlug}`}
+                className="text-sm group-hover:text-primary"
+              >
                 <CustomImage
-                  src={cat.imageURL}
+                  src={cat.categoryThumbnail}
                   height={200}
                   width={200}
-                  alt={cat.name}
-                  className="border rounded-lg w-full group-hover:opacity-80 ease-out duration-200"
+                  alt={cat.categoryName}
+                  className="w-full rounded-lg border duration-200 ease-out group-hover:opacity-80"
                 />
-                <h3 className="mt-2 text-center font-semibold">{cat.name}</h3>
+                <h3 className="mt-2 text-center text-base font-semibold">
+                  {cat.categoryName}
+                </h3>
               </Link>
-              <span className="text-xs">{cat.itemCount} item(s)</span>
+              {/* <span className="text-xs">{cat.} item(s)</span> */}
             </div>
           </div>
         ))}

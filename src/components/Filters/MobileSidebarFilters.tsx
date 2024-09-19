@@ -14,6 +14,7 @@ import { Separator } from "../ui/separator";
 import PartsFinder from "./PartsFinder";
 import { Label } from "../ui/label";
 import Filters from "./Filters";
+import { Suspense } from "react";
 
 export default function MobileSidebarFilters() {
   return (
@@ -34,10 +35,10 @@ export default function MobileSidebarFilters() {
 
       <SheetContent
         side="left"
-        className="w-full md:w-[400px] lg:w-[450px] p-0"
+        className="w-full p-0 md:w-[400px] lg:w-[450px]"
       >
         <SheetHeader className="px-5 py-2">
-          <SheetTitle className="text-sm font-semibold text-left my-5">
+          <SheetTitle className="my-5 text-left text-sm font-semibold">
             Filter Products
           </SheetTitle>
           <Separator />
@@ -46,8 +47,10 @@ export default function MobileSidebarFilters() {
           {/* Parts Finder */}
           <PartsFinder />
 
-          <div className="space-y-5 mt-10 mb-24">
-            <Filters />
+          <div className="mb-24 mt-10 space-y-5">
+            <Suspense>
+              <Filters />
+            </Suspense>
           </div>
         </ScrollArea>
       </SheetContent>

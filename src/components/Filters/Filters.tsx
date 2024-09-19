@@ -19,6 +19,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllCategories } from "@/actions/CategoryAction";
 import Link from "next/link";
 import { Skeleton } from "../ui/skeleton";
+import { getAllBrands } from "@/actions/BrandAction";
 
 const DEFAULT_CUSTOM_PRICE: [number, number] = [0, 10000];
 
@@ -49,7 +50,7 @@ interface StatusFilter {
 interface BrandFilter {
   id: string;
   name: string;
-  option: FilterOption<string>[];
+  option: string[];
 }
 
 interface FilterState {
@@ -89,17 +90,6 @@ const STATUS_FILTERS: StatusFilter = {
   ],
 };
 
-const BRAND_FILTERS: BrandFilter = {
-  id: "brand",
-  name: "Brand",
-  option: [
-    { value: "brand1", label: "Pirelli", count: 50 },
-    { value: "brand2", label: "Honda", count: 9 },
-    { value: "brand3", label: "FUEL", count: 65 },
-    { value: "brand4", label: "Shell", count: 2 },
-  ],
-};
-
 export default function Filters() {
   const query = useSearchParams();
   const router = useRouter();
@@ -121,14 +111,14 @@ export default function Filters() {
     PRICE_FILTERS.option.find(
       (option) =>
         option.value[0] === filter.minPrice &&
-        option.value[1] === filter.maxPrice
-    )?.label || "Custom"
+        option.value[1] === filter.maxPrice,
+    )?.label || "Custom",
   );
 
   // Debounced updateQuery function
   const _updateQuery = (
     key: keyof FilterState,
-    value: string | number | string[] | number[] | ""
+    value: string | number | string[] | number[] | "",
   ) => {
     const params = new URLSearchParams(query.toString());
     if (value === "") {
@@ -159,7 +149,7 @@ export default function Filters() {
     const updateURL = () => {
       if (selectedPrice !== "Custom") {
         const option = PRICE_FILTERS.option.find(
-          (option) => option.label === selectedPrice
+          (option) => option.label === selectedPrice,
         );
         if (option) {
           updateQuery("minPrice", option.value[0]);
@@ -193,10 +183,22 @@ export default function Filters() {
   const randNum = Math.floor(Math.random() * 100);
 
   // Fetch all categories
-  const { data, isLoading } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["categories"],
-    queryFn: async () => await getAllCategories(),
+    queryFn: () => getAllCategories(),
   });
+
+  // Fetch all brands
+  const { data: brands, isPending: brandsLoading } = useQuery({
+    queryKey: ["brands"],
+    queryFn: () => getAllBrands(),
+  });
+
+  const BRAND_FILTERS: BrandFilter = {
+    id: "brand",
+    name: "Brand",
+    option: brands || [],
+  };
 
   return (
     <div>
@@ -210,7 +212,7 @@ export default function Filters() {
             <span className="font-bold text-gray-900">Categories</span>
           </AccordionTrigger>
           <AccordionContent>
-            {isLoading && (
+            {isPending && (
               <div className="flex flex-col gap-y-3">
                 <Skeleton className="h-4" />
                 <Skeleton className="ml-auto h-4 w-60" />
@@ -231,10 +233,10 @@ export default function Filters() {
                     category.subcategories.length > 0 ? (
                       <>
                         <CustomAccordionTrigger className="p-0">
-                          <h3>
+                          <h3 className="m-0 text-base">
                             <Link href={`/categories/${category.categorySlug}`}>
                               {pathname.endsWith(
-                                `/categories/${category.categorySlug}`
+                                `/categories/${category.categorySlug}`,
                               ) ? (
                                 <b>{category.categoryName}</b>
                               ) : (
@@ -249,11 +251,11 @@ export default function Filters() {
                               <Link
                                 key={subcategory._id}
                                 href={`/categories/${subcategory.categorySlug}`}
-                                className="hover:underline hover:text-zinc-500"
+                                className="hover:text-zinc-500 hover:underline"
                               >
                                 <li>
                                   {pathname.endsWith(
-                                    `/categories/${subcategory.categorySlug}`
+                                    `/categories/${subcategory.categorySlug}`,
                                   ) ? (
                                     <b> -{subcategory.categoryName}</b>
                                   ) : (
@@ -266,13 +268,13 @@ export default function Filters() {
                         </AccordionContent>
                       </>
                     ) : (
-                      <h3>
+                      <h3 className="m-0 text-base">
                         <Link
                           href={`/categories/${category.categorySlug}`}
                           className="hover:underline"
                         >
                           {pathname.endsWith(
-                            `/categories/${category.categorySlug}`
+                            `/categories/${category.categorySlug}`,
                           ) ? (
                             <b>{category.categoryName}</b>
                           ) : (
@@ -303,7 +305,7 @@ export default function Filters() {
                   updateQuery("maxPrice", customPrice[1]);
                 } else {
                   const option = PRICE_FILTERS.option.find(
-                    (option) => option.label === value
+                    (option) => option.label === value,
                   );
                   if (option) {
                     updateQuery("minPrice", option.value[0]);
@@ -391,7 +393,7 @@ export default function Filters() {
                   />
                   <Label
                     htmlFor={`condition-${i + randNum}`}
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                    className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
                     {option.label}
                   </Label>
@@ -422,7 +424,7 @@ export default function Filters() {
                   />
                   <Label
                     htmlFor={`status-${i + randNum}`}
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                    className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
                     {option.label}
                   </Label>
@@ -438,24 +440,32 @@ export default function Filters() {
             <span className="font-bold text-gray-900">Brands</span>
           </AccordionTrigger>
           <AccordionContent>
+            {brandsLoading && (
+              <div className="flex flex-col gap-y-3">
+                <Skeleton className="h-4" />
+                <Skeleton className="ml-auto h-4 w-60" />
+                <Skeleton className="h-4" />
+                <Skeleton className="h-4" />
+              </div>
+            )}
             <div className="flex flex-col items-start gap-2">
               {BRAND_FILTERS.option.map((option, i) => (
                 <div
                   className="flex items-center space-x-2"
-                  key={option.label + randNum}
+                  key={option + randNum}
                 >
                   <Checkbox
                     id={`brand-${i + randNum}`}
                     onCheckedChange={() =>
-                      handleCheckboxChange("brand", option.value)
+                      handleCheckboxChange("brand", option)
                     }
-                    checked={filter.brand.includes(option.value)}
+                    checked={filter.brand.includes(option)}
                   />
                   <Label
                     htmlFor={`brand-${i + randNum}`}
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                    className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
-                    {option.label}
+                    {option}
                   </Label>
                 </div>
               ))}

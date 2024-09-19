@@ -10,20 +10,25 @@ import {
   ChevronRight,
   Home,
   KeySquare,
+  Loader2,
   LoaderPinwheel,
   Sparkles,
   Sun,
   Wrench,
 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { getAllCategories } from "@/actions/CategoryAction";
 
 interface Category {
-  icon: JSX.Element;
-  name: string;
-  link: string;
-  subCategories?: {
-    name: string;
-    link: string;
-  }[];
+  _id: string;
+  categoryIcon: string;
+  categoryName: string;
+  parent: string;
+  categoryDescription: string;
+  categoryThumbnail: string;
+  categorySlug: string;
+  createdAt: Date;
+  subcategories?: Category[];
 }
 
 interface Props {
@@ -31,68 +36,16 @@ interface Props {
   direction?: string;
 }
 
-const categoryItems: Category[] = [
-  {
-    icon: <Sun strokeWidth={1} />,
-    name: "Headlights",
-    link: "/headlights",
-    subCategories: [
-      {
-        name: "Fog Lights",
-        link: "/fog-lights",
-      },
-      {
-        name: "Reflectors",
-        link: "/reflactors",
-      },
-    ],
-  },
-  {
-    icon: <CarFront strokeWidth={1} />,
-    name: "Interior Accessories",
-    link: "/interior-accessories",
-  },
-  {
-    icon: <LoaderPinwheel strokeWidth={1} />,
-    name: "Tires & Wheels",
-    link: "/tires-and-wheels",
-    subCategories: [
-      {
-        name: "Fog Lights",
-        link: "/fog-lights",
-      },
-      {
-        name: "Reflectors",
-        link: "/reflactors",
-      },
-    ],
-  },
-  {
-    icon: <Wrench strokeWidth={1} />,
-    name: "Tools & Equipments",
-    link: "/tools-equipmets",
-  },
-  {
-    icon: <KeySquare strokeWidth={1} />,
-    name: "Auto Safety & Security",
-    link: "/auto-safety-security",
-  },
-  {
-    icon: <Home strokeWidth={1} />,
-    name: "Garage Tools",
-    link: "/garage-tools",
-  },
-  {
-    icon: <BatteryCharging strokeWidth={1} />,
-    name: "Original Battery",
-    link: "/original-battery",
-  },
-];
-
 const CategoryItems: React.FC<Props> = ({
   className,
   direction = "bottom",
 }) => {
+  // Fetch all categories
+  const { data, isPending } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () => getAllCategories(),
+  });
+
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
   const toggleCategory = (link: string) => {
@@ -105,66 +58,91 @@ const CategoryItems: React.FC<Props> = ({
 
   const handleArrowClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    link: string
+    link: string,
   ) => {
     event.stopPropagation();
     toggleCategory(link);
   };
+
+  if (isPending || data?.error) {
+    return (
+      <section className="flex h-[535px] flex-col items-center justify-center rounded-b-xl bg-white">
+        <Loader2
+          className="size-10 animate-spin text-primary duration-300"
+          strokeWidth={1}
+        />
+      </section>
+    );
+  }
+
+  const categories = data?.categories || [];
 
   return (
     <>
       {direction === "bottom" ? (
         <div className={cn("", className)}>
           <ul>
-            {categoryItems &&
-              categoryItems.map((item: Category) => (
-                <div key={item.link}>
-                  <div className="group flex items-center justify-between">
-                    <Link href={item.link} passHref>
-                      <li className="flex py-2 justify-between cursor-pointer">
-                        <div className="flex space-x-2">
-                          {item.icon}
-                          <h3 className="font-semibold text-base">
-                            {item.name}
-                          </h3>
-                        </div>
-                      </li>
-                    </Link>
-
-                    {item.subCategories && (
-                      <ChevronDown
-                        className="h-4 w-4 opacity-50 cursor-pointer"
-                        onClick={(e: any) => handleArrowClick(e, item.link)}
-                      />
-                    )}
-                  </div>
-                  {item.subCategories &&
-                    expandedCategories.includes(item.link) &&
-                    item.subCategories.map((subcat) => (
-                      <div key={subcat.link}>
-                        <Link href={subcat.link} passHref>
-                          <li className="flex py-2 justify-between cursor-pointer">
-                            <span className="text-sm ml-8">{subcat.name}</span>
-                          </li>
-                        </Link>
+            {categories.map((item) => (
+              <div key={item._id}>
+                <div className="group flex items-center justify-between">
+                  <Link href={`/categories/${item.categorySlug}`} passHref>
+                    <li className="flex cursor-pointer justify-between py-2">
+                      <div className="flex items-center space-x-2">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: item.categoryIcon,
+                          }}
+                        ></div>
+                        <h3 className="text-base font-semibold">
+                          {item.categoryName}
+                        </h3>
                       </div>
-                    ))}
-                  <Separator />
+                    </li>
+                  </Link>
+
+                  {item.subcategories && item.subcategories.length > 0 && (
+                    <ChevronDown
+                      className="h-4 w-4 cursor-pointer opacity-50"
+                      onClick={(e: any) =>
+                        handleArrowClick(e, `/categories/${item.categorySlug}`)
+                      }
+                    />
+                  )}
                 </div>
-              ))}
-            <div className="flex items-center space-x-2 py-2 cursor-pointer">
+                {item.subcategories &&
+                  expandedCategories.includes(
+                    `/categories/${item.categorySlug}`,
+                  ) &&
+                  item.subcategories.map((subcat) => (
+                    <div key={subcat._id}>
+                      <Link
+                        href={`/categories/${subcat.categorySlug}`}
+                        passHref
+                      >
+                        <li className="flex cursor-pointer justify-between py-2">
+                          <span className="ml-8 text-sm hover:text-red-500">
+                            {subcat.categoryName}
+                          </span>
+                        </li>
+                      </Link>
+                    </div>
+                  ))}
+                <Separator />
+              </div>
+            ))}
+            <div className="flex cursor-pointer items-center space-x-2 py-2">
               <Sparkles strokeWidth={1} />
               <Link href="/products?sort=popular" passHref>
-                <h3 className="font-semibold text-base ">
+                <h3 className="text-base font-semibold">
                   Buyurparts Bestsellers
                 </h3>
               </Link>
             </div>
             <Separator />
             <Link href="/products?sort=desc" passHref>
-              <li className="flex p-2 justify-between cursor-pointer w-full items-center">
-                <div className="font-semibold text-base">New Arrivals</div>
-                <div className="px-2 py-1 bg-sky-400 text-white rounded-xl font-bold text-xs">
+              <li className="flex w-full cursor-pointer items-center justify-between p-2">
+                <div className="text-base font-semibold">New Arrivals</div>
+                <div className="rounded-xl bg-sky-400 px-2 py-1 text-xs font-bold text-white">
                   NEW
                 </div>
               </li>
@@ -172,42 +150,51 @@ const CategoryItems: React.FC<Props> = ({
           </ul>
         </div>
       ) : (
-        <div className={cn("border relative", className)}>
+        <div className={cn("relative border", className)}>
           <ul>
-            {categoryItems &&
-              categoryItems.map((item) => (
-                <div key={item.link} className="group">
-                  <div className="relative flex items-center justify-between px-3 py-2.5  hover:bg-red-300/10 w-full h-full">
-                    <Link href={item.link} passHref>
-                      <li className="flex justify-between w-full cursor-pointer group-hover:text-red-500">
-                        <div className="flex space-x-2 items-center">
-                          {item.icon}
-                          <span className="text-sm">{item.name}</span>
-                        </div>
-                      </li>
-                    </Link>
-                    {item.subCategories && (
-                      <ChevronRight className="h-4 w-4 opacity-50 cursor-pointer group-hover:text-red-500" />
-                    )}
-                  </div>
-                  {item.subCategories && (
-                    <div className="absolute left-full top-0 hidden group-hover:block bg-white border shadow-lg p-5 w-[300px] rounded-r-xl rounded-bl-lg h-full">
-                      <ul className="flex flex-col space-y-1">
-                        {item.subCategories.map((subcat) => (
-                          <Link key={subcat.link} href={subcat.link} passHref>
-                            <li className="cursor-pointer">
-                              <span className="text-sm">{subcat.name}</span>
-                            </li>
-                          </Link>
-                        ))}
-                      </ul>
-                    </div>
+            {categories.slice(0, 9).map((item) => (
+              <div key={item._id} className="group">
+                <div className="relative flex h-full w-full items-center justify-between px-3 py-2.5 hover:bg-red-300/10">
+                  <Link href={`/categories/${item.categorySlug}`} passHref>
+                    <li className="flex w-full cursor-pointer justify-between group-hover:text-red-500">
+                      <div className="flex items-center space-x-2 py-[.15rem]">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: item.categoryIcon,
+                          }}
+                        ></div>
+                        <span className="text-sm">{item.categoryName}</span>
+                      </div>
+                    </li>
+                  </Link>
+                  {item.subcategories && item.subcategories.length > 0 && (
+                    <ChevronRight className="h-4 w-4 cursor-pointer opacity-50 group-hover:text-red-500" />
                   )}
-                  <hr />
                 </div>
-              ))}
+                {item.subcategories && item.subcategories.length > 0 && (
+                  <div className="absolute left-full top-0 hidden h-full w-[300px] rounded-r-xl rounded-bl-lg border bg-white p-5 shadow-lg group-hover:block">
+                    <ul className="flex flex-col space-y-1">
+                      {item.subcategories.map((subcat) => (
+                        <Link
+                          key={subcat._id}
+                          href={`/categories/${subcat.categorySlug}`}
+                          passHref
+                        >
+                          <li className="cursor-pointer hover:text-red-500">
+                            <span className="text-sm">
+                              {subcat.categoryName}
+                            </span>
+                          </li>
+                        </Link>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <hr />
+              </div>
+            ))}
 
-            <div className="flex items-center space-x-2 py-2.5 px-3 hover:text-red-500 hover:bg-red-300/10 cursor-pointer">
+            <div className="flex cursor-pointer items-center space-x-2 p-3 hover:bg-red-300/10 hover:text-red-500">
               <Sparkles strokeWidth={1} />
               <Link href="/products?sort=popular" passHref>
                 <h3 className="text-sm">Buyurparts Bestsellers</h3>
@@ -215,9 +202,9 @@ const CategoryItems: React.FC<Props> = ({
             </div>
             <Separator />
             <Link href="/products?sort=desc" passHref>
-              <li className="flex px-3 py-2.5 justify-between cursor-pointer w-full items-center hover:bg-red-300/10 hover:text-red-500">
+              <li className="flex w-full cursor-pointer items-center justify-between p-3 hover:bg-red-300/10 hover:text-red-500">
                 <div className="text-sm">New Arrivals</div>
-                <div className="px-2 py-1 bg-sky-400 text-white rounded-xl font-bold text-xs">
+                <div className="rounded-xl bg-sky-400 px-2 py-1 text-xs font-bold text-white">
                   NEW
                 </div>
               </li>

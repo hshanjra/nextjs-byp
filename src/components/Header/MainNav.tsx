@@ -84,12 +84,11 @@ const MainNav = () => {
         {/* Category List */}
 
         <div className="relative h-12 w-1/4 rounded-b-none rounded-t-xl bg-primary">
-          <h3 className="h-full w-full p-4 align-middle text-white">
+          <h3 className="m-0 h-full w-full p-4 align-middle text-base text-white">
             All Categories
           </h3>
 
           {/* Category List */}
-
           <CategoryItems
             direction="down"
             className="absolute z-10 w-full rounded-b-xl bg-white shadow-md"

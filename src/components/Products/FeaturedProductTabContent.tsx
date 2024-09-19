@@ -1,6 +1,5 @@
 import { getAllProducts } from "@/actions/ProductsAction";
 import ProductReel from "./ProductReel";
-import { CircleX } from "lucide-react";
 import { Separator } from "../ui/separator";
 
 export default async function FeaturedProductTabContent({
@@ -18,10 +17,7 @@ export default async function FeaturedProductTabContent({
     return (
       <>
         <div className="flex flex-col items-center justify-center gap-2 py-32">
-          <CircleX strokeWidth={1} className="text-red-500" />
-          <p className="text-red-500">
-            No featured products found for this category.
-          </p>
+          <p>No products found.</p>
         </div>
         <Separator />
       </>
