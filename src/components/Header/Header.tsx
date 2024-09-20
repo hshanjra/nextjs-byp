@@ -138,7 +138,7 @@ export default async function Header() {
               {/* Sidebar */}
               <Sidebar />
               {/* Logo */}
-              <Logo className="mx-auto" width={60} />
+              <Logo className="mx-auto h-10" />
               {/* Cart */}
               <CartSidebar />
             </div>

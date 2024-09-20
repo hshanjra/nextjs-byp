@@ -39,9 +39,9 @@ export default function ProductHoverInfoCard({
         ) : (
           <div className="flex flex-col gap-1 lg:inline-block">
             <ReviewStar rating={0} height={20} fontsize={19} />
-            <span className="text-xs font-semibold lg:ml-2">
+            {/* <span className="text-xs font-semibold lg:ml-2">
               No Reviews Yet
-            </span>
+            </span> */}
           </div>
         )}
 

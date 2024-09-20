@@ -31,8 +31,8 @@ export default async function ProductCard({
             </Badge>
           )}
 
-          <h5 className="my-3 overflow-hidden text-clip text-[0.87rem] font-semibold leading-4 transition hover:text-red-600">
-            {trimString(p.productTitle, 45)}
+          <h5 className="my-3 line-clamp-2 overflow-hidden text-wrap text-[0.87rem] font-semibold leading-4 transition hover:text-red-600">
+            {p.productTitle}
           </h5>
         </Link>
 
@@ -44,18 +44,11 @@ export default async function ProductCard({
               height={20}
               fontsize={19}
             />
-            <span className="ml-2 text-xs font-semibold">
+            <span className="ml-2 text-xs font-medium">
               {p.reviewCount} Review(s)
             </span>
           </div>
-        ) : (
-          <div className="flex flex-col md:inline-block lg:inline-block">
-            <ReviewStar rating={0} height={20} fontsize={19} />
-            <span className="text-xs font-semibold md:ml-2 lg:ml-2">
-              No Reviews Yet
-            </span>
-          </div>
-        )}
+        ) : null}
 
         <div className="flex">
           {/* Price */}

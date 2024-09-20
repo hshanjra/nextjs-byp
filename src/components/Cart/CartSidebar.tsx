@@ -96,7 +96,7 @@ export default async function CartSidebar() {
                         </div>
                         <div className="flex flex-col items-center text-center">
                           {/* price */}
-                          <h3 className="font-semibold">
+                          <h3 className="text-sm font-semibold">
                             {formatPrice(item.product.salePrice * item.qty)}
                           </h3>
                           {/* Qty Buttons */}
