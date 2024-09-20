@@ -32,10 +32,7 @@ const CUS_MENU = [
     name: "My Orders",
     link: "/account/orders",
   },
-  {
-    name: "Buy Gift Cards",
-    link: "/buy-gift-cards",
-  },
+
   {
     name: "FAQs",
     link: "/help-center#faqs",

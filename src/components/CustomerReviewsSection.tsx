@@ -3,6 +3,7 @@ import { Star, UserRound } from "lucide-react";
 import Image from "next/image";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { cn } from "@/lib/utils";
 
 const CustomerReviews = [
   {
@@ -72,6 +73,7 @@ export default function CustomerReviewsSection() {
               className="basis-1/1 md:basis-1/2 lg:basis-1/3"
             >
               <CustomerReviewCard
+                className="cursor-pointer"
                 name={r.name}
                 rating={r.rating}
                 designation={r.designation}
@@ -92,15 +94,22 @@ export const CustomerReviewCard = ({
   rating,
   comment,
   imgUrl,
+  className,
 }: {
   name: string;
   designation: string;
   rating: number;
   comment: string;
   imgUrl?: string;
+  className?: string;
 }) => {
   return (
-    <div className="flex w-full max-w-xs flex-col items-center justify-center gap-3 sm:max-w-md sm:flex-row sm:items-start">
+    <div
+      className={cn(
+        "flex w-full max-w-xs flex-col items-center justify-center gap-3 sm:max-w-md sm:flex-row sm:items-start",
+        className,
+      )}
+    >
       {/* Img */}
       {imgUrl ? (
         <Image
