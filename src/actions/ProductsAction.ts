@@ -1,6 +1,7 @@
 "use server";
 import { extApi } from "@/lib/api";
 import { ProductFilterValidator } from "@/lib/validators/product-filter-validator";
+import { CompatibleMetadata } from "@/types";
 import { Product } from "@/types/product";
 
 type queryParams = {
@@ -122,5 +123,18 @@ export const GetReviews = async ({
     console.error(`Unable to get reviews for product ${slug}`, error);
     // TODO: return sentry error
     return { reviews: [], reviewsCount: 0, error: "Unable to get products" };
+  }
+};
+
+export const getCompatibleMetadata = async (): Promise<
+  CompatibleMetadata[]
+> => {
+  try {
+    const { data } = await extApi.get("/products/compatible-metadata");
+    return data;
+  } catch (error) {
+    console.error("Unable to get compatible metadata", error);
+    // TODO: return sentry error
+    return [];
   }
 };

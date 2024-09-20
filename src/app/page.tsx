@@ -6,6 +6,7 @@ import FeaturedProducts from "@/components/Products/FeaturedProducts";
 import LatestDealsSection from "@/components/Products/LatestDealsSection";
 import ProductsShowcase from "@/components/Products/ProductsShowcase";
 import TopCategories from "@/components/TopCategories";
+import CustomerReviewsSection from "@/components/CustomerReviewsSection";
 
 export default async function Home() {
   return (
@@ -22,7 +23,7 @@ export default async function Home() {
         <section className="my-10 grid gap-x-5 gap-y-5 text-white lg:grid-cols-3">
           <Banner
             imgUrl="/images/banner-01.jpg"
-            className="h-56 w-auto cursor-pointer rounded-lg"
+            className="h-56 w-auto cursor-pointer"
           >
             <span className="rounded-xl bg-primary px-2 py-1 text-xs font-semibold">
               On Sale This Week
@@ -34,7 +35,7 @@ export default async function Home() {
           </Banner>
           <Banner
             imgUrl="/images/banner-02.jpg"
-            className="h-56 w-auto cursor-pointer rounded-lg"
+            className="h-56 w-auto cursor-pointer"
           >
             <span className="rounded-xl bg-primary px-2 py-1 text-xs font-semibold">
               On Sale This Week
@@ -46,7 +47,7 @@ export default async function Home() {
           </Banner>
           <Banner
             imgUrl="/images/banner-03.jpg"
-            className="h-56 w-auto cursor-pointer rounded-lg"
+            className="h-56 w-auto cursor-pointer"
           >
             <span className="rounded-xl bg-primary px-2 py-1 text-xs font-semibold">
               On Sale This Week
@@ -160,7 +161,7 @@ export default async function Home() {
         <section className="my-10 grid gap-x-5 gap-y-5 lg:grid-cols-3">
           <Banner
             imgUrl="/images/banner-08.jpg"
-            className="h-56 w-auto cursor-pointer rounded-lg bg-gradient-to-r from-transparent"
+            className="h-56 w-auto cursor-pointer bg-gradient-to-r from-transparent"
           >
             <span className="rounded-xl bg-primary px-2 py-1 text-xs font-semibold text-white">
               On Sale This Week
@@ -173,7 +174,7 @@ export default async function Home() {
           </Banner>
           <Banner
             imgUrl="/images/banner-09.jpg"
-            className="h-56 w-auto cursor-pointer rounded-lg bg-gradient-to-r from-transparent"
+            className="h-56 w-auto cursor-pointer bg-gradient-to-r from-transparent"
           >
             <span className="rounded-xl bg-primary px-2 py-1 text-xs font-semibold text-white">
               On Sale This Week
@@ -186,7 +187,7 @@ export default async function Home() {
           </Banner>
           <Banner
             imgUrl="/images/banner-10.jpg"
-            className="h-56 w-auto cursor-pointer rounded-lg bg-gradient-to-r from-transparent"
+            className="cursor-pointers h-56 w-auto bg-gradient-to-r from-transparent"
           >
             <span className="rounded-xl bg-primary px-2 py-1 text-xs font-semibold text-white">
               On Sale This Week
@@ -198,6 +199,9 @@ export default async function Home() {
             <span className="text-sm font-semibold">Shop Now &rarr;</span>
           </Banner>
         </section>
+
+        {/* Customer Reviews */}
+        <CustomerReviewsSection />
       </MaxWidthWrapper>
     </>
   );

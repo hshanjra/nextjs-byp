@@ -35,7 +35,7 @@ import Loading from "./loading";
 import ScrollAwareContainer from "@/components/ScrollAwareContainer";
 import { ReviewsList } from "@/components/Reviews";
 import SellerAboutSection from "@/components/seller/SellerAboutSection";
-import { notFound } from "next/navigation";
+import NotFound from "@/app/not-found";
 
 interface ProductPageProps {
   params: {
@@ -51,7 +51,7 @@ const ProductDetailPage = async ({ params }: ProductPageProps) => {
   }
 
   if (error || product === null) {
-    notFound();
+    return <NotFound />;
   }
 
   const { products: relatedProducts, totalCount } = await getAllProducts({

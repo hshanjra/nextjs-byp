@@ -169,7 +169,9 @@ export function Footer() {
             <div>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="menu-1">
-                  <AccordionTrigger>Customer Service</AccordionTrigger>
+                  <AccordionTrigger className="text-base">
+                    Customer Service
+                  </AccordionTrigger>
                   <AccordionContent>
                     <ol className="text-base">
                       {CUS_MENU.map((item) => (
@@ -186,7 +188,9 @@ export function Footer() {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="menu-2">
-                  <AccordionTrigger>Store Information</AccordionTrigger>
+                  <AccordionTrigger className="text-base">
+                    Store Information
+                  </AccordionTrigger>
                   <AccordionContent>
                     <ol className="text-base">
                       {STORE_MENU.map((item) => (

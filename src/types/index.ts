@@ -4,3 +4,12 @@ export type User = {
   lastName: string;
   isEmailVerified: boolean;
 };
+
+export type CompatibleMetadata = {
+  make: string;
+  models: {
+    name: string;
+    subModels: string[];
+  }[];
+  years: number[];
+};

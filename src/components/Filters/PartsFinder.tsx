@@ -9,43 +9,31 @@ import CustomFormField, { FormFieldType } from "../CustomFormField";
 import { SelectItem } from "../ui/select";
 import { useEffect } from "react";
 import SubmitButton from "../SubmitButton";
-
-// Extract valid makes, models, years, and body styles
-const makes = VEHICLE_ATTRIBUTES.map((vehicle) => vehicle.make);
-const models = VEHICLE_ATTRIBUTES.flatMap((vehicle) =>
-  vehicle.models.map((model) => model.name)
-);
-const years = VEHICLE_ATTRIBUTES.flatMap((vehicle) =>
-  vehicle.models.flatMap((model) => model.years)
-);
-const bodyStyles = VEHICLE_ATTRIBUTES.flatMap((vehicle) =>
-  vehicle.models.flatMap((model) => model.bodyStyles)
-);
+import { useQuery } from "@tanstack/react-query";
+import { getCompatibleMetadata } from "@/actions/ProductsAction";
+import { Loader2 } from "lucide-react";
 
 // Zod validation schema
 const vehicleFilterSchema = z.object({
-  make: z.string().refine((val) => makes.includes(val), {
-    message: "Invalid make",
-  }),
-  model: z.string().refine((val) => models.includes(val), {
-    message: "Invalid model",
-  }),
-  year: z.string().refine((val) => years.includes(val), {
-    message: "Invalid year",
-  }),
-  bodyStyle: z.string().refine((val) => bodyStyles.includes(val), {
-    message: "Invalid body style",
-  }),
+  make: z.string(),
+  model: z.string(),
+  year: z.string(),
+  subModel: z.string(),
 });
 
 export default function PartsFinder() {
+  const { data: metadata, isPending } = useQuery({
+    queryKey: ["metadata"],
+    queryFn: () => getCompatibleMetadata(),
+  });
+
   const vehicleFilterForm = useForm({
     resolver: zodResolver(vehicleFilterSchema),
     defaultValues: {
       make: "",
       model: "",
       year: "",
-      bodyStyle: "",
+      subModel: "",
     },
   });
 
@@ -55,20 +43,14 @@ export default function PartsFinder() {
   ]);
 
   const getModels = () => {
-    const make = VEHICLE_ATTRIBUTES.find((v) => v.make === selectedMake);
+    const make = metadata?.find((v) => v.make === selectedMake);
     return make ? make.models : [];
   };
 
-  const getYears = () => {
+  const getSubModels = () => {
     const models = getModels();
     const model = models.find((m) => m.name === selectedModel);
-    return model ? model.years : [];
-  };
-
-  const getBodyStyles = () => {
-    const models = getModels();
-    const model = models.find((m) => m.name === selectedModel);
-    return model ? model.bodyStyles : [];
+    return model ? model.subModels : [];
   };
 
   useEffect(() => {
@@ -76,7 +58,7 @@ export default function PartsFinder() {
       make: selectedMake,
       model: "",
       year: "",
-      bodyStyle: "",
+      subModel: "",
     });
   }, [selectedMake, vehicleFilterForm]);
 
@@ -87,8 +69,8 @@ export default function PartsFinder() {
 
   return (
     <div className="relative">
-      <h4 className="font-bold text-base">Find the Right Parts Faster</h4>
-      <p className="text-gray-400 text-xs my-5">
+      <h4 className="text-base font-bold">Find the Right Parts Faster</h4>
+      <p className="my-5 text-xs text-gray-400">
         Having the right automotive parts and car accessories will help you to
         boost your travel comfort and go on the long-distance journey
         comfortably that you have been planning.
@@ -105,11 +87,20 @@ export default function PartsFinder() {
             name="make"
             placeholder="Select Make"
           >
-            {VEHICLE_ATTRIBUTES.map((vehicle) => (
-              <SelectItem key={vehicle.make} value={vehicle.make}>
-                <p>{vehicle.make}</p>
-              </SelectItem>
-            ))}
+            {isPending ? (
+              <div className="flex h-24 items-center justify-center">
+                <Loader2
+                  className="animate-spin text-primary duration-500"
+                  size={30}
+                />
+              </div>
+            ) : (
+              metadata?.map((vehicle) => (
+                <SelectItem key={vehicle.make} value={vehicle.make}>
+                  <p>{vehicle.make}</p>
+                </SelectItem>
+              ))
+            )}
           </CustomFormField>
           <CustomFormField
             fieldType={FormFieldType.SELECT}
@@ -131,20 +122,22 @@ export default function PartsFinder() {
             placeholder="Select Year"
             disabled={!selectedModel}
           >
-            {getYears().map((year) => (
-              <SelectItem key={year} value={year}>
-                {year}
-              </SelectItem>
-            ))}
+            {metadata
+              ?.find((v) => v.make === selectedMake)
+              ?.years.map((year) => (
+                <SelectItem key={year} value={year.toString()}>
+                  {year}
+                </SelectItem>
+              ))}
           </CustomFormField>
           <CustomFormField
             fieldType={FormFieldType.SELECT}
             control={vehicleFilterForm.control}
-            name="bodyStyle"
-            placeholder="Select Body Style"
+            name="subModel"
+            placeholder="Select Sub Model"
             disabled={!selectedModel}
           >
-            {getBodyStyles().map((bodyStyle) => (
+            {getSubModels().map((bodyStyle) => (
               <SelectItem key={bodyStyle} value={bodyStyle}>
                 {bodyStyle}
               </SelectItem>

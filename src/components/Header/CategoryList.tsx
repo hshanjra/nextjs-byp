@@ -194,7 +194,7 @@ const CategoryItems: React.FC<Props> = ({
               </div>
             ))}
 
-            <div className="flex cursor-pointer items-center space-x-2 p-3 hover:bg-red-300/10 hover:text-red-500">
+            <div className="flex cursor-pointer items-center space-x-2 px-3 py-2 hover:bg-red-300/10 hover:text-red-500">
               <Sparkles strokeWidth={1} />
               <Link href="/products?sort=popular" passHref>
                 <h3 className="text-sm">Buyurparts Bestsellers</h3>
@@ -202,7 +202,7 @@ const CategoryItems: React.FC<Props> = ({
             </div>
             <Separator />
             <Link href="/products?sort=desc" passHref>
-              <li className="flex w-full cursor-pointer items-center justify-between p-3 hover:bg-red-300/10 hover:text-red-500">
+              <li className="flex w-full cursor-pointer items-center justify-between px-3 py-2.5 hover:bg-red-300/10 hover:text-red-500">
                 <div className="text-sm">New Arrivals</div>
                 <div className="rounded-xl bg-sky-400 px-2 py-1 text-xs font-bold text-white">
                   NEW
