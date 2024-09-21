@@ -30,7 +30,7 @@ export const ProductFilterValidator = z.object({
   make: z.string().optional(),
   model: z.string().optional(),
   subModel: z.string().optional(),
-  year: z.number().optional(),
+  year: z.coerce.number().optional(),
   seller: z.string().optional(),
 });
 

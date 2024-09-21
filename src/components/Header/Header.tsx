@@ -22,6 +22,7 @@ import { HeaderWrapper } from "./HeaderWrapper";
 import CartSidebar from "../Cart/CartSidebar";
 import SearchInputBox from "../SearchInputBox";
 import { SITE_METADATA } from "@/constants";
+import { Warehouse } from "lucide-react";
 
 export default async function Header() {
   return (
@@ -95,7 +96,16 @@ export default async function Header() {
                 <Logo />
               </div>
               {/* Parts Finder */}
-              <PartsFinder strokeWidth={1} size={30} />
+              <PartsFinder
+                className="lg:rounded-lg lg:bg-gray-100 lg:p-2 lg:hover:bg-gray-200"
+                trigger={
+                  <Warehouse
+                    strokeWidth={1}
+                    className="cursor-pointer"
+                    size={30}
+                  />
+                }
+              />
             </div>
 
             <div className="flex-1">

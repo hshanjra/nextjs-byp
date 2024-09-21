@@ -1,47 +1,27 @@
-import Image from "next/image";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { Input } from "../ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { Card, CardContent } from "../ui/card";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
-import { Warehouse } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 import PartsFinderComponent from "../Filters/PartsFinder";
 
 const PartsFinder = ({
   className,
-  strokeWidth,
-  size = 20,
+  trigger,
 }: {
   className?: string;
-  strokeWidth?: number;
-  size?: number;
+  trigger: React.ReactNode;
 }) => {
   return (
     <Dialog>
-      <DialogTrigger className="lg:bg-gray-100 lg:hover:bg-gray-200 lg:rounded-lg lg:p-2">
-        <Warehouse
-          strokeWidth={strokeWidth}
-          className={cn("", className)}
-          size={size}
-        />
-        <Label className="lg:hidden uppercase text-[.7rem] cursor-pointer">
-          Parts Finder
-        </Label>
-      </DialogTrigger>
-      <DialogContent className="h-full  lg:h-auto">
-        {/* <DialogHeader>
-          <DialogTitle>CHOOSE A NEW VEHICLE</DialogTitle>
-        </DialogHeader> */}
-
-        <PartsFinderComponent />
+      <DialogTrigger className={cn("", className)}>{trigger}</DialogTrigger>
+      <DialogContent className="h-full lg:h-auto">
+        <DialogClose>
+          <PartsFinderComponent />
+        </DialogClose>
       </DialogContent>
     </Dialog>
   );

@@ -1,17 +1,19 @@
 "use client";
 
-import { VEHICLE_ATTRIBUTES } from "@/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form } from "../ui/form";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
 import { SelectItem } from "../ui/select";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SubmitButton from "../SubmitButton";
 import { useQuery } from "@tanstack/react-query";
 import { getCompatibleMetadata } from "@/actions/ProductsAction";
-import { Loader2 } from "lucide-react";
+import { Loader2, Search, Trash2 } from "lucide-react";
+import { useStore } from "@/store/store";
+import { usePathname, useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 
 // Zod validation schema
 const vehicleFilterSchema = z.object({
@@ -22,6 +24,17 @@ const vehicleFilterSchema = z.object({
 });
 
 export default function PartsFinder() {
+  // Store vehicle in store
+  const { setVehicle, getVehicle, removeVehicle } = useStore();
+  // Extract vehicle from store
+  const { make, model, year, subModel } = getVehicle();
+
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // Fetch compatibility metadata
   const { data: metadata, isPending } = useQuery({
     queryKey: ["metadata"],
     queryFn: () => getCompatibleMetadata(),
@@ -37,10 +50,8 @@ export default function PartsFinder() {
     },
   });
 
-  const [selectedMake, selectedModel] = vehicleFilterForm.watch([
-    "make",
-    "model",
-  ]);
+  const [selectedMake, selectedModel, selectedYear, selectedSubModel] =
+    vehicleFilterForm.watch(["make", "model", "year", "subModel"]);
 
   const getModels = () => {
     const make = metadata?.find((v) => v.make === selectedMake);
@@ -63,9 +74,30 @@ export default function PartsFinder() {
   }, [selectedMake, vehicleFilterForm]);
 
   const onSubmit = (values: z.infer<typeof vehicleFilterSchema>) => {
-    // TODO: Set make model year in redux store
-    console.log(values);
+    setIsLoading(true);
+    setVehicle({
+      make: values.make,
+      model: values.model,
+      year: values.year,
+      subModel: values.subModel,
+    });
+
+    if (pathname !== "/find-parts") {
+      // Redirect to parts finder page
+      router.push("/find-parts", {
+        scroll: true,
+      });
+    }
+
+    setIsLoading(false);
   };
+
+  // Set button disabled till all fields are not filled
+  const disabled =
+    !selectedMake || !selectedModel || !selectedYear || !selectedSubModel;
+
+  // Check if vehicle is exists in store
+  const isVehicleExists = make && model && year && subModel;
 
   return (
     <div className="relative">
@@ -75,6 +107,41 @@ export default function PartsFinder() {
         boost your travel comfort and go on the long-distance journey
         comfortably that you have been planning.
       </p>
+
+      {/* Show selected vehicle */}
+      {isVehicleExists && (
+        <div className="my-5 flex w-full flex-col items-center justify-center rounded-xl border border-gray-200 p-5">
+          <p className="text-base font-medium">Selected Vehicle</p>
+          <div className="flex items-center justify-between">
+            <p className="text-center text-base font-semibold text-gray-500">
+              {make} {model} {year} {subModel}
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              variant={"success"}
+              size={"sm"}
+              className="my-2 flex items-center gap-x-1 rounded-xl text-sm"
+              onClick={() => router.push("/find-parts")}
+            >
+              <Search className="size-4" />
+              <span>Find parts</span>
+            </Button>
+            <Button
+              type="button"
+              variant={"destructive"}
+              size={"sm"}
+              className="my-2 flex items-center gap-x-1 rounded-xl text-sm"
+              onClick={removeVehicle}
+            >
+              <Trash2 className="size-4" />
+              <span>Remove</span>
+            </Button>
+          </div>
+        </div>
+      )}
 
       <Form {...vehicleFilterForm}>
         <form
@@ -144,7 +211,11 @@ export default function PartsFinder() {
             ))}
           </CustomFormField>
 
-          <SubmitButton isLoading={false} className="w-full font-bold">
+          <SubmitButton
+            isLoading={isLoading}
+            className="w-full font-bold"
+            disabled={disabled}
+          >
             Find Auto Parts
           </SubmitButton>
         </form>
