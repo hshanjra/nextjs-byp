@@ -14,6 +14,7 @@ import { Loader2, Search, Trash2 } from "lucide-react";
 import { useStore } from "@/store/store";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import { DialogCloseProps } from "@radix-ui/react-dialog";
 
 // Zod validation schema
 const vehicleFilterSchema = z.object({
@@ -23,7 +24,13 @@ const vehicleFilterSchema = z.object({
   subModel: z.string(),
 });
 
-export default function PartsFinder() {
+export default function PartsFinder({
+  DialogClose,
+}: {
+  DialogClose: React.ForwardRefExoticComponent<
+    DialogCloseProps & React.RefAttributes<HTMLButtonElement>
+  >;
+}) {
   // Store vehicle in store
   const { setVehicle, getVehicle, removeVehicle } = useStore();
   // Extract vehicle from store
@@ -211,13 +218,25 @@ export default function PartsFinder() {
             ))}
           </CustomFormField>
 
-          <SubmitButton
-            isLoading={isLoading}
-            className="w-full font-bold"
-            disabled={disabled}
-          >
-            Find Auto Parts
-          </SubmitButton>
+          {DialogClose ? (
+            <DialogClose className="w-full">
+              <SubmitButton
+                isLoading={isLoading}
+                className="w-full font-bold"
+                disabled={disabled}
+              >
+                Find Auto Parts
+              </SubmitButton>
+            </DialogClose>
+          ) : (
+            <SubmitButton
+              isLoading={isLoading}
+              className="w-full font-bold"
+              disabled={disabled}
+            >
+              Find Auto Parts
+            </SubmitButton>
+          )}
         </form>
       </Form>
     </div>

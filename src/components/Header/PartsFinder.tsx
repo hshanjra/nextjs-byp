@@ -7,21 +7,20 @@ import {
 
 import { cn } from "@/lib/utils";
 import PartsFinderComponent from "../Filters/PartsFinder";
+import { ReactNode } from "react";
 
 const PartsFinder = ({
   className,
   trigger,
 }: {
   className?: string;
-  trigger: React.ReactNode;
+  trigger: JSX.Element;
 }) => {
   return (
     <Dialog>
       <DialogTrigger className={cn("", className)}>{trigger}</DialogTrigger>
       <DialogContent className="h-full lg:h-auto">
-        <DialogClose>
-          <PartsFinderComponent />
-        </DialogClose>
+        <PartsFinderComponent DialogClose={DialogClose} />
       </DialogContent>
     </Dialog>
   );
