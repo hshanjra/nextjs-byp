@@ -1,4 +1,11 @@
-import { Heart, HomeIcon, List, Search, UserRound } from "lucide-react";
+import {
+  Heart,
+  HomeIcon,
+  List,
+  Search,
+  UserRound,
+  Warehouse,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
@@ -64,7 +71,17 @@ export default function MobileNav() {
         </div>
         {/* Parts Finder */}
         <div className="flex flex-col">
-          <PartsFinder strokeWidth={2} size={22} className="mx-auto" />
+          <PartsFinder
+            className="mx-auto"
+            trigger={
+              <>
+                <Warehouse strokeWidth={2} className="mx-auto" size={22} />
+                <Label className="cursor-pointer text-[.7rem] uppercase lg:hidden">
+                  Parts Finder
+                </Label>
+              </>
+            }
+          />
         </div>
       </div>
     </ScrollAwareContainer>
