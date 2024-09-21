@@ -17,7 +17,7 @@ type queryParams = {
   featured?: boolean;
   model?: string;
   subModel?: string;
-  year?: number;
+  year?: string;
   category?: string;
   seller?: string; // seller id to get specific seller products
 };
@@ -59,7 +59,7 @@ export const getAllProducts = async (
       make: params?.make || "",
       model: params?.model || "",
       subModel: params?.subModel || "",
-      year: params?.year || 0,
+      year: params?.year || "",
       category,
       seller,
     });
