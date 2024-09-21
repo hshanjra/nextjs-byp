@@ -2,6 +2,7 @@
 import { getAllProducts } from "@/actions/ProductsAction";
 import MobileSidebarFilters from "@/components/Filters/MobileSidebarFilters";
 import ProductsHeaderFilter from "@/components/Filters/ProductsHeaderFilter";
+import PartsFinder from "@/components/Header/PartsFinder";
 import EmptyState from "@/components/Products/EmptyState";
 import ProductHoverInfoCard from "@/components/Products/ProductHoverInfoCard";
 import { useStore } from "@/store/store";
@@ -57,6 +58,23 @@ export default function FindPartsPage({
   if (isPending) return <Loader />;
 
   if (!data?.products || data?.error) return <EmptyState />;
+
+  if (!isVehicleExists)
+    return (
+      <div className="rounded-xl border p-5 text-center">
+        <h2 className="text-sm font-medium text-gray-500">
+          {" "}
+          Please select a vehicle first to get compatible parts.
+        </h2>
+        <PartsFinder
+          trigger={
+            <p className="mt-3 text-primary underline outline-none">
+              Click to select
+            </p>
+          }
+        />
+      </div>
+    );
 
   return (
     <>
