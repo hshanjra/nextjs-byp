@@ -27,7 +27,7 @@ const vehicleFilterSchema = z.object({
 export default function PartsFinder({
   DialogClose,
 }: {
-  DialogClose: React.ForwardRefExoticComponent<
+  DialogClose?: React.ForwardRefExoticComponent<
     DialogCloseProps & React.RefAttributes<HTMLButtonElement>
   >;
 }) {
