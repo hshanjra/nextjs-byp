@@ -63,7 +63,6 @@ export default function FindPartsPage({
     return (
       <div className="rounded-xl border p-5 text-center">
         <h2 className="text-sm font-medium text-gray-500">
-          {" "}
           Please select a vehicle first to get compatible parts.
         </h2>
         <PartsFinder

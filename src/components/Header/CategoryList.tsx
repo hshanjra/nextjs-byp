@@ -1,35 +1,23 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Separator } from "../ui/separator";
-import {
-  BatteryCharging,
-  CarFront,
-  ChevronDown,
-  ChevronRight,
-  Home,
-  KeySquare,
-  Loader2,
-  LoaderPinwheel,
-  Sparkles,
-  Sun,
-  Wrench,
-} from "lucide-react";
+import { ChevronDown, ChevronRight, Loader2, Sparkles } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getAllCategories } from "@/actions/CategoryAction";
 
-interface Category {
-  _id: string;
-  categoryIcon: string;
-  categoryName: string;
-  parent: string;
-  categoryDescription: string;
-  categoryThumbnail: string;
-  categorySlug: string;
-  createdAt: Date;
-  subcategories?: Category[];
-}
+// interface Category {
+//   _id: string;
+//   categoryIcon: string;
+//   categoryName: string;
+//   parent: string;
+//   categoryDescription: string;
+//   categoryThumbnail: string;
+//   categorySlug: string;
+//   createdAt: Date;
+//   subcategories?: Category[];
+// }
 
 interface Props {
   className?: string;
@@ -40,10 +28,18 @@ const CategoryItems: React.FC<Props> = ({
   className,
   direction = "bottom",
 }) => {
+  const [isEnabled, setIsEnabled] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsEnabled(true);
+  }, []);
+
   // Fetch all categories
   const { data, isPending } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => getAllCategories(),
+    queryFn: async () => await getAllCategories(),
+    retryDelay: 3000, // 3 seconds
+    enabled: isEnabled,
   });
 
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);

@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { set, z } from "zod";
 import { Form } from "../ui/form";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
 import { SelectItem } from "../ui/select";
@@ -40,11 +40,14 @@ export default function PartsFinder({
   const pathname = usePathname();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isEnabled, setIsEnabled] = useState<boolean>(false);
 
   // Fetch compatibility metadata
   const { data: metadata, isPending } = useQuery({
     queryKey: ["metadata"],
-    queryFn: () => getCompatibleMetadata(),
+    queryFn: async () => await getCompatibleMetadata(),
+    retryDelay: 5000, // 5 seconds
+    enabled: isEnabled,
   });
 
   const vehicleFilterForm = useForm({
@@ -78,6 +81,8 @@ export default function PartsFinder({
       year: "",
       subModel: "",
     });
+
+    setIsEnabled(true);
   }, [selectedMake, vehicleFilterForm]);
 
   const onSubmit = (values: z.infer<typeof vehicleFilterSchema>) => {
