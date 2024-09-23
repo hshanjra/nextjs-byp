@@ -185,13 +185,15 @@ export default function Filters() {
   // Fetch all categories
   const { data, isPending } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => getAllCategories(),
+    queryFn: async () => await getAllCategories(),
+    retryDelay: 5000, // 5 seconds
   });
 
   // Fetch all brands
   const { data: brands, isPending: brandsLoading } = useQuery({
     queryKey: ["brands"],
-    queryFn: () => getAllBrands(),
+    queryFn: async () => await getAllBrands(),
+    retryDelay: 7000, // 7 seconds
   });
 
   const BRAND_FILTERS: BrandFilter = {
@@ -201,7 +203,7 @@ export default function Filters() {
   };
 
   return (
-    <div>
+    <section className="my-3">
       <Accordion
         type="multiple"
         defaultValue={["category", "brand", "price", "condition", "status"]}
@@ -473,6 +475,6 @@ export default function Filters() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-    </div>
+    </section>
   );
 }
